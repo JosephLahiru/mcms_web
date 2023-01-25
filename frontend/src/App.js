@@ -4,9 +4,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>this i my fist</h1>
+      <h1>This is my first react project </h1>
     </div>
-  );
+  ); 
 }
 
 export default App;
