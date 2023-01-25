@@ -3,8 +3,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Hello, World!</h1>
-      <h3>Medical Center Management System</h3>
+    <Headers>
+      <div>
+     <h2>Medical center</h2>
+    </div>
+    </Headers>
     </div>
   );
 }
