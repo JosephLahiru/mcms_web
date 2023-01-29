@@ -1,14 +1,16 @@
 import './App.css';
+import AddName from './components/AddName'
 
 
-function App() {
+ function App() {
   return (
     <div className="App">
-    <Headers>
-      <div>
-     <h2>Medical center</h2>
-    </div>
-    </Headers>
+          <div id="head">
+            <h2>Add new patient</h2>
+          </div>
+        <div>
+        <AddName/>
+        </div>
     </div>
   );
 }

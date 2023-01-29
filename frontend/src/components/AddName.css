@@ -1,0 +1,42 @@
+.container{
+    width:800px;
+    height: 600px;
+    border: 1px;
+    background-color: aqua;
+    display: flexbox;
+    margin: auto;
+    padding: 20px;
+    padding-left: 50px;
+}
+
+td tr{
+    width: 50%;
+    text-align: left;
+    
+}
+table{
+    width: 750px;
+}
+
+
+input {
+    font: inherit;
+    padding: 0.2em 0.5em;
+}
+
+p{
+    text-align: left;
+}
+
+input.c1{
+    width: 5px;
+    height: 5px;
+}
+
+
+
+
+
+
+
+
