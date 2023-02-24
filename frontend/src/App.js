@@ -1,5 +1,5 @@
 import './App.css';
-import Appointment from './components/Appointment';
+import Appointment from './components/Appointment.js';
 
 function App() {
   return (
@@ -7,6 +7,7 @@ function App() {
       
       <h1>Book An Appointment</h1>
       
+
       <Appointment/>
     </div>
     

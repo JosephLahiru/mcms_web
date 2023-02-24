@@ -1,56 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Appointment.css';
 
-export default function Appointment() {
-    
+function Appointment() {
+  const [appointmentNumber, setAppointmentNumber] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [age, setAge] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Appointment Number:", appointmentNumber);
+    console.log("Name:", name);
+    console.log("Address:",address);
+    console.log("Age:", age);
+    console.log("Phone number:", phoneNumber);
+  }
+
+
   return (
-    <div className='container'>
-        <h1>Doctor Appointment Request Form</h1>
-        <p>Fill the form below and we will get back soon to you for more updates and plan your appointment.</p>
-        <form><br/><br/>
-      <label>Appointment number:
-        <input type="text" />
-      </label><br/>
+    <div className="form-container">
+    <form onSubmit={handleSubmit}>
 
-      <label>Enter your Name:
-        <input type="text" />
-       
-      </label><br/>
-
-      <label>Enter your Addres:<br/>
-         <textarea id="freeform" name="freeform" rows="4" cols="30"></textarea>
-      </label><br/>
-
-      <label>Enter your Age :
-        <input type="text" />
-      </label><br/>
-
-      <label>Enter contact number :
-        <input type="text" />
-      </label><br/>
-
-      <label>Please Select Doctor :
-      <select>
-        <option value=""></option>
-        <option value="grapefruit">Doctor 01</option>
-        <option value="lime">Doctor 02</option>
-       </select>
-        </label><br/>
-
-      <label>Please Select Appointment Date :
-      <input type='date'  />
-      </label><br/>
-
-      <label>Please Select Appointment Time :
-        <input type='time' />
-      </label><br/>
-
-      <button onClick={() => ("Goal!")}>Submit</button>
-
-       <button onClick={() => ("Goal!")}>Cancel</button>
+        <div className="form-input">
+            <lable>
+          <input type="text" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
+          </lable>
+        </div>
+      <br />
+        <div className="form-input">
+        <lable>
+          <input type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="Enter Name"/>
+          </lable>
+        </div>
+      <br />
+      <div className="form-input">
+      <lable>
+        <input type="tel" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address"/>
+        </lable>
+      </div>
+      <br />
+      <div className="form-input">
+      <lable>
+        <input type="text" value={age} onChange={(event) => setAge(event.target.value) } placeholder="Enter Age"/>
+        </lable>
+      </div>
+      <br />
+      <div className="form-input">
+      <lable>
+        <input type="text" value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value) } placeholder="Enter Phone number"/>
+        </lable>
+      </div>
+      <br />
+      <button type="Cancel" classname="form-button">Cancel</button>
+      <button type="Submit" classname="form-button">Submit</button>
     </form>
     </div>
-    
-    
-  )
+  );
 }
+
+export default Appointment;
