@@ -1,16 +1,16 @@
 import './App.css';
-import AddName from './components/AddName'
+import React from 'react';
+//import AddName from './components/AddName' ;
+import RegistrationForm from './components/RegistrationForm';
 
 
- function App() {
+function App() {
   return (
-    <div className="App">
-          <div id="head">
-            <h2>Add new patient</h2>
+    <div className='app'>
+        <h1>New patient Registration</h1>
+          <div>
+            <RegistrationForm/>
           </div>
-        <div>
-        <AddName/>
-        </div>
     </div>
   );
 }
