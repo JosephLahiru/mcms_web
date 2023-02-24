@@ -2,43 +2,49 @@ import React from 'react'
 import './AddName.css';
 
 export default function AddName() {
+
+  
   return (
     <div className='container'>
-      <table className='tab1' cellSpacing='0' cellPadding='4' aria-colspan='2' >
-        <tr>
-          <td>First Name :  <input id='Fname' name='Fname' type='text'></input>
-          </td>
-          <td>Last Name  :  <input id='Lname' name='Lname' type='text'></input>
-          </td>
-        </tr><br/>
-        <tr>
-          <td>
-            Email : <tab><input id='email' name='email' type='text'></input></tab>
-          </td>
-        </tr><br/>
-        <tr>
-          <td>Telephone  : <input id='PhoneNumber' name='PhoneNumber' type='number'></input>
-          </td>
-          <td>Age : <input id='Age' name='Age' type='number'></input>
-          </td>
-        </tr><br/>
-        
-      </table><br/>
+      <div className='form'>
+        <div className='form-body'>
+          <div className='form1'>
+          <label>Registration Date:</label>
+                  <input type='date'  className='tab1'></input>
+                  <input type='time'  className='tab1'></input><br/><br/>
+          <label >Registration Number:</label>
+                  <input type='number' className='tab2'></input><br/><br/>
+          <label >Patient Name:</label> 
+                  <input type="text" placeholder='First Name' className='tab3'>
+                  </input><input type="text" placeholder='Last Name' className='tab3'></input><br/><br/>
+          <label >Email:</label> 
+                  <input type='email' className='tab4' placeholder='Enter Email Address'></input><br/><br/>
+          <label>Age:</label>  
+                  <input type='date'  className='tab2'></input><input type='time'  className='tab2'></input><br/><br/>
 
-      <p>Disease conditions:</p>
 
-      <p>
-            <input type="checkbox" id="Disease1" name="Disease1" value="BCholesterol" className='c1'></input>
-            <label for="Disease1"> Cholesterol</label>
-            <input type="checkbox" id="Disease2" name="Disease2" value="Diabetes"></input>
-            <label for="vDisease2"> Diabetes</label>
-            <input type="checkbox" id="Disease3" name="Disease3" value="Pressure"></input>
-            <label for="Disease3"> Blood Pressure</label>
-            <input type="checkbox" id="Disease4" name="Disease4" value="Allergies"></input>
-            <label for="Disease4"> Allergies</label>
-      </p>  
-
+              <h4>TelePhone:</h4>
+              <h4>Disease conditions:</h4><br/>
+              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+                <label for="vehicle1"> I have a bike</label><br/>
+              <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"></input>
+               <label for="vehicle2"> I have a car</label><br/>
+              <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"></input>
+                <label for="vehicle3"> I have a boat</label><br/><br/>
+              <input type="submit" value="Submit"></input>
+         
+            <div className='column'>
+              
+              <input type="text"></input><br/><br/>
+            
+              
+              <input type="number"></input><br/><br/>
+            </div> 
+            </div> 
+            </div>
+      </div>
     </div>
+    
   )
 }
 
