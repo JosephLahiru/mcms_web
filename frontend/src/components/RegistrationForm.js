@@ -10,6 +10,7 @@ export default function RegistrationForm() {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [telephoneNumber, setTelephoneNumber] = useState('');
+  const [moreDetails, setMoreDetails] = useState('');
 
   function handleDateChange(event){
     setDate(event.target.value);
@@ -39,6 +40,10 @@ export default function RegistrationForm() {
     setTelephoneNumber(event.target.value);
   }
 
+  function handleMoreDetailsChange(event) {
+    setMoreDetails(event.target.value);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log('Date:', date);
@@ -48,6 +53,7 @@ export default function RegistrationForm() {
     console.log('Gender:', gender);
     console.log('Email:', email);
     console.log('Telephone Number:', telephoneNumber);
+    console.log('More Details About The disease', moreDetails);
     // You can add code here to submit the form data to a server or perform other actions
   }
 
@@ -113,6 +119,13 @@ export default function RegistrationForm() {
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                 <label class="form-check-label" for="flexRadioDefault1">Default radio</label>
           </label></div></div><br />
+
+          <div className='row'>
+              <div className='col'>
+                  <label>More Details About The disease:<br /><br/>
+                      <textarea value={moreDetails} onChange={handleMoreDetailsChange} className='form-control1'/>
+                  </label></div></div><br />
+
 
 
 
