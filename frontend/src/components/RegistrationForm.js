@@ -3,6 +3,7 @@ import './RegistrationForm.css';
 
 export default function RegistrationForm() {
 
+  const [patientType, setPatientType] = useState('');
   const [date, setDate] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -11,6 +12,10 @@ export default function RegistrationForm() {
   const [email, setEmail] = useState('');
   const [telephoneNumber, setTelephoneNumber] = useState('');
   const [moreDetails, setMoreDetails] = useState('');
+
+  function handlePatientTypeChange(event){
+    setPatientType(event.target.value);
+  }
 
   function handleDateChange(event){
     setDate(event.target.value);
@@ -46,6 +51,7 @@ export default function RegistrationForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log('PatientType:', patientType);
     console.log('Date:', date);
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
@@ -77,8 +83,13 @@ export default function RegistrationForm() {
                 <input type="text" value={date} onChange={handleDateChange} className='form-control' />
             </label></div>
         <div className='col'>
-            <label>NIC Number:
-                <input type="text" value={nicNumber} onChange={handleNicNumberChange} className='form-control' />
+            <label>Patient Type:
+            <select value={patientType} onChange={handlePatientTypeChange} className='form-control'>
+                <option value="">Select Patient Type</option>
+                <option value="Type 1">Type 1</option>
+                <option value="Type 2">Type 2</option>
+                <option value="Type 3">Type 3</option>
+                </select>
             </label></div></div><br />
 
       <div className='row'>
