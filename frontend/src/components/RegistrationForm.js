@@ -61,10 +61,20 @@ export default function RegistrationForm() {
     <div className='container'>
     <form onSubmit={handleSubmit} className='form-check'>
 
+    <div className='row'>
+        <div className='col'>
+            <label>Patient ID:
+                <input type="number" value={date} onChange={handleDateChange} className='form-control' />
+            </label></div>
+        <div className='col'>
+            <label>Appointment Date:
+                <input type="date" value={nicNumber} onChange={handleNicNumberChange} className='form-control' />
+            </label></div></div><br />
+
       <div className='row'>
         <div className='col'>
-            <label>Date:
-                <input type="date" value={date} onChange={handleDateChange} className='form-control' />
+            <label>NIC Number:
+                <input type="text" value={date} onChange={handleDateChange} className='form-control' />
             </label></div>
         <div className='col'>
             <label>NIC Number:
