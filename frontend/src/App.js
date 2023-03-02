@@ -1,16 +1,18 @@
-import React from 'react';
 import './App.css';
-import AddStock from './components/AddStock';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import GetAttendance from './components/GetAttendance';
+import Appointment from './components/Appointment.js';
 
-    function App() {
-      return (
-        <div className="App">
-          {/* <AddStock/> */}
-          <GetAttendance/>
-        </div>
-      );
-    }
+function App() {
+  return (
+    <div className="App">
+      
+      <h1>Book An Appointment</h1>
+      
+
+      <Appointment/>
+    </div>
+    
+
+  );
+}
 
 export default App;
