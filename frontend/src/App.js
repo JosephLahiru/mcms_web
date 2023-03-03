@@ -1,16 +1,20 @@
 import React from 'react';
-import './App.css';
-import AddStock from './components/AddStock';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import GetAttendance from './components/GetAttendance';
+import {Routes, Route} from 'react-router-dom';
+import Appointment from './components/Appointment.js';
+import {Login} from "./components/Login";
+//import AddName from './components/AddName' ;
+import RegistrationForm from './components/RegistrationForm';
+import { Dashboard } from './components/Dashboard';
 
-    function App() {
-      return (
-        <div className="App">
-          {/* <AddStock/> */}
-          <GetAttendance/>
-        </div>
-      );
-    }
+function App() {
+  return (
+      <Routes>
+        <Route path='/' element={<Dashboard/>}/>
+        <Route path='login' element={<Login/>}/>
+        <Route path='appoinment' element={<Appointment/>}/>
+        <Route path='registration' element={<RegistrationForm/>}/>
+      </Routes>
+  );
+}
 
 export default App;

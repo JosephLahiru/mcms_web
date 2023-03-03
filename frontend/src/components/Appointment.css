@@ -1,0 +1,23 @@
+p{
+    text-align: center;
+    font-family: verdana;
+    font-size: 30;
+}
+.container{
+    width:700px;
+    height: 1000px;
+    justify-content: center;
+    background-color: aqua;
+    display: block;
+    padding-left: 30px;
+    padding-top: 20px;
+    margin: auto;
+}  
+input{
+    margin:20px;
+    padding: 0.5em 0.6em;
+}  
+   
+button{
+    margin: 120px;
+}
