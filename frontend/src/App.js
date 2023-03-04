@@ -13,6 +13,7 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='appoinment' element={<Appointment/>}/>
         <Route path='registration' element={<RegistrationForm/>}/>
+        {/* <Route path='tableview' element={<TableV/>}/> */}
       </Routes>
   );
 }
