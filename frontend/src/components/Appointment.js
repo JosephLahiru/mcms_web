@@ -38,6 +38,9 @@ function Appointment() {
   return (
     <div className='App'>
       <div className="form-container">
+      <h1>Appointment Request Form</h1>
+      <p>Make your appointments more easier</p>
+
       <form onSubmit={handleSubmit}>
       <div className="form-input">
               <lable> Enter Appointment Number:
@@ -100,12 +103,8 @@ function Appointment() {
         </div>
         <br />
         <div className="form-input">
-        <lable>Select Appointment Doctor:
-        <select name="selectedFruit">
-        <option value="apple">Apple</option>
-        <option value="banana">Banana</option>
-        
-      </select>
+        <lable>Select Appointment Doctor:  
+        <input type="text" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value) } placeholder="Enter Appointment Doctor"/>
           </lable>
         </div>
         <br />
@@ -117,7 +116,7 @@ function Appointment() {
         <br />
         <div className="form-input">
         <lable>Select Appointment Time:
-          <input type="text" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value) } placeholder=""/>
+          <input type="time" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value) } placeholder=""/>
           </lable>
         </div>
         <br />
