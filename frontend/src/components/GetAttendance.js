@@ -7,22 +7,6 @@ function GetAttendance() {
   const [date, setDate] = useState('');
   const [attendanceStatus, setAttendanceStatus] = useState('');
 
-  const handleAttendanceIDChange = (event) => {
-    setAttendanceId(event.target.value);
-  };
-
-  const handleIDChange = (event) => {
-    setAssistantId(event.target.value);
-  };
-
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setAttendanceStatus(event.target.value);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -44,7 +28,7 @@ function GetAttendance() {
           </label>
         </div>
         <div className="form-input">
-          <input type="date" class="form-control form-control-sm" value={date} onChange={handleAttendanceIDChange} />
+          <input type="text" class="form-control form-control-sm" value={attendanceId} onChange={(event) => setAttendanceId(event.target.value)} />
         </div>
         <div className="form-label">
           <label>
@@ -52,7 +36,7 @@ function GetAttendance() {
           </label>
         </div>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={assistantId} onChange={handleIDChange} />
+          <input type="text" class="form-control form-control-sm" value={assistantId} onChange={(event) => setAssistantId(event.target.value)} />
         </div>
         <div className="form-label">
           <label>
@@ -60,7 +44,7 @@ function GetAttendance() {
           </label>
         </div>
         <div className="form-input">
-          <input type="date" class="form-control form-control-sm" value={date} onChange={handleDateChange} />
+          <input type="date" class="form-control form-control-sm" value={date} onChange={(event) => setDate(event.target.value)} />
         </div>
         <div className="form-label">
           <label>
@@ -68,7 +52,7 @@ function GetAttendance() {
           </label>
         </div>
         <div className="form-input">
-        <select class="form-control form-control-sm" value={attendanceStatus} onChange={handleStatusChange}>
+        <select class="form-control form-control-sm" value={attendanceStatus} onChange={(event) => setAttendanceStatus(event.target.value)}>
           <option value="present">Present</option>
           <option value="absent">Absent</option>
           <option value="late">Late</option>
