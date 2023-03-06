@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 //import './../css/GetAttendance.css';
 
 function GetAttendance() {
+  const[attendanceId,setAttendanceId] = useState('');
   const [assistantId, setAssistantId] = useState('');
   const [date, setDate] = useState('');
   const [attendanceStatus, setAttendanceStatus] = useState('');
 
+  const handleAttendanceIDChange = (event) => {
+    setAttendanceId(event.target.value);
+  };
+
   const handleIDChange = (event) => {
     setAssistantId(event.target.value);
-    };
+  };
 
   const handleDateChange = (event) => {
     setDate(event.target.value);
@@ -24,6 +29,7 @@ function GetAttendance() {
 
 
   const handleReset = () => {
+    setAttendanceId("");
     setAssistantId("");
     setDate("");
     setAttendanceStatus("");
@@ -32,6 +38,14 @@ function GetAttendance() {
   return (
     <div className="form-container">
     <form onSubmit={handleSubmit}>
+        <div className="form-label">
+          <label>
+            Attendance ID
+          </label>
+        </div>
+        <div className="form-input">
+          <input type="date" class="form-control form-control-sm" value={date} onChange={handleAttendanceIDChange} />
+        </div>
         <div className="form-label">
           <label>
             Assistant ID:

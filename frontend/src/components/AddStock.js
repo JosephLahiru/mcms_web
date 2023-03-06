@@ -7,10 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 function AddStock() {
   const [drugId, setDrugId] = useState("");
   const [drugname, setDrugName] = useState("");
-  const [company, setCompany] = useState("");
+  const [drugType, setDrugType] = useState("");
+  const [brandname, setBrandName] = useState("");
+  const [description, setDescription] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [purchase, setPurchaseDate] = useState("");
   const [ManufactureDate, setManufactureDate] = useState("");
   const [ExpireDate, setExpireDate] = useState("");
 
@@ -18,14 +20,16 @@ function AddStock() {
     event.preventDefault();
     console.log("Drug ID:", drugId);
     console.log("Drug Name:", drugname);
-    console.log("Company:", company);
+    console.log("Drug Type:", drugType);
+    console.log("Brand Name:", brandname);
+    console.log("Description",description);
     console.log("Unit Price:", unitprice);
     console.log("Quantity:", quantity);
-    console.log("Phone number:", phoneNumber);
+    console.log("Purchased Date:", purchase);
     console.log("Manufacture Date:", ManufactureDate);
     console.log("Expire Date:", ExpireDate);
 
-    if(!drugId || !drugname || !company || !unitprice || !quantity || !phoneNumber ) {
+    if(!drugId || !drugname || !brandname || !unitprice || !quantity || !purchase || !ManufactureDate || !ExpireDate ) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -36,10 +40,12 @@ function AddStock() {
   const handleReset = () => {
     setDrugId("");
     setDrugName("");
-    setCompany("");
+    setDrugType("");
+    setBrandName("");
+    setDescription("");
     setUnitPrice("");
     setQuantity("");
-    setPhoneNumber("");
+    setPurchaseDate("");
     setManufactureDate("");
     setExpireDate("");
   };
@@ -66,11 +72,33 @@ function AddStock() {
         </div>
         <div className="form-label">
           <label>
-            Company:
+            Drug type
           </label>
         </div>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={company} onChange={(event) => setCompany(event.target.value)} placeholder="Company/Manufacture" required/>
+          <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
+            <option value="Capsules">Capsules</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Liquid">Liquid</option>
+            <option value="Inhalers">Inhalers</option>
+            <option value="Injections">Injections</option>
+          </select>
+        </div>
+        <div className="form-label">
+          <label>
+            Brand name:
+          </label>
+        </div>
+        <div className="form-input">
+          <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
+        </div>
+        <div className="form-label">
+          <label>
+            Description
+          </label>
+        </div>
+        <div className="form-input">
+          <input type="text" class="form-control form-control-sm" value={description} onChange={(event) => setDescription(event.target.value)} required/>
         </div>
         <div className="form-label">
           <label>
@@ -90,11 +118,11 @@ function AddStock() {
         </div>
         <div className="form-label">
           <label>
-            phone Number:
+            Purchased Date
           </label>
         </div>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} placeholder="Phone Number" required/>
+          <input type="date" class="form-control form-control-sm" value={purchase} onChange={(event) => setPurchaseDate(event.target.value)} required/>
         </div>
         <div className="form-label">
           <label>
