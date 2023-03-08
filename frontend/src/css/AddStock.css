@@ -32,4 +32,8 @@
   .btn {
     margin-right: 10px;
   }
+
+  .input-validation-error {
+    color:red
+  }
   
