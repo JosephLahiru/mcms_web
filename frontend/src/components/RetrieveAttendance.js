@@ -17,7 +17,7 @@ function RetrieveAttendance() {
   return (
     <div className="div1">
       <h1>Attendance</h1>
-      <table border="">
+      <table border="1">
         <tr>
             <th>Assistant ID</th>
             <th>date</th>
