@@ -17,6 +17,7 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='appoinment' element={<Appointment/>}/>
         <Route path='registration' element={<RegistrationForm/>}/>
+        {/* <Route path='tableview' element={<TableV/>}/> */}
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='set_attendance' element={<SetAttendance/>}/>

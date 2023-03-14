@@ -30,13 +30,10 @@ input{
 button{
     border: none;
     color: white;
-    background-color: orange;
     padding: 20px;
     border-radius: 10px;
     cursor: pointer;
     font-size: 1.2rem;
 }
 
-button:hover {
-    background-color: darkorange;
-}
+
