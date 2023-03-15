@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
     margin-top: 50px;
-    margin-left: 50%;
     background-color:grey;
     width: 50%;
   }
@@ -31,5 +31,9 @@
 
   .btn {
     margin-right: 10px;
+  }
+
+  .input-validation-error {
+    color:red
   }
   
