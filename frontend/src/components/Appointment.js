@@ -60,12 +60,18 @@ function Appointment() {
             </lable>
           </div>
         <br /><br />
-        <div className="form-input">
-        <lable>Enter Address:
-          <input type="tel" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address"/>
-          </lable>
-        </div>
-        <br /><br />
+      <div className="form-input">
+        <label>Enter Address:</label>
+        <br />
+        <textarea
+          value={address}
+          onChange={(event) => setAddress(event.target.value)}
+          placeholder="Enter Address"
+          rows="4"
+          cols="50"
+        ></textarea>
+      </div>
+        <br /><br /><br /><br /><br />
         <div className="form-input">
         <lable>Enter Age:
           <input type="text" value={age} onChange={(event) => setAge(event.target.value) } placeholder="Enter Age"/>
@@ -89,7 +95,7 @@ function Appointment() {
           </label>
         </div>
       </div>
-      <br /><br /><br /><br />
+      <br /> <br />
         <br />
           <div className="form-input">
           <lable>Enter NIC:
@@ -133,8 +139,8 @@ function Appointment() {
           </lable>
         </div>
         <br /><br />
-        <button type="Cancel" classname="form-button">Cancel</button><br />
-        <button type="Submit" classname="form-button">Submit</button><br />
+        <button type="Cancel" classname="form-button">Cancel</button><br /><br />
+        <button type="Submit" classname="form-button">Submit</button><br /><br />
         <button type="View Appointment" classname="form-button">View Appointment</button>
         </form>
       </div>
