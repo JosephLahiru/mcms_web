@@ -11,6 +11,7 @@ function AddStock() {
   const [brandname, setBrandName] = useState("");
   const [description, setDescription] = useState("");
   const [unitprice, setUnitPrice] = useState("");
+  const [sellingprice, setSellingPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [purchaseDate, setPurchaseDate] = useState("");
   const [ManufactureDate, setManufactureDate] = useState("");
@@ -26,6 +27,7 @@ function AddStock() {
     console.log("Brand Name:", brandname);
     console.log("Description",description);
     console.log("Unit Price:", unitprice);
+    console.log("Selling Price:", sellingprice);
     console.log("Quantity:", quantity);
     console.log("Purchased Date:", purchaseDate);
     console.log("Manufacture Date:", ManufactureDate);
@@ -35,7 +37,7 @@ function AddStock() {
       setError(true);
     }
 
-    if(!drugId || !drugname || !brandname || !unitprice || !quantity || !purchaseDate || !ManufactureDate || !ExpireDate ) {
+    if(!drugId || !drugname || !brandname || !unitprice || !unitprice || !quantity || !purchaseDate || !ManufactureDate || !ExpireDate ) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -51,10 +53,12 @@ function AddStock() {
     setBrandName("");
     setDescription("");
     setUnitPrice("");
+    setSellingPrice("");
     setQuantity("");
     setPurchaseDate("");
     setManufactureDate("");
     setExpireDate("");
+    setError(false);
   };
 
 
@@ -82,6 +86,7 @@ function AddStock() {
         </div>
         <div className="form-input">
           <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
+            <option value="" disabled selected>Select an option</option>
             <option value="Capsules">Capsules</option>
             <option value="Tablet">Tablet</option>
             <option value="Liquid">Liquid</option>
@@ -90,7 +95,7 @@ function AddStock() {
           </select>
         </div>
         <div className="form-label">
-          <label>Brand name:</label>
+          <label>Brand name:</label> 
         </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
@@ -109,6 +114,14 @@ function AddStock() {
         </div>
         {error&&unitprice.length<=0?
         <label class='input-validation-error'>Drug unit price can't be Empty</label>:""}
+        <div className="form-label">
+          <label>Selling price:</label>
+        </div>
+        <div className="form-input">
+          <input type="text" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
+        </div>
+        {error&&sellingprice.length<=0?
+        <label class='input-validation-error'>Drug Selling price can't be Empty</label>:""}
         <div className="form-label">
           <label>Quantity:</label>
         </div>

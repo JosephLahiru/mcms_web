@@ -17,19 +17,25 @@ function RetrieveAttendance() {
   return (
     <div className="div1">
       <h1>Attendance</h1>
-      <table border="1">
-        <tr>
-            <th>Assistant ID</th>
-            <th>date</th>
-            <th>status</th>
+      <table class="table">
+        <thead>
+        <tr class="table-dark">
+            <th scope="col">Attendance ID</th>
+            <th scope="col">Assistant ID</th>
+            <th scope="col">date</th>
+            <th scope="col">status</th>
         </tr>
+        </thead>
+        <tbody>
         {attendance.map((attendance)=>
         <tr key={attendance.assit_id}>
+            <td>{attendance.att_id}</td>
             <td>{attendance.assit_id}</td>
             <td>{attendance.date}</td>
             <td>{attendance.status}</td>
         </tr>
         )}
+        </tbody>
       </table>
     </div>
   );

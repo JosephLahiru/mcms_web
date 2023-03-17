@@ -7,8 +7,8 @@ import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock.js';
 import GetAttendance from './components/GetAttendance.js';
-import SetAttendance from './components/SetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
+import UpdateStock from './components/UpdateStock.js';
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
         <Route path='appoinment' element={<Appointment/>}/>
         <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
+        <Route path='update_stock' element={<UpdateStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
-        <Route path='set_attendance' element={<SetAttendance/>}/>
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
 
       </Routes>
