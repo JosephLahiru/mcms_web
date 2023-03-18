@@ -64,12 +64,7 @@ function Appointment() {
         <label>Enter Address:</label>
         <br />
         <textarea
-          value={address}
-          onChange={(event) => setAddress(event.target.value)}
-          placeholder="Enter Address"
-          rows="4"
-          cols="50"
-        ></textarea>
+          value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" rows="4" cols="50"></textarea>
       </div>
         <br /><br /><br /><br /><br />
         <div className="form-input">
