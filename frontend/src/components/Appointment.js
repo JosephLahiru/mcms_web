@@ -16,6 +16,9 @@ function Appointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
+  const handleTimeChange = (event) => {
+    setAppointmentTime(event.target.value);
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -138,9 +141,27 @@ function Appointment() {
         </div>
         <br /><br />
         <div className="form-input">
-        <lable>Select Appointment Time:
-          <input type="time" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value) } placeholder=""/>
-          </lable>
+        <lable>Select Appointment Time:</lable>
+        <select id="time" name="time" value={appointmentTime} onChange={handleTimeChange}>
+          <option value="">Select  Appointment Time :</option>
+          <option value="4:00pm">4:00pm</option>
+          <option value="4:15pm" disabled={appointmentTime === "4:00pm"}>4:15pm</option>
+          <option value="4:30pm" disabled={appointmentTime === "4:00pm"}>4:30pm</option>
+          <option value="4:45pm" disabled={appointmentTime === "4:00pm"}>4:45pm</option>
+          <option value="5:00pm" disabled={appointmentTime === "4:00pm"}>5:00pm</option>
+          <option value="5:15pm" disabled={appointmentTime === "4:00pm"}>5:15pm</option>
+          <option value="5:30pm" disabled={appointmentTime === "4:00pm"}>5:30pm</option>
+          <option value="5:45pm" disabled={appointmentTime === "4:00pm"}>5:45pm</option>
+          <option value="6:00pm" disabled={appointmentTime === "4:00pm"}>6:00pm</option>
+          <option value="6:15pm" disabled={appointmentTime === "4:00pm"}>6:15pm</option>
+          <option value="6:30pm" disabled={appointmentTime === "4:00pm"}>6:30pm</option>
+          <option value="6:45pm" disabled={appointmentTime === "4:00pm"}>6:45pm</option>
+          <option value="7:00pm" disabled={appointmentTime === "4:00pm"}>7:00pm</option>
+          <option value="7:15pm" disabled={appointmentTime === "4:00pm"}>7:15pm</option>
+          <option value="7:30pm" disabled={appointmentTime === "4:00pm"}>7:30pm</option>
+          <option value="7:45pm" disabled={appointmentTime === "4:00pm"}>7:45pm</option>
+          <option value="8:00pm" disabled={appointmentTime === "4:00pm"}>8:00pm</option>
+        </select>
         </div>
         <br /><br />
         <button type="Cancel" classname="form-button">Cancel</button><br /><br />
