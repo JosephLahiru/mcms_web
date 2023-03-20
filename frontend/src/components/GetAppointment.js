@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Appointment.css';
+import './GetAppointment.css';
 import './../App.css';
 
-function Appointment() {
+function GetAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -143,22 +143,22 @@ function Appointment() {
         <select id="time" name="time" value={appointmentTime} onChange={handleTimeChange}>
           <option value="">Select  Appointment Time :</option>
           <option value="4:00pm">4:00pm</option>
-          <option value="4:15pm" disabled={appointmentTime === "4:00pm"}>4:15pm</option>
-          <option value="4:30pm" disabled={appointmentTime === "4:00pm"}>4:30pm</option>
-          <option value="4:45pm" disabled={appointmentTime === "4:00pm"}>4:45pm</option>
-          <option value="5:00pm" disabled={appointmentTime === "4:00pm"}>5:00pm</option>
-          <option value="5:15pm" disabled={appointmentTime === "4:00pm"}>5:15pm</option>
-          <option value="5:30pm" disabled={appointmentTime === "4:00pm"}>5:30pm</option>
-          <option value="5:45pm" disabled={appointmentTime === "4:00pm"}>5:45pm</option>
-          <option value="6:00pm" disabled={appointmentTime === "4:00pm"}>6:00pm</option>
-          <option value="6:15pm" disabled={appointmentTime === "4:00pm"}>6:15pm</option>
-          <option value="6:30pm" disabled={appointmentTime === "4:00pm"}>6:30pm</option>
-          <option value="6:45pm" disabled={appointmentTime === "4:00pm"}>6:45pm</option>
-          <option value="7:00pm" disabled={appointmentTime === "4:00pm"}>7:00pm</option>
-          <option value="7:15pm" disabled={appointmentTime === "4:00pm"}>7:15pm</option>
-          <option value="7:30pm" disabled={appointmentTime === "4:00pm"}>7:30pm</option>
-          <option value="7:45pm" disabled={appointmentTime === "4:00pm"}>7:45pm</option>
-          <option value="8:00pm" disabled={appointmentTime === "4:00pm"}>8:00pm</option>
+          <option value="4:15pm" disabled={appointmentTime === "4:15pm"}>4:15pm</option>
+          <option value="4:30pm" disabled={appointmentTime === "4:30pm"}>4:30pm</option>
+          <option value="4:45pm" disabled={appointmentTime === "4:45pm"}>4:45pm</option>
+          <option value="5:00pm" disabled={appointmentTime === "5:00pm"}>5:00pm</option>
+          <option value="5:15pm" disabled={appointmentTime === "5:15pm"}>5:15pm</option>
+          <option value="5:30pm" disabled={appointmentTime === "5:30pm"}>5:30pm</option>
+          <option value="5:45pm" disabled={appointmentTime === "5:45pm"}>5:45pm</option>
+          <option value="6:00pm" disabled={appointmentTime === "6:00pm"}>6:00pm</option>
+          <option value="6:15pm" disabled={appointmentTime === "6:15pm"}>6:15pm</option>
+          <option value="6:30pm" disabled={appointmentTime === "6:30pm"}>6:30pm</option>
+          <option value="6:45pm" disabled={appointmentTime === "6:45pm"}>6:45pm</option>
+          <option value="7:00pm" disabled={appointmentTime === "7:00pm"}>7:00pm</option>
+          <option value="7:15pm" disabled={appointmentTime === "7:15pm"}>7:15pm</option>
+          <option value="7:30pm" disabled={appointmentTime === "7:30pm"}>7:30pm</option>
+          <option value="7:45pm" disabled={appointmentTime === "7:45pm"}>7:45pm</option>
+          <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
         </select>
         </div>
         <br /><br />
@@ -171,4 +171,4 @@ function Appointment() {
   );
 }
 
-export default Appointment;
+export default GetAppointment;
