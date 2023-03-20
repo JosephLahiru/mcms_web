@@ -1,8 +1,8 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import GetAppointment from './components/GetAppointment.js';
-import {Login} from "./components/Login";
 import ViewAppointment from './components/ViewAppointment.js' ;
+import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock.js';
@@ -16,8 +16,8 @@ function App() {
         <Route path='/' element={<Dashboard/>}/>
         <Route path='login' element={<Login/>}/>
         <Route path='get_appoinment' element={<GetAppointment/>}/>
-        <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='view_appointment' element={<ViewAppointment/>}/>
+        <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='set_attendance' element={<SetAttendance/>}/>
