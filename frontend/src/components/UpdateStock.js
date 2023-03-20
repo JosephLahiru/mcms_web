@@ -21,6 +21,14 @@ function UpdateStock() {
     }
   }
 
+  const handleReset = () => {
+    setDrugId("");
+    setDrugName("");
+    setUnitPrice("");
+    setSellingPrice("");
+    setError(false);
+  };
+
   return (
     <div className="form-container">
        <form onSubmit={handleSubmit}>
@@ -56,6 +64,7 @@ function UpdateStock() {
         </div>
         {error&&sellingprice.length<=0?
         <label class='input-validation-error'>Drug Selling price can't be Empty</label>:""}
+        <button type="reset" onClick={handleReset}>Reset</button>
         <button type="submit">Update stock</button>
        </form>
     </div>

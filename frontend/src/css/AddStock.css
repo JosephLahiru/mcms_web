@@ -10,8 +10,7 @@
   
   .form-label {
     font-size: 16px;
-    font-weight: bold;
-    text-align: left;  
+    font-weight: bold; 
   }
 
   .form-input {
@@ -20,17 +19,7 @@
     height: 30px;
     padding: 5px;
     border-radius: 5px;
-    font-size: 16px;
     margin-bottom: 20px;
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border: 1px solid #6c63ff;
-  }
-
-  .btn {
-    margin-right: 10px;
   }
 
   .input-validation-error {
