@@ -16,9 +16,7 @@ function Appointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
-  const handleTimeChange = (event) => {
-    setAppointmentTime(event.target.value);
-  };
+  const handleTimeChange = (event) => {setAppointmentTime(event.target.value);};
 
   function handleSubmit(event) {
     event.preventDefault();
