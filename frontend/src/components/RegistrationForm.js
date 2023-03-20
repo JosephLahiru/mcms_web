@@ -9,9 +9,8 @@ export default function RegistrationForm() {
   const [lastName, setLastName] = useState('');
   const [nicNumber, setNicNumber] = useState('');
   const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
   const [telephoneNumber, setTelephoneNumber] = useState('');
-  const [moreDetails, setMoreDetails] = useState('');
 
   function handlePatientTypeChange(event){
     setPatientType(event.target.value);
@@ -37,17 +36,15 @@ export default function RegistrationForm() {
     setGender(event.target.value);
   }
 
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
+  function handleAddressChange(event) {
+    setAddress(event.target.value);
   }
 
   function handleTelephoneNumberChange(event) {
     setTelephoneNumber(event.target.value);
   }
 
-  function handleMoreDetailsChange(event) {
-    setMoreDetails(event.target.value);
-  }
+ 
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -57,9 +54,8 @@ export default function RegistrationForm() {
     console.log('Last Name:', lastName);
     console.log('NIC Number:', nicNumber);
     console.log('Gender:', gender);
-    console.log('Email:', email);
+    console.log('Address:', address);
     console.log('Telephone Number:', telephoneNumber);
-    console.log('More Details About The disease', moreDetails);
     // You can add code here to submit the form data to a server or perform other actions
   }
 
@@ -104,8 +100,8 @@ export default function RegistrationForm() {
         
         <div className='row'>
             <div className='col'>    
-            <label>Email:
-        <input type="email" value={email} onChange={handleEmailChange} className='form-control1' />
+            <label>Address:
+        <input type="address" value={address} onChange={handleAddressChange} className='form-control1' />
       </label></div></div><br />
 
       <div className='row'>
@@ -122,35 +118,10 @@ export default function RegistrationForm() {
             <label>Telephone Number:
                 <input type="tel" value={telephoneNumber} onChange={handleTelephoneNumberChange} className='form-control'/>
               </label></div></div><br />
-        
-        <div className='row'>
-          <div className='col'>
-            <label>Disease conditions(Non-infectious):<br /><br/>
 
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" className='form-check-input'/>
-                    <label for="vehicle1"> I have a bike</label><br/><br/>
-                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" className='form-check-input'/>
-                    <label for="vehicle2"> I have a car</label><br/><br/>
-                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" className='form-check-input'/>
-                    <label for="vehicle3"> I have a boat</label><br/><br/>
-            </label></div>
+       <button type="cancel">Cancel</button>
+       <button type="submit">Submit</button>
 
-          <div className='col'>
-            <label>Have you come for treatment before?<br /><br/>
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                <label class="form-check-label" for="flexRadioDefault1">Default radio</label>
-          </label></div></div><br />
-
-          <div className='row'>
-              <div className='col'>
-                  <label>More Details About The disease:<br /><br/>
-                      <textarea value={moreDetails} onChange={handleMoreDetailsChange} className='form-control1'/>
-                  </label></div></div><br />
-
-
-
-
-      <button type="submit">Submit</button>
     </form>
     </div>
   );
