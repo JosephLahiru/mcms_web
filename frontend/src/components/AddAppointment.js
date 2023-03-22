@@ -25,34 +25,61 @@ function AddAppointment() {
 
   const navigate = useNavigate();
 
+  const setAppointment = async (appointmentData) => {
+    try {
+      const response = await fetch('/set_appointment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(appointmentData)
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+  
+      const responseData = await response.json();
+      console.log(responseData.message); // handle success message
+    } catch (error) {
+      console.error(error); // handle error
+    }
+  };
+  
+
   function handleSubmit(event) {
 
     event.preventDefault();
 
-    // console.log("Appointment Number:", appointmentNumber);
-    // console.log("First Name:", firstName);
-    // console.log("Last Name:", lastName);
-    // console.log("Address:",address);
-    // console.log("Age:", age);
-    // console.log("Gender:", gender);
-    // console.log("NIC:", nic);
-    // console.log("Email:", email);
-    // console.log("Contact number:", contactNumber); 
-    // console.log("Appointmnet Type:", appointmentType); 
-    // console.log("Appointment Doctor:", appointmentDoctor);
-    // console.log("Appointment Date:", appointmentDate);
-    // console.log("Appointment Time:", appointmentTime);
-
-if(appointmentNumber.length==0 || firstName.length==0 ){
-      setError(true);
+    if(appointmentNumber.length==0 || firstName.length==0 ){
+          setError(true);
     }
 
-
-if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
-      toast.error('Please fill all the fields...', {
-        position: toast.POSITION.TOP_RIGHT
+    if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
+          toast.error('Please fill all the fields...', {
+          position: toast.POSITION.TOP_RIGHT
       });
       return;
+    }else{
+      console.log("Setting Appoinment");
+      const appointmentData = {
+        first_name: firstName,
+        last_name: lastName,
+        nic: nic,
+        address: address,
+        age: age,
+        gender: gender,
+        contact_num: contactNumber,
+        email: email,
+        p_type: appointmentType,
+        cd_id: appointmentDoctor,
+        app_date: appointmentDate,
+        app_time: appointmentTime,
+      };
+      
+      setAppointment(appointmentData);
+      
     }
   }
 
@@ -77,7 +104,7 @@ if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || 
       <div className="form-container">
       <h1>Appointment Request Form</h1>
       <p>Make your appointments more easier</p>
-      <form onSubmit={handleSubmit}>
+      <form>
       <div className="form-input">
               <lable> Enter Appointment Number:
             <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>
