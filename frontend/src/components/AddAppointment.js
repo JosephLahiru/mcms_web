@@ -44,9 +44,9 @@ function AddAppointment() {
     // console.log("Appointment Time:", appointmentTime);
 
 
-if(appointmentNumber.length==0 || firstName.length==0 || lastName.length==0){setError(true);}
 
-if(!appointmentNumber || !firstName.length || !lastName || !age || !nic || !email || !contactNumber || !appointmentDate) {
+
+if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -75,46 +75,47 @@ if(!appointmentNumber || !firstName.length || !lastName || !age || !nic || !emai
       <div className="form-container">
       <h1>Appointment Request Form</h1>
       <p>Make your appointments more easier</p>
-
       <form onSubmit={handleSubmit}>
       <div className="form-input">
               <lable> Enter Appointment Number:
-            <input type="text" class="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>
+            <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>
             </lable>
           </div>
-        <br /><br />
+        <br />
           <div className="form-input">
           <lable>Enter First Name:
-            <input type="text" class="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
+            <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
             </lable>
           </div>
+          <br />
           {error&&firstName.length<=0?
-          <label class='input-validation-error'>First Name can't be Empty</label>:""}
-          <br /><br />
+          <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
           <div className="form-input">
           <lable>Enter Last Name:
-            <input type="text" class="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
+            <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
             </lable>
+            </div>
+            <br />
             {error&&lastName.length<=0?
-        <label class='input-validation-error'>Last Name can't be Empty</label>:""}
-          </div>
-        <br /><br />
-      <div className="form-input">
-        <label>Enter Address:</label>
-        <br />
-        <textarea class="form-control form-control-sm"
+          <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
+        <div className="form-input">
+        <label>Enter Address:
+      <textarea className="form-control form-control-sm"
           value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" rows="4" cols="50"></textarea>
+        </label>
       </div>
-      <br /><br /><br /><br /><br />
+      <br /><br /><br /><br />
+      {error&&address.length<=0?
+          <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
         <div className="form-input">
         <lable>Enter Age:
-          <input type="text" class="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value) } placeholder="Enter Age"/>
+          <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value) } placeholder="Enter Age"/>
           </lable>
         </div>
+        <br />
         {error&&age.length<=0?
-        <label class='input-validation-error'>Age can't be Empty</label>:""}
-        <br /><br />
-        <div class="form-control form-control-sm">
+        <label className='input-validation-error'><center>Age can't be Empty</center></label>:""}
+        <div className="form-input">
         <label>Select Gender:</label>
         <div>
           <label>
@@ -131,35 +132,36 @@ if(!appointmentNumber || !firstName.length || !lastName || !age || !nic || !emai
           </label>
         </div>
       </div>
-      <br /> <br />
-        <br />
+      <br />
+        {error&&gender.length<=0?
+          <label class='input-validation-error'><center>Gender field is required</center></label>:""}
           <div className="form-input">
           <lable>Enter NIC:
-            <input type="text" class="form-control form-control-sm" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC"/>
+            <input type="text" className="form-control form-control-sm" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC"/>
             </lable>
           </div>
+          <br />
           {error&&nic.length<=0?
-         <label class='input-validation-error'>Nic can't be Empty</label>:""}
-          <br /><br />
+         <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
           <div className="form-input">
           <lable>Enter Email:
-            <input type="text" class="form-control form-control-sm" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email"/>
+            <input type="text" className="form-control form-control-sm" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email"/>
             </lable>
           </div>
+          <br />
           {error&&email.length<=0?
-        <label class='input-validation-error'>Email can't be Empty</label>:""}
-        <br /><br />
+        <label className='input-validation-error'><center>Please enter a valid email address in the format of name@example.com</center></label>:""}
         <div className="form-input">
         <lable>Enter Contact Number:
-          <input type="text" class="form-control form-control-sm" value={contactNumber} onChange={(event) => setContactNumber(event.target.value) } placeholder="Enter Contact number"/>
+          <input type="text" className="form-control form-control-sm" value={contactNumber} onChange={(event) => setContactNumber(event.target.value) } placeholder="Enter Contact number"/>
           </lable>
         </div>
+        <br />
         {error&&contactNumber.length<=0?
-        <label class='input-validation-error'>Contact Number can't be Empty</label>:""}
-        <br /><br />
+        <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
         <div className="form-input">
         <label>Select Appointment Type:</label>
-        <select class="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
+        <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
           <option value="">Select Appointment Type</option>
           <option value="Consultation">Consultation</option>
           <option value="Doctor Check-up">Doctor Check-up</option>
@@ -168,23 +170,29 @@ if(!appointmentNumber || !firstName.length || !lastName || !age || !nic || !emai
           <option value="Scanner">Scanner</option>
         </select>
         </div>
-        <br /><br />
+        <br />
+        {error&&appointmentType.length<=0?
+        <label className='input-validation-error'><center>Please select at least one Appointment Type</center></label>:""}
         <div className="form-input">
         <lable>Select Appointment Doctor:</lable>
-        <select class="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
+        <select className="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
          <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
         </select>
         </div>
-        <br /><br />
-        <div class="form-control form-control-sm">
-        <lable>Seslect Appointment Date:
+        <br />
+        {error&&appointmentDoctor.length<=0?
+        <label className='input-validation-error'><center>Please select at least one Appointment Doctor</center></label>:""}
+        <div className="form-input">
+        <lable>Select Appointment Date:
           <input type="date" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value) } placeholder=""/>
           </lable>
         </div>
-        <br /><br />
-        <div class="form-control form-control-sm">
+        <br />
+        {error&&appointmentDate.length<=0?
+        <label className='input-validation-error'><center>Please select a Appointment Date from the calendar</center></label>:""}
+        <div className="form-input">
         <lable>Select Appointment Time:</lable>
         <select id="time" name="time" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
           <option value="">Select  Appointment Time :</option>
@@ -207,10 +215,13 @@ if(!appointmentNumber || !firstName.length || !lastName || !age || !nic || !emai
           <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
         </select>
         </div>
-       <br /><br />
+       <br />
+       {error&&appointmentTime.length<=0?
+        <label className='input-validation-error'><center>Please select at least one Appointment Time.</center></label>:""}
+        
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button><br /><br />
-        <button className="btn btn-primary btn-sm" type="button" onClick={navigate('/view_appoinment')}>View Appointment</button>
+        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>View Appointment</button>
         </form>
         <ToastContainer />
       </div>
