@@ -43,7 +43,9 @@ function AddAppointment() {
     // console.log("Appointment Date:", appointmentDate);
     // console.log("Appointment Time:", appointmentTime);
 
-
+if(appointmentNumber.length==0 || firstName.length==0 ){
+      setError(true);
+    }
 
 
 if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
