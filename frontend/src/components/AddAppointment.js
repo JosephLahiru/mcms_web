@@ -56,7 +56,7 @@ function AddAppointment() {
           setError(true);
     }
 
-    if(!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
+    if(!appointmentNumber || !firstName || !lastName || !address || !age || !gender || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
           toast.error('Please fill all the fields...', {
           position: toast.POSITION.TOP_RIGHT
       });
@@ -134,7 +134,7 @@ function AddAppointment() {
         </label>
       </div>
       <br /><br /><br /><br />
-      {error&&address.length<=0?
+          {error&&address.length<=0?
           <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
         <div className="form-input">
         <lable>Enter Age:
@@ -142,8 +142,8 @@ function AddAppointment() {
           </lable>
         </div>
         <br />
-        {error&&age.length<=0?
-        <label className='input-validation-error'><center>Age can't be Empty</center></label>:""}
+          {error&&age.length<=0?
+          <label className='input-validation-error'><center>Age can't be Empty</center></label>:""}
         <div className="form-input">
         <label>Select Gender:</label>
         <div>
@@ -162,7 +162,7 @@ function AddAppointment() {
         </div>
       </div>
       <br />
-        {error&&gender.length<=0?
+          {error&&gender.length<=0?
           <label class='input-validation-error'><center>Gender field is required</center></label>:""}
           <div className="form-input">
           <lable>Enter NIC:
@@ -170,24 +170,24 @@ function AddAppointment() {
             </lable>
           </div>
           <br />
-          {error&&nic.length<=0?
-         <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
+            {error&&nic.length<=0?
+            <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
           <div className="form-input">
           <lable>Enter Email:
             <input type="text" className="form-control form-control-sm" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email"/>
             </lable>
           </div>
           <br />
-          {error&&email.length<=0?
-        <label className='input-validation-error'><center>Please enter a valid email address in the format of name@example.com</center></label>:""}
+            {error&&email.length<=0?
+            <label className='input-validation-error'><center>Please enter a valid email address in the format of name@example.com</center></label>:""}
         <div className="form-input">
         <lable>Enter Contact Number:
           <input type="text" className="form-control form-control-sm" value={contactNumber} onChange={(event) => setContactNumber(event.target.value) } placeholder="Enter Contact number"/>
           </lable>
         </div>
         <br />
-        {error&&contactNumber.length<=0?
-        <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
+            {error&&contactNumber.length<=0?
+            <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
         <div className="form-input">
         <label>Select Appointment Type:</label>
         <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
@@ -200,54 +200,53 @@ function AddAppointment() {
         </select>
         </div>
         <br />
-        {error&&appointmentType.length<=0?
-        <label className='input-validation-error'><center>Please select at least one Appointment Type</center></label>:""}
+          {error&&appointmentType.length<=0?
+          <label className='input-validation-error'><center>Please select at least one Appointment Type</center></label>:""}
         <div className="form-input">
-        <lable>Select Appointment Doctor:</lable>
-        <select className="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
-         <option value="">Select Appointment Doctor</option>
+              <lable>Select Appointment Doctor:</lable>
+              <select className="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
+          <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
         </select>
         </div>
         <br />
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'><center>Please select at least one Appointment Doctor</center></label>:""}
+            {error&&appointmentDoctor.length<=0?
+            <label className='input-validation-error'><center>Please select at least one Appointment Doctor</center></label>:""}
         <div className="form-input">
         <lable>Select Appointment Date:
           <input type="date" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value) } placeholder=""/>
           </lable>
         </div>
         <br />
-        {error&&appointmentDate.length<=0?
-        <label className='input-validation-error'><center>Please select a Appointment Date from the calendar</center></label>:""}
+            {error&&appointmentDate.length<=0?
+            <label className='input-validation-error'><center>Please select a Appointment Date from the calendar</center></label>:""}
         <div className="form-input">
         <lable>Select Appointment Time:</lable>
         <select id="time" name="time" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
           <option value="">Select  Appointment Time :</option>
           <option value="4:00pm">4:00pm</option>
-          <option value="4:15pm" disabled={appointmentTime === "4:15pm"}>4:15pm</option>
-          <option value="4:30pm" disabled={appointmentTime === "4:30pm"}>4:30pm</option>
-          <option value="4:45pm" disabled={appointmentTime === "4:45pm"}>4:45pm</option>
-          <option value="5:00pm" disabled={appointmentTime === "5:00pm"}>5:00pm</option>
-          <option value="5:15pm" disabled={appointmentTime === "5:15pm"}>5:15pm</option>
-          <option value="5:30pm" disabled={appointmentTime === "5:30pm"}>5:30pm</option>
-          <option value="5:45pm" disabled={appointmentTime === "5:45pm"}>5:45pm</option>
-          <option value="6:00pm" disabled={appointmentTime === "6:00pm"}>6:00pm</option>
-          <option value="6:15pm" disabled={appointmentTime === "6:15pm"}>6:15pm</option>
-          <option value="6:30pm" disabled={appointmentTime === "6:30pm"}>6:30pm</option>
-          <option value="6:45pm" disabled={appointmentTime === "6:45pm"}>6:45pm</option>
-          <option value="7:00pm" disabled={appointmentTime === "7:00pm"}>7:00pm</option>
-          <option value="7:15pm" disabled={appointmentTime === "7:15pm"}>7:15pm</option>
-          <option value="7:30pm" disabled={appointmentTime === "7:30pm"}>7:30pm</option>
-          <option value="7:45pm" disabled={appointmentTime === "7:45pm"}>7:45pm</option>
-          <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
+              <option value="4:15pm" disabled={appointmentTime === "4:15pm"}>4:15pm</option>
+              <option value="4:30pm" disabled={appointmentTime === "4:30pm"}>4:30pm</option>
+              <option value="4:45pm" disabled={appointmentTime === "4:45pm"}>4:45pm</option>
+              <option value="5:00pm" disabled={appointmentTime === "5:00pm"}>5:00pm</option>
+              <option value="5:15pm" disabled={appointmentTime === "5:15pm"}>5:15pm</option>
+              <option value="5:30pm" disabled={appointmentTime === "5:30pm"}>5:30pm</option>
+              <option value="5:45pm" disabled={appointmentTime === "5:45pm"}>5:45pm</option>
+              <option value="6:00pm" disabled={appointmentTime === "6:00pm"}>6:00pm</option>
+              <option value="6:15pm" disabled={appointmentTime === "6:15pm"}>6:15pm</option>
+              <option value="6:30pm" disabled={appointmentTime === "6:30pm"}>6:30pm</option>
+              <option value="6:45pm" disabled={appointmentTime === "6:45pm"}>6:45pm</option>
+              <option value="7:00pm" disabled={appointmentTime === "7:00pm"}>7:00pm</option>
+              <option value="7:15pm" disabled={appointmentTime === "7:15pm"}>7:15pm</option>
+              <option value="7:30pm" disabled={appointmentTime === "7:30pm"}>7:30pm</option>
+              <option value="7:45pm" disabled={appointmentTime === "7:45pm"}>7:45pm</option>
+              <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
         </select>
         </div>
        <br />
-       {error&&appointmentTime.length<=0?
-        <label className='input-validation-error'><center>Please select at least one Appointment Time.</center></label>:""}
-        
+          {error&&appointmentTime.length<=0?
+          <label className='input-validation-error'><center>Please select at least one Appointment Time.</center></label>:""}
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>View Appointment</button>
