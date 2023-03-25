@@ -22,8 +22,7 @@ function App() {
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='set_attendance' element={<SetAttendance/>}/>
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
-        <Route path='view_appoinment' element={<ViewAppointment/>}/>
-      </Routes>
+        </Routes>
   );
 }
 
