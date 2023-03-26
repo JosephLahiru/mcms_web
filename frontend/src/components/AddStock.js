@@ -18,7 +18,7 @@ function AddStock() {
   const [ExpireDate, setExpireDate] = useState("");
   const [error, setError] = useState(false);
 
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     console.log("Drug ID:", drugId);
@@ -37,7 +37,7 @@ function AddStock() {
       setError(true);
     }
 
-    if(!drugId || !drugname || !brandname || !unitprice || !unitprice || !quantity || !purchaseDate || !ManufactureDate || !ExpireDate ) {
+    if(!drugId && !drugname && !brandname && !unitprice && !unitprice || !quantity || !purchaseDate || !ManufactureDate || !ExpireDate ) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -63,27 +63,22 @@ function AddStock() {
 
 
   return (
-    <div className="form-container">
-    <form onSubmit={handleSubmit}>
-        <div className="form-label">
+    <div className="add-stock-container">
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
           <label>Drug ID:</label>
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
         </div>
         {error&&drugId.length<=0?
-        <label class='input-validation-error'>Drug ID can't be Empty</label>:""}
-        <div className="form-label">
+        <label class='input-validation-error'>Drug ID can't be empty</label>:""}
           <label>Drug name:</label>
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
         </div>
         {error&&drugname.length<=0?
-        <label class='input-validation-error'>Drug Name can't be Empty</label>:""}
-        <div className="form-label">
+        <label class='input-validation-error'>Drug Name can't be empty</label>:""}
           <label>Drug type</label>
-        </div>
         <div className="form-input">
           <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
             <option value="" disabled selected>Select an option</option>
@@ -94,69 +89,56 @@ function AddStock() {
             <option value="Injections">Injections</option>
           </select>
         </div>
-        <div className="form-label">
           <label>Brand name:</label> 
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
         </div>
-        <div className="form-label">
           <label>Description</label>
-        </div>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={description} onChange={(event) => setDescription(event.target.value)} required/>
+          <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
         </div>
-        <div className="form-label">
           <label>Unit price:</label>
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
         </div>
         {error&&unitprice.length<=0?
-        <label class='input-validation-error'>Drug unit price can't be Empty</label>:""}
-        <div className="form-label">
+        <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
           <label>Selling price:</label>
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
         </div>
         {error&&sellingprice.length<=0?
-        <label class='input-validation-error'>Drug Selling price can't be Empty</label>:""}
-        <div className="form-label">
+        <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
           <label>Quantity:</label>
-        </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
         </div>
         {error&&quantity.length<=0?
-        <label class='input-validation-error'>Drug quantity can't be Empty or enter 0</label>:""}
-        <div className="form-label">
+        <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
           <label>Purchased Date</label>
-        </div>
         <div className="form-input">
           <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
         </div>
-        <div className="form-label">
           <label>Manufacture Date</label>
-        </div>
         <div className="form-input">
           <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
         </div>
-        <div className="form-label">
           <label>Expire Date</label>
-        </div>
         <div className="form-input">
           <input type="date" class="form-control form-control-sm" value={ExpireDate} onChange={(event) => setExpireDate(event.target.value)} required/>
         </div>
         {error&&ExpireDate.length<=0?
-        <label class='input-validation-error'>Drug Expire date can't be Empty</label>:""}
+        <label class='input-validation-error'>Drug Expire date can't be empty</label>:""}
       <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
       <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
-      <br></br>
-      <br></br>
-    </form>
+      </form>
     <ToastContainer />
     </div>
+    <div className="table-container">
+      
+    </div>
+    </div>
+    
   );
 }
 
