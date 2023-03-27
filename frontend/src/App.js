@@ -2,9 +2,9 @@ import React from 'react';
 
 
 import {Routes, Route} from 'react-router-dom';
-import Appointment from './components/Appointment.js';
-import {Login} from "./components/Login";
+import AddAppointment from './components/AddAppointment.js';
 import ViewAppointment from './components/ViewAppointment.js' ;
+import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock.js';
@@ -18,15 +18,14 @@ function App() {
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
         <Route path='login' element={<Login/>}/>
-        <Route path='appoinment' element={<Appointment/>}/>
-        <Route path='registration' element={<RegistrationForm/>}/>
+        <Route path='add_appoinment' element={<AddAppointment/>}/>
         <Route path='view_appointment' element={<ViewAppointment/>}/>
+        <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='update_stock' element={<UpdateStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
-
-      </Routes>
+        </Routes>
   );
 }
 
