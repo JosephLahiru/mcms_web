@@ -59,6 +59,19 @@ export default function RegistrationForm() {
     // You can add code here to submit the form data to a server or perform other actions
   }
 
+  function handleCancel(event) {
+    event.preventDefault(); // prevent the default form submission behavior
+    setPatientType('');
+    setDate('');
+    setFirstName('');
+    setLastName('');
+    setNicNumber('');
+    setGender('');
+    setAddress('');
+    setTelephoneNumber('');
+  }
+  
+
   return (
     <div className='container'>
     <form onSubmit={handleSubmit} className='form-check'>
@@ -103,6 +116,12 @@ export default function RegistrationForm() {
             <label>Address:
         <input type="address" value={address} onChange={handleAddressChange} className='form-control1' />
       </label></div></div><br />
+      
+      if (!address.trim()) {
+        alert("Please enter your address.");
+        return;
+}
+
 
       <div className='row'>
         <div className='col'>
@@ -119,8 +138,9 @@ export default function RegistrationForm() {
                 <input type="tel" value={telephoneNumber} onChange={handleTelephoneNumberChange} className='form-control'/>
               </label></div></div><br />
 
-       <button type="cancel">Cancel</button>
-       <button type="submit">Submit</button>
+
+      <div><button type="button" onClick={handleCancel}>Cancel</button>
+      <button type="button" onClick={handleSubmit}>Submit</button></div>
 
     </form>
     </div>

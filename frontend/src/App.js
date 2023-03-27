@@ -1,7 +1,9 @@
 import './App.css';
 import React from 'react';
-//import AddName from './components/AddName' ;
+//import RegistrationForm from './components/RegistrationForm';
+//import Profiles from './components/Patient';
 import RegistrationForm from './components/RegistrationForm';
+
 
 
 function App() {
@@ -16,4 +18,4 @@ function App() {
 }
 
 export default App;
-//hello
+
