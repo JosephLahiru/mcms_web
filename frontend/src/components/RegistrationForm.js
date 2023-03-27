@@ -117,10 +117,7 @@ export default function RegistrationForm() {
         <input type="address" value={address} onChange={handleAddressChange} className='form-control1' />
       </label></div></div><br />
       
-      if (!address.trim()) {
-        alert("Please enter your address.");
-        return;
-}
+
 
 
       <div className='row'>
