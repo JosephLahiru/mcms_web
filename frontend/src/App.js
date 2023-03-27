@@ -1,13 +1,11 @@
 import React from 'react';
-<<<<<<< HEAD
-//import RegistrationForm from './components/RegistrationForm';
-//import Profiles from './components/Patient';
-=======
+
+
 import {Routes, Route} from 'react-router-dom';
 import Appointment from './components/Appointment.js';
 import {Login} from "./components/Login";
 //import AddName from './components/AddName' ;
->>>>>>> a66eb71ea3a179fe03341d04c00f9b234aba4ca0
+
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock.js';
@@ -34,7 +32,3 @@ function App() {
 }
 
 export default App;
-<<<<<<< HEAD
-
-=======
->>>>>>> a66eb71ea3a179fe03341d04c00f9b234aba4ca0
