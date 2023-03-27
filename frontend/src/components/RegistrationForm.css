@@ -1,5 +1,5 @@
 .container{
-    width: 750px;
+    width: 700px;
     padding-right: var(--bs-gutter-x, 5rem);
     padding-left: var(--bs-gutter-x, 5rem);
     margin-right: auto;
@@ -7,7 +7,7 @@
     background-color: rgb(51, 120, 198);
     border-radius: 10px;
     padding-top: 20px;
-    height: 800px;
+    height: 600px;
     
 }
 
@@ -84,7 +84,7 @@ textarea.form-control-lg {
   
 .form-control1 {
   display: block;
-  width: 670px;
+  width: 650px;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
