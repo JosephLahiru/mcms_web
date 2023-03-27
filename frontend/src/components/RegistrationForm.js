@@ -117,10 +117,7 @@ export default function RegistrationForm() {
         <input type="address" value={address} onChange={handleAddressChange} className='form-control1' />
       </label></div></div><br />
       
-      if (!address.trim()) {
-        alert("Please enter your address.");
-        return;
-}
+
 
 
       <div className='row'>
@@ -136,7 +133,7 @@ export default function RegistrationForm() {
         <div className='col'>
             <label>Telephone Number:
                 <input type="tel" value={telephoneNumber} onChange={handleTelephoneNumberChange} className='form-control'/>
-              </label></div></div><br />
+              </label></div></div><br /><br/>
 
 
       <div><button type="button" onClick={handleCancel}>Cancel</button>
