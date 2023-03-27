@@ -1,14 +1,17 @@
 import React from 'react';
+
+
 import {Routes, Route} from 'react-router-dom';
 import Appointment from './components/Appointment.js';
 import {Login} from "./components/Login";
-//import AddName from './components/AddName' ;
+import ViewAppointment from './components/ViewAppointment.js' ;
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock.js';
 import GetAttendance from './components/GetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
 import UpdateStock from './components/UpdateStock.js';
+
 
 function App() {
   return (
@@ -17,7 +20,7 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='appoinment' element={<Appointment/>}/>
         <Route path='registration' element={<RegistrationForm/>}/>
-        {/* <Route path='tableview' element={<TableV/>}/> */}
+        <Route path='view_appointment' element={<ViewAppointment/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='update_stock' element={<UpdateStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>

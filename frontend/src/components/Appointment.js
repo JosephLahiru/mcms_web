@@ -16,6 +16,7 @@ function Appointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
+  const handleTimeChange = (event) => {setAppointmentTime(event.target.value);};
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +29,7 @@ function Appointment() {
     console.log("NIC:", nic);
     console.log("Email:", email);
     console.log("Contact number:", contactNumber); 
-    console.log("Appointmnet type:", appointmentType); 
+    console.log("Appointmnet Type:", appointmentType); 
     console.log("Appointment Doctor:", appointmentDoctor);
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
@@ -111,15 +112,24 @@ function Appointment() {
         </div>
         <br /><br />
         <div className="form-input">
-        <lable>Select Appointment Type:
-          <input type="text" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value) } placeholder="Enter Appointment Type"/>
-          </lable>
+        <label>Select Appointment Type:</label>
+        <select value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
+          <option value="">Select Appointment Type</option>
+          <option value="Consultation">Consultation</option>
+          <option value="Doctor Check-up">Doctor Check-up</option>
+          <option value="Medical Examination">Medical Examination</option>
+          <option value="Result Analysis">Result Analysis</option>
+          <option value="Scanner">Scanner</option>
+        </select>
         </div>
         <br /><br />
         <div className="form-input">
-        <lable>Select Appointment Doctor:  
-        <input type="text" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value) } placeholder="Enter Appointment Doctor"/>
-          </lable>
+        <lable>Select Appointment Doctor:</lable>
+        <select value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
+         <option value="">Select Appointment Doctor</option>
+          <option value="The Universal Physician">The Universal Physician</option>
+          <option value="Pediatrician">Pediatrician</option>
+        </select>
         </div>
         <br /><br />
         <div className="form-input">
@@ -129,9 +139,27 @@ function Appointment() {
         </div>
         <br /><br />
         <div className="form-input">
-        <lable>Select Appointment Time:
-          <input type="time" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value) } placeholder=""/>
-          </lable>
+        <lable>Select Appointment Time:</lable>
+        <select id="time" name="time" value={appointmentTime} onChange={handleTimeChange}>
+          <option value="">Select  Appointment Time :</option>
+          <option value="4:00pm">4:00pm</option>
+          <option value="4:15pm" disabled={appointmentTime === "4:00pm"}>4:15pm</option>
+          <option value="4:30pm" disabled={appointmentTime === "4:00pm"}>4:30pm</option>
+          <option value="4:45pm" disabled={appointmentTime === "4:00pm"}>4:45pm</option>
+          <option value="5:00pm" disabled={appointmentTime === "4:00pm"}>5:00pm</option>
+          <option value="5:15pm" disabled={appointmentTime === "4:00pm"}>5:15pm</option>
+          <option value="5:30pm" disabled={appointmentTime === "4:00pm"}>5:30pm</option>
+          <option value="5:45pm" disabled={appointmentTime === "4:00pm"}>5:45pm</option>
+          <option value="6:00pm" disabled={appointmentTime === "4:00pm"}>6:00pm</option>
+          <option value="6:15pm" disabled={appointmentTime === "4:00pm"}>6:15pm</option>
+          <option value="6:30pm" disabled={appointmentTime === "4:00pm"}>6:30pm</option>
+          <option value="6:45pm" disabled={appointmentTime === "4:00pm"}>6:45pm</option>
+          <option value="7:00pm" disabled={appointmentTime === "4:00pm"}>7:00pm</option>
+          <option value="7:15pm" disabled={appointmentTime === "4:00pm"}>7:15pm</option>
+          <option value="7:30pm" disabled={appointmentTime === "4:00pm"}>7:30pm</option>
+          <option value="7:45pm" disabled={appointmentTime === "4:00pm"}>7:45pm</option>
+          <option value="8:00pm" disabled={appointmentTime === "4:00pm"}>8:00pm</option>
+        </select>
         </div>
         <br /><br />
         <button type="Cancel" classname="form-button">Cancel</button><br /><br />
