@@ -116,7 +116,7 @@ function AddAppointment() {
             <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
             </lable>
           </div>
-          <br />
+          <br />  <br />
           {error&&firstName.length<=0?
           <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
           <div className="form-input">
