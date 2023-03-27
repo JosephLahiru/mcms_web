@@ -1,4 +1,6 @@
 import React from 'react';
+
+
 import {Routes, Route} from 'react-router-dom';
 import AddAppointment from './components/AddAppointment.js';
 import ViewAppointment from './components/ViewAppointment.js' ;
@@ -9,6 +11,7 @@ import AddStock from './components/AddStock.js';
 import GetAttendance from './components/GetAttendance.js';
 import SetAttendance from './components/SetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
+
 
 function App() {
   return (
