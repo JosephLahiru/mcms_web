@@ -133,7 +133,7 @@ export default function RegistrationForm() {
         <div className='col'>
             <label>Telephone Number:
                 <input type="tel" value={telephoneNumber} onChange={handleTelephoneNumberChange} className='form-control'/>
-              </label></div></div><br />
+              </label></div></div><br /><br/>
 
 
       <div><button type="button" onClick={handleCancel}>Cancel</button>
