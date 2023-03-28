@@ -103,7 +103,6 @@ function AddAppointment() {
     <div className='App'>
       <div className="form-container">
       <h1>Appointment Request Form</h1>
-      <p>Make your appointments more easier</p>
       <form>
       <div className="form-input">
               <lable> Enter Appointment Number:
