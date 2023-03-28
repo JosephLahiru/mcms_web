@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-//import './../css/GetAttendance.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './../css/Style.css';
 
 function GetAttendance() {
   const [assistantId, setAssistantId] = useState('');
@@ -10,7 +12,14 @@ function GetAttendance() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if(assistantId.length==0 || date.length==0 ){
+    if(!assistantId && !date && !attendanceStatus ) {
+      toast.error('Please fill all the fields...', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    if(!assistantId || !date ){
       setError(true);
     }
 
@@ -21,9 +30,9 @@ function GetAttendance() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          assistant_id: assistantId,
+          assist_id: assistantId,
           date: date,
-          attendance_status: attendanceStatus,
+          status: attendanceStatus,
         }),
       });
 
@@ -78,9 +87,12 @@ function GetAttendance() {
           <option value="late">Late</option>
         </select>
         </div>
+        {error&&attendanceStatus.length<=0?
+        <label class='input-validation-error'>Assistant Status can't be Empty</label>:""}
         <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
         <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
     </form>
+    <ToastContainer />
     </div>
     
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './../css/AddStock.css';
+import './../css/Style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -111,7 +111,7 @@ function AddStock() {
         <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
           <label>Quantity:</label>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
+          <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
         </div>
         {error&&quantity.length<=0?
         <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}

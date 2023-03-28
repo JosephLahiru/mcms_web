@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 function RetrieveAttendance() {
     
     const [attendance, RetrieveAttendance] = useState([]);
+    const [filterDate, setFilterDate] = useState("");
 
     useEffect(() => {
         async function fetchAttendance() {
@@ -12,11 +13,19 @@ function RetrieveAttendance() {
             RetrieveAttendance(data);
         }
         fetchAttendance();
-    }, []);
+    }, [filterDate]);
+
+    const handleFilterDateChange = (event) => {
+      setFilterDate(event.target.value);
+  };
 
   return (
     <div className="div1">
       <h1>Attendance</h1>
+      <div className="filter">
+        <label htmlFor="dateFilter">Filter by Date:</label>
+        <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
+      </div>
       <table class="table">
         <thead>
         <tr class="table-dark">
