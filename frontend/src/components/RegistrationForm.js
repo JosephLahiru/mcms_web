@@ -59,7 +59,7 @@ export default function RegistrationForm() {
     // You can add code here to submit the form data to a server or perform other actions
   }
 
-  function handleCancel(event) {
+  function handleReset(event) {
     event.preventDefault(); // prevent the default form submission behavior
     setPatientId('');
     setDate('');
@@ -135,8 +135,8 @@ export default function RegistrationForm() {
 
 
       <div>
-        <button type="button" onClick={handleCancel}>Cancel</button>
-        <button type="button" onClick={handleSubmit}>Submit</button>
+        <button type="button" class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+        <button type="button" class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
       </div>
 
     </form>
