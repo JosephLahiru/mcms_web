@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import './RegistrationForm.css';
+//import './RegistrationForm.css';
 
-export default function RegistrationForm() {
+function RegistrationForm() {
 
   const [patientId, setPatientId] = useState('');
   const [date, setDate] = useState('');
@@ -73,45 +73,45 @@ export default function RegistrationForm() {
   
 
   return (
-    <div className='from-container'>
+    <div className='container'>
     <form onSubmit={handleSubmit}>
 
-    <div className='form-lable'>
+    <div className='lable'>
          <label>Patient Id:</label>
     </div>
-        <div className='form-input'>      
+        <div className='input'>      
           <input type="text" class="form-control form-control-sm" value={patientId} onChange={handlePatientIdChange}/>
         </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>Appointment Date:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="date" class="form-control form-control-sm" value={date} onChange={handleDateChange}/>
               </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>First Name:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="text" class="form-control form-control-sm" value={firstName} onChange={handleFirstNameChange}/>
                 </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>Last Name:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="text" class="form-control form-control-sm" value={lastName} onChange={handleLastNameChange}/>
                 </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>NIC Number:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="text" class="form-control form-control-sm" value={nicNumber} onChange={handleNicNumberChange}/>
                 </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>Gender:</label>
             </div>
             <div className='form-input'>
@@ -119,30 +119,32 @@ export default function RegistrationForm() {
               <input type="radio" value={gender} checked={gender === "Female"} onChange={handleGenderChange}>Female</input>
             </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>Address:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="text" class="form-control form-control-sm" value={address} onChange={handleAddressChange}/>
               </div>
 
-        <div className='form-lable'>
+        <div className='lable'>
             <label>contact Number:</label>
             </div>
-              <div className='form-input'>
+              <div className='input'>
                 <input type="number" class="form-control form-control-sm" value={contactNumber} onChange={handleContactNumberChange}/>
               </div>
 
 
       <div>
-        <button type="button" class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
-        <button type="button" class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+        <button type="button"  onClick={handleReset}>Reset</button>
+        <button type="button"  onClick={handleSubmit}>Submit</button>
       </div>
 
     </form>
     </div>
   );
 }
+
+export default RegistrationForm;
 
   
 

@@ -1,4 +1,4 @@
-.form-container {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,14 +7,14 @@
   background-color:grey;
 }
 
-.form-label {
+.label {
   font-size: 16px;
   font-weight: bold; 
   text-align: left;
 }
 
 
-.form-input {
+.input {
   text-align: left;
   width: 300px;
   height: 30px;
@@ -22,13 +22,4 @@
   border-radius: 5px;
   font-size: 16px;
   margin-bottom: 20px;
-}
-
-.form-input:focus {
-  outline: none;
-  border: 1px solid #6c63ff;
-}
-
-.btn {
-  margin-right: 10px;
 }
