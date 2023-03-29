@@ -73,8 +73,8 @@ export default function RegistrationForm() {
   
 
   return (
-    <div className='container'>
-    <form onSubmit={handleSubmit} className='form-check'>
+    <div className='from-container'>
+    <form onSubmit={handleSubmit}>
 
     <div className='row'>
         <div className='col'>
