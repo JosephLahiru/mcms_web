@@ -80,41 +80,41 @@ function RegistrationForm() {
          <label>Patient Id:</label>
     </div>
         <div className='input'>      
-          <input type="text" class="form-control form-control-sm" value={patientId} onChange={handlePatientIdChange}/>
+          <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
         </div>
 
         <div className='lable'>
             <label>Appointment Date:</label>
             </div>
               <div className='input'>
-                <input type="date" class="form-control form-control-sm" value={date} onChange={handleDateChange}/>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
               </div>
 
         <div className='lable'>
             <label>First Name:</label>
             </div>
               <div className='input'>
-                <input type="text" class="form-control form-control-sm" value={firstName} onChange={handleFirstNameChange}/>
+                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/>
                 </div>
 
         <div className='lable'>
             <label>Last Name:</label>
             </div>
               <div className='input'>
-                <input type="text" class="form-control form-control-sm" value={lastName} onChange={handleLastNameChange}/>
+                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/>
                 </div>
 
         <div className='lable'>
             <label>NIC Number:</label>
             </div>
               <div className='input'>
-                <input type="text" class="form-control form-control-sm" value={nicNumber} onChange={handleNicNumberChange}/>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/>
                 </div>
 
         <div className='lable'>
             <label>Gender:</label>
             </div>
-            <div className='form-input'>
+            <div className='input'>
               <input type="radio" value={gender} checked={gender === "Male"} onChange={handleGenderChange}>Male</input>
               <input type="radio" value={gender} checked={gender === "Female"} onChange={handleGenderChange}>Female</input>
             </div>
@@ -123,14 +123,14 @@ function RegistrationForm() {
             <label>Address:</label>
             </div>
               <div className='input'>
-                <input type="text" class="form-control form-control-sm" value={address} onChange={handleAddressChange}/>
+                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/>
               </div>
 
         <div className='lable'>
             <label>contact Number:</label>
             </div>
               <div className='input'>
-                <input type="number" class="form-control form-control-sm" value={contactNumber} onChange={handleContactNumberChange}/>
+                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/>
               </div>
 
 
