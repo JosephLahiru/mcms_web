@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-export default function RetrievePatients() {
+function RetrievePatients() {
 
     const [patients, RetrievePatients] = useState([]);
 
     useEffect(() => {
         async function fetchPatients() {
-            const response = await fetch("http://158.101.10.103/get_attendance");
+            const response = await fetch("http://158.101.10.103/registration");
             const data = await response.json();
             RetrievePatients(data);
         }
@@ -44,3 +44,5 @@ return (
     </div>
   )
 }
+
+export default RetrievePatients();
