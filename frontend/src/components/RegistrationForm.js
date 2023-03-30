@@ -90,7 +90,7 @@ function RegistrationForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if(patientId.length==0 || firstName.length==0 ){
+    if(patientId.length == 0 || firstName.length == 0 ){
       setError(true);
 }
 
@@ -209,8 +209,8 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <button type="button"  onClick={handleReset}>Reset</button>
         <button type="button"  onClick={handleSubmit}>Submit</button>
       </div>
-
     </form>
+    <ToastContainer />
     </div>
   );
 }

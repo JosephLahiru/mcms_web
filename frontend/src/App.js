@@ -11,6 +11,7 @@ import AddStock from './components/AddStock.js';
 import GetAttendance from './components/GetAttendance.js';
 import SetAttendance from './components/SetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
+import History from './components/History';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='set_attendance' element={<SetAttendance/>}/>
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
+        <Route path='history' element={<History/>}/>
         </Routes>
   );
 }
