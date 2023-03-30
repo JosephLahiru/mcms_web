@@ -12,6 +12,7 @@ import GetAttendance from './components/GetAttendance.js';
 import SetAttendance from './components/SetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
 import History from './components/History';
+import RetrievePatients from './components/RetrievePatients';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='set_attendance' element={<SetAttendance/>}/>
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
         <Route path='history' element={<History/>}/>
+        <Route path='retrieve_patients' element={<RetrievePatients/>}/>
         </Routes>
   );
 }
