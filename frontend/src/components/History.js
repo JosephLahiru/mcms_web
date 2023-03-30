@@ -21,7 +21,7 @@ return (
     <div class="container">
       <h1>history</h1>
 
-      <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." className='search-bar'/>
+      <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search..." className="search"/>
 
       <ul>
         {filteredData.map((item) => (
