@@ -27,7 +27,7 @@ function AddAppointment() {
 
   const setAppointment = async (appointmentData) => {
     try {
-      const response = await fetch('/set_appointment', {
+      const response = await fetch('http://158.101.10.103/set_appointment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -56,12 +56,17 @@ function AddAppointment() {
           setError(true);
     }
 
+
+
     if(!appointmentNumber || !firstName || !lastName || !address || !age || !gender || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
           toast.error('Please fill all the fields...', {
           position: toast.POSITION.TOP_RIGHT
       });
       return;
-    }else{
+
+    }
+    
+    else{
       console.log("Setting Appoinment");
       const appointmentData = {
         first_name: firstName,
@@ -83,6 +88,7 @@ function AddAppointment() {
     }
   }
 
+  
   const handleReset = () => {
      setAppointmentNumber(""); 
      setFirstName(""); 
@@ -96,7 +102,8 @@ function AddAppointment() {
      setAppointmentType(""); 
      setAppointmentDoctor(""); 
      setAppointmentDate(""); 
-     setAppointmentTime(""); 
+     setAppointmentTime("");
+     setError(false);
     };
 
   return (
