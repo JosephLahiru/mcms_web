@@ -34,7 +34,6 @@ function ViewAppointment(){
             <th scope="col"> Appoinment Number </th>
             <th scope="col"> Patient Name </th>
             <th scope="col"> NIC </th>
-            <th scope="col"> Appointment Date </th>
             <th scope="col"> Appointment Time </th>
             <th scope="col"> Appointment Doctor </th>
         </tr>
@@ -45,7 +44,6 @@ function ViewAppointment(){
             <td>{appointment.appointmentNumber}</td>
             <td>{appointment.firstName}</td>
             <td>{appointment.nic}</td>
-            <td>{appointment.appointmentDate}</td>
             <td>{appointment.appointmentTime}</td>
             <td>{appointment.appointmentDoctor}</td>
         </tr>
