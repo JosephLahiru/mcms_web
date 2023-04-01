@@ -1,0 +1,50 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    /* margin-top: 50px; */
+    background-color:grey;
+    width: 50%;
+    float: left;
+  }
+
+  form {
+    margin: 50px auto;
+    padding: 50px 100px;
+    background: #f4f7f8;
+    border-radius: 20px;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+
+  .form-input input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select{
+    border: none;
+    background-color: #e8eeef;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    height: 50px;
+    border: none;
+  }
+
+  .input-validation-error {
+    color:red;
+    font-weight: normal;
+  }
+
+  .btn-sm {
+    margin-bottom: 5px;
+    width: 300px;
+}
