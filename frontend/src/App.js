@@ -4,6 +4,8 @@ import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import AddAppointment from './components/AddAppointment.js';
 import ViewAppointment from './components/ViewAppointment.js' ;
+import UpdateAppointment from './components/UpdateAppointment.js' ;
+import PatientHistory from './components/PatientHistory.js' ;
 import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
@@ -21,6 +23,8 @@ function App() {
         <Route path='login' element={<Login/>}/>
         <Route path='add_appoinment' element={<AddAppointment/>}/>
         <Route path='view_appointment' element={<ViewAppointment/>}/>
+        <Route path='update_appointment' element={<UpdateAppointment/>}/>
+        <Route path='patient_history' element={<PatientHistory/>}/>
         <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='update_stock' element={<UpdateStock/>}/>
