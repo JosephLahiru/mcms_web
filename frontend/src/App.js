@@ -15,6 +15,7 @@ import RetrievePatients from './components/RetrievePatients';
 import UpdateStock from './components/UpdateStock.js';
 import ViewStock from './components/ViewStock.js';
 import UpdatePatient from './components/UpdatePatient.js';
+import UserProfile from './components/UserProfile.js';
 
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
         <Route path='history' element={<History/>}/>
         <Route path='retrieve_patients' element={<RetrievePatients/>}/>
         <Route path='view_stock' element={<ViewStock/>}/>
-        <Route path='update_patient' element={<UpdatePatient/>}/> 
+        <Route path='update_patient' element={<UpdatePatient/>}/>
+        <Route path='user_profile' element={<UserProfile/>}/>
      </Routes>
   );
 }
