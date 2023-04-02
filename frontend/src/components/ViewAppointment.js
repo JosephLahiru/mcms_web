@@ -1,10 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+
 function ViewAppointment() {
 
   const [appointment, ViewAppointment] = useState([]);
   const [filterDate, setFilterDate] = useState("");
+
+  
 
     useEffect(() => {
         async function fetchAppointment() {
@@ -26,7 +29,7 @@ function ViewAppointment() {
           <label htmlFor="dateFilter">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
-        <h5>The Universal Physician Doctor</h5>
+        <label htmlFor="dateFilter">The Universal Physician Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
@@ -56,11 +59,13 @@ function ViewAppointment() {
               <td>{appointment.email}</td>
               <td>{appointment.appointmentType}</td>
               <td>{appointment.appointmentTime}</td>
-            </tr>
+            </tr> 
             )}
           </tbody>
         </table>
-      </div><h5>Pediatrician</h5><table class="table">
+      </div>
+      <label htmlFor="dateFilter">Pediatrician Doctor:</label>
+      <table class="table">
           <thead>
             <tr class="table-dark">
               <th scope="col"> Appoinment Number </th>
@@ -94,8 +99,7 @@ function ViewAppointment() {
           </tbody>
         </table></>
 
-        
-      );
 
-    }
+      );
+      }
 export default ViewAppointment;
