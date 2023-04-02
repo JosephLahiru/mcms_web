@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import './AddAppointment.css';
-import './../App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import './../css/Style.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+
 
 function AddAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -20,73 +19,61 @@ function AddAppointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
-  
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
-  const setAppointment = async (appointmentData) => {
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !email && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
+      toast.error('Please fill all the fields...', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    if (!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber) {
+      setError(true);
+    }
+
     try {
       const response = await fetch('http://158.101.10.103/set_appointment', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(appointmentData)
+        body: JSON.stringify({
+          app_num: appointmentNumber,
+          first_name: firstName,
+          last_name: lastName,
+          nic: nic,
+          address: address,
+          age: age,
+          gender: gender,
+          contact_num: contactNumber,
+          email: email,
+          p_type: appointmentType,
+          cd_id: appointmentDoctor,
+          app_date: appointmentDate,
+          app_time: appointmentTime,
+        }),
       });
-  
+
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
+        throw new Error('Failed to send attendance details');
       }
-  
-      const responseData = await response.json();
-      console.log(responseData.message); // handle success message
+
+      alert('Attendance details sent successfully');
+      handleReset();
     } catch (error) {
-      console.error(error); // handle error
-    }
-  };
-  
-
-  function handleSubmit(event) {
-
-    event.preventDefault();
-
-    if(appointmentNumber.length==0 || firstName.length==0 ){
-          setError(true);
+      console.error(error);
+      alert('Failed to send attendance details');
     }
 
-
-
-    if(!appointmentNumber || !firstName || !lastName || !address || !age || !gender || !nic || !email || !contactNumber  || !appointmentType || !appointmentDoctor|| !appointmentDate || !appointmentTime) {
-          toast.error('Please fill all the fields...', {
-          position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-
-    }
-    
-    else{
-      console.log("Setting Appoinment");
-      const appointmentData = {
-        first_name: firstName,
-        last_name: lastName,
-        nic: nic,
-        address: address,
-        age: age,
-        gender: gender,
-        contact_num: contactNumber,
-        email: email,
-        p_type: appointmentType,
-        cd_id: appointmentDoctor,
-        app_date: appointmentDate,
-        app_time: appointmentTime,
-      };
-      
-      setAppointment(appointmentData);
-      
-    }
   }
+
 
   
   const handleReset = () => {
@@ -251,8 +238,8 @@ function AddAppointment() {
         </select>
         </div>
        <br />
-          {error&&appointmentTime.length<=0?
-          <label className='input-validation-error'><center>Please select at least one Appointment Time.</center></label>:""}
+        {error&&appointmentTime.length<=0?
+        <label className='input-validation-error'><center>Please select at least one Appointment Time.</center></label>:""}
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>View Appointment</button>
