@@ -39,7 +39,7 @@ function AddAppointment() {
     }
 
     try {
-      const response = await fetch('http://158.101.10.103/set_appointment', {
+      const response = await fetch('http://158.101.10.103/add_appointment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
