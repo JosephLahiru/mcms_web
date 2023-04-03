@@ -1,16 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function RetrieveAttendance() {
+function ViewAttendance() {
     
-    const [attendance, RetrieveAttendance] = useState([]);
+    const [attendance, ViewAttendance] = useState([]);
     const [filterDate, setFilterDate] = useState("");
 
     useEffect(() => {
         async function fetchAttendance() {
             const response = await fetch("http://158.101.10.103/get_attendance");
             const data = await response.json();
-            RetrieveAttendance(data);
+            ViewAttendance(data);
         }
         fetchAttendance();
     }, [filterDate]);
@@ -50,4 +50,4 @@ function RetrieveAttendance() {
   );
 }
 
-export default RetrieveAttendance;
+export default ViewAttendance;
