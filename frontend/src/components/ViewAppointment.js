@@ -11,7 +11,7 @@ function ViewAppointment() {
 
     useEffect(() => {
         async function fetchAppointment() {
-            const response = await fetch("http://158.101.10.103/add_appointment");
+            const response = await fetch("http://158.101.10.103/get_appointment");
             const data = await response.json();
             ViewAppointment(data);
         }
