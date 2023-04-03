@@ -14,6 +14,7 @@ import GetAttendance from './components/GetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
 import History from './components/History';
 import RetrievePatients from './components/RetrievePatients';
+import ViewAttendance from './components/ViewAttendance';
 import UpdateStock from './components/UpdateStock.js';
 import ViewStock from './components/ViewStock.js';
 import UpdatePatient from './components/UpdatePatient.js';
@@ -25,7 +26,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
         <Route path='login' element={<Login/>}/>
-        <Route path='add_appoinment' element={<AddAppointment/>}/>
+        <Route path='add_appointment' element={<AddAppointment/>}/>
         <Route path='view_appointment' element={<ViewAppointment/>}/>
         <Route path='update_appointment' element={<UpdateAppointment/>}/>
         <Route path='patient_history' element={<PatientHistory/>}/>
@@ -36,6 +37,7 @@ function App() {
         <Route path='retrieve_attendance' element={<RetrieveAttendance/>}/>
         <Route path='history' element={<History/>}/>
         <Route path='retrieve_patients' element={<RetrievePatients/>}/>
+        <Route path='view_attendance' element={<ViewAttendance/>}/>
         <Route path='view_stock' element={<ViewStock/>}/>
         <Route path='update_patient' element={<UpdatePatient/>}/>
         <Route path='user_profile' element={<UserProfile/>}/>
