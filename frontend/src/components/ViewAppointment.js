@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function ViewAppointment() {
 
   const [appointment, ViewAppointment] = useState([]);
-  const [filterDate, setFilterDate] = useState("");
+  const [filterDate, setFilterDate] = useState("");  
 
   
 
