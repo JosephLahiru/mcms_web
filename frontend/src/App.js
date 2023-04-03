@@ -2,8 +2,8 @@ import React from 'react';
 
 
 import {Routes, Route} from 'react-router-dom';
-import AddAppointment from './components/AddAppointment.js';
-import ViewAppointment from './components/ViewAppointment.js' ;
+
+import ViewAppointment from './components/ViewAppointment' ;
 import UpdateAppointment from './components/UpdateAppointment.js' ;
 import PatientHistory from './components/PatientHistory.js' ;
 import {Login} from "./components/Login";
@@ -14,6 +14,7 @@ import GetAttendance from './components/GetAttendance.js';
 import RetrieveAttendance from './components/RetrieveAttendance';
 import UpdateStock from './components/UpdateStock.js';
 import ViewStock from './components/ViewStock.js';
+import AddAppointment from './components/AddAppoinment';
 
 
 function App() {
