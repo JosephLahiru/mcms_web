@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './../css/Style.css';
+import ViewAttendance from './ViewAttendance.js';
 
 function GetAttendance() {
   const [assistantId, setAssistantId] = useState('');
@@ -19,7 +20,7 @@ function GetAttendance() {
       return;
     }
 
-    if(!assistantId || !date ){
+    if(!assistantId || !date || !attendanceStatus) {
       setError(true);
     }
 
@@ -60,10 +61,10 @@ function GetAttendance() {
   return (
     <div className='main-container1'>
       <div className="form-container">
-    <form className='form2' onSubmit={handleSubmit}>
-        <div className="form-label">
-          <label className="label1">Assistant ID</label>
-        </div>
+        <form className='form2' onSubmit={handleSubmit}>
+          <div className="form-label">
+            <label className="label1">Assistant ID</label>
+          </div>
         <div className="form-input">
           <input type="text" class="form-control form-control-sm" value={assistantId} onChange={(event) => setAssistantId(event.target.value)} />
         </div>
@@ -94,6 +95,9 @@ function GetAttendance() {
         <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
     </form>
     <ToastContainer />
+    </div>
+    <div className='table-container'>
+      <ViewAttendance/>
     </div>
     </div>
     
