@@ -1,19 +1,44 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import './RegistrationForm.css';
+import { ToastContainer, toast } from 'react-toastify';
 
-export default function RegistrationForm() {
+function RegistrationForm() {
 
-  const [patientType, setPatientType] = useState('');
+  const [patientId, setPatientId] = useState('');
   const [date, setDate] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nicNumber, setNicNumber] = useState('');
   const [gender, setGender] = useState('');
   const [address, setAddress] = useState('');
-  const [telephoneNumber, setTelephoneNumber] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
 
-  function handlePatientTypeChange(event){
-    setPatientType(event.target.value);
+  const [error, setError] = useState(false);
+
+  const setRegistration = async (patientData) => {
+    try {
+      const response = await fetch('/set_registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(patientData)
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+  
+      const responseData = await response.json();
+      console.log(responseData.message); // handle success message
+    } catch (error) {
+      console.error(error); // handle error
+    }
+  };
+
+  function handlePatientIdChange(event){
+    setPatientId(event.target.value);
   }
 
   function handleDateChange(event){
@@ -29,7 +54,13 @@ export default function RegistrationForm() {
   }
 
   function handleNicNumberChange(event) {
-    setNicNumber(event.target.value);
+    const value = event.target.value;
+    if (/^\d{9}[vV]?$/.test(value)) {
+      setNicNumber(value.toUpperCase());
+    } else {
+      setNicNumber("");
+    }
+  
   }
 
   function handleGenderChange(event) {
@@ -38,111 +69,153 @@ export default function RegistrationForm() {
 
   function handleAddressChange(event) {
     setAddress(event.target.value);
+  if (!address.trim()) {
+    alert("Please enter your address.");
+    return;
   }
+}
+  
 
-  function handleTelephoneNumberChange(event) {
-    setTelephoneNumber(event.target.value);
+  function handleContactNumberChange(event) {
+    const value = event.target.value;
+    if (/^\d{10}$/.test(value)) {
+      setContactNumber(value);
+    } else {
+      setContactNumber("");
+    }
+  
   }
 
  
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('PatientType:', patientType);
-    console.log('Date:', date);
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('NIC Number:', nicNumber);
-    console.log('Gender:', gender);
-    console.log('Address:', address);
-    console.log('Telephone Number:', telephoneNumber);
-    // You can add code here to submit the form data to a server or perform other actions
-  }
+    if(patientId.length == 0 || firstName.length == 0 ){
+      setError(true);
+}
 
-  function handleCancel(event) {
+if(!patientId || !firstName || !lastName || !address || !date || !gender || !nicNumber ||  !contactNumber) {
+      toast.error('Please fill all the fields...', {
+      position: toast.POSITION.TOP_RIGHT
+  });
+  return;
+}else{
+    console.log("Setting Registration");
+    const patientData = {
+    PatientId: patientId,
+    Date: date,
+    First_Name: firstName,
+    Last_Name: lastName,
+    NIC_Number: nicNumber,
+    Gender: gender,
+    Address: address,
+    Contact_Number: contactNumber,
+    // You can add code here to submit the form data to a server or perform other actions
+  };
+
+  setRegistration(patientData);
+}
+
+}
+
+  function handleReset(event) {
     event.preventDefault(); // prevent the default form submission behavior
-    setPatientType('');
+    setPatientId('');
     setDate('');
     setFirstName('');
     setLastName('');
     setNicNumber('');
     setGender('');
     setAddress('');
-    setTelephoneNumber('');
+    setContactNumber('');
   }
   
 
   return (
     <div className='container'>
-    <form onSubmit={handleSubmit} className='form-check'>
+    <form onSubmit={handleSubmit}>
 
-    <div className='row'>
-        <div className='col'>
-            <label>Patient ID:
-                <input type="number" value={date} onChange={handleDateChange} className='form-control' />
-            </label></div>
-        <div className='col'>
-            <label>Appointment Date:
-                <input type="date" value={nicNumber} onChange={handleNicNumberChange} className='form-control' />
-            </label></div></div><br />
+    <div className='lable'>
+         <label>Patient Id:</label>
+    </div>
+        <div className='input'>      
+          <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
+        </div>
 
-      <div className='row'>
-        <div className='col'>
-            <label>NIC Number:
-                <input type="text" value={date} onChange={handleDateChange} className='form-control' />
-            </label></div>
-        <div className='col'>
-            <label>Patient Type:
-            <select value={patientType} onChange={handlePatientTypeChange} className='form-control'>
-                <option value="">Select Patient Type</option>
-                <option value="Type 1">Type 1</option>
-                <option value="Type 2">Type 2</option>
-                <option value="Type 3">Type 3</option>
-                </select>
-            </label></div></div><br />
+        <div className='lable'>
+            <label>Appointment Date:</label>
+            </div>
+              <div className='input'>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
+              </div>
 
-      <div className='row'>
-        <div className='col'>
-            <label>First Name:
-                <input type="text" value={firstName} onChange={handleFirstNameChange} className='form-control' />
-            </label></div>
-        <div className='col'>
-            <label>Last Name:
-                <input type="text" value={lastName} onChange={handleLastNameChange} className='form-control'/>
-            </label></div></div><br/>
-        
-        <div className='row'>
-            <div className='col'>    
-            <label>Address:
-        <input type="address" value={address} onChange={handleAddressChange} className='form-control1' />
-      </label></div></div><br />
-      
+        <div className='lable'>
+            <label>First Name:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/>
+                </div>
+                {error&&firstName.length<=0?
+                  <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
+
+        <div className='lable'>
+            <label>Last Name:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/>
+                </div>
+                {error&&lastName.length<=0?
+                    <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
+
+        <div className='lable'>
+            <label>NIC Number:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/>
+                </div>
+                {error&&nicNumber.length<=0?
+                  <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
+
+        <div className='lable'>
+            <label>Gender:</label>
+            </div>
+            <div className='input'>
+              <input type="radio" value={gender} checked={gender === "Male"} onChange={handleGenderChange}>Male</input>
+              <input type="radio" value={gender} checked={gender === "Female"} onChange={handleGenderChange}>Female</input>
+            </div>
+            {error&&gender.length<=0?
+                <label class='input-validation-error'><center>Gender field is required</center></label>:""}
+
+        <div className='lable'>
+            <label>Address:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/>
+              </div>
+              {error&&address.length<=0?
+                <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
+
+        <div className='lable'>
+            <label>contact Number:</label>
+            </div>
+              <div className='input'>
+                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/>
+              </div>
+              {error&&contactNumber.length<=0?
+                <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
 
 
-
-      <div className='row'>
-        <div className='col'>
-            <label>Gender:
-                <select value={gender} onChange={handleGenderChange} className='form-control'>
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-                </select>
-            </label></div>
-        <div className='col'>
-            <label>Telephone Number:
-                <input type="tel" value={telephoneNumber} onChange={handleTelephoneNumberChange} className='form-control'/>
-              </label></div></div><br /><br/>
-
-
-      <div><button type="button" onClick={handleCancel}>Cancel</button>
-      <button type="button" onClick={handleSubmit}>Submit</button></div>
-
+      <div>
+        <button type="button"  onClick={handleReset}>Reset</button>
+        <button type="button"  onClick={handleSubmit}>Submit</button>
+      </div>
     </form>
+    <ToastContainer />
     </div>
   );
 }
+
+export default RegistrationForm;
 
   
 
