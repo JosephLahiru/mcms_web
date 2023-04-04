@@ -1,8 +1,6 @@
-import './UpdateAppointment.css';
-import './../App.css';
-import React from "react";
 import { useEffect, useState } from "react";
 import './main.css';
+import React from "react";
 
 function UpdateAppointment() {
 
