@@ -131,8 +131,10 @@ function AddStock() {
           <label className="label1">Description</label>
           <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
         </div>
-      <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-      <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        <div className="form-button">
+          <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
+          <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        </div>
       </form>
     <ToastContainer />
     </div>

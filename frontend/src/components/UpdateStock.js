@@ -68,8 +68,10 @@ function UpdateStock() {
         </div>
         {error&&sellingprice.length<=0?
         <label className='input-validation-error'>Drug Selling price can't be Empty</label>:""}
+        <div className="form-button">
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-      <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        </div>
        </form>
        <ToastContainer />
     </div>
