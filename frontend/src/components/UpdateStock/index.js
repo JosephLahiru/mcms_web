@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './../../css/Style.css';
-import ViewStock from "../ViewStock.js";
+import ViewStock from "../ViewStock/index.js";
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");

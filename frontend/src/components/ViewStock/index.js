@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './../css/Style.css';
+import './../../css/Style.css';
 
 function ViewStock() {
   const [stock, setStock] = useState([]);
