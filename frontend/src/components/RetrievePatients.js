@@ -45,4 +45,4 @@ return (
   )
 }
 
-export default RetrievePatients();
+export default RetrievePatients;

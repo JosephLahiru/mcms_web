@@ -44,8 +44,8 @@ function ViewStock() {
     <div className="div1">
       <h1>View Stock</h1>
       <div className="filter">
-        <label htmlFor="drugSearch">Search by Drug Name</label>
-        <input type="text" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        {/* <label htmlFor="drugSearch">Search by Drug Name</label> */}
+        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
       </div>
       <table className="table">
         <thead>
