@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
 // import './../App.css';
 import React from "react";
->>>>>>> f4e1fad3fd2897b1c32fdbce157a1c3e38f3c193
 import { useEffect, useState } from "react";
 import './main.css';
-import React from "react";
+
 
 
 function UpdateAppointment() {

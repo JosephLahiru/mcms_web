@@ -2,7 +2,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import React, { useState } from 'react';
 // import './../App.css';
 
 import './main.css';
