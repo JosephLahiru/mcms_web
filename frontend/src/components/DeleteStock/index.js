@@ -47,6 +47,7 @@ function DeleteStock() {
             </div>
             {error && drugId.length <= 0 ?
             <label className='input-validation-error'>Drug ID can't be Empty</label> : ""}
+            
           </form>
           </div>
         </div>

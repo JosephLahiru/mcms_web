@@ -13,13 +13,12 @@ import GetAttendance from './components/GetAttendance.js';
 import History from './components/History';
 import RetrievePatients from './components/RetrievePatients';
 import ViewAttendance from './components/ViewAttendance';
-import UpdateStock from './components/UpdateStock.js';
+import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock.js';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile.js';
 import DeleteStock from './components/DeleteStock';
-
 
 
 function App() {
