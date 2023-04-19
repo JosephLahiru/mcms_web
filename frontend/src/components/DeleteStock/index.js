@@ -31,6 +31,12 @@ function DeleteStock() {
       });
     }
 
+    
+  const handleReset = () => {
+    setDrugId("");
+    setError(false);
+  };
+
     return (
         <div className="main-container1">
           
