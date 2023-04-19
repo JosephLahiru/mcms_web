@@ -8,8 +8,6 @@ function UpdateAppointment() {
   const [appointment, UpdateAppointment] = useState([]);
   const [filterDate, setFilterDate] = useState("");
 
-  
-
     useEffect(() => {
         async function fetchAppointment() {
             const response = await fetch("http://158.101.10.103/add_appointment");
@@ -22,7 +20,6 @@ function UpdateAppointment() {
     const handleFilterDateChange = (event) => { 
       setFilterDate(event.target.value);
   };
-
 
     return (
         <div>
@@ -68,8 +65,6 @@ function UpdateAppointment() {
           </tbody>
         </table>
         </div>
-
-          
     );
  
     }
