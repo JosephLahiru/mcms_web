@@ -7,7 +7,6 @@ function DeleteStock() {
   
     function handleSubmit(event) {
       event.preventDefault();
-  
       console.log("Drug ID:", drugId);
   
       if(!drugId){
@@ -27,7 +26,6 @@ function DeleteStock() {
       setDrugId("");
       setError(false);
   
-      // Show success toast
       toast.success('Drug deleted successfully!', {
         position: toast.POSITION.TOP_RIGHT
       });
