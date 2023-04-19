@@ -34,6 +34,7 @@ function App() {
         <Route path='registration' element={<RegistrationForm/>}/>
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='update_stock' element={<UpdateStock/>}/>
+        <Route path='delete_stock' element={<DeleteStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='view_attendance' element={<ViewAttendance/>}/>
         <Route path='history' element={<History/>}/>
