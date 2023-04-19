@@ -1,5 +1,4 @@
-import './UpdateAppointment.css';
-import './../App.css';
+// import './../App.css';
 import React from "react";
 import { useEffect, useState } from "react";
 import './main.css';
@@ -8,8 +7,6 @@ function UpdateAppointment() {
 
   const [appointment, UpdateAppointment] = useState([]);
   const [filterDate, setFilterDate] = useState("");
-
-  
 
     useEffect(() => {
         async function fetchAppointment() {
@@ -23,7 +20,6 @@ function UpdateAppointment() {
     const handleFilterDateChange = (event) => { 
       setFilterDate(event.target.value);
   };
-
 
     return (
         <div>
@@ -69,8 +65,6 @@ function UpdateAppointment() {
           </tbody>
         </table>
         </div>
-
-          
     );
  
     }
