@@ -64,7 +64,7 @@ function AddAppointment() {
         throw new Error('Failed to send attendance details');
       }
 
-      alert('Attendance details sent successfully');
+      alert('Appointment details sent successfully');
       handleReset();
     } catch (error) {
       console.error(error);
@@ -73,8 +73,6 @@ function AddAppointment() {
 
   }
 
-
-  
   const handleReset = () => {
      setAppointmentNumber(""); 
      setFirstName(""); 
