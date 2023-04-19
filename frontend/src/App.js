@@ -3,7 +3,7 @@ import React from 'react';
 
 import {Routes, Route} from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment' ;
-import UpdateAppointment from './components/UpdateAppointment.js' ;
+import UpdateAppointment from './components/UpdateAppointment' ;
 import PatientHistory from './components/PatientHistory' ;
 import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
@@ -18,6 +18,7 @@ import ViewStock from './components/ViewStock.js';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile.js';
+import DeleteStock from './components/DeleteStock';
 
 
 
