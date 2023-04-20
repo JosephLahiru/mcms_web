@@ -1,9 +1,6 @@
-
 import React from "react";
 import { useEffect, useState } from "react";
-
 // import './../App.css';
-
 import './main.css';
 
 
@@ -30,6 +27,7 @@ return (
           <thead>
             <tr class="table-dark">
               <th scope="col"> Appoinment Number </th>
+              <th scope="col"> NIC </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> Appointment Doctor </th>
@@ -41,6 +39,7 @@ return (
           <tbody>
             {appointment.map((appointment) => <tr key={appointment.appointmentNumber}>
               <td>{appointment.appointmentNumber}</td>
+              <td>{appointment.nic}</td>
               <td>{appointment.firstName}</td>
               <td>{appointment.lastName}</td>
               <td>{appointment.appointmentDoctor}</td>
