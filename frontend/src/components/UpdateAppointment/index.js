@@ -30,7 +30,6 @@ function UpdateAppointment() {
           <label htmlFor="dateFilter">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
-        <label htmlFor="dateFilter">The Universal Physician Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
