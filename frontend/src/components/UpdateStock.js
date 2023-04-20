@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './../css/Style.css';
+import ViewStock from "./ViewStock.js";
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");
@@ -40,36 +41,43 @@ function UpdateStock() {
   };
 
   return (
-    <div className="form-container">
-       <form onSubmit={handleSubmit}>
-        <label>Drug ID:</label>
+    <div className="main-container1">
+      <div className="form-container">
+       <form className="form2" onSubmit={handleSubmit}>
+        <label className="label1">Drug ID:</label>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
+          <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
         </div>
         {error&&drugId.length<=0?
-        <label class='input-validation-error'>Drug ID can't be Empty</label>:""}
-        <label>Drug name:</label>
+        <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
+        <label className="label1">Drug name:</label>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
+          <input type="text" className="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
         </div>
         {error&&drugname.length<=0?
-        <label class='input-validation-error'>Drug Name can't be Empty</label>:""}
-        <label>Unit price:</label>
+        <label className='input-validation-error'>Drug Name can't be Empty</label>:""}
+        <label className="label1">Unit price:</label>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
+          <input type="text" className="form-control form-control-sm text-right" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
         </div>
         {error&&unitprice.length<=0?
-        <label class='input-validation-error'>Drug unit price can't be Empty</label>:""}
-        <label>Selling price:</label>
+        <label className='input-validation-error'>Drug unit price can't be Empty</label>:""}
+        <label className="label1">Selling price:</label>
         <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
+          <input type="text" className="form-control form-control-sm text-right" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
         </div>
         {error&&sellingprice.length<=0?
-        <label class='input-validation-error'>Drug Selling price can't be Empty</label>:""}
-        <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-      <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        <label className='input-validation-error'>Drug Selling price can't be Empty</label>:""}
+        <div className="form-button">
+        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
+        <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        </div>
        </form>
        <ToastContainer />
+    </div>
+    <div className="table-container">
+      <ViewStock/>
+    </div>
     </div>
   );
 }

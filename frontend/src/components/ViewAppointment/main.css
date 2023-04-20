@@ -1,8 +1,8 @@
-
-body
+/* body
 {
 	background-color:#5fcf80;
 }
+
 #body_header
 {
 
@@ -11,6 +11,7 @@ body
 	text-align:center;
 	font-size:25px;
 }
+
 form {
   max-width: 1500px;
   margin: 50px auto;
@@ -42,12 +43,13 @@ select {
   height: auto;
   margin: auto;
   outline: 0;
+  padding: 8px;
   width: 100%;
   background-color: #e8eeef;
   color: black;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
   margin-bottom: 30px;
-} 
+}
 
 input[type="radio"],
 input[type="checkbox"]
@@ -114,6 +116,5 @@ label.light {
 
 
   form {
-    max-width: 500px;
-  }
-
+    max-width: 480px;
+  } */

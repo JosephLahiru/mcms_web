@@ -5,6 +5,7 @@ function ViewStock() {
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     async function fetchStock() {
@@ -27,12 +28,24 @@ function ViewStock() {
     setSearchTerm(event.target.value);
   };
 
+  const handleNextPage = () => {
+    setPage(page + 1);
+  };
+
+  const handlePrevPage = () => {
+    setPage(page - 1);
+  };
+
+  const rowsPerPage = 10;
+  const start = page * rowsPerPage;
+  const end = start + rowsPerPage;
+
   return (
     <div className="div1">
-      <h1>Stock</h1>
+      <h1>View Stock</h1>
       <div className="filter">
-        <label htmlFor="drugSearch">Search by Drug Name:</label>
-        <input type="text" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        {/* <label htmlFor="drugSearch">Search by Drug Name</label> */}
+        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
       </div>
       <table className="table">
         <thead>
@@ -53,7 +66,7 @@ function ViewStock() {
           </tr>
         </thead>
         <tbody>
-          {filteredStock.map((item) => (
+          {filteredStock.slice(start, end).map((item) => (
             <tr key={item.prdct_id}>
               <td>{item.prdct_id}</td>
               <td>{item.prdct_name}</td>
@@ -72,6 +85,10 @@ function ViewStock() {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
+      </div>
     </div>
   );
 }
