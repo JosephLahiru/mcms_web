@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './../../css/Style.css';
+import ViewStock from "../ViewStock/index.js";
 
 function DeleteStock() {
   const [drugId, setDrugId] = useState("");
@@ -49,8 +50,15 @@ function DeleteStock() {
             </div>
             {error && drugId.length <= 0 ?
             <label className='input-validation-error'>Drug ID can't be Empty</label> : ""}
-            
+            <div className="form-button">
+              <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
+              <button className="btn btn-primary btn-sm" type="submit">Delete</button>
+          </div>
           </form>
+          <ToastContainer />
+          </div>
+          <div className="table-container">
+            <ViewStock/>
           </div>
         </div>
       );

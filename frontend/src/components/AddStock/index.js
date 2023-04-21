@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './../../css/Style.css';
+import './main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,37 +68,37 @@ function AddStock() {
       <div className="form-container">
         <h1>Add Stock</h1>
         <form id="form1" onSubmit={handleSubmit}>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Drug ID:</label>
           <input type="text" class="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
         {error&&drugId.length<=0?
         <label class='input-validation-error'>Drug ID can't be empty</label>:""}
         </div>
-         <div className="form-input1">
+         <div className="form-input">
           <label className="label1">Purchased Date</label>
           <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Drug name:</label>
           <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
         {error&&drugname.length<=0?
         <label class='input-validation-error'>Drug Name can't be empty</label>:""}
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Manufacture Date</label>
           <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Brand name:</label> 
           <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Expire Date</label>
           <input type="date" class="form-control form-control-sm" value={ExpireDate} onChange={(event) => setExpireDate(event.target.value)} required/>
         {error&&ExpireDate.length<=0?
         <label class='input-validation-error'>Drug Expire date can't be empty</label>:""}
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Drug type</label>
           <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
             <option value="" disabled selected>Select an option</option>
@@ -109,25 +109,25 @@ function AddStock() {
             <option value="Injections">Injections</option>
           </select>
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Unit price:</label>
           <input type="text" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
         {error&&unitprice.length<=0?
         <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Quantity:</label>
           <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
         {error&&quantity.length<=0?
         <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Selling price:</label>
           <input type="text" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
         {error&&sellingprice.length<=0?
         <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
         </div>
-        <div className="form-input1">
+        <div className="form-input">
           <label className="label1">Description</label>
           <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
         </div>

@@ -61,8 +61,8 @@ function ViewStock() {
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
             <th scope="col">Total Quantity</th>
-            <th scope="col">Total Ac Price</th>
-            <th scope="col">Total Sell Price</th>
+            {/* <th scope="col">Total Ac Price</th>
+            <th scope="col">Total Sell Price</th> */}
           </tr>
         </thead>
         <tbody>
@@ -79,8 +79,8 @@ function ViewStock() {
               <td>{item.mfg_date}</td>
               <td>{item.exp_date}</td>
               <td>{item.total_quantity}</td>
-              <td>{item.total_quantity_ac_price}</td>
-              <td>{item.total_quantity_sell_price}</td>
+              {/* <td>{item.total_quantity_ac_price}</td>
+              <td>{item.total_quantity_sell_price}</td> */}
             </tr>
           ))}
         </tbody>
