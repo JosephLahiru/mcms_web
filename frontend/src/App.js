@@ -8,18 +8,17 @@ import PatientHistory from './components/PatientHistory' ;
 import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
-import AddStock from './components/AddStock.js';
-import GetAttendance from './components/GetAttendance.js';
+import AddStock from './components/AddStock';
+import GetAttendance from './components/GetAttendance';
 import History from './components/History';
 import RetrievePatients from './components/RetrievePatients';
 import ViewAttendance from './components/ViewAttendance';
-import UpdateStock from './components/UpdateStock.js';
-import ViewStock from './components/ViewStock.js';
+import UpdateStock from './components/UpdateStock';
+import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile.js';
 import DeleteStock from './components/DeleteStock';
-
 
 
 function App() {

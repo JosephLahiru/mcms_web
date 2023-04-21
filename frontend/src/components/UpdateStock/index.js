@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import './../css/Style.css';
-import ViewStock from "./ViewStock.js";
+import './main.css';
+import ViewStock from "../ViewStock/index.js";
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");
@@ -43,7 +43,7 @@ function UpdateStock() {
   return (
     <div className="main-container1">
       <div className="form-container">
-       <form className="form2" onSubmit={handleSubmit}>
+       <form className="form" onSubmit={handleSubmit}>
         <label className="label1">Drug ID:</label>
         <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
@@ -58,13 +58,13 @@ function UpdateStock() {
         <label className='input-validation-error'>Drug Name can't be Empty</label>:""}
         <label className="label1">Unit price:</label>
         <div className="form-input">
-          <input type="text" className="form-control form-control-sm text-right" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
+          <input type="text" className="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
         </div>
         {error&&unitprice.length<=0?
         <label className='input-validation-error'>Drug unit price can't be Empty</label>:""}
         <label className="label1">Selling price:</label>
         <div className="form-input">
-          <input type="text" className="form-control form-control-sm text-right" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
+          <input type="text" className="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
         </div>
         {error&&sellingprice.length<=0?
         <label className='input-validation-error'>Drug Selling price can't be Empty</label>:""}
