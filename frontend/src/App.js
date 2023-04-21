@@ -9,7 +9,7 @@ import {Login} from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import AddStock from './components/AddStock';
-import GetAttendance from './components/GetAttendance.js';
+import GetAttendance from './components/GetAttendance';
 import History from './components/History';
 import RetrievePatients from './components/RetrievePatients';
 import ViewAttendance from './components/ViewAttendance';
