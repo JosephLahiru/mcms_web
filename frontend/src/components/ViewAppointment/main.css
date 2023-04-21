@@ -1,8 +1,8 @@
-
-body
+/* body
 {
 	background-color:#5fcf80;
 }
+
 #body_header
 {
 
@@ -11,6 +11,7 @@ body
 	text-align:center;
 	font-size:25px;
 }
+
 form {
   max-width: 1500px;
   margin: 50px auto;
@@ -116,5 +117,4 @@ label.light {
 
   form {
     max-width: 480px;
-  }
-
+  } */
