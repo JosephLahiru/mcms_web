@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './../../css/Style.css';
+import './main.css';
 
 function ViewStock() {
   const [stock, setStock] = useState([]);
@@ -60,7 +60,6 @@ function ViewStock() {
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
-            <th scope="col">Total Quantity</th>
             {/* <th scope="col">Total Ac Price</th>
             <th scope="col">Total Sell Price</th> */}
           </tr>
@@ -75,10 +74,9 @@ function ViewStock() {
               <td>{item.description}</td>
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
-              <td>{item.quantity}</td>
+              <td>{item.total_quantity}</td>
               <td>{item.mfg_date}</td>
               <td>{item.exp_date}</td>
-              <td>{item.total_quantity}</td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
             </tr>
