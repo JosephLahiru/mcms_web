@@ -1,14 +1,15 @@
 // import './../App.css';
 import React from "react";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './main.css';
-
+import ViewAttendance from "../ViewAttendance/index.js";
 
 
 function UpdateAppointment() {
 
-  const [appointment, UpdateAppointment] = useState([]);
-  const [filterDate, setFilterDate] = useState("");
+  
 
     useEffect(() => {
         async function fetchAppointment() {
