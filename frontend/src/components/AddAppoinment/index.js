@@ -53,7 +53,7 @@ function AddAppointment() {
           gender: gender,
           contact_num: contactNumber,
           email: email,
-          p_type: appointmentType,
+          app_type: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
           app_time: appointmentTime,
