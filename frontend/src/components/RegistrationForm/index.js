@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import './RegistrationForm.css';
+import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegistrationForm() {
 
@@ -90,7 +91,7 @@ function RegistrationForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    if(patientId.length == 0 || firstName.length == 0 ){
+    if(patientId.length = 0 || firstName.length == 0 ){
       setError(true);
 }
 
