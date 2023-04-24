@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './../css/Style.css';
+import './main.css';
 
 function ViewStock() {
   const [stock, setStock] = useState([]);
@@ -44,8 +44,8 @@ function ViewStock() {
     <div className="div1">
       <h1>View Stock</h1>
       <div className="filter">
-        <label htmlFor="drugSearch">Search by Drug Name</label>
-        <input type="text" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        {/* <label htmlFor="drugSearch">Search by Drug Name</label> */}
+        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
       </div>
       <table className="table">
         <thead>
@@ -60,9 +60,8 @@ function ViewStock() {
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
-            <th scope="col">Total Quantity</th>
-            <th scope="col">Total Ac Price</th>
-            <th scope="col">Total Sell Price</th>
+            {/* <th scope="col">Total Ac Price</th>
+            <th scope="col">Total Sell Price</th> */}
           </tr>
         </thead>
         <tbody>
@@ -75,12 +74,11 @@ function ViewStock() {
               <td>{item.description}</td>
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
-              <td>{item.quantity}</td>
+              <td>{item.total_quantity}</td>
               <td>{item.mfg_date}</td>
               <td>{item.exp_date}</td>
-              <td>{item.total_quantity}</td>
-              <td>{item.total_quantity_ac_price}</td>
-              <td>{item.total_quantity_sell_price}</td>
+              {/* <td>{item.total_quantity_ac_price}</td>
+              <td>{item.total_quantity_sell_price}</td> */}
             </tr>
           ))}
         </tbody>

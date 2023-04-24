@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './../css/Style.css';
-import ViewAttendance from './ViewAttendance.js';
+import './main.css';
+import ViewAttendance from '../ViewAttendance/index.js';
 
 function GetAttendance() {
   const [assistantId, setAssistantId] = useState('');
+  const [assistantName, setAssistantName] = useState('');
   const [date, setDate] = useState('');
   const [attendanceStatus, setAttendanceStatus] = useState('');
   const [error, setError] = useState(false);
@@ -20,7 +21,7 @@ function GetAttendance() {
       return;
     }
 
-    if(!assistantId || !date || !attendanceStatus) {
+    if(!assistantId || !assistantName || !date || !attendanceStatus) {
       setError(true);
     }
 
@@ -32,6 +33,7 @@ function GetAttendance() {
         },
         body: JSON.stringify({
           assist_id: assistantId,
+          assist_name: assistantName,
           date: date,
           status: attendanceStatus,
         }),
@@ -53,6 +55,7 @@ function GetAttendance() {
 
   const handleReset = () => {
     setAssistantId("");
+    setAssistantName("");
     setDate("");
     setAttendanceStatus("");
     setError(false);
@@ -70,6 +73,14 @@ function GetAttendance() {
         </div>
         {error&&assistantId.length<=0?
         <label class='input-validation-error'>Assistant ID can't be Empty</label>:""}
+        <div className="form-label">
+            <label className="label1">Assistant Name</label>
+          </div>
+          <div className="form-input">
+            <input type="text" className="form-control form-control-sm" value={assistantName} onChange={(event) => setAssistantName(event.target.value)} />
+          </div>
+          {error && assistantName.length <= 0 ?
+            <label className='input-validation-error'>Assistant Name can't be empty</label> : ""}
         <div className="form-label">
           <label className="label1">Date</label>
         </div>
