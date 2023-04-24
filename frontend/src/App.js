@@ -17,7 +17,7 @@ import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
-import UserProfile from './components/UserProfile.js';
+import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
 
 
