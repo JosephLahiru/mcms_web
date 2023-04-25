@@ -1,12 +1,15 @@
 // import './../App.css';
 import React from "react";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './main.css';
+import ViewAttendance from "../ViewAttendance/index.js";
+
 
 function UpdateAppointment() {
 
-  const [appointment, UpdateAppointment] = useState([]);
-  const [filterDate, setFilterDate] = useState("");
+  
 
     useEffect(() => {
         async function fetchAppointment() {
@@ -28,7 +31,6 @@ function UpdateAppointment() {
           <label htmlFor="dateFilter">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
-        <label htmlFor="dateFilter">The Universal Physician Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">

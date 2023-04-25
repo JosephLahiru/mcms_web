@@ -53,7 +53,7 @@ function AddAppointment() {
           gender: gender,
           contact_num: contactNumber,
           email: email,
-          p_type: appointmentType,
+          app_type: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
           app_time: appointmentTime,
@@ -64,7 +64,7 @@ function AddAppointment() {
         throw new Error('Failed to send attendance details');
       }
 
-      alert('Attendance details sent successfully');
+      alert('Appointment details sent successfully');
       handleReset();
     } catch (error) {
       console.error(error);
@@ -73,8 +73,6 @@ function AddAppointment() {
 
   }
 
-
-  
   const handleReset = () => {
      setAppointmentNumber(""); 
      setFirstName(""); 
@@ -125,7 +123,7 @@ function AddAppointment() {
           value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" rows="4" cols="50"></textarea>
         </label>
       </div>
-      <br /><br /><br /><br />
+      <br /><br /><br />
           {error&&address.length<=0?
           <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
         <div className="form-input">
@@ -200,6 +198,7 @@ function AddAppointment() {
           <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
+          <option value="Scan Doctor">Scan Doctor</option>
         </select>
         </div>
         <br />
