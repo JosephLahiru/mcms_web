@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../css/login.css";
-import './../App.css';
+import "./main.css";
+// import './../App.css';
 
 export const Login = () => {
   const [userName, setuserName] = useState('');
