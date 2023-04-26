@@ -19,7 +19,7 @@
 
 .input {
   text-align: left;
-  width: 400px;
+  width: 500px;
   height: 30px;
   padding: 5px;
   border-radius: 5px;
@@ -29,7 +29,7 @@
 
 .input:focus {
   outline: none;
-  border: 1px solid #6c63ff;
+  border: 0px solid #000000;
 }
 
 .f-container {
@@ -78,3 +78,18 @@
   margin-bottom: 8px;
 }
 
+.form-control{
+  width: 500px;
+}
+
+.input1{
+  width: 200px;
+}
+
+.form-button .btn {
+  flex-wrap: none;
+}
+
+.form-button{
+  width: 100px;
+}

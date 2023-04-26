@@ -91,7 +91,7 @@ function RegistrationForm() {
 
  function handleSubmit(event) {
     event.preventDefault();
-    if(patientId.length == 0 || firstName.length == 0 ){
+    if(patientId.length = 0 || firstName.length == 0 ){
       setError(true);
 }
 
