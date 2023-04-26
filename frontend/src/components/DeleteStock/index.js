@@ -57,25 +57,25 @@ function DeleteStock() {
 
   return (
     <div className="main-container1">
-    <div className="form-container">
-    <form className="form2" onSubmit={handleSubmit}>
-      <label className="label1">Drug ID:</label>
-      <div className="form-input">
-          <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
+      <div className="form-container">
+        <form className="form2" onSubmit={handleSubmit}>
+          <label className="label1">Drug ID:</label>
+          <div className="form-input">
+            <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
+          </div>
+          {error && drugId.length <= 0 ?
+          <label className='input-validation-error'>Drug ID can't be Empty</label> : ""}
+          <div className="form-button">
+            <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
+            <button className="btn btn-primary btn-sm" type="submit">Delete</button>
+          </div>
+        </form>
+        <ToastContainer />
       </div>
-      {error && drugId.length <= 0 ?
-      <label className='input-validation-error'>Drug ID can't be Empty</label> : ""}
-      <div className="form-button">
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-        <button className="btn btn-primary btn-sm" type="submit">Delete</button>
+      <div className="table-container">
+        <ViewStock/>
+      </div>
     </div>
-    </form>
-    <ToastContainer />
-    </div>
-    <div className="table-container">
-      <ViewStock/>
-    </div>
-  </div>
   );
 }
 
