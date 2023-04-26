@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './main.css';
 
 function RetrievePatients() {
 
@@ -6,7 +7,7 @@ function RetrievePatients() {
 
     useEffect(() => {
         async function fetchPatients() {
-            const response = await fetch(" ");
+            const response = await fetch("http://158.101.10.103/get_patients");
             const data = await response.json();
             RetrievePatients(data);
         }
@@ -15,8 +16,8 @@ function RetrievePatients() {
 
 return (
     <div className='content'>
-        <h1>patient List</h1>
-      <table border="1">
+        <h1>View Patient List</h1>
+      <table className='t1' border="1">
         <tr>
             <th>Patient Id</th>
             <th>Appointment date</th>
