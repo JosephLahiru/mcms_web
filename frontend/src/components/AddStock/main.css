@@ -33,7 +33,7 @@
     table-layout: fixed;
     border: 1px solid black;
   }
-  
+
   
   #form1 {
     display: flex;
@@ -41,20 +41,18 @@
     justify-content: space-between;
     /* flex-direction: column; */
     margin: 50px 10px;
-    padding: 50px 100px;
+    padding: 50px 80px;
     background: #f4f7f8;
     border-radius: 20px;
-    
   }
   
-  
-  .form-input {
+  .form-input1 {
     margin-bottom: 20px;
     width: 50%;
     width: calc(100% /2 - 10px);
   }
   
-  .form-input:nth-child(11) {
+  .form-input1:nth-child(11) {
     flex-basis: 100%; /* full width of the available space */
   }
   
@@ -65,11 +63,11 @@
     margin-bottom: 8px;
   }
   
-  .form-input input[type="text"],
-  .form-input input[type="number"],
-  .form-input input[type="date"],
-  .form-input textarea,
-  .form-input select {
+  .form-input1 input[type="text"],
+  .form-input1 input[type="number"],
+  .form-input1 input[type="date"],
+  .form-input1 textarea,
+  .form-input1 select {
     border: none;
     background-color: #e8eeef;
     width: 100%;
@@ -89,7 +87,6 @@
   }
   
   /* Set up submit button styles */
-  
-  .form-button .btn{
-    margin-right: 10px;
+  .form-button .btn {
+    flex-wrap: none;
   }

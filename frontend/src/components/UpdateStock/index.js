@@ -43,6 +43,7 @@ function UpdateStock() {
   return (
     <div className="main-container1">
       <div className="form-container">
+        <h1>Stock Update Form</h1>
        <form className="form" onSubmit={handleSubmit}>
         <label className="label1">Drug ID:</label>
         <div className="form-input">

@@ -41,7 +41,6 @@
     border-radius: 20px;
   }
   
-  
   .form-input {
     margin-bottom: 20px;
   }
@@ -61,23 +60,6 @@
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
-  }
-  
-  .form-input1 input[type="text"],
-  .form-input1 input[type="number"],
-  .form-input1 input[type="date"],
-  .form-input1 textarea,
-  .form-input1 select {
-    border: none;
-    background-color: #e8eeef;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  textarea {
-    padding: 10px;
-    height: 50px;
-    border: none;
   }
   
   /* Set up input validation error styles */
