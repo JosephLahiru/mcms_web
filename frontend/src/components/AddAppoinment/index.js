@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './main.css';
+import ViewAppointment from "../ViewAppointment/index.js";
 
 function AddAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -23,8 +25,21 @@ function AddAppointment() {
   const navigate = useNavigate();
 
 
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) =>{
     event.preventDefault();
+
+       
+    console.log("Appointment Number:", appointmentNumber);
+    console.log("First Name:", firstName);
+    console.log("Last Name:", lastName);
+    console.log("Address:", address);
+    console.log("Age",age);
+    console.log("Email:", email);
+    console.log("Contact Number:", contactNumber);
+    console.log("Appointment Type:", appointmentType);
+    console.log("Appointment Doctor:", appointmentDoctor);
+    console.log("Appointment Date:", appointmentDate);
+    console.log("Appointment Time:", appointmentTime);
 
     if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !email && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
       toast.error('Please fill all the fields...', {
@@ -93,35 +108,14 @@ function AddAppointment() {
   return (
     <div className="main-container1">
       <div className="form-container">
-      <h1>Appointment Request Form</h1>
+      <h1>Add Appointment</h1>
       <form className='form3'>
+      <label className="label1">AddAppointment Number:</label>
       <div className="form-input">
-              <lable> Enter Appointment Number:
-            <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>
-            </lable>
-          </div>
-        <br />
-          <div className="form-input">
-          <lable>Enter First Name:
-            <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
-            </lable>
-          </div>
-          <br />  <br />
-          {error&&firstName.length<=0?
-          <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
-          <div className="form-input">
-          <lable>Enter Last Name:
-            <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
-            </lable>
-            </div>
-            <br />
-            {error&&lastName.length<=0?
-          <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
-        <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
         </div>
-        {error&&appointmentNumber.length<=0?
-        <label className='input-validation-error'>Appointment Number can't be Empty</label>:""}
+        {error&&firstName.length<=0?
+        <label className='input-validation-error'>AddAppointment Number can't be Empty</label>:""}   
         <label className="label1">First Name:</label>
         <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
@@ -136,7 +130,7 @@ function AddAppointment() {
         <label className='input-validation-error'>Last Name can't be Empty</label>:""}
         <label className="label1">Address:</label>
         <div className="form-input">
-          <input type="text" className="form-control form-control-sm" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address"/>
+        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
         <label className='input-validation-error'>Address can't be Empty</label>:""}
@@ -243,7 +237,10 @@ function AddAppointment() {
         </form>
         <ToastContainer />
       </div>
+      <div className="table-container">
+      <ViewAppointment/>
     </div>
+    </div >
   );
   }
 
