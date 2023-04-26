@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserProfile from '../UserProfile/index.js';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function RegistrationForm() {
 
@@ -87,9 +89,7 @@ function RegistrationForm() {
   
   }
 
- 
-
-  function handleSubmit(event) {
+ function handleSubmit(event) {
     event.preventDefault();
     if(patientId.length = 0 || firstName.length == 0 ){
       setError(true);
@@ -130,11 +130,11 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
     setAddress('');
     setContactNumber('');
   }
-  
-
   return (
-    <div className='container'>
-    <form onSubmit={handleSubmit}>
+    <div className='main-container'>
+      <div className="f-container">
+        <h1>Add Patients</h1>
+    <form id='form' onSubmit={handleSubmit}>
 
     <div className='lable'>
          <label>Patient Id:</label>
@@ -179,13 +179,22 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='lable'>
             <label>Gender:</label>
-            </div>
-            <div className='input'>
-              <input type="radio" value={gender} checked={gender === "Male"} onChange={handleGenderChange}>Male</input>
-              <input type="radio" value={gender} checked={gender === "Female"} onChange={handleGenderChange}>Female</input>
-            </div>
-            {error&&gender.length<=0?
-                <label class='input-validation-error'><center>Gender field is required</center></label>:""}
+        </div>
+        <div className='input'>
+            <label>
+                <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />
+                Male
+            </label>
+            <label>
+                <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />
+                Female
+            </label>
+        </div>
+        {error && gender.length <= 0 ? (
+            <label class="input-validation-error">
+                <center>Gender field is required</center>
+            </label>
+        ) : ("")}
 
         <div className='lable'>
             <label>Address:</label>
@@ -204,16 +213,16 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
               </div>
               {error&&contactNumber.length<=0?
                 <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
-
-
-      <div>
-        <button type="button"  onClick={handleReset}>Reset</button>
-        <button type="button"  onClick={handleSubmit}>Submit</button>
+    <br/><br/>         
+  <div className="form-button">
+        <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
+        <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
       </div>
     </form>
-    <ToastContainer />
+        <ToastContainer /></div>
+        <div className='t-container'></div>
     </div>
-  );
+);
 }
 
 export default RegistrationForm;
