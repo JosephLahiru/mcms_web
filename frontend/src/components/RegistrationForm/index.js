@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UserProfile from '../UserProfile/index.js';
+import ViewPatients from '../ViewPatients/index.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function RegistrationForm() {
@@ -220,7 +220,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
       </div>
     </form>
         <ToastContainer /></div>
-        <div className='t-container'></div>
+        <div className='t-container'><ViewPatients /></div>
     </div>
 );
 }
