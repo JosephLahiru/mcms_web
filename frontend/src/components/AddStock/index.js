@@ -66,7 +66,7 @@ function AddStock() {
   return (
     <div className="main-container1">
       <div className="form-container">
-        <h1>Add Stock</h1>
+        <h1>Add Stock Form</h1>
         <form id="form1" onSubmit={handleSubmit}>
         <div className="form-input1">
           <label className="label1">Drug ID:</label>
