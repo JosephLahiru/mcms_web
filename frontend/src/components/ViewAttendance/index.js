@@ -45,15 +45,10 @@ function ViewAttendance() {
 
   return (
     <div className="div1">
-      <h1>Attendance</h1>
+      <h1>View Attendance</h1>
       <div className="filter">
-        <label htmlFor="dateFilter">Filter by Assistant ID:</label>
-        <input
-          type="text"
-          id="dateFilter"
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
+        <label htmlFor="dateFilter">Filter by<select class="form-control form-control-sm"><option value="Assistant_id">Assistant ID</option><option id="Date">Date</option><option id="Quantity">Quantity</option></select></label>
+        <input type="text" class="form-control form-control-sm" id="dateFilter" value={searchTerm} onChange={handleInputChange} placeholder="Search for attendance..."/>
       </div>
       <table className="table">
         <thead>

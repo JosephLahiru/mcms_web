@@ -93,9 +93,30 @@ function AddAppointment() {
   return (
     <div className="main-container1">
       <div className="form-container">
-      <h1>Add Appointment</h1>
-       <form className="form" onSubmit={handleSubmit}>
-        <label className="label1">Appointment Number:</label>
+      <h1>Appointment Request Form</h1>
+      <form className='form3'>
+      <div className="form-input">
+              <lable> Enter Appointment Number:
+            <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>
+            </lable>
+          </div>
+        <br />
+          <div className="form-input">
+          <lable>Enter First Name:
+            <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
+            </lable>
+          </div>
+          <br />  <br />
+          {error&&firstName.length<=0?
+          <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
+          <div className="form-input">
+          <lable>Enter Last Name:
+            <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
+            </lable>
+            </div>
+            <br />
+            {error&&lastName.length<=0?
+          <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
         <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
         </div>
