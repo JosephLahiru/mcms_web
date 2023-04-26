@@ -11,6 +11,10 @@ body
 	font-size:25px;
 }
 
+label {
+  display: block;
+}
+
 form {
   max-width: 1500px;
   margin: 50px auto;
@@ -77,6 +81,6 @@ button {
   margin-bottom: 20px;
 }
 
-  form {
-    max-width: 500px;
-  }
+form {
+  max-width: 500px;
+}

@@ -64,6 +64,7 @@ function GetAttendance() {
   return (
     <div className='main-container1'>
       <div className="form-container">
+        <h1>Attendance form</h1>
         <form className='form2' onSubmit={handleSubmit}>
           <div className="form-label">
             <label className="label1">Assistant ID</label>

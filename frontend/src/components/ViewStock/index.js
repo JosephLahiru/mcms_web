@@ -44,7 +44,7 @@ function ViewStock() {
     <div className="div1">
       <h1>View Stock</h1>
       <div className="filter">
-        {/* <label htmlFor="drugSearch">Search by Drug Name</label> */}
+        <label htmlFor="drugSearch">Search by <select class="form-control form-control-sm"><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
         <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
       </div>
       <table className="table">
