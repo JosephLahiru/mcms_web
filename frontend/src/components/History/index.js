@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './History.css';
+import './main.css';
 
 export default function History() {
 
