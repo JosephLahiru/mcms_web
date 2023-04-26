@@ -25,8 +25,21 @@ function AddAppointment() {
   const navigate = useNavigate();
 
 
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) =>{
     event.preventDefault();
+
+       
+    console.log("Appointment Number:", appointmentNumber);
+    console.log("First Name:", firstName);
+    console.log("Last Name:", lastName);
+    console.log("Address:", address);
+    console.log("Age",age);
+    console.log("Email:", email);
+    console.log("Contact Number:", contactNumber);
+    console.log("Appointment Type:", appointmentType);
+    console.log("Appointment Doctor:", appointmentDoctor);
+    console.log("Appointment Date:", appointmentDate);
+    console.log("Appointment Time:", appointmentTime);
 
     if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !email && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
       toast.error('Please fill all the fields...', {
@@ -95,7 +108,7 @@ function AddAppointment() {
   return (
     <div className="main-container1">
       <div className="form-container">
-      <h1>Add Appointment Form</h1>
+      <h1>Add Appointment</h1>
       <form className='form3'>
       <label className="label1">AddAppointment Number:</label>
       <div className="form-input">
@@ -224,7 +237,10 @@ function AddAppointment() {
         </form>
         <ToastContainer />
       </div>
+      <div className="table-container">
+      <ViewAppointment/>
     </div>
+    </div >
   );
   }
 
