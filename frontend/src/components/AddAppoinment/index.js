@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './main.css';
+import ViewAppointment from "../ViewAppointment/index.js";
 
 function AddAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
