@@ -94,7 +94,7 @@ function AddAppointment() {
     <div className='App'>
       <div className="form-container">
       <h1>Appointment Request Form</h1>
-      <form>
+      <form className='form3'>
       <div className="form-input">
               <lable> Enter Appointment Number:
             <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder=" Appointment Number"/>

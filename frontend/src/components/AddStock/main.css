@@ -41,7 +41,7 @@
     justify-content: space-between;
     /* flex-direction: column; */
     margin: 50px 10px;
-    padding: 50px 100px;
+    padding: 50px 80px;
     background: #f4f7f8;
     border-radius: 20px;
   }
@@ -87,7 +87,6 @@
   }
   
   /* Set up submit button styles */
-  
-  .form-button .btn{
-    margin-right: 10px;
+  .form-button .btn {
+    flex-wrap: none;
   }
