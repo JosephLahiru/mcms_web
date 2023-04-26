@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ViewPatients from '../ViewPatients/index.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function RegistrationForm() {
@@ -90,7 +91,7 @@ function RegistrationForm() {
 
  function handleSubmit(event) {
     event.preventDefault();
-    if(patientId.length = 0 || firstName.length == 0 ){
+    if(patientId.length == 0 || firstName.length == 0 ){
       setError(true);
 }
 
@@ -130,27 +131,26 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
     setContactNumber('');
   }
   return (
-    <div className='main-container'>
-      <div className="f-container">
+    <div className='main-container2'>
+      <div className="f-container2">
         <h1>Add Patients</h1>
-    
     <form id='form' onSubmit={handleSubmit}>
 
-        <div className='f-input'>
-         <label className='l1'>Patient Id:</label>      
-          <input type="text" class="form-control form-control-sm" value={patientId} onChange={handlePatientIdChange}/>
-          {error&&patientId.length<=0?
-        <label class='input-validation-error'>Patient ID can't be empty</label>:""}
+    <div className='lable'>
+         <label>Patient Id:</label>
+    </div>
+        <div className='input'>      
+          <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
         </div>
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>Appointment Date:</label>
             </div>
               <div className='input'>
                 <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
               </div>
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>First Name:</label>
             </div>
               <div className='input'>
@@ -159,7 +159,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 {error&&firstName.length<=0?
                   <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>Last Name:</label>
             </div>
               <div className='input'>
@@ -168,7 +168,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 {error&&lastName.length<=0?
                     <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>NIC Number:</label>
             </div>
               <div className='input'>
@@ -177,7 +177,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 {error&&nicNumber.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>Gender:</label>
         </div>
         <div className='input'>
@@ -196,7 +196,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
             </label>
         ) : ("")}
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>Address:</label>
             </div>
               <div className='input'>
@@ -205,7 +205,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
               {error&&address.length<=0?
                 <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
 
-        <div className='f-input'>
+        <div className='lable'>
             <label>contact Number:</label>
             </div>
               <div className='input'>
@@ -219,8 +219,8 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
       </div>
     </form>
-        <ToastContainer />
-        </div>
+        <ToastContainer /></div>
+        <div className='t-container'><ViewPatients /></div>
     </div>
 );
 }
@@ -228,5 +228,6 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 export default RegistrationForm;
 
   
+
 
 
