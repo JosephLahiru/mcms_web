@@ -4,10 +4,12 @@ import './main.css';
 import { useNavigate } from 'react-router-dom';
 
 
-function ViewAppointment() {
+function ViewAppointment(){
 
-  const [appointment, ViewAppointment] = useState([]);
-  const [filterDate, setFilterDate] = useState("");  
+  const [appointment, setViewAppointment] = useState([]);
+  const [filterDate, setFilterDate] = useState(""); 
+  const [searchTerm] = useState("");
+  const [page, setPage] = useState(0); 
   const navigate = useNavigate();
   
 
@@ -15,15 +17,33 @@ function ViewAppointment() {
         async function fetchAppointment() {
             const response = await fetch("http://158.101.10.103/get_appointment");
             const data = await response.json();
-            ViewAppointment(data);
+            fetchAppointment(data);
+            setViewAppointment(data);
         }
         fetchAppointment();
-    }, [filterDate]);
+    }, []);
 
+    useEffect(() => {
+      const results = appointment.filter((item) =>
+        item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setViewAppointment(results);
+    }, [searchTerm, appointment]);
+  
+  
+    const handleNextPage = () => {
+      setPage(page + 1);
+    };
+  
+    const handlePrevPage = () => {
+      setPage(page - 1);
+    };
     const handleFilterDateChange = (event) => {
       setFilterDate(event.target.value);
-  };
-
+    };
+  const rowsPerPage = 10;
+  const start = page * rowsPerPage;
+  const end = start + rowsPerPage;
     return (
         <div className="div1">
         <h1>View Appointment</h1>
@@ -136,9 +156,13 @@ function ViewAppointment() {
            )}
            </tbody>
             </table>
+            <div className="pagination">
+        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button disabled={end >= setViewAppointment.length} onClick={handleNextPage}>Next</button>
+      </div>
         </div>  
 
 
       );
-      }
+    }
 export default ViewAppointment;
