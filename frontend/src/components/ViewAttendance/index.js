@@ -47,7 +47,7 @@ function ViewAttendance() {
     <div className="div1">
       <h1>View Attendance</h1>
       <div className="filter">
-        <label htmlFor="dateFilter">Filter by<select class="form-control form-control-sm"><option value="Assistant_id">Assistant ID</option><option id="Date">Date</option><option id="Quantity">Quantity</option></select></label>
+        <label htmlFor="dateFilter">Filter by<select class=""><option value="Assistant_id">Assistant ID</option><option id="Date">Date</option><option id="Quantity">Quantity</option></select></label>
         <input type="text" class="form-control form-control-sm" id="dateFilter" value={searchTerm} onChange={handleInputChange} placeholder="Search for attendance..."/>
       </div>
       <table className="table">
