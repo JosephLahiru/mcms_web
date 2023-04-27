@@ -97,7 +97,7 @@ function UpdateAppointment() {
         <label className='input-validation-error'>Last Name can't be Empty</label>:""}
         <label className="label1">Address:</label>
         <div className="form-input">
-          <input type="text" className="form-control form-control-sm" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address"/>
+        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
         <label className='input-validation-error'>Address can't be Empty</label>:""}
