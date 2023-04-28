@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
+import { useNavigate } from 'react-router-dom';
 import ViewAppointment from "../ViewAppointment/index.js";
 
 
@@ -24,6 +25,9 @@ function UpdateAppointment() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [error, setError] = useState(false);
 
+
+  const navigate = useNavigate();
+  
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -205,8 +209,8 @@ function UpdateAppointment() {
         {error&&appointmentTime.length<=0?
         <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
         <div className="form-button">
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
+        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button>
         </div>
        </form>
        <ToastContainer />
