@@ -4,10 +4,12 @@ import './main.css';
 import { useNavigate } from 'react-router-dom';
 
 
-function ViewAppointment() {
+function ViewAppointment(){
 
-  const [appointment, ViewAppointment] = useState([]);
-  const [filterDate, setFilterDate] = useState("");  
+  const [appointment, setViewAppointment] = useState([]);
+  const [filterDate, setFilterDate] = useState(""); 
+  const [searchTerm] = useState("");
+  const [page, setPage] = useState(0); 
   const navigate = useNavigate();
   
 
@@ -15,37 +17,55 @@ function ViewAppointment() {
         async function fetchAppointment() {
             const response = await fetch("http://158.101.10.103/get_appointment");
             const data = await response.json();
-            ViewAppointment(data);
+            fetchAppointment(data);
+            setViewAppointment(data);
         }
         fetchAppointment();
-    }, [filterDate]);
+    }, []);
 
+    useEffect(() => {
+      const results = appointment.filter((item) =>
+        item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setViewAppointment(results);
+    }, [searchTerm, appointment]);
+  
+  
+    const handleNextPage = () => {
+      setPage(page + 1);
+    };
+  
+    const handlePrevPage = () => {
+      setPage(page - 1);
+    };
     const handleFilterDateChange = (event) => {
       setFilterDate(event.target.value);
-  };
-
+    };
+  const rowsPerPage = 10;
+  const start = page * rowsPerPage;
+  const end = start + rowsPerPage;
     return (
-        <><><div className="div1">
+        <div className="div1">
         <h1>View Appointment</h1>
         <div className="filter">
           <label htmlFor="dateFilter">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
-        <label htmlFor="dateFilter">The Universal Physician Doctor:</label>
+         <label className="label1">The Universal Physician:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
-              <th scope="col"> Appoinment Number </th>
+              <th scope="col"> App Num </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
+              <th scope="col"> Cont Num </th>
               <th scope="col"> Email </th>
-              <th scope="col"> Appointment Type </th>
-              <th scope="col"> Appointment Time </th>
+              <th scope="col"> App Type </th>
+              <th scope="col"> App Time </th>
             </tr>
           </thead>
           <tbody>
@@ -61,30 +81,26 @@ function ViewAppointment() {
               <td>{appointment.email}</td>
               <td>{appointment.appointmentType}</td>
               <td>{appointment.appointmentTime}</td>
-              <th>
-                <button className="btn btn-primary btn-sm" type="button">Delete</button>
-                <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update Appointment</button>
-              </th>
+              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
             </tr>
             )}
           </tbody>
         </table>
-      </div>
-        <label htmlFor="dateFilter">Pediatrician Doctor:</label>
+        <label className="label1">Pediatrician Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
-              <th scope="col"> Appoinment Number </th>
+              <th scope="col"> App Num </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
+              <th scope="col"> Cont Num </th>
               <th scope="col"> Email </th>
-              <th scope="col"> Appointment Type </th>
-              <th scope="col"> Appointment Time </th>
+              <th scope="col"> App Type </th>
+              <th scope="col"> App Time </th>
             </tr>
           </thead>
           <tbody>
@@ -100,27 +116,26 @@ function ViewAppointment() {
               <td>{appointment.email}</td>
               <td>{appointment.appointmentType}</td>
               <td>{appointment.appointmentTime}</td>
-              <th>
-                <button className="btn btn-primary btn-sm" type="button">Delete</button>
-                <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update Appointment</button>
-              </th>
+              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
             </tr>
             )}
           </tbody>
-        </table></><label htmlFor="dateFilter">Scan Doctor:</label><table class="table">
+        </table>
+        <label className="label1">Scan Doctor:</label>
+        <table class="table">
           <thead>
             <tr class="table-dark">
-              <th scope="col"> Appoinment Number </th>
+              <th scope="col"> App Num </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
+              <th scope="col"> Cont Num </th>
               <th scope="col"> Email </th>
-              <th scope="col"> Appointment Type </th>
-              <th scope="col"> Appointment Time </th>
+              <th scope="col"> App Type </th>
+              <th scope="col"> App Time </th>
             </tr>
           </thead>
           <tbody>
@@ -136,12 +151,18 @@ function ViewAppointment() {
               <td>{appointment.email}</td>
               <td>{appointment.appointmentType}</td>
               <td>{appointment.appointmentTime}</td>
-              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update Appointment</button></td></tr></table>~</td>
+              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
             </tr>
-            )}
-          </tbody>
-        </table></>
+           )}
+           </tbody>
+            </table>
+            <div className="pagination">
+        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button disabled={end >= setViewAppointment.length} onClick={handleNextPage}>Next</button>
+      </div>
+        </div>  
+
 
       );
-      }
+    }
 export default ViewAppointment;

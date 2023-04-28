@@ -28,10 +28,6 @@
     float: right;
   }
   
-  .table {
-    table-layout: fixed;
-    border: 1px solid black;
-  }
   
   /* Set up form styles */
   .form2 {
@@ -39,22 +35,7 @@
     padding: 50px 100px;
     background: #f4f7f8;
     border-radius: 20px;
-  }
-  
-  
-  .form-input {
-    margin-bottom: 20px;
-  }
-  
-  .form-input1 {
-    margin-bottom: 20px;
-    width: 50%;
-    width: calc(100% /2 - 10px);
-  }
-  
-  .form-input1:nth-child(11) {
-    flex-basis: 100%; /* full width of the available space */
-  }
+  }  
   
   .label1 {
     display: block;
@@ -62,22 +43,20 @@
     font-weight: bold;
     margin-bottom: 8px;
   }
+
+  .form-input {
+    margin-bottom: 20px;
+  }
   
-  .form-input1 input[type="text"],
-  .form-input1 input[type="number"],
-  .form-input1 input[type="date"],
-  .form-input1 textarea,
-  .form-input1 select {
+  .form-input input[type="text"],
+  .form-input input[type="number"],
+  .form-input input[type="date"],
+  .form-input textarea,
+  .form-input select {
     border: none;
     background-color: #e8eeef;
     width: 100%;
     margin-bottom: 20px;
-  }
-  
-  textarea {
-    padding: 10px;
-    height: 50px;
-    border: none;
   }
   
   /* Set up input validation error styles */
@@ -87,7 +66,6 @@
   }
   
   /* Set up submit button styles */
-  
   .form-button .btn{
     margin-right: 10px;
   }
