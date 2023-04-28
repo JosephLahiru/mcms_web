@@ -27,7 +27,7 @@ function UpdateAppointment() {
 
 
   const navigate = useNavigate();
-  
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -208,7 +208,7 @@ function UpdateAppointment() {
          </div>
         {error&&appointmentTime.length<=0?
         <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div className="form-button">
+        <div className="form-button2">
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button>
         </div>
