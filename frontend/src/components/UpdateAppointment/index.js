@@ -85,7 +85,7 @@ function UpdateAppointment() {
 
   return (
     <div className="main-container1">
-      <div className="form-container">
+      <div className="form-container2">
       <h1>Update Appointment</h1>
        <form className="form" onSubmit={handleSubmit}>
         <label className="label1">Appointment Number:</label>
