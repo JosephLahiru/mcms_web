@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ViewPatients from '../ViewPatients/index.js';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function RegistrationForm() {
@@ -130,85 +131,96 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
     setContactNumber('');
   }
   return (
-    <div className='main-container'>
-      <div className="f-container">
+    <div className='main-container2'>
+      <div className="f-container2">
         <h1>Add Patients</h1>
-    
     <form id='form' onSubmit={handleSubmit}>
 
-        <div className='f-input'>
-         <label className='l1'>Patient Id:</label>      
-          <div className='input1'><input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
-          {error&&patientId.length<=0?
-        <label class='input-validation-error'>Patient ID can't be empty</label>:""}
+    <div className='lable'>
+         <label>Patient Id:</label>
+    </div>
+        <div className='input'>      
+          <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
         </div>
 
-        <div className='f-input'>
-          <label className='l1'>Appointment Date:</label>
-            <div className='input1'>
-                <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
+        <div className='lable'>
+            <label>Appointment Date:</label>
+            </div>
+              <div className='input'>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
               </div>
 
-        <div className='f-input'>
-            <label className='l1'>First Name:</label>
-              <div className='input1'>
-                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/></div>
+        <div className='lable'>
+            <label>First Name:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/>
+                </div>
                 {error&&firstName.length<=0?
                   <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
-              </div>
 
-        <div className='f-input'>
-            <label className='l1'>Last Name:</label>
-              <div className='input1'>
-                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/></div>
+        <div className='lable'>
+            <label>Last Name:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/>
+                </div>
                 {error&&lastName.length<=0?
                     <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
-              </div>
 
-        <div className='f-input'>
-            <label className='l1'>NIC Number:</label>
-              <div className='input1'>
-                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/></div>
+        <div className='lable'>
+            <label>NIC Number:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/>
+                </div>
                 {error&&nicNumber.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
-              </div>
 
-        <div className='f-input'>
-            <label className='l1'>Gender:</label>
-                <div className='input1'>
-                    <label className='l1'>
-                      <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />Male</label>
-                    <label className='l1'>
-                      <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />Female</label>
+        <div className='lable'>
+            <label>Gender:</label>
+        </div>
+        <div className='input'>
+            <label>
+                <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />
+                Male
+            </label>
+            <label>
+                <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />
+                Female
+            </label>
         </div>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
-            </label>) : ("")}</div>
+            </label>
+        ) : ("")}
 
-        <div className='f-input'>
-            <label className='l1'>Address:</label>
-              <div className='input1'>
-                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/></div>
+        <div className='lable'>
+            <label>Address:</label>
+            </div>
+              <div className='input'>
+                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/>
+              </div>
               {error&&address.length<=0?
                 <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
-        </div>
 
-        <div className='f-input'>
-            <label className='l1'>contact Number:</label>
-              <div className='input1'>
-                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
+        <div className='lable'>
+            <label>contact Number:</label>
+            </div>
+              <div className='input'>
+                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/>
+              </div>
               {error&&contactNumber.length<=0?
                 <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
-                </div>
-
-        <div className="form-button">
+    <br/><br/>         
+  <div className="form-button">
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
       </div>
     </form>
-        <ToastContainer />
-        </div>
+        <ToastContainer /></div>
+        <div className='t-container'><ViewPatients /></div>
     </div>
 );
 }
@@ -216,5 +228,6 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 export default RegistrationForm;
 
   
+
 
 

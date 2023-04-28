@@ -9,7 +9,7 @@ function ViewStock() {
 
   useEffect(() => {
     async function fetchStock() {
-      const response = await fetch("http://158.101.10.103/get_stock");
+      const response = await fetch("https://mcms_api.mtron.me/get_stock");
       const data = await response.json();
       setStock(data);
       setFilteredStock(data);
@@ -44,7 +44,7 @@ function ViewStock() {
     <div className="div1">
       <h1>View Stock</h1>
       <div className="filter">
-        <label htmlFor="drugSearch">Search by <select class="form-control form-control-sm"><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
+        <label htmlFor="drugSearch">Search by <select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
         <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
       </div>
       <table className="table">
@@ -75,7 +75,7 @@ function ViewStock() {
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
               <td>{item.total_quantity}</td>
-              <td>{item.mfg_date}</td>
+              <td>{item.mfd_date}</td>
               <td>{item.exp_date}</td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
@@ -84,8 +84,8 @@ function ViewStock() {
         </tbody>
       </table>
       <div className="pagination">
-        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
+        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );
