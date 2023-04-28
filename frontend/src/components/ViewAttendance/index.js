@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./main.css";
 
 function ViewAttendance() {
   const [attendance, setAttendance] = useState([]);
@@ -46,9 +47,13 @@ function ViewAttendance() {
   return (
     <div className="div1">
       <h1>View Attendance</h1>
-      <div className="filter">
-        <label htmlFor="dateFilter">Filter by<select class=""><option value="Assistant_id">Assistant ID</option><option id="Date">Date</option><option id="Quantity">Quantity</option></select></label>
-        <input type="text" class="form-control form-control-sm" id="dateFilter" value={searchTerm} onChange={handleInputChange} placeholder="Search for attendance..."/>
+      <div className="view-attendance-filter">
+        <div className="view-attendance-search-filter">
+          <label className="view-attendance-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+        </div>
+        <div className="view-attendance-search-input">
+          <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -64,19 +69,15 @@ function ViewAttendance() {
             <tr key={att.att_id}>
               <td>{att.att_id}</td>
               <td>{att.assit_id}</td>
-              <td>{att.date}</td>
+              <td>{att.date.slice(0, 10)}</td>
               <td>{att.status}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="pagination">
-        <button disabled={!hasPrevPage} onClick={handlePrevPage}>
-          Prev
-        </button>
-        <button disabled={!hasNextPage} onClick={handleNextPage}>
-          Next
-        </button>
+        <button className="btn btn-primary" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        <button className="btn btn-primary" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );
