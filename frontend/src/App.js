@@ -1,13 +1,12 @@
 import React from 'react';
 
-
 import {Routes, Route} from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment' ;
 import UpdateAppointment from './components/UpdateAppointment' ;
 import PatientHistory from './components/PatientHistory' ;
-import {Login} from "./components/Login";
+import Login from "./components/Login";
 import RegistrationForm from './components/RegistrationForm';
-import { Dashboard } from './components/Dashboard';
+import Dashboard from './components/Dashboard';
 import AddStock from './components/AddStock';
 import GetAttendance from './components/GetAttendance';
 import History from './components/History';
