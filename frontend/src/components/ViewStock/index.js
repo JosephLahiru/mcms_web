@@ -9,7 +9,7 @@ function ViewStock() {
 
   useEffect(() => {
     async function fetchStock() {
-      const response = await fetch("http://158.101.10.103/get_stock");
+      const response = await fetch("https://mcms_api.mtron.me/get_stock");
       const data = await response.json();
       setStock(data);
       setFilteredStock(data);
@@ -84,8 +84,8 @@ function ViewStock() {
         </tbody>
       </table>
       <div className="pagination">
-        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
+        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );

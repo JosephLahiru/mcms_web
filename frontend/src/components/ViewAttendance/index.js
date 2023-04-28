@@ -8,7 +8,7 @@ function ViewAttendance() {
 
   useEffect(() => {
     async function fetchAttendance() {
-      const response = await fetch("http://158.101.10.103/get_attendance");
+      const response = await fetch("https://mcms_api.mtron.me/get_attendance");
       const data = await response.json();
       setAttendance(data);
       setFilteredAttendance(data);
