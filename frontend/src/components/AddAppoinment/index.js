@@ -68,10 +68,10 @@ function AddAppointment() {
           gender: gender,
           contact_num: contactNumber,
           email: email,
-          app_type: appointmentType,
+          at_id: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
-          app_time: appointmentTime,
+          atm_id: appointmentTime,
         }),
       });
 
