@@ -8,28 +8,18 @@ function ViewAppointment(){
 
   const [appointment, setViewAppointment] = useState([]);
   const [filterDate, setFilterDate] = useState(""); 
-  const [searchTerm] = useState("");
   const [page, setPage] = useState(0); 
   const navigate = useNavigate();
   
 
     useEffect(() => {
         async function fetchAppointment() {
-            const response = await fetch("http://158.101.10.103/get_appointment");
+            const response = await fetch("https://mcms_api.mtron.me/get_appointment");
             const data = await response.json();
-            fetchAppointment(data);
             setViewAppointment(data);
         }
         fetchAppointment();
-    }, []);
-
-    useEffect(() => {
-      const results = appointment.filter((item) =>
-        item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setViewAppointment(results);
-    }, [searchTerm, appointment]);
-  
+    }, []);  
   
     const handleNextPage = () => {
       setPage(page + 1);
@@ -69,21 +59,45 @@ function ViewAppointment(){
             </tr>
           </thead>
           <tbody>
-            {appointment.map((appointment) => <tr key={appointment.appointmentNumber}>
-              <td>{appointment.appointmentNumber}</td>
-              <td>{appointment.firstName}</td>
-              <td>{appointment.lastName}</td>
-              <td>{appointment.nic}</td>
-              <td>{appointment.address}</td>
-              <td>{appointment.age}</td>
-              <td>{appointment.gender}</td>
-              <td>{appointment.contactNumber}</td>
-              <td>{appointment.email}</td>
-              <td>{appointment.appointmentType}</td>
-              <td>{appointment.appointmentTime}</td>
-              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
-            </tr>
-            )}
+            {appointment.map((appointment) => {
+              if (appointment.cd_id === 'cd_001') {
+                return (
+                  <tr key={appointment.app_num}>
+                    <td>{appointment.app_num}</td>
+                    <td>{appointment.first_name}</td>
+                    <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
+                    <td>{appointment.address}</td>
+                    <td>{appointment.age}</td>
+                    <td>{appointment.gender}</td>
+                    <td>{appointment.contact_num}</td>
+                    <td>{appointment.email}</td>
+                    <td>{appointment.at_id}</td>
+                    <td>{appointment.atm_id}</td>
+                    <td>
+                      <table>
+                        <tr>
+                          <td>
+                            <button className="btn btn-primary btn-sm" type="button">
+                              Delete
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-primary btn-sm"
+                              type="button"
+                              onClick={() => navigate("/update_appointment")}
+                            >
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                );
+              }
+            })}
           </tbody>
         </table>
         <label className="label1">Pediatrician Doctor:</label>
@@ -104,21 +118,45 @@ function ViewAppointment(){
             </tr>
           </thead>
           <tbody>
-            {appointment.map((appointment) => <tr key={appointment.appointmentNumber}>
-              <td>{appointment.appointmentNumber}</td>
-              <td>{appointment.firstName}</td>
-              <td>{appointment.lastName}</td>
-              <td>{appointment.nic}</td>
-              <td>{appointment.address}</td>
-              <td>{appointment.age}</td>
-              <td>{appointment.gender}</td>
-              <td>{appointment.contactNumber}</td>
-              <td>{appointment.email}</td>
-              <td>{appointment.appointmentType}</td>
-              <td>{appointment.appointmentTime}</td>
-              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
-            </tr>
-            )}
+            {appointment.map((appointment) => {
+              if (appointment.cd_id === 'cd_002') {
+                return (
+                  <tr key={appointment.app_num}>
+                    <td>{appointment.app_num}</td>
+                    <td>{appointment.first_name}</td>
+                    <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
+                    <td>{appointment.address}</td>
+                    <td>{appointment.age}</td>
+                    <td>{appointment.gender}</td>
+                    <td>{appointment.contact_num}</td>
+                    <td>{appointment.email}</td>
+                    <td>{appointment.at_id}</td>
+                    <td>{appointment.atm_id}</td>
+                    <td>
+                      <table>
+                        <tr>
+                          <td>
+                            <button className="btn btn-primary btn-sm" type="button">
+                              Delete
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-primary btn-sm"
+                              type="button"
+                              onClick={() => navigate("/update_appointment")}
+                            >
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                );
+              }
+            })}
           </tbody>
         </table>
         <label className="label1">Scan Doctor:</label>
@@ -139,22 +177,46 @@ function ViewAppointment(){
             </tr>
           </thead>
           <tbody>
-            {appointment.map((appointment) => <tr key={appointment.appointmentNumber}>
-              <td>{appointment.appointmentNumber}</td>
-              <td>{appointment.firstName}</td>
-              <td>{appointment.lastName}</td>
-              <td>{appointment.nic}</td>
-              <td>{appointment.address}</td>
-              <td>{appointment.age}</td>
-              <td>{appointment.gender}</td>
-              <td>{appointment.contactNumber}</td>
-              <td>{appointment.email}</td>
-              <td>{appointment.appointmentType}</td>
-              <td>{appointment.appointmentTime}</td>
-              <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_appointment")}>Update</button></td></tr></table></td>
-            </tr>
-           )}
-           </tbody>
+            {appointment.map((appointment) => {
+              if (appointment.cd_id === 'cd_003') {
+                return (
+                  <tr key={appointment.app_num}>
+                    <td>{appointment.app_num}</td>
+                    <td>{appointment.first_name}</td>
+                    <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
+                    <td>{appointment.address}</td>
+                    <td>{appointment.age}</td>
+                    <td>{appointment.gender}</td>
+                    <td>{appointment.contact_num}</td>
+                    <td>{appointment.email}</td>
+                    <td>{appointment.at_id}</td>
+                    <td>{appointment.atm_id}</td>
+                    <td>
+                      <table>
+                        <tr>
+                          <td>
+                            <button className="btn btn-primary btn-sm" type="button">
+                              Delete
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-primary btn-sm"
+                              type="button"
+                              onClick={() => navigate("/update_appointment")}
+                            >
+                              Update
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                );
+              }
+            })}
+          </tbody>
             </table>
             <div className="pagination">
         <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>

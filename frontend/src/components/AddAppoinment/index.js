@@ -53,7 +53,7 @@ function AddAppointment() {
     }
 
     try {
-      const response = await fetch('http://158.101.10.103/add_appointment', {
+      const response = await fetch("https://mcms_api.mtron.me/add_appointment", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
