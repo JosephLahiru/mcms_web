@@ -79,16 +79,3 @@ select {
   margin-bottom: 20px;
 }
 
-.form {
-  max-width: 500px;
-}
-.form-button2{
-    width: 500px;
-  }
-  
-  .form-container2{
-    background-color: #818583;
-    width:500px;
-    padding: 20px;
-   margin-left: 10px;
-  }
