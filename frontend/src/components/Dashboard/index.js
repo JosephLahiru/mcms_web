@@ -1,8 +1,12 @@
 import React from 'react'
-import './main.css'
+import './Dashboard.module.css'
 
-export const Dashboard = () => {
+function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <body className='dash_body'>
+      <div>Dashboard</div>
+    </body>
   )
 }
+
+export default Dashboard;
