@@ -45,7 +45,7 @@ function ViewAttendance() {
   const hasNextPage = page < totalPages - 1;
 
   return (
-    <div className="div1">
+    <div className="view-attendance-main-container">
       <h1>View Attendance</h1>
       <div className="view-attendance-filter">
         <div className="view-attendance-search-filter">
