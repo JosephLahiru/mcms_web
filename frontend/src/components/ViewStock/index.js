@@ -41,13 +41,13 @@ function ViewStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="div1">
+    <div className="view-stock-main-container">
       <h1>View Stock</h1>
       <div className="view-stock-filter">
-        <div className="search-filter1">
-          <label className="label3" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+        <div className="view-stock-search-filter">
+          <label className="view-stock-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
         </div>
-        <div className="search-input1">
+        <div className="view-stock-search-input">
           <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
         </div>
       </div>
