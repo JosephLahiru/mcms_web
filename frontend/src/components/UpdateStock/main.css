@@ -28,29 +28,24 @@
     float: right;
   }
   
-  .table {
-    table-layout: fixed;
-    border: 1px solid black;
-  }
-  
   /* Set up form styles */
-  .form {
+  .form2 {
     margin: 10px 10px auto 10px;
     padding: 50px 100px;
     background: #f4f7f8;
     border-radius: 20px;
   }
-  
-  .form-input {
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
+
   .label1 {
     display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
+  }
+  
+  .form-input {
+    margin-bottom: 20px;
+    width: 100%;
   }
   
   .form-input input[type="text"],
@@ -76,7 +71,6 @@
   }
   
   /* Set up submit button styles */
-  
   .form-button .btn{
     margin-right: 10px;
   }

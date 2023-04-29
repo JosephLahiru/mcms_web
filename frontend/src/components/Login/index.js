@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "../css/login.css";
-import './../App.css';
+import "./Login.module.css";
 
-export const Login = () => {
+function Login() {
   const [userName, setuserName] = useState('');
   const [pass, setPass] = useState('');
 
@@ -12,8 +11,8 @@ export const Login = () => {
   }
 
   return (
-    <div className="App">
-      <div className = "main-container">
+    <body className="login_body">
+      <div className = "mc">
         <form className="login-form" onSubmit={handleSubmit}>
           <h1>Welcome to MCMS</h1>
           <h3>Login</h3>
@@ -24,6 +23,8 @@ export const Login = () => {
           <button>Log In</button>
         </form>
       </div>
-    </div>
+    </body>
   )
 }
+
+export default Login;
