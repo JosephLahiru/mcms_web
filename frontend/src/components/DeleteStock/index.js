@@ -41,13 +41,13 @@ function DeleteStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="table-container2">
+    <div className="delete-stock-table-container">
       <h1>delete Stock</h1>
-      <div className="filter">
-        <div className="search-filter">
-          <label className="label2" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+      <div className="delete-stock-filter">
+        <div className="delete-stock-search-filter">
+          <label className="delete-stock-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
         </div>
-        <div className="search-input">
+        <div className="delete-stock-search-input">
           <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
         </div>
       </div>
