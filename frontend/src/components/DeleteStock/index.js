@@ -36,6 +36,13 @@ function DeleteStock() {
     setPage(page - 1);
   };
 
+  const handleDelete = async (id) => {
+    await fetch(`https://mcms_api.mtron.me/delete_stock/${id}`, { method: "DELETE" });
+    setStock(stock.filter((item) => item.prdct_id !== id));
+    setFilteredStock(filteredStock.filter((item) => item.prdct_id !== id));
+  };
+
+
   const rowsPerPage = 10;
   const start = page * rowsPerPage;
   const end = start + rowsPerPage;
@@ -82,7 +89,7 @@ function DeleteStock() {
               <td>{item.total_quantity}</td>
               <td>{item.mfd_date.slice(0, 10)}</td>
               <td>{item.exp_date.slice(0, 10)}</td>
-              <td><button className="btn btn-primary">delete</button></td>
+              <td><button className="btn btn-primary" onClick={() => handleDelete(item.prdct_id)}>delete</button></td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
             </tr>
