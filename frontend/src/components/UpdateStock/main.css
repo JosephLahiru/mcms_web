@@ -67,7 +67,8 @@
     font-weight: normal;
   }
   
-  /* Set up submit button styles */
-  .form-button .btn{
-    margin-right: 10px;
+  .update-stock-form-button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
   }
