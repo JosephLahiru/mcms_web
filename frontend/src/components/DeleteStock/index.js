@@ -41,11 +41,15 @@ function DeleteStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="div1">
-      <h1>View Stock</h1>
-      <div className="filter">
-        <label htmlFor="drugSearch">Search by <select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
-        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+    <div className="delete-stock-table-container">
+      <h1>delete Stock</h1>
+      <div className="delete-stock-filter">
+        <div className="delete-stock-search-filter">
+          <label className="delete-stock-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+        </div>
+        <div className="delete-stock-search-input">
+          <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -76,9 +80,9 @@ function DeleteStock() {
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
               <td>{item.total_quantity}</td>
-              <td>{item.mfd_date}</td>
-              <td>{item.exp_date}</td>
-              <td><button className="btn">delete</button></td>
+              <td>{item.mfd_date.slice(0, 10)}</td>
+              <td>{item.exp_date.slice(0, 10)}</td>
+              <td><button className="btn btn-primary">delete</button></td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
             </tr>
@@ -89,7 +93,7 @@ function DeleteStock() {
         <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
         <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
       </div>
-    </div>
+      </div>
   );
 }
 

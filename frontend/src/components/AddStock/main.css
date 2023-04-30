@@ -1,5 +1,5 @@
 /* Set up main container */
-.main-container1 {
+.main-container-add-stock {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -11,7 +11,7 @@
   }
   
   /* Set up left form container */
-  .form-container {
+  .form-container-add-stock {
     align-items: center;
     justify-content: center;
     margin: 10px 10px auto 10px;
@@ -21,7 +21,7 @@
   }
   
   /* Set up right container */
-  .table-container {
+  .table-container-add-stock {
     margin: 10px 10px auto 10px;
     padding: 10px 10px;
     width: 60%;
@@ -35,50 +35,48 @@
   }
 
   
-  #form1 {
+  #form-add-stock {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    /* flex-direction: column; */
-    margin: 50px 10px;
-    padding: 50px 80px;
+    padding: 50px 70px;
     background: #f4f7f8;
     border-radius: 20px;
   }
   
-  .form-input1 {
+  .form-input-add-stock {
     margin-bottom: 20px;
     width: 50%;
     width: calc(100% /2 - 10px);
   }
   
-  .form-input1:nth-child(11) {
+  .form-input-add-stock:nth-child(11) {
     flex-basis: 100%; /* full width of the available space */
   }
   
-  .label1 {
+  .label-add-stock {
     display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
   }
   
-  .form-input1 input[type="text"],
-  .form-input1 input[type="number"],
-  .form-input1 input[type="date"],
-  .form-input1 textarea,
-  .form-input1 select {
+  .form-input-add-stock input[type="text"],
+  .form-input-add-stock input[type="number"],
+  .form-input-add-stock input[type="date"],
+  .form-input-add-stock textarea,
+  .form-input-add-stock select {
     border: none;
     background-color: #e8eeef;
     width: 100%;
     margin-bottom: 20px;
   }
   
-  textarea {
+  .form-input-add-stock textarea {
     padding: 10px;
     height: 50px;
     border: none;
-  }
+  } 
   
   /* Set up input validation error styles */
   .input-validation-error {
@@ -87,6 +85,6 @@
   }
   
   /* Set up submit button styles */
-  .form-button .btn {
-    flex-wrap: none;
+  .form-button-add-stock .btn  {
+    width: 100%;
   }

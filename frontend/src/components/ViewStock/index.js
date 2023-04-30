@@ -41,11 +41,15 @@ function ViewStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="div1">
+    <div className="view-stock-main-container">
       <h1>View Stock</h1>
-      <div className="filter">
-        <label htmlFor="drugSearch">Search by <select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
-        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+      <div className="view-stock-filter">
+        <div className="view-stock-search-filter">
+          <label className="view-stock-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+        </div>
+        <div className="view-stock-search-input">
+          <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -75,8 +79,8 @@ function ViewStock() {
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
               <td>{item.total_quantity}</td>
-              <td>{item.mfd_date}</td>
-              <td>{item.exp_date}</td>
+              <td>{item.mfd_date.slice(0, 10)}</td>
+              <td>{item.exp_date.slice(0, 10)}</td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
             </tr>
