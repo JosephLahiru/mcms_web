@@ -95,7 +95,7 @@ function GetAttendance() {
           </div>
           {error&&attendanceStatus.length<=0?
           <label class='input-validation-error'>Assistant Status can't be Empty</label>:""}
-          <div className="form-button">
+          <div className="get-attendance-form-button">
             <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
             <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
           </div>
