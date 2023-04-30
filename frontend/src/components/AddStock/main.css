@@ -85,6 +85,8 @@
   }
   
   /* Set up submit button styles */
-  .form-button-add-stock .btn  {
+  .form-button-add-stock  {
+    display: flex;
+    flex-direction: row;
     width: 100%;
   }
