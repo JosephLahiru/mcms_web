@@ -7,7 +7,7 @@ function RetrievePatients() {
 
     useEffect(() => {
         async function fetchPatients() {
-            const response = await fetch("http://158.101.10.103/get_patients");
+            const response = await fetch("http://mcms_api.mtron.me/get_patients");
             const data = await response.json();
             RetrievePatients(data);
         }
