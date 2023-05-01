@@ -5,6 +5,7 @@ function ViewAttendance() {
   const [attendance, setAttendance] = useState([]);
   const [filteredAttendance, setFilteredAttendance] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterOption, setFilterOption] = useState("Assistant ID");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -17,16 +18,38 @@ function ViewAttendance() {
     fetchAttendance();
   }, []);
 
+
+
   useEffect(() => {
-    const results = attendance.filter((att) =>
-      att.date.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let results;
+    switch (filterOption) {
+      case "Assistant ID":
+        results = attendance.filter((att) =>
+          att.assit_id.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Date":
+        results = attendance.filter((att) =>
+          att.date.toLowerCase().includes(searchTerm)
+        );
+        break;
+      case "Status":
+        results = attendance.filter((att) =>
+          att.status.toString().includes(searchTerm)
+        );
+        break;
+      default:
+        results = attendance;
+    }
     setFilteredAttendance(results);
-    setPage(0); // Reset page to 0 when filter changes
-  }, [searchTerm, attendance]);
+  }, [searchTerm, attendance, filterOption]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
   };
 
   const handleNextPage = () => {
@@ -49,10 +72,15 @@ function ViewAttendance() {
       <h1>View Attendance</h1>
       <div className="view-attendance-filter">
         <div className="view-attendance-search-filter">
-          <label className="view-attendance-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+          <label className="view-attendance-label" htmlFor="attendanceSearch">Search by</label>
+          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
+            <option value="Assistant ID">Assistant ID</option>
+            <option value="Date">Date</option>
+            <option value="Status">Status</option>
+          </select>
         </div>
         <div className="view-attendance-search-input">
-          <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+          <input type="search" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
         </div>
       </div>
       <table className="table">

@@ -59,17 +59,17 @@ function UpdateStock() {
           <label className='input-validation-error'>Drug Name can't be Empty</label>:""}
           <label className="update-stock-label">Unit price:</label>
           <div className="update-stock-form-input">
-            <input type="text" className="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
+            <input type="number" className="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
           </div>
           {error&&unitprice.length<=0?
           <label className='input-validation-error'>Drug unit price can't be Empty</label>:""}
           <label className="update-stock-label">Selling price:</label>
           <div className="update-stock-form-input">
-            <input type="text" className="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
+            <input type="number" className="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
           </div>
           {error&&sellingprice.length<=0?
           <label className='input-validation-error'>Drug Selling price can't be Empty</label>:""}
-          <div className="form-button">
+          <div className="update-stock-form-button">
             <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
             <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
           </div>

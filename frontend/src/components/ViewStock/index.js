@@ -5,6 +5,7 @@ function ViewStock() {
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterOption, setFilterOption] = useState("Drug Name");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -18,14 +19,35 @@ function ViewStock() {
   }, []);
 
   useEffect(() => {
-    const results = stock.filter((item) =>
-      item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let results;
+    switch (filterOption) {
+      case "Drug Name":
+        results = stock.filter((item) =>
+          item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Drug Type":
+        results = stock.filter((item) =>
+          item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Quantity":
+        results = stock.filter((item) =>
+          item.total_quantity.toString().includes(searchTerm)
+        );
+        break;
+      default:
+        results = stock;
+    }
     setFilteredStock(results);
-  }, [searchTerm, stock]);
+  }, [searchTerm, stock, filterOption]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
   };
 
   const handleNextPage = () => {
@@ -45,10 +67,15 @@ function ViewStock() {
       <h1>View Stock</h1>
       <div className="view-stock-filter">
         <div className="view-stock-search-filter">
-          <label className="view-stock-label" htmlFor="drugSearch">Search by</label><select><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select>
+          <label className="view-stock-label" htmlFor="filterSelect">Search by</label>
+          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
+            <option value="Drug Name">Drug Name</option>
+            <option value="Drug Type">Drug Type</option>
+            <option value="Quantity">Quantity</option>
+          </select>
         </div>
         <div className="view-stock-search-input">
-          <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+          <input type="search" className="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
         </div>
       </div>
       <table className="table">
