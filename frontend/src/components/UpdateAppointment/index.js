@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
 import { useNavigate } from 'react-router-dom';
-import ViewAppointment from "../ViewAppointment/index.js";
+
 
 
 function UpdateAppointment() {
@@ -208,15 +208,11 @@ function UpdateAppointment() {
          </div>
         {error&&appointmentTime.length<=0?
         <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div className="form-button2">
+        <div className="form-button"></div>
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button>
-        </div>
        </form>
        <ToastContainer />
-    </div>
-    <div className="table-container">
-      <ViewAppointment/>
     </div>
     </div>
   );

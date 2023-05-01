@@ -15,10 +15,10 @@ label {
   display: block;
 }
 
-.form {
+form {
   max-width: 1500px;
   margin: 50px auto;
-  padding: 20px 100px;
+  padding: 50px 100px;
   background: #f4f7f8;
   border-radius: 20px;
 }
@@ -66,7 +66,7 @@ select {
   border-radius: 2px;
 }
 
-.button {
+button {
   padding: 19px 39px 18px 39px;
   color: #FFF;
   font-size: 18px;
@@ -79,3 +79,6 @@ select {
   margin-bottom: 20px;
 }
 
+form {
+  max-width: 500px;
+}
