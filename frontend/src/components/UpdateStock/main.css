@@ -1,5 +1,5 @@
 /* Set up main container */
-.main-container1 {
+.update-stock-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -10,7 +10,7 @@
   }
   
   /* Set up left form container */
-  .form-container {
+  .update-stock-form-container {
     align-items: center;
     justify-content: center;
     margin: 10px 10px auto 10px;
@@ -28,42 +28,34 @@
     float: right;
   }
   
-  .table {
-    table-layout: fixed;
-    border: 1px solid black;
-  }
-  
   /* Set up form styles */
-  .form {
-    margin: 10px 10px auto 10px;
+  .update-stock-form {
     padding: 50px 100px;
     background: #f4f7f8;
     border-radius: 20px;
   }
-  
-  .form-input {
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .label1 {
+
+  .update-stock-label {
     display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
   }
   
-  .form-input input[type="text"],
-  .form-input input[type="number"],
-  .form-input input[type="date"],
-  .form-input textarea,
-  .form-input select {
-    border: none;
-    background-color: #e8eeef;
-    margin-bottom: 20px;
+  .update-stock-form-input {
+    width: 100%;
   }
   
-  textarea {
+  .update-stock-form-input input[type="text"],
+  .update-stock-form-input input[type="number"],
+  .update-stock-form-input input[type="date"],
+  .update-stock-form-input textarea,
+  .update-stock-form-input select {
+    border: none;
+    background-color: #e8eeef;
+  }
+  
+  .update-stock-form-input textarea {
     padding: 10px;
     height: 50px;
     border: none;
@@ -75,8 +67,8 @@
     font-weight: normal;
   }
   
-  /* Set up submit button styles */
-  
-  .form-button .btn{
-    margin-right: 10px;
+  .update-stock-form-button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
   }

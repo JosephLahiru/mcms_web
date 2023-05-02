@@ -64,83 +64,83 @@ function AddStock() {
 
 
   return (
-    <div className="main-container1">
-      <div className="form-container">
+    <div className="main-container-add-stock">
+      <div className="form-container-add-stock">
         <h1>Add Stock Form</h1>
-        <form id="form1" onSubmit={handleSubmit}>
-        <div className="form-input1">
-          <label className="label1">Drug ID:</label>
-          <input type="text" class="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
-        {error&&drugId.length<=0?
-        <label class='input-validation-error'>Drug ID can't be empty</label>:""}
-        </div>
-         <div className="form-input1">
-          <label className="label1">Purchased Date</label>
-          <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
-        </div>
-        <div className="form-input1">
-          <label className="label1">Drug name:</label>
-          <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
-        {error&&drugname.length<=0?
-        <label class='input-validation-error'>Drug Name can't be empty</label>:""}
-        </div>
-        <div className="form-input1">
-          <label className="label1">Manufacture Date</label>
-          <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
-        </div>
-        <div className="form-input1">
-          <label className="label1">Brand name:</label> 
-          <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
-        </div>
-        <div className="form-input1">
-          <label className="label1">Expire Date</label>
-          <input type="date" class="form-control form-control-sm" value={ExpireDate} onChange={(event) => setExpireDate(event.target.value)} required/>
-        {error&&ExpireDate.length<=0?
-        <label class='input-validation-error'>Drug Expire date can't be empty</label>:""}
-        </div>
-        <div className="form-input1">
-          <label className="label1">Drug type</label>
-          <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
-            <option value="" disabled selected>Select an option</option>
-            <option value="Capsules">Capsules</option>
-            <option value="Tablet">Tablet</option>
-            <option value="Liquid">Liquid</option>
-            <option value="Inhalers">Inhalers</option>
-            <option value="Injections">Injections</option>
-          </select>
-        </div>
-        <div className="form-input1">
-          <label className="label1">Unit price:</label>
-          <input type="text" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
-        {error&&unitprice.length<=0?
-        <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
-        </div>
-        <div className="form-input1">
-          <label className="label1">Quantity:</label>
-          <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
-        {error&&quantity.length<=0?
-        <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
-        </div>
-        <div className="form-input1">
-          <label className="label1">Selling price:</label>
-          <input type="text" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
-        {error&&sellingprice.length<=0?
-        <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
-        </div>
-        <div className="form-input1">
-          <label className="label1">Description</label>
-          <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
-        </div>
-        <div className="form-button">
-          <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-          <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
-        </div>
-      </form>
-    <ToastContainer />
-    </div>
-    <div className="table-container">
-      <ViewStock/>
-    </div>
+        <form id="form-add-stock" onSubmit={handleSubmit}>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Drug ID</label>
+            <input type="text" class="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
+            {error&&drugId.length<=0?
+            <label class='input-validation-error'>Drug ID can't be empty</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Purchased Date</label>
+            <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Drug name</label>
+            <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
+            {error&&drugname.length<=0?
+            <label class='input-validation-error'>Drug Name can't be empty</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Manufacture Date</label>
+            <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Brand name</label> 
+            <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Expire Date</label>
+            <input type="date" class="form-control form-control-sm" value={ExpireDate} onChange={(event) => setExpireDate(event.target.value)} required/>
+            {error&&ExpireDate.length<=0?
+            <label class='input-validation-error'>Drug Expire date can't be empty</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Drug type</label>
+            <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
+              <option value="" disabled selected>Select an option . . .</option>
+              <option value="Capsules">Capsules</option>
+              <option value="Tablet">Tablet</option>
+              <option value="Liquid">Liquid</option>
+              <option value="Inhalers">Inhalers</option>
+              <option value="Injections">Injections</option>
+            </select>
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Unit price</label>
+            <input type="number" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
+            {error&&unitprice.length<=0?
+            <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Quantity</label>
+            <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
+            {error&&quantity.length<=0?
+            <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Selling price</label>
+            <input type="number" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
+            {error&&sellingprice.length<=0?
+            <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
+          </div>
+          <div className="form-input-add-stock">
+            <label className="label-add-stock">Description</label>
+            <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
+          </div>
+          <div className="form-button-add-stock">
+            <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+            <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+          </div>
+        </form>
+        <ToastContainer />
+      </div>
+      <div className="table-container-add-stock">
+        <ViewStock/>
+      </div>
     </div>
     
   );

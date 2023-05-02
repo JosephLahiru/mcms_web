@@ -5,11 +5,12 @@ function ViewStock() {
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterOption, setFilterOption] = useState("Drug Name");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     async function fetchStock() {
-      const response = await fetch("http://158.101.10.103/get_stock");
+      const response = await fetch("https://mcms_api.mtron.me/get_stock");
       const data = await response.json();
       setStock(data);
       setFilteredStock(data);
@@ -18,14 +19,35 @@ function ViewStock() {
   }, []);
 
   useEffect(() => {
-    const results = stock.filter((item) =>
-      item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let results;
+    switch (filterOption) {
+      case "Drug Name":
+        results = stock.filter((item) =>
+          item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Drug Type":
+        results = stock.filter((item) =>
+          item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Quantity":
+        results = stock.filter((item) =>
+          item.total_quantity.toString().includes(searchTerm)
+        );
+        break;
+      default:
+        results = stock;
+    }
     setFilteredStock(results);
-  }, [searchTerm, stock]);
+  }, [searchTerm, stock, filterOption]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
   };
 
   const handleNextPage = () => {
@@ -41,11 +63,20 @@ function ViewStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="div1">
+    <div className="view-stock-main-container">
       <h1>View Stock</h1>
-      <div className="filter">
-        <label htmlFor="drugSearch">Search by <select class="form-control form-control-sm"><option>Drug Name</option><option>Drug type</option><option>Quantity</option></select></label>
-        <input type="text" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder="Search for a drug..."/>
+      <div className="view-stock-filter">
+        <div className="view-stock-search-filter">
+          <label className="view-stock-label" htmlFor="filterSelect">Search by</label>
+          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
+            <option value="Drug Name">Drug Name</option>
+            <option value="Drug Type">Drug Type</option>
+            <option value="Quantity">Quantity</option>
+          </select>
+        </div>
+        <div className="view-stock-search-input">
+          <input type="search" className="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -75,8 +106,8 @@ function ViewStock() {
               <td>{item.ac_price}</td>
               <td>{item.sell_price}</td>
               <td>{item.total_quantity}</td>
-              <td>{item.mfg_date}</td>
-              <td>{item.exp_date}</td>
+              <td>{item.mfd_date.slice(0, 10)}</td>
+              <td>{item.exp_date.slice(0, 10)}</td>
               {/* <td>{item.total_quantity_ac_price}</td>
               <td>{item.total_quantity_sell_price}</td> */}
             </tr>
@@ -84,8 +115,8 @@ function ViewStock() {
         </tbody>
       </table>
       <div className="pagination">
-        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
+        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
+        <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );

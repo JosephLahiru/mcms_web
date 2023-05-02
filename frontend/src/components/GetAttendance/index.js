@@ -62,55 +62,49 @@ function GetAttendance() {
   };
 
   return (
-    <div className='main-container1'>
-      <div className="form-container">
+    <div className='get-attendance-main-container'>
+      <div className="get-attendance-form-container">
         <h1>Attendance form</h1>
-        <form className='form2' onSubmit={handleSubmit}>
-          <div className="form-label">
-            <label className="label1">Assistant ID</label>
+        <form className='get-attendance-form' onSubmit={handleSubmit}>
+          <label className="get-attendance-label">Assistant ID</label>
+          <div className="get-attendance-form-input">
+            <input type="text" class="form-control form-control-sm" value={assistantId} onChange={(event) => setAssistantId(event.target.value)} />
           </div>
-        <div className="form-input">
-          <input type="text" class="form-control form-control-sm" value={assistantId} onChange={(event) => setAssistantId(event.target.value)} />
-        </div>
-        {error&&assistantId.length<=0?
-        <label class='input-validation-error'>Assistant ID can't be Empty</label>:""}
-        <div className="form-label">
-            <label className="label1">Assistant Name</label>
-          </div>
-          <div className="form-input">
+          {error&&assistantId.length<=0?
+          <label class='input-validation-error'>Assistant ID can't be Empty</label>:""}
+          <label className="get-attendance-label">Assistant Name</label>
+          <div className="get-attendance-form-input">
             <input type="text" className="form-control form-control-sm" value={assistantName} onChange={(event) => setAssistantName(event.target.value)} />
           </div>
           {error && assistantName.length <= 0 ?
-            <label className='input-validation-error'>Assistant Name can't be empty</label> : ""}
-        <div className="form-label">
-          <label className="label1">Date</label>
-        </div>
-        <div className="form-input">
-          <input type="date" class="form-control form-control-sm" value={date} onChange={(event) => setDate(event.target.value)} required/>
-        </div>
-        {error&&date.length<=0?
-        <label class='input-validation-error'>Date can't be Empty</label>:""}
-        <div className="form-label">
-          <label className="label1">Attendance Status</label>
-        </div>
-        <div className="form-input">
-        <select class="form-control form-control-sm" value={attendanceStatus} onChange={(event) => setAttendanceStatus(event.target.value)} required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="present">Present</option>
-          <option value="absent">Absent</option>
-          <option value="late">Late</option>
-        </select>
-        </div>
-        {error&&attendanceStatus.length<=0?
-        <label class='input-validation-error'>Assistant Status can't be Empty</label>:""}
-        <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
-        <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
-    </form>
-    <ToastContainer />
-    </div>
-    <div className='table-container'>
-      <ViewAttendance/>
-    </div>
+          <label className='input-validation-error'>Assistant Name can't be empty</label> : ""}
+          <label className="get-attendance-label">Date</label>
+          <div className="get-attendance-form-input">
+            <input type="date" class="form-control form-control-sm" value={date} onChange={(event) => setDate(event.target.value)} required/>
+          </div>
+          {error&&date.length<=0?
+          <label class='input-validation-error'>Date can't be Empty</label>:""}
+          <label className="get-attendance-label">Attendance Status</label>
+          <div className="get-attendance-form-input">
+            <select class="form-control form-control-sm" value={attendanceStatus} onChange={(event) => setAttendanceStatus(event.target.value)} required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="late">Late</option>
+            </select>
+          </div>
+          {error&&attendanceStatus.length<=0?
+          <label class='input-validation-error'>Assistant Status can't be Empty</label>:""}
+          <div className="get-attendance-form-button">
+            <button class="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
+            <button class="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
+          </div>
+        </form>
+      <ToastContainer />
+      </div>
+      <div className='table-container'>
+        <ViewAttendance/>
+      </div>
     </div>
     
     

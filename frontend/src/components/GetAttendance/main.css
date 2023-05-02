@@ -1,5 +1,5 @@
 /* Set up main container */
-.main-container1 {
+.get-attendance-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -10,7 +10,7 @@
   }
   
   /* Set up left form container */
-  .form-container {
+  .get-attendance-form-container {
     align-items: center;
     justify-content: center;
     margin: 10px 10px auto 10px;
@@ -28,58 +28,35 @@
     float: right;
   }
   
-  .table {
-    table-layout: fixed;
-    border: 1px solid black;
-  }
   
   /* Set up form styles */
-  .form2 {
-    margin: 10px 10px auto 10px;
+  .get-attendance-form {
     padding: 50px 100px;
     background: #f4f7f8;
     border-radius: 20px;
-  }
+  }  
   
-  
-  .form-input {
-    margin-bottom: 20px;
-  }
-  
-  .form-input1 {
-    margin-bottom: 20px;
-    width: 50%;
-    width: calc(100% /2 - 10px);
-  }
-  
-  .form-input1:nth-child(11) {
-    flex-basis: 100%; /* full width of the available space */
-  }
-  
-  .label1 {
+  .get-attendance-label {
     display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
   }
-  
-  .form-input1 input[type="text"],
-  .form-input1 input[type="number"],
-  .form-input1 input[type="date"],
-  .form-input1 textarea,
-  .form-input1 select {
-    border: none;
-    background-color: #e8eeef;
-    width: 100%;
+
+  .get-attendance-form-input {
     margin-bottom: 20px;
   }
   
-  textarea {
-    padding: 10px;
-    height: 50px;
+  .get-attendance-form-input input[type="text"],
+  .get-attendance-form-input input[type="number"],
+  .get-attendance-form-input input[type="date"],
+  .get-attendance-form-input textarea,
+  .get-attendance-form-input select {
     border: none;
+    background-color: #e8eeef;
+    width: 100%;
   }
-  
+   
   /* Set up input validation error styles */
   .input-validation-error {
     color: red;
@@ -87,7 +64,8 @@
   }
   
   /* Set up submit button styles */
-  
-  .form-button .btn{
-    margin-right: 10px;
+  .get-attendance-form-button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
   }
