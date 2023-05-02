@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import "./main.css";
 
 function ViewAttendance() {
   const [attendance, setAttendance] = useState([]);
   const [filteredAttendance, setFilteredAttendance] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterOption, setFilterOption] = useState("Assistant ID");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -16,16 +18,38 @@ function ViewAttendance() {
     fetchAttendance();
   }, []);
 
+
+
   useEffect(() => {
-    const results = attendance.filter((att) =>
-      att.date.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let results;
+    switch (filterOption) {
+      case "Assistant ID":
+        results = attendance.filter((att) =>
+          att.assit_id.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        break;
+      case "Date":
+        results = attendance.filter((att) =>
+          att.date.toLowerCase().includes(searchTerm)
+        );
+        break;
+      case "Status":
+        results = attendance.filter((att) =>
+          att.status.toString().includes(searchTerm)
+        );
+        break;
+      default:
+        results = attendance;
+    }
     setFilteredAttendance(results);
-    setPage(0); // Reset page to 0 when filter changes
-  }, [searchTerm, attendance]);
+  }, [searchTerm, attendance, filterOption]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterOption(event.target.value);
   };
 
   const handleNextPage = () => {
@@ -44,11 +68,20 @@ function ViewAttendance() {
   const hasNextPage = page < totalPages - 1;
 
   return (
-    <div className="div1">
+    <div className="view-attendance-main-container">
       <h1>View Attendance</h1>
-      <div className="filter">
-        <label htmlFor="dateFilter">Filter by<select class=""><option value="Assistant_id">Assistant ID</option><option id="Date">Date</option><option id="Quantity">Quantity</option></select></label>
-        <input type="text" class="form-control form-control-sm" id="dateFilter" value={searchTerm} onChange={handleInputChange} placeholder="Search for attendance..."/>
+      <div className="view-attendance-filter">
+        <div className="view-attendance-search-filter">
+          <label className="view-attendance-label" htmlFor="attendanceSearch">Search by</label>
+          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
+            <option value="Assistant ID">Assistant ID</option>
+            <option value="Date">Date</option>
+            <option value="Status">Status</option>
+          </select>
+        </div>
+        <div className="view-attendance-search-input">
+          <input type="search" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -64,19 +97,15 @@ function ViewAttendance() {
             <tr key={att.att_id}>
               <td>{att.att_id}</td>
               <td>{att.assit_id}</td>
-              <td>{att.date}</td>
+              <td>{att.date.slice(0, 10)}</td>
               <td>{att.status}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="pagination">
-        <button disabled={!hasPrevPage} onClick={handlePrevPage}>
-          Prev
-        </button>
-        <button disabled={!hasNextPage} onClick={handleNextPage}>
-          Next
-        </button>
+        <button className="btn btn-primary" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        <button className="btn btn-primary" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );
