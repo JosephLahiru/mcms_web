@@ -18,7 +18,7 @@ import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
-
+import ViewLowStock from './components/ViewLowStock';
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
         <Route path='add_stock' element={<AddStock/>}/>
         <Route path='update_stock' element={<UpdateStock/>}/>
         <Route path='delete_stock' element={<DeleteStock/>}/>
+        <Route path='view_lowstock' element={<ViewLowStock/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='view_attendance' element={<ViewAttendance/>}/>
         <Route path='history' element={<History/>}/>
