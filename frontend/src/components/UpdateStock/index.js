@@ -41,35 +41,35 @@ function UpdateStock() {
   };
 
   return (
-    <div className="main-container1">
-      <div className="form-container">
+    <div className="update-stock-main-container">
+      <div className="update-stock-form-container">
         <h1>Stock Update Form</h1>
-        <form className="form2" onSubmit={handleSubmit}>
-          <label className="label1">Drug ID:</label>
-          <div className="form-input">
+        <form className="update-stock-form" onSubmit={handleSubmit}>
+          <label className="update-stock-label">Drug ID:</label>
+          <div className="update-stock-form-input">
             <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
           </div>
           {error&&drugId.length<=0?
           <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
-          <label className="label1">Drug name:</label>
-          <div className="form-input">
+          <label className="update-stock-label">Drug name:</label>
+          <div className="update-stock-form-input">
             <input type="text" className="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
           </div>
           {error&&drugname.length<=0?
           <label className='input-validation-error'>Drug Name can't be Empty</label>:""}
-          <label className="label1">Unit price:</label>
-          <div className="form-input">
-            <input type="text" className="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
+          <label className="update-stock-label">Unit price:</label>
+          <div className="update-stock-form-input">
+            <input type="number" className="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
           </div>
           {error&&unitprice.length<=0?
           <label className='input-validation-error'>Drug unit price can't be Empty</label>:""}
-          <label className="label1">Selling price:</label>
-          <div className="form-input">
-            <input type="text" className="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
+          <label className="update-stock-label">Selling price:</label>
+          <div className="update-stock-form-input">
+            <input type="number" className="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
           </div>
           {error&&sellingprice.length<=0?
           <label className='input-validation-error'>Drug Selling price can't be Empty</label>:""}
-          <div className="form-button">
+          <div className="update-stock-form-button">
             <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button>
             <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button>
           </div>
