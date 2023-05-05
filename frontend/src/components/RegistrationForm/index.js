@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 function RegistrationForm() {
 
   const [patientId, setPatientId] = useState('');
+  const [appointmentNumber, setAppointmentNumber] = useState('');
   const [date, setDate] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -41,6 +42,10 @@ function RegistrationForm() {
 
   function handlePatientIdChange(event){
     setPatientId(event.target.value);
+  }
+
+  function handleAppointmentNumberChange(event){
+    setAppointmentNumber(event.target.value);
   }
 
   function handleDateChange(event){
@@ -103,6 +108,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
     console.log("Setting Registration");
     const patientData = {
     PatientId: patientId,
+    AppointmentNumber: appointmentNumber,
     Date: date,
     First_Name: firstName,
     Last_Name: lastName,
@@ -121,6 +127,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
   function handleReset(event) {
     event.preventDefault(); // prevent the default form submission behavior
     setPatientId('');
+    setAppointmentNumber('');
     setDate('');
     setFirstName('');
     setLastName('');
@@ -142,6 +149,14 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                   {error&&patientId.length<=0?
                <label class='input-validation-error'>Patient ID can't be empty</label>:""}
             </div>
+
+            <div className='f-input'>
+            <label className='l1'>Appointment Number:</label>
+              <div className='input1'>
+                <input type="number" class="form-control" value={appointmentNumber} onChange={handleAppointmentNumberChange}/></div>
+                {error&&appointmentNumber.length<=0?
+        <label className='input-validation-error'>AddAppointment Number can't be Empty</label>:""} 
+                </div>   
         
 
         <div className='f-input'>
@@ -215,7 +230,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
       </div>
     </form>
-
+                
         </div>
         </div>
 

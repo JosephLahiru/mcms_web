@@ -38,7 +38,7 @@
   margin: 10px 10px auto 10px;
   float: left;
   background-color: #c5c3c3;
-  width:70%;
+  width:100%;
   padding: 50px;
   border-radius: 5px;
 }
@@ -50,9 +50,10 @@
   /* flex-direction: column;  */
   margin: 20px 10px;
   padding: 20px 20px;
-  background: #afafd6;
+  background: #8181c9;
   padding-right: 20px;
-  width: 1000px;
+  width: 50%;
+
 }
 
 
