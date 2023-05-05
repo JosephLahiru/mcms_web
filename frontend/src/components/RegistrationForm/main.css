@@ -37,28 +37,30 @@
   justify-content: center;
   margin: 10px 10px auto 10px;
   float: left;
-  background-color: #a1a1a1;
-  width:100%;
-  padding: 5px;
+  background-color: #c5c3c3;
+  width:70%;
+  padding: 50px;
   border-radius: 5px;
 }
 
-.form {
+.forms {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* flex-direction: column; */
-  margin: 50px 10px;
-  padding: 50px 80px;
-  background: #f4f4f5;
-  border-radius: 20px;
+  /* flex-direction: column;  */
+  margin: 20px 10px;
+  padding: 20px 20px;
+  background: #afafd6;
   padding-right: 20px;
+  width: 1000px;
 }
+
+
 .t-container {
   margin: 10px 10px auto 10px;
   padding: 10px 10px;
   width: 60%;
-  background-color: rgb(208, 208, 215);
+  background-color: rgb(197, 197, 201);
   float: right;
 }
 
@@ -94,8 +96,15 @@
 .form-button{
   width: 100px;
 }
-.row {
+.row{
   overflow: hidden;
+  height: 80px;
+  display: flex;
+  width: 800px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #f4f4f5;
 }
 
 .column {

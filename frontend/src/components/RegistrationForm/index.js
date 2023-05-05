@@ -134,27 +134,24 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
       <div className="f-container">
         <h1>Add Patients</h1>
     
-    <form id='form' onSubmit={handleSubmit}>
+    <form className='forms' onSubmit={handleSubmit}>
 
-      <div className='row'>
-        <div className='column'>
+            <div className='f-input'>
+              <label className='l1'>Patient Id:</label>      
+                <div className='input1'><input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
+                  {error&&patientId.length<=0?
+               <label class='input-validation-error'>Patient ID can't be empty</label>:""}
+            </div>
+        
+
         <div className='f-input'>
-         <label className='l1'>Patient Id:</label>      
-          <div className='input1'><input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
-          {error&&patientId.length<=0?
-        <label class='input-validation-error'>Patient ID can't be empty</label>:""}
-        </div>
-        </div>
-
-        <div className='column'>
-          <div className='f-input'>
           <label className='l1'>Appointment Date:</label>
             <div className='input1'>
                 <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
-              </div>
-              </div>
-              </div>
-
+          </div>
+      
+  
+        
         <div className='f-input'>
             <label className='l1'>First Name:</label>
               <div className='input1'>
@@ -162,7 +159,9 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 {error&&firstName.length<=0?
                   <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
               </div>
+             
 
+      
         <div className='f-input'>
             <label className='l1'>Last Name:</label>
               <div className='input1'>
@@ -170,6 +169,8 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 {error&&lastName.length<=0?
                     <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
               </div>
+
+        
 
         <div className='f-input'>
             <label className='l1'>NIC Number:</label>
@@ -214,9 +215,10 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
       </div>
     </form>
-        <ToastContainer />
+
         </div>
-    </div>
+        </div>
+
 );
 }
 
