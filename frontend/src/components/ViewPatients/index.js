@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './main.css';
+import { useNavigate } from 'react-router-dom';
 
 function ViewPatients() {
 
     const [patients, ViewPatients] = useState([]);
-    const [page, setPage] = useState(0); 
+    const [page, setPage] = useState(0);
+    const navigate = useNavigate(); 
    
 
     useEffect(() => {
@@ -65,7 +67,7 @@ return (
             <td>{patients.appointment_type}</td>
             <td>{patients.appointment_doctor}</td>
             <td>{patients.address}</td>
-            
+            <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/update_patient")}>Update</button></td></tr></table></td>
         </tr>
         )}
         </table>

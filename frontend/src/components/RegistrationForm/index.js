@@ -3,6 +3,7 @@ import './main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm() {
 
@@ -19,6 +20,7 @@ function RegistrationForm() {
   const [email, setEmail] = useState('');
   const [appointmentType, setAppointmentType] = useState('');
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
+  const navigate = useNavigate();
   
 
   const [error, setError] = useState(false);
@@ -296,6 +298,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className="form-button">
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
+        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button>
       </div>
     </form>
                 
