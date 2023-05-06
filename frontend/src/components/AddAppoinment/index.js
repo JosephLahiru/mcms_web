@@ -107,9 +107,9 @@ function AddAppointment() {
 
   return (
     <div className="main-container1">
-      <div className="form-container">
+      <div className="form-container1">
       <h1>Add Appointment</h1>
-      <form className='form3'>
+      <form className='form2'>
       <label className="label1">AddAppointment Number:</label>
       <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>

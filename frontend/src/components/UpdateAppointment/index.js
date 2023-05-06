@@ -87,7 +87,7 @@ function UpdateAppointment() {
     <div className="main-container1">
       <div className="form-container2">
       <h1>Update Appointment</h1>
-       <form className="form" onSubmit={handleSubmit}>
+       <form className="form1" onSubmit={handleSubmit}>
         <label className="label1">Appointment Number:</label>
         <div className="form-input">
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>

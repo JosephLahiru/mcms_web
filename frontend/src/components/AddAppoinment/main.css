@@ -15,12 +15,13 @@ label {
   display: block;
 }
 
-form {
-  max-width: 1500px;
+.form {
+  max-width: 500px;
   margin: 50px auto;
   padding: 50px 100px;
   background: #f4f7f8;
   border-radius: 20px;
+  float: left;
 }
 
 h1 {
@@ -79,7 +80,11 @@ button {
   margin-bottom: 20px;
 }
 
-form {
-  max-width: 500px;
+.form2 {
+  width: 500px;
+}
+
+.form-container1{
+  float: left;
 }
 
