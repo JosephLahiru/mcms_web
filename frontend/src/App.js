@@ -18,6 +18,7 @@ import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
+import GenerateBill from './components/GenerateBill';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path='view_stock' element={<ViewStock/>}/>
         <Route path='update_patient' element={<UpdatePatient/>}/>
         <Route path='user_profile' element={<UserProfile/>}/>
+        <Route path='generate_bill' element={<GenerateBill/>}/>
      </Routes>
   );
 }
