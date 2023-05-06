@@ -136,17 +136,23 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
     
     <form id='form' onSubmit={handleSubmit}>
 
+      <div className='row'>
+        <div className='column'>
         <div className='f-input'>
          <label className='l1'>Patient Id:</label>      
           <div className='input1'><input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
           {error&&patientId.length<=0?
         <label class='input-validation-error'>Patient ID can't be empty</label>:""}
         </div>
+        </div>
 
-        <div className='f-input'>
+        <div className='column'>
+          <div className='f-input'>
           <label className='l1'>Appointment Date:</label>
             <div className='input1'>
                 <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
+              </div>
+              </div>
               </div>
 
         <div className='f-input'>
@@ -201,6 +207,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
               {error&&contactNumber.length<=0?
                 <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
                 </div>
+              
 
         <div className="form-button">
         <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
