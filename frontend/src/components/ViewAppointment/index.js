@@ -35,13 +35,13 @@ function ViewAppointment(){
   const start = page * rowsPerPage;
   const end = start + rowsPerPage;
     return (
-        <div className="div1">
+        <div className="view-appointment-main-container">
         <h1>View Appointment</h1>
-        <div className="filter">
+        <div className="view-appointment-filter">
           <label htmlFor="dateFilter">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
-         <label className="label1">The Universal Physician:</label>
+         <label className="view-appointment-label">The Universal Physician:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
@@ -100,7 +100,7 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="label1">Pediatrician Doctor:</label>
+        <label className="view-appointment-label">Pediatrician Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
@@ -159,7 +159,7 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="label1">Scan Doctor:</label>
+        <label className="view-appointment-label">Scan Doctor:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
