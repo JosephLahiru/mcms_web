@@ -59,7 +59,7 @@ function DeleteStock() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`https://mcms_api.mtron.me/delete_stock/${id}`, { method: "DELETE" });
+    await fetch(`https://mcms_api.mtron.me/delete_stock/${id}`, { method: "GET" });
     setStock(stock.filter((item) => item.prdct_id !== id));
     setFilteredStock(filteredStock.filter((item) => item.prdct_id !== id));
   };

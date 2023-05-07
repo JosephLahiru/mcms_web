@@ -1,0 +1,66 @@
+/* Set up main container */
+.update-appointment-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  background-color: rgb(169, 240, 37);
+}
+
+/* Set up left form container */
+.update-appointment-form-container {
+  align-items: center;
+  justify-content: center;
+  margin: 10px 10px auto 10px;
+  width: 40%;
+  background-color: grey;
+  float: left;
+}
+
+
+/* Set up form styles */
+.update-appointment-form {
+  padding: 50px 100px;
+  background: #f4f7f8;
+  border-radius: 20px;
+}
+
+.update-appointment-label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.update-appointment-form-input {
+  width: 100%;
+}
+
+.update-appointment-form-input input[type="text"],
+.update-appointment-form-input input[type="number"],
+.update-appointment-form-input input[type="date"],
+.update-appointment-form-input textarea,
+.update-appointment-form-input select {
+  border: none;
+  background-color: #e8eeef;
+}
+
+.update-appointment-form-input textarea {
+  padding: 10px;
+  height: 50px;
+  border: none;
+}
+
+/* Set up input validation error styles */
+.input-validation-error {
+  color: red;
+  font-weight: normal;
+}
+
+.update-appointment-form-button {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
