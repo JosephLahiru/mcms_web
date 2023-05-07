@@ -16,14 +16,14 @@
     
    
 }
-.row{
+/* .row{
     display: flex;
     width: 800px;
     margin-left: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
     height: 280px;
-}
+} */
 .column{
     height: 280px;
     background-color: rgb(169, 172, 163);
