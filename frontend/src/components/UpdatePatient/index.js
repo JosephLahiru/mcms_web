@@ -220,7 +220,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
       </div>
     </form>
         <ToastContainer /></div>
-        <div className='t-container'><ViewPatients /></div>
+        <div className='t-container'></div>
     </div>
 );
 }

@@ -1,86 +1,94 @@
-body
-{
-	background-color:#5fcf80;
-}
-#body_header
-{
+/* Set up main container */
+.main-container-add-appointment {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(169, 240, 37);
+  }
 
-	width:auto;
-	margin:0px auto;
-	text-align:center;
-	font-size:25px;
-}
+/* Set up left form container */
+  .form-container-add-appointment {
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px auto 10px;
+    width: 40%;
+    background-color: grey;
+    float: left;
+  }
 
-label {
-  display: block;
-}
+/* Set up right container */
+  .table-container-add-appointment {
+    margin: 10px 10px auto 10px;
+    padding: 10px 10px;
+    width: 70%;
+    background-color: rgb(170, 170, 192);
+    float: right;
+  }
 
-form {
-  max-width: 1500px;
-  margin: 50px auto;
-  padding: 50px 100px;
-  background: #f4f7f8;
-  border-radius: 20px;
-}
+ .table {
+    table-layout: fixed;
+    border: 1px solid black;
+  }
 
-h1 {
-  margin: 0 0 30px 0;
-  text-align: center;
-}
+  
+  #form-add-appointment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px 70px;
+    background: #f4f7f8;
+    border-radius: 20px;
+  }
 
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-textarea,
-select {
-  background: rgba(255,255,255,0.1);
-  border: none;
-  font-size: 16px;
-  height: auto;
-  margin: auto;
-  outline: 0;
-  width: 100%;
-  background-color: #e8eeef;
-  color: black;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-  margin-bottom: 30px;
-} 
+  .form-input-add-appointment {
+    margin-bottom: 20px;
+    width: 200%;
+    width: calc(100% /2 - 10px);
+  }
+  
+  .form-input-add-appointment:nth-child(11) {
+    flex-basis: 100%; /* full width of the available space */
+  }
+  
+  .label-add-appointment {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
 
-input[type="radio"],
-input[type="checkbox"]
+.form-input-add-appointment input[type="text"],
+.form-input-add-appointment input[type="date"],
+.form-input-add-appointment input[type="number"],
+.form-input-add-appointment select {
+    border: none;
+    background-color: #e8eeef;
+    width: 200%;
+    margin-bottom: 20px;
+  }
 
-{
-  margin: 0 4px 8px 0;
-}
+  .form-input-add-appointment textarea {
+    padding: 10px;
+    height: 80px;
+    width: 200%;
+    border: none;
+  } 
 
-select {
-  padding: 6px;
-  height: 32px;
-  border-radius: 2px;
-}
+/* Set up input validation error styles */
+  .input-validation-error {
+    color: red;
+    font-weight: normal;
+  }
+  
+  /* Set up submit button styles */
+  .form-button-add-appointment  {
+    display: flex;
+    flex-direction: row;
+    width: 200%;
+  }
 
-button {
-  padding: 19px 39px 18px 39px;
-  color: #FFF;
-  background-color: #4bc970;
-  font-size: 18px;
-  text-align: center;
-  font-style: normal;
-  border-radius: 5px;
-  width: 100%;
-  border: 1px solid #0ebc37;
-  border-width: 1px 1px 3px;
-  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-  margin-bottom: 20px;
-}
 
-form {
-  max-width: 500px;
-}
