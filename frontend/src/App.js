@@ -19,6 +19,7 @@ import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
 import ViewLowStock from './components/ViewLowStock';
+import GenerateBill from './components/GenerateBill';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path='view_stock' element={<ViewStock/>}/>
         <Route path='update_patient' element={<UpdatePatient/>}/>
         <Route path='user_profile' element={<UserProfile/>}/>
+        <Route path='generate_bill' element={<GenerateBill/>}/>
      </Routes>
   );
 }
