@@ -14,10 +14,9 @@
   .form-container-add-appointment {
     align-items: center;
     justify-content: center;
-    margin: 10px 10px auto 10px;
+    margin: auto;
     width: 40%;
     background-color: grey;
-    float: left;
   }
 
 /* Set up right container */
@@ -35,7 +34,7 @@
   }
 
   
-  #form-add-appointment {
+  .form-add-appointment {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -46,11 +45,11 @@
 
   .form-input-add-appointment {
     margin-bottom: 20px;
-    width: 200%;
+    width: 50%;
     width: calc(100% /2 - 10px);
   }
   
-  .form-input-add-appointment:nth-child(11) {
+  .form-input-add-appointment:nth-child(4) {
     flex-basis: 100%; /* full width of the available space */
   }
   
@@ -67,14 +66,11 @@
 .form-input-add-appointment select {
     border: none;
     background-color: #e8eeef;
-    width: 200%;
-    margin-bottom: 20px;
-  }
+}
 
   .form-input-add-appointment textarea {
     padding: 10px;
     height: 80px;
-    width: 200%;
     border: none;
   } 
 
@@ -88,7 +84,7 @@
   .form-button-add-appointment  {
     display: flex;
     flex-direction: row;
-    width: 200%;
+    width: 100%;
   }
 
 

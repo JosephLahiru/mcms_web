@@ -1,28 +1,20 @@
-/* Set up main container */
-.update-appointment-main-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  width: 100%;
-  background-color: rgb(169, 240, 37);
-}
-
 /* Set up left form container */
 .update-appointment-form-container {
   align-items: center;
   justify-content: center;
-  margin: 10px 10px auto 10px;
-  width: 40%;
+  margin: auto;
+  width: 50%;
   background-color: grey;
-  float: left;
 }
 
 
 /* Set up form styles */
 .update-appointment-form {
-  padding: 50px 100px;
+  max-width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 50px 70px;
   background: #f4f7f8;
   border-radius: 20px;
 }
@@ -35,7 +27,8 @@
 }
 
 .update-appointment-form-input {
-  width: 100%;
+  width: 50%;
+  width: calc(100% /2 - 10px);
 }
 
 .update-appointment-form-input input[type="text"],
