@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {Routes, Route} from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment' ;
 import UpdateAppointment from './components/UpdateAppointment' ;
