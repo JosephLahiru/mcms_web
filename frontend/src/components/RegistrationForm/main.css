@@ -1,49 +1,14 @@
-.main-container {
-  flex-direction: row;
-  align-items:center;
-  justify-content: center;
-  margin: auto;
-  margin-top: 10px;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  background-color: #b65858;
-}
-
-.label {
-  font-size: 16px;
-  font-weight: bold; 
-  text-align: left;
-}
-
-
-.input {
-  text-align: left;
-  width: 500px;
-  height: 30px;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.input:focus {
-  outline: none;
-  border: 0px solid #000000;
-}
-
-.f-container {
+.registration-form-container {
   align-items: center;
   justify-content: center;
-  margin: 10px 10px auto 10px;
-  float: left;
   background-color: #706e6e;
   width:40%;
+  margin: auto;
   padding: 40px;
   border-radius: 5px;
 }
 
-.forms {
+.registration-forms {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -53,9 +18,50 @@
   background: #c5c5d1;
   padding-right: 20px;
   width: 100%;
+}
+
+.registration-form-input{
+  margin-bottom: 20px;
+  width: 50%;
+  width: calc(100% /2 - 10px);
+  background-color: #000000;
 
 }
 
+.registration-form-input:nth-child(11) {
+  flex-basis: 100%; /* full width of the available space */
+}
+
+.registration-lable{
+  font-size: 16px;
+  font-weight: bold; 
+  text-align: left;
+
+}
+
+.registration-lable {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  width: 200px;
+}
+
+.registration-input{
+  text-align: left;
+  width: 500px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+
+}
+
+.registration-input:focus {
+  outline: none;
+  border: 0px solid #000000;
+}
 
 .t-container {
   margin: 10px 10px auto 10px;
@@ -65,40 +71,24 @@
   float: right;
 }
 
-.f-input {
-  margin-bottom: 20px;
+.registration-form-control{
   width: 50%;
-  width: calc(100% /2 - 10px);
+  height: 100px;
 }
 
-.f-input:nth-child(11) {
-  flex-basis: 100%; /* full width of the available space */
-}
-.l1 {
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  width: 200px;
-}
-
-.form-control{
-  width: 500px;
-}
-
-.form-control0{
+.registration-form-control-0{
   height: 38px;
 }
 
-.input1{
+.registration-input{
   width: 200px;
 }
 
-.form-button .btn {
+.registration-form-button .btn {
   flex-wrap: none;
 }
 
-.form-button{
+.registration-form-button{
   width: 100px;
 }
 .row{
@@ -116,3 +106,5 @@
   float: left;
   width: 40%;
 }
+
+
