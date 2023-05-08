@@ -1,0 +1,31 @@
+.view-attendance-filter {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  width: 100%;
+} 
+
+.view-attendance-search-filter {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  width: 30%;
+  margin-right: 10px; 
+} 
+
+.view-attendance-search-input {
+  float: right;
+  width: 30%;
+}
+
+.view-attendance-label {
+  font-weight: bold;
+  width: 150px;
+}
+
+.table {
+  table-layout: fixed;
+  border: 1px solid black;
+}
+  
+  

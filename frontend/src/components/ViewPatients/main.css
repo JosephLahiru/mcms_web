@@ -1,0 +1,12 @@
+.t1 {
+    table-layout: fixed;
+    border: 1px solid black;
+  }
+
+.t-container {
+  margin: 10px 10px auto 10px;
+  padding: 10px 10px;
+  width: 60%;
+  background-color: rgb(208, 208, 215);
+  float: right;
+}

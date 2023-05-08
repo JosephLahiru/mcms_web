@@ -1,0 +1,92 @@
+/* Set up main container */
+.main-container-add-stock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(169, 240, 37);
+  }
+  
+  /* Set up left form container */
+  .form-container-add-stock {
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px auto 10px;
+    width: 40%;
+    background-color: grey;
+    float: left;
+  }
+  
+  /* Set up right container */
+  .table-container-add-stock {
+    margin: 10px 10px auto 10px;
+    padding: 10px 10px;
+    width: 60%;
+    background-color: rgb(170, 170, 192);
+    float: right;
+  }
+  
+  .table {
+    table-layout: fixed;
+    border: 1px solid black;
+  }
+
+  
+  #form-add-stock {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px 70px;
+    background: #f4f7f8;
+    border-radius: 20px;
+  }
+  
+  .form-input-add-stock {
+    margin-bottom: 20px;
+    width: 50%;
+    width: calc(100% /2 - 10px);
+  }
+  
+  .form-input-add-stock:nth-child(11) {
+    flex-basis: 100%; /* full width of the available space */
+  }
+  
+  .label-add-stock {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .form-input-add-stock input[type="text"],
+  .form-input-add-stock input[type="number"],
+  .form-input-add-stock input[type="date"],
+  .form-input-add-stock textarea,
+  .form-input-add-stock select {
+    border: none;
+    background-color: #e8eeef;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .form-input-add-stock textarea {
+    padding: 10px;
+    height: 50px;
+    border: none;
+  } 
+  
+  /* Set up input validation error styles */
+  .input-validation-error {
+    color: red;
+    font-weight: normal;
+  }
+  
+  /* Set up submit button styles */
+  .form-button-add-stock  {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }

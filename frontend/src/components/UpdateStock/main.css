@@ -1,0 +1,90 @@
+/* Set up main container */
+.update-stock-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    background-color: rgb(169, 240, 37);
+  }
+  
+  /* Set up left form container */
+  .update-stock-form-container {
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px auto 10px;
+    width: 40%;
+    background-color: grey;
+    float: left;
+  }
+  
+  /* Set up right container */
+  .table-container {
+    margin: 10px 10px auto 10px;
+    padding: 10px 10px;
+    width: 60%;
+    background-color: rgb(170, 170, 192);
+    float: right;
+  }
+  
+  /* Set up form styles */
+  .update-stock-form {
+    padding: 50px 100px;
+    background: #f4f7f8;
+    border-radius: 20px;
+  }
+
+  .update-stock-label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .update-stock-form-input-id {
+    display: flex;
+    width: 100%;
+  }
+
+  .update-stock-form-input-id input[type="text"] {
+    width: 60%;
+    margin-right: 10px;
+  }
+
+  .update-stock-form-input-id button {
+    width: 40%;
+    height: 35px;
+  }
+
+  
+  .update-stock-form-input {
+    width: 100%;
+  }
+  
+  .update-stock-form-input input[type="text"],
+  .update-stock-form-input input[type="number"],
+  .update-stock-form-input input[type="date"],
+  .update-stock-form-input textarea,
+  .update-stock-form-input select {
+    border: none;
+    background-color: #e8eeef;
+  }
+  
+  .update-stock-form-input textarea {
+    padding: 10px;
+    height: 50px;
+    border: none;
+  }
+  
+  /* Set up input validation error styles */
+  .input-validation-error {
+    color: red;
+    font-weight: normal;
+  }
+  
+  .update-stock-form-button {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
