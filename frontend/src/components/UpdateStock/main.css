@@ -41,6 +41,22 @@
     font-weight: bold;
     margin-bottom: 8px;
   }
+
+  .update-stock-form-input-id {
+    display: flex;
+    width: 100%;
+  }
+
+  .update-stock-form-input-id input[type="text"] {
+    width: 60%;
+    margin-right: 10px;
+  }
+
+  .update-stock-form-input-id button {
+    width: 40%;
+    height: 35px;
+  }
+
   
   .update-stock-form-input {
     width: 100%;
