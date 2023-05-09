@@ -164,7 +164,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
             <div className='registration-form-input'>
               <label className='registration-lable'>Patient Id:</label>      
                 <div className='registration-input'>
-                  <input type="text" class="registration-form-control" value={patientId} onChange={handlePatientIdChange}/></div>
+                  <input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
                   {error&&patientId.length<=0?
                <label class='input-validation-error'>Patient ID can't be empty</label>:""}
             </div>
@@ -172,7 +172,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
             <div className='registration-form-input'>
             <label className='registration-lable'>Appointment Number:</label>
               <div className='registration-input'>
-                <input type="number" class="registration-form-control" value={appointmentNumber} onChange={handleAppointmentNumberChange}/></div>
+                <input type="number" class="form-control" value={appointmentNumber} onChange={handleAppointmentNumberChange}/></div>
                 {error&&appointmentNumber.length<=0?
                     <label className='input-validation-error'>AddAppointment Number can't be Empty</label>:""} 
                 </div>   
@@ -180,7 +180,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>First Name:</label>
               <div className='registration-input'>
-                <input type="text" class="registration-form-control " value={firstName} onChange={handleFirstNameChange}/></div>
+                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/></div>
                 {error&&firstName.length<=0?
                   <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
               </div>
@@ -190,7 +190,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>Last Name:</label>
               <div className='registration-input'>
-                <input type="text" class="registration-form-control" value={lastName} onChange={handleLastNameChange}/></div>
+                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/></div>
                 {error&&lastName.length<=0?
                     <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
               </div>
@@ -199,7 +199,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>Age:</label>
               <div className='registration-input'>
-                <input type="number" class="registration-form-control" value={age} onChange={handleAgeChange}/></div>
+                <input type="number" class="form-control" value={age} onChange={handleAgeChange}/></div>
                 {error&&age.length<=0?
                     <label className='input-validation-error'>Age can't be Empty</label>:""}
                 </div>  
@@ -209,7 +209,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>NIC Number:</label>
               <div className='registration-input'>
-                <input type="text" class="registration-form-control" value={nicNumber} onChange={handleNicNumberChange}/></div>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/></div>
                 {error&&nicNumber.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
               </div>
@@ -217,7 +217,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>contact Number:</label>
               <div className='registration-input'>
-                <input type="number" class="registration-form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
+                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
                     {error&&contactNumber.length<=0?
                           <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
                 </div>
@@ -225,7 +225,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>Email:</label>
               <div className='registration-input'>
-                <input type="text" class="registration-form-control" value={nicNumber} onChange={handleEmailChange}/></div>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleEmailChange}/></div>
                 {error&&email.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
               </div>
@@ -233,11 +233,11 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>Gender:</label>
                 <div className='registration-input'>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />Male</label>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />Female</label>
-        </div>
+        </div><br/><br/><br/><br/>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
@@ -247,31 +247,31 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
             <div className='registration-form-input'>
             <label className='registration-lable'>Medication History:</label>
                 <div className='registration-input'>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange} />Blood Pressure</label>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="checkbox" value="Blood Sugar"  onChange={handleMedicationHisotryChange} />Blood Sugar</label>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="checkbox" value="Alergy"  onChange={handleMedicationHisotryChange} />Alergy</label>
-                    <label className='l1'>
+                    <label className='registration-lable'>
                       <input type="checkbox" value="Cholesterol" onChange={handleMedicationHisotryChange} />Cholesterol</label> 
         </div>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
             </label>) : ("")}</div>
-            <br/>
+            <br/><br/>
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Date:</label>
             <div className='registration-input'>
-                <input type="date" class="registration-form-control " value={date} onChange={handleDateChange}/></div>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
           </div>
 
           <div className='fregistration-form-input'>
             <label className='registration-lable'>Address:</label>
               <div className='registration-input'>
-                <input type="text" class="registration-form-control" value={address} onChange={handleAddressChange}/></div>
+                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/></div>
               {error&&address.length<=0?
                 <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
         </div>
@@ -279,7 +279,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
             <div className='registration-input'>
-            <select className="registration-form-control-0" value={appointmentType} onChange={ setAppointmentType}>
+            <select className="form-control-0" value={appointmentType} onChange={ setAppointmentType}>
                 <option value="Consultation">Consultation</option>
                 <option value="Doctor Check-up">Doctor Check-up</option>
                 <option value="Medical Examination">Medical Examination</option>
@@ -296,7 +296,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Doctor:</label>
             <div className='registration-input'>
-            <select className="registration-form-control-0" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
+            <select className="form-control-0" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
               <option value="">Select Appointment Doctor</option>
               <option value="The Universal Physician">The Universal Physician</option>
               <option value="Pediatrician">Pediatrician</option>

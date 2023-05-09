@@ -22,9 +22,7 @@
 
 .registration-form-input{
   margin-bottom: 20px;
-  width: 50%;
   width: calc(100% /2 - 10px);
-  background-color: #000000;
 
 }
 
@@ -71,12 +69,13 @@
   float: right;
 }
 
-.registration-form-control{
+.form-control{
   width: 50%;
-  height: 100px;
+  height: 200px;
+  background-color: #706e6e;
 }
 
-.registration-form-control-0{
+.form-control-0{
   height: 38px;
 }
 
