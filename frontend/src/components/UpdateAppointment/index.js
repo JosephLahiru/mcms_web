@@ -59,8 +59,8 @@ function UpdateAppointment() {
     }
   }
 
-   function getPatientData(p_num){
-    const response = fetch("https://mcms_api.mcms.me/get_appoinment/" + p_num);
+   function getPatientData(app_num){
+    const response = fetch("https://mcms_api.mcms.me/get_appoinment/" + app_num);
      const data =  response.json();
 
      return data;
