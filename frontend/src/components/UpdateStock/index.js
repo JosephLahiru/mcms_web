@@ -6,6 +6,7 @@ import ViewStock from "../ViewStock/index.js";
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");
+  const [autoFillClicked, setAutoFillClicked] = useState(false);
   const [drugname, setDrugName] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [sellingprice, setSellingPrice] = useState("");
@@ -32,6 +33,31 @@ function UpdateStock() {
     }
   }
 
+  const handleAutoFill = () => {
+    if (!drugId) {
+      toast.error("Please enter a drug ID first", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+  
+    fetch(`https://mcms_api.mtron.me/get_stock/${drugId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setDrugName(data.drugname);
+        setUnitPrice(data.unitprice);
+        setSellingPrice(data.sellingprice);
+        setAutoFillClicked(true);
+      })
+      .catch((error) => {
+        toast.error("Failed to fetch drug details", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+
+  };
+  
+
   const handleReset = () => {
     setDrugId("");
     setDrugName("");
@@ -46,14 +72,23 @@ function UpdateStock() {
         <h1>Stock Update Form</h1>
         <form className="update-stock-form" onSubmit={handleSubmit}>
           <label className="update-stock-label">Drug ID:</label>
-          <div className="update-stock-form-input">
-            <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => setDrugId(event.target.value)} placeholder="Drug ID"/>
+          <div className="update-stock-form-input-id">
+            <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => {
+  setDrugId(event.target.value);
+  if (autoFillClicked) {
+    setDrugName("");
+    setUnitPrice("");
+    setSellingPrice("");
+    setAutoFillClicked(false);
+  }
+}} placeholder="Drug ID"/>
+            <button className="btn btn-primary btn-sm" type="button" onClick={handleAutoFill}>Auto fill</button>
           </div>
           {error&&drugId.length<=0?
           <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
           <label className="update-stock-label">Drug name:</label>
           <div className="update-stock-form-input">
-            <input type="text" className="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
+            <input type="text" className="form-control form-control-sm" value={drugname} placeholder="Name of the Drug"/>
           </div>
           {error&&drugname.length<=0?
           <label className='input-validation-error'>Drug Name can't be Empty</label>:""}
