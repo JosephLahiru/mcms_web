@@ -13,6 +13,7 @@
   max-width: 80%;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
   justify-content: space-between;
   padding: 50px 70px;
   background: #f4f7f8;
@@ -24,6 +25,10 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
+}
+
+.update-appointment-form-input:nth-child(5) {
+  flex-basis: 100%; /* full width of the available space */
 }
 
 .update-appointment-form-input {

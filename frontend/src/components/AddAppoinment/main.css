@@ -49,7 +49,7 @@
     width: calc(100% /2 - 10px);
   }
   
-  .form-input-add-appointment:nth-child(4) {
+  .form-input-add-appointment:nth-child(5) {
     flex-basis: 100%; /* full width of the available space */
   }
   

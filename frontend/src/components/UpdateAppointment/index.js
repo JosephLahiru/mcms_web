@@ -105,18 +105,18 @@ function UpdateAppointment() {
         </div>
         {error&&lastName.length<=0?
         <label className='input-validation-error'>Last Name can't be Empty</label>:""}
+         <div className="update-appointment-form-input">
+        <label className="update-appointment-label">Age:</label>
+          <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age"/>
+        </div>
+        {error&&age.length<=0?
+        <label className='input-validation-error'>Age can't be Empty</label>:""}
         <div className="update-appointment-form-input">
         <label className="update-appointment-label">Address:</label>
         <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
         <label className='input-validation-error'>Address can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Age:</label>
-          <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age"/>
-        </div>
-        {error&&age.length<=0?
-        <label className='input-validation-error'>Age can't be Empty</label>:""}
         <div className="update-appointment-form-input">
         <label className="update-appointment-label">Gender:</label>
         <label>

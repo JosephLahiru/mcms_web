@@ -111,7 +111,7 @@ function AddAppointment() {
       <h1>Add Appointment</h1>
       <form className='form-add-appointment'>
       <div className="form-input-add-appointment">
-      <label className="label-add-appointment">AddAppointment Number:</label>
+      <label className="label-add-appointment">Appointment Num:</label>
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
         </div>
         {error&&firstName.length<=0?
@@ -128,18 +128,18 @@ function AddAppointment() {
         </div>
         {error&&lastName.length<=0?
         <label className='input-validation-error'>Last Name can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Address:</label>
-        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
-        </div>
-        {error&&address.length<=0?
-        <label className='input-validation-error'>Address can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
+         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Age:</label>
           <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age"/>
         </div>
         {error&&age.length<=0?
         <label className='input-validation-error'>Age can't be Empty</label>:""}
+        <div className="form-input-add-appointment">
+        <label className="label-add-appointment">Address:</label>
+        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
+        </div>
+        {error&&address.length<=0?
+        <label className='input-validation-error'>Address can't be Empty</label>:""}s
         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Gender:</label>
         <label>
