@@ -1,0 +1,54 @@
+.navigation {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.5rem 0rem;
+    background-color: #fff;
+    color: black;
+    box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+    justify-content: space-between;
+}
+  
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.brand-container > * {
+    margin-right: 0.5rem; /* Add margin to create space between the icon and brand name */
+}
+
+.brand-name {
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+}
+  
+.navigation-menu {
+    margin-left: auto;
+    margin-right: 1rem;
+}
+  
+.navigation-menu button {
+    padding: 0.5rem 1rem;
+}
+  
+@media screen and (max-width: 768px) {
+    .navigation-menu ul {
+      display: none;
+    }
+}
+  
+@media screen and (max-width: 768px) {
+    .navigation-menu.expanded ul {
+      display: block;
+    }
+}
