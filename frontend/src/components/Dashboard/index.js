@@ -19,7 +19,7 @@ function Dashboard() {
               <Link to='/delete_stock'>Delete Stock</Link>
             </li>
             <li>
-              <Link to='/add_appoinment'>Add Appoinment</Link>
+              <Link to='/add_appointment'>Add Appointment</Link>
             </li>
           </ul>
         </nav>

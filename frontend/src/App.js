@@ -20,6 +20,7 @@ import DeleteStock from './components/DeleteStock';
 import ViewLowStock from './components/ViewLowStock';
 import GenerateBill from './components/GenerateBill';
 
+
 function App() {
   return (
       <Routes>
