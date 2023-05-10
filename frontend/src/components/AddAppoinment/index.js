@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './main.css';
-import ViewAppointment from "../ViewAppointment/index.js";
+
+
 
 function AddAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
@@ -76,14 +77,14 @@ function AddAppointment() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send attendance details');
+        throw new Error('Failed to send appointment details');
       }
 
       alert('Appointment details sent successfully');
       handleReset();
     } catch (error) {
       console.error(error);
-      alert('Failed to send attendance details');
+      alert('Failed to send appointment details');
     }
 
   }
@@ -139,7 +140,7 @@ function AddAppointment() {
         <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
-        <label className='input-validation-error'>Address can't be Empty</label>:""}s
+        <label className='input-validation-error'>Address can't be Empty</label>:""}
         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Gender:</label>
         <label>
@@ -237,10 +238,7 @@ function AddAppointment() {
         </form>
         <ToastContainer />
       </div>
-      <div className="table-container-add-appointment">
-      <ViewAppointment/>
-    </div>
-    </div >
+     </div >
   );
   }
 
