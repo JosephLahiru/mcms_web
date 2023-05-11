@@ -4,6 +4,7 @@
   background-color: #706e6e;
   width:50%;
   margin: auto;
+  padding-bottom: 20px;
 }
 
 .registration-forms{
@@ -89,7 +90,7 @@
 }
 
 .registration-form-button{
-  width: 100px;
+  width: 500px;
 }
 
 .registration-input textarea {

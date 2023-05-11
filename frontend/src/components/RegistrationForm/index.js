@@ -263,20 +263,22 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                   <input  type="checkbox" value="Blood Pressure"/><label class='registration-lable-0'>Blood-Pressure</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input  type="checkbox" value="Blood Sugar"  /><label class='registration-lable'>Blood-Sugar</label></div>
+                  <input  type="checkbox" value="Blood Sugar"  /><label class='registration-lable-0'>Blood-Sugar</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Alergy" /><label class='registration-lable'>Alergy</label></div>
+                  <input type="checkbox" value="Alergy" /><label class='registration-lable-0'>Alergy</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Cholesterol"  /><label class='registration-lable'>Cholesterol</label></div>
+                  <input type="checkbox" value="Cholesterol"  /><label class='registration-lable-0'>Cholesterol</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Asthma"  /><label class='registration-lable-0'>Asthma</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Cardiac disease"  /><label class='registration-lable-0'>Cardiac disease</label></div>
 
           </div>
-        {error && gender.length <= 0 ? (
-            <label class="input-validation-error">
-                <center>Gender field is required</center>
-            </label>) : ("")}
-
+        {error && gender.length <= 0 ? (<label class="input-validation-error"><center>Gender field is required</center></label>) : ("")}
        
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
@@ -297,7 +299,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Doctor:</label>
             <select className="form-control-0" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
-              <option value="">Select Appointment Doctor</option>
+              <option value="">Select  Doctor</option>
               <option value="The Universal Physician">The Universal Physician</option>
               <option value="Pediatrician">Pediatrician</option>
               <option value="Scan Doctor">Scan Doctor</option>
@@ -308,9 +310,11 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
        
 
         <div className="registration-form-button">
-        <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
-        <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
-        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button>
+        <div class="row">
+        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button></div>
+        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button></div>
+        <div class="col-md-4 mb-3"><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button></div>
+        </div>
       </div>
     </form>
     <ToastContainer />
