@@ -8,7 +8,6 @@ function ViewAppointment(){
 
   const [appointment, setViewAppointment] = useState([]);
   const [filterDate, setFilterDate] = useState(""); 
-  const [page, setPage] = useState(0); 
   const navigate = useNavigate();
   
 
@@ -21,19 +20,10 @@ function ViewAppointment(){
         fetchAppointment();
     }, []);  
   
-    const handleNextPage = () => {
-      setPage(page + 1);
-    };
-  
-    const handlePrevPage = () => {
-      setPage(page - 1);
-    };
     const handleFilterDateChange = (event) => {
       setFilterDate(event.target.value);
     };
-  const rowsPerPage = 10;
-  const start = page * rowsPerPage;
-  const end = start + rowsPerPage;
+  
     return (
         <div className="view-appointment-main-container">
         <h1>View Appointment</h1>
@@ -218,10 +208,6 @@ function ViewAppointment(){
             })}
           </tbody>
             </table>
-            <div className="pagination">
-        <button disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button disabled={end >= setViewAppointment.length} onClick={handleNextPage}>Next</button>
-      </div>
         </div>  
 
 
