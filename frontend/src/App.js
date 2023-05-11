@@ -19,10 +19,13 @@ import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
 import ViewLowStock from './components/ViewLowStock';
 import GenerateBill from './components/GenerateBill';
+import Navbar from './components/Navbar';
 
 
 function App() {
   return (
+    <>
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
         <Route path='login' element={<Login/>}/>
@@ -45,6 +48,7 @@ function App() {
         <Route path='user_profile' element={<UserProfile/>}/>
         <Route path='generate_bill' element={<GenerateBill/>}/>
      </Routes>
+    </>
   );
 }
 
