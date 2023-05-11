@@ -6,7 +6,7 @@
   margin: auto;
 }
 
-.registration-forms {
+.registration-forms{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -17,13 +17,20 @@
   border-radius: 20px;
 }
 
-.registration-form-input{
- width: 100%;
- 
+.registration-forms{
+padding: 50px 100px;
+background: #f4f7f8;
+border-radius: 20px;
 
 }
 
-.registration-form-input:nth-child(12) {
+.registration-form-input{
+ width: 100%;
+ width: calc(100% /2 - 10px);
+
+}
+
+.registration-form-input:nth-child(11) {
   flex-basis: 100%; /* full width of the available space */
 }
 
@@ -44,6 +51,7 @@
   margin-bottom: 20px;
 
 }
+
 
 .registration-input input[type="text"],
 .registration-input input[type="number"],

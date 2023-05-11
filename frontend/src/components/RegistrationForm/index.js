@@ -165,9 +165,9 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
               <label className='registration-lable'>Patient Id:</label>      
                 <div className='registration-input'>
                   <input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
-                  {error&&patientId.length<=0?
-               <label class='input-validation-error'>Patient ID can't be empty</label>:""}
             </div>
+            {error&&patientId.length<=0?
+               <label class='input-validation-error'>Patient ID can't be empty</label>:""}
 
             <div className='registration-form-input'>
             <label className='registration-lable'>Appointment Number:</label>
@@ -217,7 +217,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
             <label className='registration-lable'>contact Number:</label>
               <div className='registration-input'>
-                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
+                <input type="text" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
                     {error&&contactNumber.length<=0?
                           <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
                 </div>
@@ -265,16 +265,17 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Date:</label>
             <div className='registration-input'>
-                <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
+                <input type="date" class="form-control form-control-sm" value={date} onChange={handleDateChange}/></div>
           </div>
 
           <div className='fregistration-form-input'>
             <label className='registration-lable'>Address:</label>
               <div className='registration-input'>
-                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/></div>
+              <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
+              </div>
               {error&&address.length<=0?
                 <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
-        </div>
+       </div>
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
@@ -313,7 +314,9 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button>
       </div>
     </form>
+    <ToastContainer />
   </div>
+
 
 );
 }
