@@ -163,7 +163,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
             <div className='registration-form-input'>
               <label className='registration-lable'>Patient Id:</label>      
-                  <input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/>
+                  <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
             </div>
             {error&&patientId.length<=0?
                <label class='input-validation-error'>Patient ID can't be empty</label>:""}
@@ -239,28 +239,12 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='registration-form-input'>
             <label className='registration-lable'>Gender:</label>
-                    <label className='registration-lable'>
-                      <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />Male</label>
-                    <label className='registration-lable'>
-                      <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />Female</label>
+            <select className="form-control-0" value={gender} onChange={ setGender}>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
         </div>
-        {error && gender.length <= 0 ? (
-            <label class="input-validation-error">
-                <center>Gender field is required</center>
-            </label>) : ("")}
-
-
-            <div className='registration-form-input'>
-                <label className='registration-lable'>Medication History:</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange} />Blood Pressure</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Blood Sugar"  onChange={handleMedicationHisotryChange} />Blood Sugar</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Alergy"  onChange={handleMedicationHisotryChange} />Alergy</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Cholesterol" onChange={handleMedicationHisotryChange} />Cholesterol</label> 
-          </div>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
@@ -268,11 +252,24 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Date:</label>
-                <input type="date" class="form-control form-control-sm" value={date} onChange={handleDateChange}/>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
           </div>
 
-         
 
+            <div className='registration-form-input'>
+                <label className='registration-lable'>Medication History:</label>
+                <div class="row">
+                  <div class="col"><input  type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange} />Blood Pressure</div>
+                  <div class="col"><input  type="checkbox" value="Blood Sugar"  onChange={handleMedicationHisotryChange} />Blood Sugar</div>
+                  <input type="checkbox" value="Alergy"  onChange={handleMedicationHisotryChange} />Alergy
+                    <input type="checkbox" value="Cholesterol" onChange={handleMedicationHisotryChange} />Cholesterol
+          </div></div>
+        {error && gender.length <= 0 ? (
+            <label class="input-validation-error">
+                <center>Gender field is required</center>
+            </label>) : ("")}
+
+       
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
             <select className="form-control-0" value={appointmentType} onChange={ setAppointmentType}>

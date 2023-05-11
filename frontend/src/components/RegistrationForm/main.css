@@ -28,6 +28,11 @@
   flex-basis: 100%; /* full width of the available space */
 }
 
+.registration-form-input:nth-child(12) {
+  flex-basis: 100%; /* full width of the available space */
+}
+
+
 .registration-lable {
   display: block;
   font-size: 16px;
@@ -66,13 +71,13 @@
 }
 
 /* .form-control{
-  width: 50%;
-  height: 200px;
-  background-color: #706e6e;
-} */
-
+  border-radius: 5px;
+  height: 30px;
+}
+    */
 .form-control-0{
-  height: 38px;
+  height: 36px;
+  border-radius: 8px;
 }
 
 .registration-input{
@@ -91,6 +96,7 @@
   padding: 10px;
   height: 50px;
   border: none;
+  border-radius: 8px;
 }
 
 
