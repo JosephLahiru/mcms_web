@@ -46,6 +46,7 @@ return (
             <th scope="col">Contact Number</th>
             <th scope="col">Email</th>
             <th scope="col">Gender</th>
+            <th scope="col">Medication History</th>
             <th scope="col">Appointment date</th>
             <th scope="col">Appointment type</th>
             <th scope="col">Appointment doctor</th>
@@ -63,6 +64,7 @@ return (
             <td>{patients.contact_number}</td>
             <td>{patients.email}</td>
             <td>{patients.gender}</td>
+            <td>{patients.medication_history}</td>
             <td>{patients.appointment_date}</td>
             <td>{patients.appointment_type}</td>
             <td>{patients.appointment_doctor}</td>
