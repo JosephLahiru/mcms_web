@@ -17,12 +17,6 @@
   border-radius: 20px;
 }
 
-.registration-forms{
-padding: 50px 100px;
-background: #f4f7f8;
-border-radius: 20px;
-
-}
 
 .registration-form-input{
  width: 100%;
@@ -30,7 +24,7 @@ border-radius: 20px;
 
 }
 
-.registration-form-input:nth-child(11) {
+.registration-form-input:nth-child(9) {
   flex-basis: 100%; /* full width of the available space */
 }
 
