@@ -44,9 +44,9 @@ function UpdateStock() {
     fetch(`https://mcms_api.mtron.me/get_stock/${drugId}`)
       .then((response) => response.json())
       .then((data) => {
-        setDrugName(data.drugname);
-        setUnitPrice(data.unitprice);
-        setSellingPrice(data.sellingprice);
+        setDrugName(data[0].prdct_name);
+        setUnitPrice(data[0].ac_price);
+        setSellingPrice(data[0].sell_price);
         setAutoFillClicked(true);
       })
       .catch((error) => {
@@ -74,15 +74,15 @@ function UpdateStock() {
           <label className="update-stock-label">Drug ID:</label>
           <div className="update-stock-form-input-id">
             <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => {
-  setDrugId(event.target.value);
-  if (autoFillClicked) {
-    setDrugName("");
-    setUnitPrice("");
-    setSellingPrice("");
-    setAutoFillClicked(false);
-  }
-}} placeholder="Drug ID"/>
-            <button className="btn btn-primary btn-sm" type="button" onClick={handleAutoFill}>Auto fill</button>
+                setDrugId(event.target.value);
+                if (autoFillClicked) {
+                  setDrugName("");
+                  setUnitPrice("");
+                  setSellingPrice("");
+                  setAutoFillClicked(false);
+                }
+              }} placeholder="Drug ID"/>
+          <button className="btn btn-primary btn-sm" type="button" onClick={handleAutoFill}>Auto fill</button>
           </div>
           {error&&drugId.length<=0?
           <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
