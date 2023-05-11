@@ -258,12 +258,20 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
             <div className='registration-form-input'>
                 <label className='registration-lable'>Medication History:</label>
-                <div class="row">
-                  <div class="col"><input  type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange} />Blood Pressure</div>
-                  <div class="col"><input  type="checkbox" value="Blood Sugar"  onChange={handleMedicationHisotryChange} />Blood Sugar</div>
-                  <input type="checkbox" value="Alergy"  onChange={handleMedicationHisotryChange} />Alergy
-                    <input type="checkbox" value="Cholesterol" onChange={handleMedicationHisotryChange} />Cholesterol
-          </div></div>
+
+                  <div class="form-check form-check-inline">
+                  <input  type="checkbox" value="Blood Pressure"/><label class='registration-lable-0'>Blood-Pressure</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input  type="checkbox" value="Blood Sugar"  /><label class='registration-lable'>Blood-Sugar</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Alergy" /><label class='registration-lable'>Alergy</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Cholesterol"  /><label class='registration-lable'>Cholesterol</label></div>
+
+          </div>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
