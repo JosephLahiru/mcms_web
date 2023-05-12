@@ -1,0 +1,49 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .header {
+    text-align: left;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+  }
+  
+  .row:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .cell {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+  }
+  
+  .cell:nth-child(1) {
+    text-align: left;
+    width: 30%;
+  }
+  
+  .cell:nth-child(2) {
+    text-align: left;
+    width: 70%;
+  }
+  
+  .loading {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #888;
+  }
+  
