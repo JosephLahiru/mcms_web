@@ -175,13 +175,7 @@ function UpdateAppointment() {
         </select>
          </div>
         {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Date:</label>
-        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""} 
+        <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
         <div className="update-appointment-form-input">
         <label className="update-appointment-label">Appointment Time:</label>
           <select className="form-control form-control-sm" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
@@ -207,7 +201,14 @@ function UpdateAppointment() {
          </div>
         {error&&appointmentTime.length<=0?
         <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div className="update-appointment-form-button">
+        <div>
+        <div className="update-appointment-form-input">
+        <label className="update-appointment-label">Appointment Date:</label>
+        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
+         </div>
+        {error&&appointmentDoctor.length<=0?
+        <label className='input-validation-error'>Appointment Date can't be Empty</label>:""} 
+        <br />
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button></div>
        </form>
