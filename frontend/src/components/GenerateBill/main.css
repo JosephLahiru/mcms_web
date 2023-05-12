@@ -1,4 +1,4 @@
-/* Set up main container */
+/* Set up main container
 .main-container-add-appointment {
     display: flex;
     flex-direction: row;
@@ -11,17 +11,17 @@
   }
 
 /* Set up left form container */
-  .form-container-add-appointment {
+  /* .form-container-add-appointment {
     align-items: center;
     justify-content: center;
     margin: auto;
     width: 40%;
     padding-bottom: 70px;
     background-color: grey;
-  }
+  } */
 
 /* Set up right container */
-  .table-container-add-appointment {
+  /* .table-container-add-appointment {
     margin: 10px 10px auto 10px;
     padding: 10px 10px;
     width: 70%;
@@ -55,17 +55,17 @@
   
   .form-input-add-appointment:nth-child(5) {
     flex-basis: 100%; /* full width of the available space */
-  }
   
-  .label-add-appointment {
+  
+  /* .label-add-appointment {
     display: block;
     align-items: center;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
-  }
+  } */
 
-.form-input-add-appointment input[type="text"],
+/* .form-input-add-appointment input[type="text"],
 .form-input-add-appointment input[type="date"],
 .form-input-add-appointment input[type="number"],
 .form-input-add-appointment select {
@@ -77,17 +77,17 @@
     padding: 10px;
     height: 50px;
     border: none;
-  } 
+  }  */
 
 /* Set up input validation error styles */
-  .input-validation-error {
+  /* .input-validation-error {
     color: red;
     font-weight: normal;
   }
-  
+   */
   /* Set up submit button styles */
-  .form-button-add-appointment  {
+  /* .form-button-add-appointment  {
     display: flex;
     flex-direction: row;
     width: 500%;
-  }
+  } */ 
