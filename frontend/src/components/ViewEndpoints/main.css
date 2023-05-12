@@ -2,6 +2,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 1rem;
+    height: 90%;
   }
   
   .title {
@@ -22,23 +23,9 @@
     background-color: #f2f2f2;
   }
   
-  .row:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
   .cell {
     padding: 0.5rem;
     border: 1px solid #ccc;
-  }
-  
-  .cell:nth-child(1) {
-    text-align: left;
-    width: 30%;
-  }
-  
-  .cell:nth-child(2) {
-    text-align: left;
-    width: 70%;
   }
   
   .loading {
