@@ -1,66 +1,78 @@
-/* Set up left form container */
+/* Set up main container*/
+.update-appointment-main-container {
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    width:100% ;
+    height: 100%;
+    
+  }
+
+/* Set up main container*/
 .update-appointment-form-container {
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 50%;
+  width: 30%;
   padding-bottom: 80px;
   background-color: grey;
 }
 
-
-/* Set up form styles */
+/* Set up form update appointment*/
 .update-appointment-form {
+  max-width: 400px;
+  margin: 10px auto;
+  background: #f4f7f8;
+  border-radius: 8px;
+  display: block;
+  flex-wrap:nowrap;
   max-width: 80%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
+  align-items: center;
   justify-content: space-between;
   padding: 50px 70px;
-  background: #f4f7f8;
-  border-radius: 20px;
 }
 
-.update-appointment-label {
+/* Set up form uupdate appointment body*/
+body
+{
+	background-color:#5fcf80;
+}
+
+/* Set up form add appointment*/
+.update-appointment-form-input[type="text"],
+.update-appointment-form-input[type="date"],
+.update-appointment-form-input[type="number"],
+.update-appointment-form textarea,
+.update-appointment-form-select {
+  border: none;
+  background-color: #e8eeef; 
+}
+
+/* Set up submit button styles */
+button {
+width: 100%; 
+}
+
+/* Set up form update appointment label*/ 
+.update-appointment-lable {
   display: block;
-  font-size: 16px;
   font-weight: bold;
+  display: block;
+  align-items: center;
+  font-size: 16px;
   margin-bottom: 8px;
 }
 
-.update-appointment-form-input:nth-child(5) {
-  flex-basis: 100%; /* full width of the available space */
-}
-
-.update-appointment-form-input {
-  width: 50%;
-  width: calc(100% /2 - 10px);
-}
-
-.update-appointment-form-input input[type="text"],
-.update-appointment-form-input input[type="number"],
-.update-appointment-form-input input[type="date"],
-.update-appointment-form-input textarea,
-.update-appointment-form-input select {
-  border: none;
-  background-color: #e8eeef;
-}
-
-.update-appointment-form-input textarea {
-  padding: 10px;
-  height: 50px;
-  border: none;
-}
-
 /* Set up input validation error styles */
-.input-validation-error {
-  color: red;
-  font-weight: normal;
-}
-
-.update-appointment-form-button {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+  .input-validation-error {
+    color: red;
+    font-weight: normal;
+  }
   
-}
+  /* Set up submit button styles */
+  .update-appointment-form-button  {
+    display: flex;
+    flex-direction: row;
+    width: 500%;
+  }  
+
