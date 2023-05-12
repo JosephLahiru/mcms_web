@@ -2,47 +2,43 @@
   align-items: center;
   justify-content: center;
   background-color: #706e6e;
-  width:40%;
+  width:50%;
   margin: auto;
-  padding: 40px;
-  border-radius: 5px;
+  padding-bottom: 20px;
 }
 
-.registration-forms {
+.registration-forms{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* flex-direction: column;  */
-  margin: 20px 10px;
-  padding: 20px 20px;
+  margin: auto;
+  padding: 50px 70px;
   background: #c5c5d1;
-  padding-right: 20px;
-  width: 100%;
+  max-width: 80%;
+  border-radius: 20px;
 }
+
 
 .registration-form-input{
-  margin-bottom: 20px;
-  width: calc(100% /2 - 10px);
+ width: 100%;
+ width: calc(100% /2 - 10px);
 
 }
 
-.registration-form-input:nth-child(11) {
+.registration-form-input:nth-child(9) {
   flex-basis: 100%; /* full width of the available space */
 }
 
-.registration-lable{
-  font-size: 16px;
-  font-weight: bold; 
-  text-align: left;
-
+.registration-form-input:nth-child(12) {
+  flex-basis: 100%; /* full width of the available space */
 }
+
 
 .registration-lable {
   display: block;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 8px;
-  width: 200px;
 }
 
 .registration-input{
@@ -56,10 +52,16 @@
 
 }
 
-.registration-input:focus {
-  outline: none;
-  border: 0px solid #000000;
+
+.registration-input input[type="text"],
+.registration-input input[type="number"],
+.registration-input input[type="date"],
+.uregistration-input textarea,
+.registration-input select {
+  border: none;
+  background-color: #e8eeef;
 }
+
 
 .t-container {
   margin: 10px 10px auto 10px;
@@ -69,14 +71,14 @@
   float: right;
 }
 
-.form-control{
-  width: 50%;
-  height: 200px;
-  background-color: #706e6e;
+/* .form-control{
+  border-radius: 5px;
+  height: 30px;
 }
-
+    */
 .form-control-0{
-  height: 38px;
+  height: 36px;
+  border-radius: 8px;
 }
 
 .registration-input{
@@ -88,22 +90,18 @@
 }
 
 .registration-form-button{
-  width: 100px;
-}
-.row{
-  overflow: hidden;
-  height: 80px;
-  display: flex;
-  width: 800px;
-  margin-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  background-color: #f4f4f5;
+  width: 500px;
 }
 
-.column {
-  float: left;
-  width: 40%;
+.registration-input textarea {
+  padding: 10px;
+  height: 50px;
+  border: none;
+  border-radius: 8px;
 }
 
+.registration-input-0{
+  display: inline-block;
+  margin: auto;
+}
 
