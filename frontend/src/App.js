@@ -21,7 +21,7 @@ import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
-
+import ViewEndpoints from './components/ViewEndpoints';
 
 function App() {
   return (
@@ -49,6 +49,7 @@ function App() {
         <Route path='update_patient' element={<UpdatePatient/>}/>
         <Route path='user_profile' element={<UserProfile/>}/>
         <Route path='generate_bill' element={<GenerateBill/>}/>
+        <Route path='view_endpoints' element={<ViewEndpoints/>}/>
      </Routes>
     </>
   );
