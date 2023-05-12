@@ -13,21 +13,24 @@
   .delete-stock-filter {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    margin-bottom: 10px;
   } 
   
    .delete-stock-search-filter {
     display: flex;
     flex-direction: row;
     float: left;
-    width: 30%;
-    margin-right: 10px; 
+    width: 300px; 
   } 
 
   .delete-stock-search-input {
     float: right;
-    width: 30%;
   }
+
+  .delete-stock-search-input input[type="search"] {
+    width: 250px;
+  }
+
 
   .delete-stock-label {
     font-weight: bold;
