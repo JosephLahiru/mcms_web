@@ -18,6 +18,7 @@ import UpdatePatient from './components/UpdatePatient';
 import UserProfile from './components/UserProfile';
 import DeleteStock from './components/DeleteStock';
 import ViewLowStock from './components/ViewLowStock';
+import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='update_stock' element={<UpdateStock/>}/>
         <Route path='delete_stock' element={<DeleteStock/>}/>
         <Route path='view_lowstock' element={<ViewLowStock/>}/>
+        <Route path='view_shortexpiry' element={<ViewShortExpiry/>}/>
         <Route path='get_attendance' element={<GetAttendance/>}/>
         <Route path='view_attendance' element={<ViewAttendance/>}/>
         <Route path='history' element={<History/>}/>
