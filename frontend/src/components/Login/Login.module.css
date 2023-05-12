@@ -16,18 +16,18 @@
 
 }
 
-label{
+.login-label{
     text-align: left;
     padding: 0.25rem 0;
 }
 
-input{
+.login-text-field{
     margin: 0.5rem 0;
     padding: 1rem;
     border-radius: 10px;
 }
 
-button{
+.login-button{
     border: none;
     color: white;
     padding: 20px;
