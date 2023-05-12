@@ -163,122 +163,125 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
             <div className='registration-form-input'>
               <label className='registration-lable'>Patient Id:</label>      
-                <div className='registration-input'>
-                  <input type="text" class="form-control" value={patientId} onChange={handlePatientIdChange}/></div>
-                  {error&&patientId.length<=0?
-               <label class='input-validation-error'>Patient ID can't be empty</label>:""}
+                  <input type="text" class="form-control " value={patientId} onChange={handlePatientIdChange}/>
             </div>
+            {error&&patientId.length<=0?
+               <label class='input-validation-error'>Patient ID can't be empty</label>:""}
 
             <div className='registration-form-input'>
-            <label className='registration-lable'>Appointment Number:</label>
-              <div className='registration-input'>
-                <input type="number" class="form-control" value={appointmentNumber} onChange={handleAppointmentNumberChange}/></div>
+              <label className='registration-lable'>Appointment Number:</label>
+                <input type="number" class="form-control" value={appointmentNumber} onChange={handleAppointmentNumberChange}/>
+            </div>
                 {error&&appointmentNumber.length<=0?
                     <label className='input-validation-error'>AddAppointment Number can't be Empty</label>:""} 
-                </div>   
+                   
       
         <div className='registration-form-input'>
             <label className='registration-lable'>First Name:</label>
-              <div className='registration-input'>
-                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/></div>
+                <input type="text" class="form-control " value={firstName} onChange={handleFirstNameChange}/>
+        </div>
                 {error&&firstName.length<=0?
                   <label class='input-validation-error'><center>First Name can't be Empty</center></label>:""}
-              </div>
+              
              
 
       
         <div className='registration-form-input'>
             <label className='registration-lable'>Last Name:</label>
-              <div className='registration-input'>
-                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/></div>
+                <input type="text" class="form-control" value={lastName} onChange={handleLastNameChange}/>
+        </div>
                 {error&&lastName.length<=0?
                     <label className='input-validation-error'><center>Last Name can't be Empty</center></label>:""}
-              </div>
+              
 
         
         <div className='registration-form-input'>
             <label className='registration-lable'>Age:</label>
-              <div className='registration-input'>
-                <input type="number" class="form-control" value={age} onChange={handleAgeChange}/></div>
+                <input type="number" class="form-control" value={age} onChange={handleAgeChange}/>
+        </div> 
                 {error&&age.length<=0?
                     <label className='input-validation-error'>Age can't be Empty</label>:""}
-                </div>  
+                 
 
         
 
         <div className='registration-form-input'>
             <label className='registration-lable'>NIC Number:</label>
-              <div className='registration-input'>
-                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/></div>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleNicNumberChange}/>
+        </div>
                 {error&&nicNumber.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
-              </div>
+              
 
         <div className='registration-form-input'>
             <label className='registration-lable'>contact Number:</label>
-              <div className='registration-input'>
-                <input type="number" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/></div>
+                <input type="text" class="form-control" value={contactNumber} onChange={handleContactNumberChange}/>
+        </div>
                     {error&&contactNumber.length<=0?
                           <label className='input-validation-error'><center>Please enter a valid 10-digit phone number in the format of (123) 456-7890.</center></label>:""}
-                </div>
+                
 
         <div className='registration-form-input'>
             <label className='registration-lable'>Email:</label>
-              <div className='registration-input'>
-                <input type="text" class="form-control" value={nicNumber} onChange={handleEmailChange}/></div>
+                <input type="text" class="form-control" value={nicNumber} onChange={handleEmailChange}/>
+        </div>
                 {error&&email.length<=0?
                   <label className='input-validation-error'><center>Please enter a valid NIC number</center></label>:""}
-              </div>
+             
+
+        <div className='registration-form-input'>
+            <label className='registration-lable'>Address:</label>
+                <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
+        </div>
+              {error&&address.length<=0?
+                <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
+       
 
         <div className='registration-form-input'>
             <label className='registration-lable'>Gender:</label>
-                <div className='registration-input'>
-                    <label className='registration-lable'>
-                      <input type="radio" value="Male" checked={gender === "Male"} onChange={handleGenderChange} />Male</label>
-                    <label className='registration-lable'>
-                      <input type="radio" value="Female" checked={gender === "Female"} onChange={handleGenderChange} />Female</label>
-        </div><br/><br/><br/><br/>
-        {error && gender.length <= 0 ? (
-            <label class="input-validation-error">
-                <center>Gender field is required</center>
-            </label>) : ("")}</div>
-
-
-            <div className='registration-form-input'>
-            <label className='registration-lable'>Medication History:</label>
-                <div className='registration-input'>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange} />Blood Pressure</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Blood Sugar"  onChange={handleMedicationHisotryChange} />Blood Sugar</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Alergy"  onChange={handleMedicationHisotryChange} />Alergy</label>
-                    <label className='registration-lable'>
-                      <input type="checkbox" value="Cholesterol" onChange={handleMedicationHisotryChange} />Cholesterol</label> 
+            <select className="form-control-0" value={gender} onChange={ setGender}>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
         </div>
         {error && gender.length <= 0 ? (
             <label class="input-validation-error">
                 <center>Gender field is required</center>
-            </label>) : ("")}</div>
-            <br/><br/>
+            </label>) : ("")}
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Date:</label>
-            <div className='registration-input'>
-                <input type="date" class="form-control " value={date} onChange={handleDateChange}/></div>
+                <input type="date" class="form-control " value={date} onChange={handleDateChange}/>
           </div>
 
-          <div className='fregistration-form-input'>
-            <label className='registration-lable'>Address:</label>
-              <div className='registration-input'>
-                <input type="text" class="form-control" value={address} onChange={handleAddressChange}/></div>
-              {error&&address.length<=0?
-                <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
-        </div>
 
+            <div className='registration-form-input'>
+                <label className='registration-lable'>Medication History:</label>
+
+                  <div class="form-check form-check-inline">
+                  <input  type="checkbox" value="Blood Pressure"/><label class='registration-lable-0'>Blood-Pressure</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input  type="checkbox" value="Blood Sugar"  /><label class='registration-lable-0'>Blood-Sugar</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Alergy" /><label class='registration-lable-0'>Alergy</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Cholesterol"  /><label class='registration-lable-0'>Cholesterol</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Asthma"  /><label class='registration-lable-0'>Asthma</label></div>
+
+                  <div class="form-check form-check-inline">
+                  <input type="checkbox" value="Cardiac disease"  /><label class='registration-lable-0'>Cardiac disease</label></div>
+
+          </div>
+        {error && gender.length <= 0 ? (<label class="input-validation-error"><center>Gender field is required</center></label>) : ("")}
+       
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
-            <div className='registration-input'>
             <select className="form-control-0" value={appointmentType} onChange={ setAppointmentType}>
                 <option value="Consultation">Consultation</option>
                 <option value="Doctor Check-up">Doctor Check-up</option>
@@ -289,15 +292,14 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
             </div>
             {error&&appointmentType.length<=0?
         <label className='input-validation-error'>Appointment Type can't be Empty</label>:""}
-        </div>
+       
 
       
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Doctor:</label>
-            <div className='registration-input'>
             <select className="form-control-0" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
-              <option value="">Select Appointment Doctor</option>
+              <option value="">Select  Doctor</option>
               <option value="The Universal Physician">The Universal Physician</option>
               <option value="Pediatrician">Pediatrician</option>
               <option value="Scan Doctor">Scan Doctor</option>
@@ -305,15 +307,19 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
               </div>
          {error&&appointmentDoctor.length<=0?
         <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
-        </div>
+       
 
         <div className="registration-form-button">
-        <button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button>
-        <button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button>
-        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button>
+        <div class="row">
+        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button></div>
+        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button></div>
+        <div class="col-md-4 mb-3"><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button></div>
+        </div>
       </div>
     </form>
+    <ToastContainer />
   </div>
+
 
 );
 }
