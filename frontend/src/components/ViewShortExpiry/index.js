@@ -1,43 +1,26 @@
 import React, { useState ,useEffect } from "react";
 import './main.css';
  
-function ViewLowStock() {
-  const [lowstock, setLowStock] = useState([]);
-  const [filteredLowStock, setFilteredLowStock] = useState([]);
+function ViewShortExpiry() {
+  const [shortexpiry, setShortExpiry] = useState([]);
+  const [FilteredShortExpiry, setFilteredShortExpiry] = useState(shortexpiry);
   const [filterOption, setFilterOption] = useState("1");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    async function fetchLowStock() {
-      const response = await fetch("https://mcms_api.mtron.me/get_stock_low");
+    async function fetchShortExpiry() {
+      const response = await fetch("https://mcms_api.mtron.me/get_expire");
       const data = await response.json();
-      setLowStock(data);
-      setFilteredLowStock(data);
+      setShortExpiry(data);
+      setFilteredShortExpiry(data);
     }
-    fetchLowStock();
+    fetchShortExpiry();
   }, []);
-
-  // useEffect(() => {
-  //   let results;
-  //   switch (filterOption) {
-  //     case "1":
-  //       results = lowstock.filter(item => item.stock_type === "1");
-  //       break;
-  //     case "2":
-  //       results = lowstock.filter(item => item.stock_type === "2");
-  //       break;
-  //     case "3":
-  //       results = lowstock.filter(item => item.stock_type === "3");
-  //       break;
-  //     default:
-  //       results = lowstock;
-  //       break;
-  //  }
-  // setFilteredLowStock(results);
-  //  }, [lowstock, filterOption]);
 
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
+    const filteredData = shortexpiry.filter((item) => item.expire_type === event.target.value);
+    setFilteredShortExpiry(filteredData);
   };
 
   const handleNextPage = () => {
@@ -53,14 +36,14 @@ function ViewLowStock() {
   const end = start + rowsPerPage;
 
   return (
-    <div className="low-stock-main-container">
-      <h1>View Low Stock</h1>
-      <div className="view-low-stock-filter">
-        <label className="view-low-stock-label" htmlFor="filterSelect">Filter by stock type:</label>
+    <div className="short-expiry-main-container">
+      <h1>View Short Expiry</h1>
+      <div className="view-short-expiry-filter">
+        <label className="view-short-expiry-label" htmlFor="filterSelect">Filter by Expire Type:</label>
         <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
-          <option value="1">Small</option>
-          <option value="2">Medium</option>
-          <option value="3">High</option>
+          <option value="short">short</option>
+          <option value="medium">medium</option>
+          <option value="long">long</option>
         </select>
       </div>
       <table className="table">
@@ -80,7 +63,7 @@ function ViewLowStock() {
           </tr>
         </thead>
         <tbody>
-          {filteredLowStock.slice(start, end).map((item) => (
+          {FilteredShortExpiry.slice(start, end).map((item) => (
             <tr key={item.prdct_id}>
               <td>{item.prdct_id}</td>
               <td>{item.prdct_name}</td>
@@ -99,10 +82,10 @@ function ViewLowStock() {
       </table>
       <div className="pagination">
         <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={end >= filteredLowStock.length} onClick={handleNextPage}>Next</button>
+        <button className="btn btn-primary" disabled={end >= FilteredShortExpiry.length} onClick={handleNextPage}>Next</button>
       </div>
         </div>
     );
 }
 
-export default ViewLowStock;
+export default ViewShortExpiry;

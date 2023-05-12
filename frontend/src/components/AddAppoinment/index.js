@@ -112,7 +112,7 @@ function AddAppointment() {
       <h1>Add Appointment</h1>
       <form className='form-add-appointment'>
       <div className="form-input-add-appointment">
-      <label className="label-add-appointment">Appointment Num:</label>
+      <label className="label-add-appointment">Appointment Number:</label>
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
         </div>
         {error&&firstName.length<=0?
@@ -199,13 +199,7 @@ function AddAppointment() {
         </select>
          </div>
         {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Date:</label>
-        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
+        <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Appointment Time:</label>
           <select className="form-control form-control-sm" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
@@ -229,9 +223,13 @@ function AddAppointment() {
               <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
         </select>
          </div>
-        {error&&appointmentTime.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-         <div className="form-button-add-appointment"></div>
+         <div className="form-input-add-appointment">
+        <label className="label-add-appointment">Appointment Time:</label>
+        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
+         </div>
+        {error&&appointmentDoctor.length<=0?
+        <label className='input-validation-error'>Appointment Date can't be Empty</label>:""}
+         <br/>
         <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button><br /><br />
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>View Appointment</button>

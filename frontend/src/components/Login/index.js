@@ -16,11 +16,11 @@ function Login() {
         <form className="login-form" onSubmit={handleSubmit}>
           <h1>Welcome to MCMS</h1>
           <h3>Login</h3>
-          <label for="username">Username: </label>
-          <input value={userName} onChange={(e) => setuserName(e.target.value)} type="username" name="username" id="userName"></input>
-          <label for="password">Password: </label>
-          <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" id="password" name="password"></input>
-          <button>Log In</button>
+          <label className="login-label" for="username">Username: </label>
+          <input className="login-text-field" value={userName} onChange={(e) => setuserName(e.target.value)} type="username" name="username" id="userName"></input>
+          <label className="login-label" for="password">Password: </label>
+          <input className="login-text-field" value={pass} onChange={(e) => setPass(e.target.value)} type="password" id="password" name="password"></input>
+          <button className="login-button">Log In</button>
         </form>
       </div>
     </body>
