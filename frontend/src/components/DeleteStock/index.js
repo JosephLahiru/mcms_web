@@ -22,14 +22,22 @@ function DeleteStock() {
     let results;
     switch (filterOption) {
       case "Drug Name":
-        results = stock.filter((item) =>
-          item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        if (searchTerm.length >= 3) {
+          results = stock.filter((item) =>
+            item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          results = stock;
+        }
         break;
       case "Drug Type":
-        results = stock.filter((item) =>
-          item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        if (searchTerm.length >= 3) {
+          results = stock.filter((item) =>
+            item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          results = stock;
+        }
         break;
       case "Quantity":
         results = stock.filter((item) =>
