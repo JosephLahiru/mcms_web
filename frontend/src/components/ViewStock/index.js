@@ -97,8 +97,8 @@ function ViewStock() {
             <th scope="col">Brand Name</th>
             <th scope="col">Drug Type</th>
             <th scope="col">Description</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Selling Price</th>
+            <th scope="col">Unit Price(Rs)</th>
+            <th scope="col">Selling Price(Rs)</th>
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
