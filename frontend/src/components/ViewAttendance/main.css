@@ -1,17 +1,29 @@
+.view-attendance-main-container {
+  padding: 10px;
+  background-color: rgb(170, 170, 192);
+}
+
+.view-attendance-main-container h1{
+  margin-bottom: 20px;
+}
 .view-attendance-filter {
   display: flex;
   flex-direction: row;
-  margin-left: 10px;
-  width: 100%;
+  margin-bottom: 10px;
 } 
 
 .view-attendance-search-filter {
   display: flex;
   flex-direction: row;
   float: left;
-  width: 30%;
-  margin-right: 10px; 
+  width: 300px;
 } 
+
+#filterSelect {
+  border: none;
+  margin-right: 20px;
+  width: 200px;
+}
 
 .view-attendance-search-input {
   float: right;
@@ -20,7 +32,7 @@
 
 .view-attendance-label {
   font-weight: bold;
-  width: 150px;
+  width: 100px;
 }
 
 .table {
