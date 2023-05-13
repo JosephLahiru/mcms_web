@@ -1,12 +1,11 @@
-.t1 {
+.patient-table {
     table-layout: fixed;
-    border: 1px solid black;
+    border: 1px solid rgb(43, 42, 42);
   }
 
-.t-container {
+.patient-table-container {
   margin: 10px 10px auto 10px;
   padding: 10px 10px;
-  width: 60%;
-  background-color: rgb(208, 208, 215);
-  float: right;
+  width: 100%;
 }
+
