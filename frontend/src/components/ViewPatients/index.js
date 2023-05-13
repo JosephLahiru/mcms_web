@@ -36,8 +36,8 @@ return (
     <div className='patient-table-container'>
         <h1>View Patient List</h1>
       <table class='patient-table table-bordered' >
-      <thead>
-        <tr class="t-row">
+      <thead class="table-dark">
+        <tr class="t-row table-dark">
             <th scope="col" class="col-md-1">Patient Id</th>
             <th scope="col" class="col-md-1">Appointment number</th>
             <th scope="col" class="col-md-1">First Name</th>
