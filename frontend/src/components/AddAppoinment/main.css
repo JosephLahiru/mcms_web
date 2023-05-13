@@ -38,6 +38,7 @@
 .form-input-add-appointment input[type="text"],
 .form-input-add-appointment input[type="date"],
 .form-input-add-appointment input[type="number"],
+.form-input-add-appointment textarea,
 .form-input-add-appointment select {
   background:  #e8eeef;
   border: none; 
