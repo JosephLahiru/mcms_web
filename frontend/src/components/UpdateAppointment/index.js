@@ -113,7 +113,7 @@ function UpdateAppointment() {
         {error&&age.length<=0?
         <label className='input-validation-error'>Age can't be Empty</label>:""}
         <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Address:</label><br />
+        <label className="update-appointment-label">Address:</label>
         <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
@@ -124,14 +124,17 @@ function UpdateAppointment() {
             <input type="radio" value="Male" checked={gender === "Male"} onChange={(event) => setGender(event.target.value)} />
             Male
           </label>
+          <br />
           <label>
             <input type="radio" value="Female" checked={gender === "Female"} onChange={(event) => setGender(event.target.value)} />
             Female
           </label>
+          <br />
           <label>
             <input type="radio" value="Other" checked={gender === "Other"} onChange={(event) => setGender(event.target.value)} />
             Other
           </label>
+          <br />
         </div>
          {error&&gender.length<=0?
         <label className='input-validation-error'>Gender can't be Empty</label>:""}

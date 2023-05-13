@@ -23,7 +23,7 @@
 .update-appointment-form {
   max-width: 400px;
   margin: 10px auto;
-  background: #f4f7f8;
+  background:  #d7dadc;
   border-radius: 8px;
   display: block;
   flex-wrap:nowrap;
@@ -39,16 +39,12 @@
 .update-appointment-form-input[type="text"],
 .update-appointment-form-input[type="date"],
 .update-appointment-form-input[type="number"],
-.update-appointment-form textarea,
+.update-appointment-form-textarea,
 .update-appointment-form-select {
   border: none;
-  background-color: #e8eeef; 
+  background:  #e8eeef;
 }
 
-/* Set up submit button styles */
-.update-appointment-form-button {
-width: 500%; 
-}
 
 /* Set up form update appointment label*/ 
 .update-appointment-lable {
@@ -58,6 +54,10 @@ width: 500%;
   align-items: center;
   font-size: 16px;
   margin-bottom: 8px;
+  width: 300px;
+  border: none;
+  background:  #e8eeef;
+  
 }
 
 /* Set up input validation error styles */
@@ -70,6 +70,39 @@ width: 500%;
   .update-appointment-form-button  {
     display: flex;
     flex-direction: row;
-    width: 500%;
+    width: 300%;
+    background:  #e8eeef;
   }  
 
+  /* Set up textarea */
+  .update-appointment-form-input textarea {
+    padding: 10px;
+    height: 50px;
+    width: 265px;
+    background:  #e8eeef;
+    border: none;
+  }
+
+  /* Set up radio button styles */
+  .form-input-update-appointment input[type="radio"] {
+  
+    /* display:flex; */
+  }
+  
+  /* Set up radio button label styles */
+  .update-appointment-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  /* Set up radio button label styles when selected */
+  .update-appointment-form-input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+
+  
+/* Set up submit button styles */
+ .btn-primary {
+  width: 100%; 
+  }
