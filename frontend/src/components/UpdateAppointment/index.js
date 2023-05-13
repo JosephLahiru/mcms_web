@@ -84,6 +84,7 @@ function UpdateAppointment() {
   };
 
   return (
+    <div className="update-appointment-main-container">
       <div className="update-appointment-form-container">
       <h1>Update Appointment</h1>
        <form className="update-appointment-form" onSubmit={handleSubmit}>
@@ -112,7 +113,7 @@ function UpdateAppointment() {
         {error&&age.length<=0?
         <label className='input-validation-error'>Age can't be Empty</label>:""}
         <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Address:</label>
+        <label className="update-appointment-label">Address:</label><br />
         <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
         </div>
         {error&&address.length<=0?
@@ -213,6 +214,7 @@ function UpdateAppointment() {
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button></div>
        </form>
        <ToastContainer />
+    </div>
     </div>
   );
 }
