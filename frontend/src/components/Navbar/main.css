@@ -17,8 +17,8 @@
   align-items: center;
   margin-right: 1rem;
   margin-left: 1rem;
-  display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .brand-container > * {
@@ -35,10 +35,17 @@
 .navigation-menu {
     margin-left: auto;
     margin-right: 1rem;
+    flex: 1;
 }
   
 .navigation-menu button {
     padding: 0.5rem 1rem;
+    background-color: #000;
+    color: #fff;
+    margin: 0 0.5rem;
+    width: 100px;
+    height: 50px;
+    float: right;
 }
   
 @media screen and (max-width: 768px) {
