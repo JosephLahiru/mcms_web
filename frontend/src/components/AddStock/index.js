@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import './main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,7 +7,8 @@ import ViewStock from "../ViewStock/index.js";
 
 function AddStock() {
   const [drugname, setDrugName] = useState("");
-  const [drugType, setDrugType] = useState("");
+  const [drugTypes, setDrugTypes] = useState([]);
+  const [selectedType, setSelectedType] = useState("");
   const [brandname, setBrandName] = useState("");
   const [description, setDescription] = useState("");
   const [unitprice, setUnitPrice] = useState("");
@@ -18,11 +19,24 @@ function AddStock() {
   const [ExpireDate, setExpireDate] = useState("");
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    async function getDrugTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const data = await response.json();
+        setDrugTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getDrugTypes();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     
     console.log("Drug Name:", drugname);
-    console.log("Drug Type:", drugType);
     console.log("Brand Name:", brandname);
     console.log("Description",description);
     console.log("Unit Price:", unitprice);
@@ -47,7 +61,7 @@ function AddStock() {
 
   const handleReset = () => {
     setDrugName("");
-    setDrugType("");
+    setSelectedType("");
     setBrandName("");
     setDescription("");
     setUnitPrice("");
@@ -88,29 +102,27 @@ function AddStock() {
             <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
           </div>
           <div className="form-input-add-stock">
+            <label className="label-add-stock">Purchased Date</label>
+            <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
+          </div>
+          <div className="form-input-add-stock">
             <label className="label-add-stock">Drug type</label>
-            <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
+            <select class="form-control form-control-sm" value={selectedType} onChange={(event) => setSelectedType(event.target.value)}>
               <option value="" disabled selected>Select an option . . .</option>
-              <option value="Capsules">Capsules</option>
-              <option value="Tablet">Tablet</option>
-              <option value="Liquid">Liquid</option>
-              <option value="Inhalers">Inhalers</option>
-              <option value="Injections">Injections</option>
+              {drugTypes.map((type) => (
+                <option key={type.med_type} value={type.med_type}>{type.med_type}</option>
+              ))}
             </select>
           </div>
           <div className="form-input-add-stock">
-            <label className="label-add-stock">Purchased Date</label>
-            <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
+            <label className="label-add-stock">Manufacture Date</label>
+            <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
           </div>
           <div className="form-input-add-stock">
             <label className="label-add-stock">Quantity</label>
             <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
             {error&&quantity.length<=0?
             <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Manufacture Date</label>
-            <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
           </div>
           <div className="form-input-add-stock">
             <label className="label-add-stock">Expiry Date</label>
