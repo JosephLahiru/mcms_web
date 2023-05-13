@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import ViewStock from "../ViewStock/index.js";
 
 function UpdateStock() {
@@ -11,11 +12,26 @@ function UpdateStock() {
   const [unitprice, setUnitPrice] = useState("");
   const [sellingprice, setSellingPrice] = useState("");
   const [brandname, setBrandName] = useState("");
-  const [drugType, setDrugType] = useState("");
+  const [drugTypes, setDrugTypes] = useState([]);
+  const [selectedType, setSelectedType] = useState("");
   const [quantity, setQuantity] = useState("");
   const [ManufactureDate, setManufactureDate] = useState("");
   const [ExpiryDate, setExpiryDate] = useState("");
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function getDrugTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const data = await response.json();
+        setDrugTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getDrugTypes();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,7 +44,6 @@ function UpdateStock() {
     console.log("Expiry Date",ExpiryDate);
     console.log("Quantity",quantity);
     console.log("Brand Name",brandname);
-    console.log("Drug Type",drugType);
 
     const data = {
       drug_id: drugId,
@@ -36,13 +51,13 @@ function UpdateStock() {
       ac_price: unitprice,
       sell_price: sellingprice,
       brand_name: brandname,
-      med_type: drugType,
+      med_type: drugTypes,
       total_quantity: quantity,
       mfd_date: ManufactureDate,
       exp_date: ExpiryDate
     };
 
-    if(!drugId && !drugname ){
+    if(!drugId || !drugname || !unitprice || !sellingprice || !quantity || !ManufactureDate || !ExpiryDate || !brandname){
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -91,7 +106,7 @@ function UpdateStock() {
       .then((data) => {
         setDrugName(data[0].prdct_name);
         setBrandName(data[0].brand_name);
-        setDrugType(data[0].med_type);
+        setSelectedType(data[0].med_type);
         setUnitPrice(data[0].ac_price);
         setSellingPrice(data[0].sell_price);
         setQuantity(data[0].total_quantity);
@@ -116,7 +131,6 @@ function UpdateStock() {
           position: toast.POSITION.TOP_RIGHT,
         });
       });
-
   };
   
 
@@ -126,7 +140,7 @@ function UpdateStock() {
     setUnitPrice("");
     setSellingPrice("");
     setBrandName("");
-    setDrugType("");
+    setSelectedType("");
     setQuantity("");
     setManufactureDate("");
     setExpiryDate("");
@@ -147,13 +161,13 @@ function UpdateStock() {
                   setUnitPrice("");
                   setSellingPrice("");
                   setBrandName("");
-                  setDrugType("");
+                  setDrugTypes("");
                   setQuantity("");
                   setManufactureDate("");
                   setExpiryDate("");
                   setAutoFillClicked(false);
                 }
-              }} placeholder="Drug ID"/>
+              }} placeholder="Drug ID" required/>
               {error&&drugId.length<=0?
             <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
           </div>
@@ -169,40 +183,38 @@ function UpdateStock() {
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Unit price (Rs)</label>
-            <input type="number" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
+            <input type="number" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price"/>
             {error&&unitprice.length<=0?
             <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Brand name</label> 
-            <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
+            <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand"/>
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Selling price (Rs)</label>
-            <input type="number" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
+            <input type="number" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price"/>
             {error&&sellingprice.length<=0?
             <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Drug type</label>
-            <select class="form-control form-control-sm" value={drugType} onChange={setDrugType}>
+            <select class="form-control form-control-sm" value={selectedType} onChange={(event) => setSelectedType(event.target.value)}>
               <option value="" disabled selected>Select an option . . .</option>
-              <option value="Capsules">Capsules</option>
-              <option value="Tablet">Tablet</option>
-              <option value="Liquid">Liquid</option>
-              <option value="Inhalers">Inhalers</option>
-              <option value="Injections">Injections</option>
+              {drugTypes.map((type) => (
+                <option key={type.med_type} value={type.med_type}>{type.med_type}</option>
+              ))}
             </select>
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Quantity</label>
-            <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
+            <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity"/>
             {error&&quantity.length<=0?
             <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Manufacture Date</label>
-            <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
+            <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)}/>
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Expiry Date</label>
