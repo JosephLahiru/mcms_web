@@ -83,11 +83,7 @@
     border: none;
   }
 
-  /* Set up radio button styles */
-  .form-input-update-appointment input[type="radio"] {
-  
-    /* display:flex; */
-  }
+ 
   
   /* Set up radio button label styles */
   .update-appointment-label {

@@ -134,7 +134,7 @@ function UpdateAppointment() {
             <input type="radio" value="Other" checked={gender === "Other"} onChange={(event) => setGender(event.target.value)} />
             Other
           </label>
-          <br />
+          <br /> <br />
         </div>
          {error&&gender.length<=0?
         <label className='input-validation-error'>Gender can't be Empty</label>:""}
