@@ -30,7 +30,7 @@
     width: 100px;
   }
 
-  #filterSelect {
+  .view-stock-search-filter select {
     border: none;
     margin-right: 20px;
     width: 200px;

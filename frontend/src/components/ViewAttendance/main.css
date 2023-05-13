@@ -19,7 +19,7 @@
   width: 300px;
 } 
 
-#filterSelect {
+.view-attendance-search-filter select {
   border: none;
   margin-right: 20px;
   width: 200px;
