@@ -1,6 +1,8 @@
 .patient-table {
     table-layout: fixed;
     border: 1px solid rgb(43, 42, 42);
+    font-weight: 50;
+    align-self: center;
   }
 
 .patient-table-container {
@@ -9,3 +11,10 @@
   width: 100%;
 }
 
+.t-row{
+  height: 100px;
+}
+
+.t-col{
+  height: 100px;
+}

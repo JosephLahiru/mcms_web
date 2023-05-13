@@ -35,9 +35,9 @@ function ViewPatients() {
 return (
     <div className='patient-table-container'>
         <h1>View Patient List</h1>
-      <table class='patient-table table-bordered table-fixed' >
+      <table class='patient-table table-bordered' >
       <thead>
-        <tr class="table-dark">
+        <tr class="t-row">
             <th scope="col" class="col-md-1">Patient Id</th>
             <th scope="col" class="col-md-1">Appointment number</th>
             <th scope="col" class="col-md-1">First Name</th>
@@ -56,7 +56,7 @@ return (
         </thead>
         {patients.map((patients)=>
         <tr  key={patients.patient_id}>
-            <td>{patients.patient_id}</td>
+            <td className='t-col'>{patients.patient_id}</td>
             <td>{patients.appointment_number}</td>
             <td>{patients.first_name}</td>
             <td>{patients.last_name}</td>
