@@ -3,8 +3,8 @@ import './main.css';
  
 function ViewShortExpiry() {
   const [shortexpiry, setShortExpiry] = useState([]);
-  const [FilteredShortExpiry, setFilteredShortExpiry] = useState(shortexpiry);
-  const [filterOption, setFilterOption] = useState("1");
+  const [FilteredShortExpiry, setFilteredShortExpiry] = useState([]);
+  const [filterOption, setFilterOption] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -19,9 +19,14 @@ function ViewShortExpiry() {
 
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
-    const filteredData = shortexpiry.filter((item) => item.expire_type === event.target.value);
-    setFilteredShortExpiry(filteredData);
+    if (event.target.value === "") {
+      setFilteredShortExpiry(shortexpiry);
+    } else {
+      const filteredData = shortexpiry.filter((item) => item.expire_type === Number(event.target.value));
+      setFilteredShortExpiry(filteredData);
+    }
   };
+  
 
   const handleNextPage = () => {
     setPage(page + 1);
@@ -32,8 +37,11 @@ function ViewShortExpiry() {
   };
 
   const rowsPerPage = 10;
+  const totalPages = Math.ceil(FilteredShortExpiry.length / rowsPerPage);
   const start = page * rowsPerPage;
   const end = start + rowsPerPage;
+  const hasPrevPage = page > 0;
+  const hasNextPage = page < totalPages - 1;
 
   return (
     <div className="short-expiry-main-container">
@@ -41,9 +49,10 @@ function ViewShortExpiry() {
       <div className="view-short-expiry-filter">
         <label className="view-short-expiry-label" htmlFor="filterSelect">Filter by Expire Type:</label>
         <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
-          <option value="short">short</option>
-          <option value="medium">medium</option>
-          <option value="long">long</option>
+          <option value="">All</option>
+          <option value="1">short</option>
+          <option value="2">medium</option>
+          <option value="3">long</option>
         </select>
       </div>
       <table className="table">
@@ -53,13 +62,13 @@ function ViewShortExpiry() {
             <th scope="col">Drug Name</th>
             <th scope="col">Brand Name</th>
             <th scope="col">Drug Type</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Selling Price</th>
+            <th scope="col">Unit Price(Rs)</th>
+            <th scope="col">Selling Price(Rs)</th>
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
-            <th scope="col">Total Ac Price</th>
-            <th scope="col">Total Sell Price</th>
+            <th scope="col">Total Ac Price(Rs)</th>
+            <th scope="col">Total Sell Price(Rs)</th>
           </tr>
         </thead>
         <tbody>
@@ -80,10 +89,21 @@ function ViewShortExpiry() {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={end >= FilteredShortExpiry.length} onClick={handleNextPage}>Next</button>
-      </div>
+      <nav aria-label="Page navigation example">
+      <ul className="pagination justify-content-center">
+        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        </li>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
+            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
+          </li>
+        ))}
+        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
+        </li>
+      </ul>
+    </nav>
         </div>
     );
 }
