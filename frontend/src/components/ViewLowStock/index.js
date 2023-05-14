@@ -4,7 +4,7 @@ import './main.css';
 function ViewLowStock() {
   const [lowstock, setLowStock] = useState([]);
   const [filteredLowStock, setFilteredLowStock] = useState([]);
-  const [filterOption, setFilterOption] = useState("1");
+  const [filterOption, setFilterOption] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
@@ -17,27 +17,14 @@ function ViewLowStock() {
     fetchLowStock();
   }, []);
 
-  // useEffect(() => {
-  //   let results;
-  //   switch (filterOption) {
-  //     case "1":
-  //       results = lowstock.filter(item => item.stock_type === "1");
-  //       break;
-  //     case "2":
-  //       results = lowstock.filter(item => item.stock_type === "2");
-  //       break;
-  //     case "3":
-  //       results = lowstock.filter(item => item.stock_type === "3");
-  //       break;
-  //     default:
-  //       results = lowstock;
-  //       break;
-  //  }
-  // setFilteredLowStock(results);
-  //  }, [lowstock, filterOption]);
-
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
+    if (event.target.value === "") {
+      setFilteredLowStock(lowstock);
+    } else {
+    const filteredData = lowstock.filter((item) => item.stock_type === Number(event.target.value));
+    setFilteredLowStock(filteredData);
+    }
   };
 
   const handleNextPage = () => {
@@ -49,8 +36,11 @@ function ViewLowStock() {
   };
 
   const rowsPerPage = 10;
+  const totalPages = Math.ceil(filteredLowStock.length / rowsPerPage);
   const start = page * rowsPerPage;
   const end = start + rowsPerPage;
+  const hasPrevPage = page > 0;
+  const hasNextPage = page < totalPages - 1;
 
   return (
     <div className="low-stock-main-container">
@@ -58,6 +48,7 @@ function ViewLowStock() {
       <div className="view-low-stock-filter">
         <label className="view-low-stock-label" htmlFor="filterSelect">Filter by stock type:</label>
         <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
+          <option value="">All</option>
           <option value="1">Small</option>
           <option value="2">Medium</option>
           <option value="3">High</option>
@@ -70,13 +61,13 @@ function ViewLowStock() {
             <th scope="col">Drug Name</th>
             <th scope="col">Brand Name</th>
             <th scope="col">Drug Type</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Selling Price</th>
+            <th scope="col">Unit Price(Rs)</th>
+            <th scope="col">Selling Price(Rs)</th>
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
-            <th scope="col">Total Ac Price</th>
-            <th scope="col">Total Sell Price</th>
+            <th scope="col">Total Ac Price(Rs)</th>
+            <th scope="col">Total Sell Price(Rs)</th>
           </tr>
         </thead>
         <tbody>
@@ -97,10 +88,21 @@ function ViewLowStock() {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={end >= filteredLowStock.length} onClick={handleNextPage}>Next</button>
-      </div>
+      <nav aria-label="Page navigation example">
+      <ul className="pagination justify-content-center">
+        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        </li>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
+            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
+          </li>
+        ))}
+        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
+          </li>
+        </ul>
+      </nav>
         </div>
     );
 }

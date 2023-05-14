@@ -1,5 +1,4 @@
-  /* Set up right container */
-  .delete-stock-table-container {
+ .delete-stock-table-container {
     padding: 10px 10px;
     background-color: rgb(170, 170, 192);
   }
@@ -20,6 +19,12 @@
     flex-direction: row;
     float: left;
     width: 300px; 
+  } 
+
+  .delete-stock-search-filter select {
+    border: none;
+    margin-right: 20px;
+    width: 200px;
   } 
 
   .delete-stock-search-input {
