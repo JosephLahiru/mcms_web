@@ -14,7 +14,7 @@ function Login() {
     <body className="login_body">
       <div className = "mc">
         <form className="login-form" onSubmit={handleSubmit}>
-          <h1>Welcome to MCMS</h1>
+          <h1 className="welcomeMsg">Welcome to MCMS</h1>
           <h3>Login</h3>
           <label className="login-label" for="username">Username: </label>
           <input className="login-text-field" value={userName} onChange={(e) => setuserName(e.target.value)} type="username" name="username" id="userName"></input>
