@@ -1,27 +1,25 @@
 .low-stock-main-container {
-    margin: 10px 10px auto 10px;
-    padding: 10px 10px;
-    background-color: rgb(170, 170, 192);
-  }
-
-.table {
-    table-layout: fixed;
-    border: 1px solid black;
-  }
-
-  .view-low-stock-filter {
-    display: flex;
-    flex-direction: row;
-    margin-left: 20px;
-    width: 30%;
-  } 
-  
-.view-low-stock-filter select {
-    float: right;
-    width: 60%;
+  padding: 10px;
+  background-color: rgb(170, 170, 192);
 }
 
-  .view-low-stock-label {
-    font-weight: bold;
-    width: 40%;
-  }
+.table {
+  table-layout: fixed;
+  border: 1px solid black;
+}
+
+.view-low-stock-filter {
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+} 
+  
+.view-low-stock-filter select {
+  float: right;
+  width: 200px;
+}
+
+.view-low-stock-label {
+  font-weight: bold;
+  width: 170px;
+}
