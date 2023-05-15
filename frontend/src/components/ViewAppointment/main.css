@@ -1,6 +1,6 @@
 .table {
   table-layout: fixed;
-  border: 1px solid black;
+  border: 1px solid rgb(24, 24, 24);
 }
 .view-appointment-filter {
   display: flex;
