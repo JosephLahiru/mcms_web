@@ -307,11 +307,10 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
          {error&&appointmentDoctor.length<=0?
         <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
 
-        <div className="registration-form-button"><br/><br/>
-        <div class="row g-3">
+        <div className="updatepatient-form-button"><br/><br/>
+        <div class="row g-2">
         <div class="col-auto"><button class="btn btn-danger" type="button"  onClick={handleReset}>Reset</button></div>
-        <div class="col-auto"><button class="btn btn-primary " type="button"  onClick={handleSubmit}>Submit</button></div>
-        <div class="col-auto"><button class="btn btn-primary " type="button" onClick={() => navigate("/view_patients")}>View Patient</button></div>
+        <div class="col-auto"><button class="btn btn-primary " type="button"  onClick={() => navigate("/view_patients")}>Submit</button></div>
         </div>
       </div>
     </form>
