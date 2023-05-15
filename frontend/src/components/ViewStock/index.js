@@ -67,8 +67,11 @@ function ViewStock() {
   };
 
   const rowsPerPage = 10;
+  const totalPages = Math.ceil(filteredStock.length / rowsPerPage);
   const start = page * rowsPerPage;
   const end = start + rowsPerPage;
+  const hasPrevPage = page > 0;
+  const hasNextPage = page < totalPages - 1;
 
   return (
     <div className="view-stock-main-container">
@@ -94,8 +97,8 @@ function ViewStock() {
             <th scope="col">Brand Name</th>
             <th scope="col">Drug Type</th>
             <th scope="col">Description</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Selling Price</th>
+            <th scope="col">Unit Price(Rs)</th>
+            <th scope="col">Selling Price(Rs)</th>
             <th scope="col">Quantity</th>
             <th scope="col">Manufacture Date</th>
             <th scope="col">Expiry Date</th>
@@ -122,10 +125,21 @@ function ViewStock() {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
-      </div>
+      <nav aria-label="Page navigation example">
+      <ul className="pagination justify-content-center">
+        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        </li>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
+            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
+          </li>
+        ))}
+        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
+        </li>
+      </ul>
+    </nav>
     </div>
   );
 }

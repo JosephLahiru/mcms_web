@@ -229,7 +229,7 @@ function UpdateStock() {
         </form>
         <ToastContainer />
       </div>
-      <div className="table-container">
+      <div className="update-stock-table-container">
         <ViewStock/>
       </div>
     </div>
