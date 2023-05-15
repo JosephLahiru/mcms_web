@@ -103,10 +103,21 @@ function ViewAttendance() {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn btn-primary" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
-      </div>
+      <nav>
+      <ul className="pagination justify-content-center">
+        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+        </li>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
+            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
+          </li>
+        ))}
+        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
+          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
+        </li>
+      </ul>
+    </nav>
     </div>
   );
 }

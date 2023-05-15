@@ -22,14 +22,22 @@ function DeleteStock() {
     let results;
     switch (filterOption) {
       case "Drug Name":
-        results = stock.filter((item) =>
-          item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        if (searchTerm.length >= 3) {
+          results = stock.filter((item) =>
+            item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          results = stock;
+        }
         break;
       case "Drug Type":
-        results = stock.filter((item) =>
-          item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        if (searchTerm.length >= 3) {
+          results = stock.filter((item) =>
+            item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          results = stock;
+        }
         break;
       case "Quantity":
         results = stock.filter((item) =>
@@ -58,16 +66,19 @@ function DeleteStock() {
     setPage(page - 1);
   };
 
+  const rowsPerPage = 10;
+  const totalPages = Math.ceil(filteredStock.length / rowsPerPage);
+  const start = page * rowsPerPage;
+  const end = start + rowsPerPage;
+  const hasPrevPage = page > 0;
+  const hasNextPage = page < totalPages - 1;
+
+
   const handleDelete = async (id) => {
     await fetch(`https://mcms_api.mtron.me/delete_stock/${id}`, { method: "GET" });
     setStock(stock.filter((item) => item.prdct_id !== id));
     setFilteredStock(filteredStock.filter((item) => item.prdct_id !== id));
   };
-
-
-  const rowsPerPage = 10;
-  const start = page * rowsPerPage;
-  const end = start + rowsPerPage;
 
   return (
     <div className="delete-stock-table-container">
@@ -123,10 +134,21 @@ function DeleteStock() {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button className="btn btn-primary" disabled={page === 0} onClick={handlePrevPage}>Prev</button>
-        <button className="btn btn-primary" disabled={end >= filteredStock.length} onClick={handleNextPage}>Next</button>
-      </div>
+      <nav>
+        <ul className="pagination justify-content-center">
+          <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
+            <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
+          </li>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
+              <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
+            </li>
+          ))}
+          <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
+            <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
+          </li>
+        </ul>
+      </nav>
       </div>
   );
 }
