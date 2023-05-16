@@ -1,31 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Dashboard.module.css';
+import './dashboard.css'; 
 
-function Dashboard() {
+const Dashboard = () => {
   return (
-    // <div className='dash_body'>
-      <div className='dashboard'>
+    <div className="dashboard-container">
+      <div className="dashboard-content">
         <h1>Dashboard</h1>
-        <nav className='navbar'>
-          <ul className='nav-links'>
-            <li>
-              <Link to='/add_stock'>Add Stock</Link>
-            </li>
-            <li>
-              <Link to='/view_stock'>View Stock</Link>
-            </li>
-            <li>
-              <Link to='/delete_stock'>Delete Stock</Link>
-            </li>
-            <li>
-              <Link to='/add_appointment'>Add Appointment</Link>
-            </li>
-          </ul>
-        </nav>
+        <div className="button-container">
+          <Link to="/add-stock">
+            <button className="dashboard-button">Add Stock</button>
+          </Link>
+          <Link to="/delete-stock">
+            <button className="dashboard-button">Delete Stock</button>
+          </Link>
+          <Link to="/add-appointment">
+            <button className="dashboard-button">Add Appointment</button>
+          </Link>
+          <Link to="/view-stock">
+            <button className="dashboard-button">View Stock</button>
+          </Link>  
+        </div>
       </div>
-    // </div>
+    </div>
   );
-}
+};
 
 export default Dashboard;
