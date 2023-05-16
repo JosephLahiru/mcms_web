@@ -231,7 +231,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='registration-form-input'>
             <label className='registration-lable'>Address:</label>
-                <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
+                <textarea value={address} onChange={handleAddressChange} placeholder="Enter Address here..."></textarea>
         </div>
               {error&&address.length<=0?
                 <label class='input-validation-error'><center>Address can't be Empty</center></label>:""}
@@ -239,7 +239,7 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='registration-form-input'>
             <label className='registration-lable'>Gender:</label>
-            <select className="form-control-0" value={gender} onChange={ setGender}>
+            <select class="form-control" value={gender} onChange={handleGenderChange}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -260,29 +260,29 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
                 <label className='registration-lable'>Medication History:</label>
 
                   <div class="form-check form-check-inline">
-                  <input  type="checkbox" value="Blood Pressure"/><label class='registration-lable-0'>Blood-Pressure</label></div>
+                  <input type="checkbox" value="Blood Pressure" onChange={handleMedicationHisotryChange}/><label class='form-check-label'>Blood-Pressure</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input  type="checkbox" value="Blood Sugar"  /><label class='registration-lable-0'>Blood-Sugar</label></div>
+                  <input  type="checkbox" value="Blood Sugar" onChange={handleMedicationHisotryChange} /><label class='registration-lable-0'>Blood-Sugar</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Alergy" /><label class='registration-lable-0'>Alergy</label></div>
+                  <input type="checkbox" value="Alergy" onChange={handleMedicationHisotryChange}/><label class='registration-lable-0'>Alergy</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Cholesterol"  /><label class='registration-lable-0'>Cholesterol</label></div>
+                  <input type="checkbox" value="Cholesterol"  onChange={handleMedicationHisotryChange}/><label class='registration-lable-0'>Cholesterol</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Asthma"  /><label class='registration-lable-0'>Asthma</label></div>
+                  <input type="checkbox" value="Asthma"  onChange={handleMedicationHisotryChange}/><label class='registration-lable-0'>Asthma</label></div>
 
                   <div class="form-check form-check-inline">
-                  <input type="checkbox" value="Cardiac disease"  /><label class='registration-lable-0'>Cardiac disease</label></div>
+                  <input type="checkbox" value="Cardiac disease"  onChange={handleMedicationHisotryChange}/><label class='registration-lable-0'>Cardiac disease</label></div>
 
           </div>
         {error && gender.length <= 0 ? (<label class="input-validation-error"><center>Gender field is required</center></label>) : ("")}
        
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Type:</label>
-            <select className="form-control-0" value={appointmentType} onChange={ setAppointmentType}>
+            <select class="form-control" value={appointmentType} onChange={ setAppointmentType}>
                 <option value="Consultation">Consultation</option>
                 <option value="Doctor Check-up">Doctor Check-up</option>
                 <option value="Medical Examination">Medical Examination</option>
@@ -298,22 +298,20 @@ if(!patientId || !firstName || !lastName || !address || !date || !gender || !nic
 
         <div className='registration-form-input'>
           <label className='registration-lable'>Appointment Doctor:</label>
-            <select className="form-control-0" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
+            <select class="form-control" value={appointmentDoctor} onChange={ setAppointmentDoctor}>
               <option value="">Select  Doctor</option>
               <option value="The Universal Physician">The Universal Physician</option>
               <option value="Pediatrician">Pediatrician</option>
               <option value="Scan Doctor">Scan Doctor</option>
-            </select>
-              </div>
+            </select></div>
          {error&&appointmentDoctor.length<=0?
         <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
-       
 
-        <div className="registration-form-button">
-        <div class="row">
-        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleReset}>Reset</button></div>
-        <div class="col-md-4 mb-3"><button class="btn btn-primary btn-sm" type="button"  onClick={handleSubmit}>Submit</button></div>
-        <div class="col-md-4 mb-3"><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_patients")}>View Patient</button></div>
+        <div className="registration-form-button"><br/><br/>
+        <div class="row g-3">
+        <div class="col-auto"><button class="btn btn-danger" type="button"  onClick={handleReset}>Reset</button></div>
+        <div class="col-auto"><button class="btn btn-primary " type="button"  onClick={handleSubmit}>Submit</button></div>
+        <div class="col-auto"><button class="btn btn-primary " type="button" onClick={() => navigate("/view_patients")}>View Patient</button></div>
         </div>
       </div>
     </form>
