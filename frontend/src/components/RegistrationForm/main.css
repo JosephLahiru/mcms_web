@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   margin: auto;
-  padding: 50px 70px;
+  padding: 50px 60px;
   background: #c5c5d1;
   max-width: 80%;
   border-radius: 20px;
@@ -26,11 +26,11 @@
 }
 
 .registration-form-input:nth-child(9) {
-  flex-basis: 100%; /* full width of the available space */
+  flex-basis: 100%;
 }
 
 .registration-form-input:nth-child(12) {
-  flex-basis: 100%; /* full width of the available space */
+  flex-basis: 100%; 
 }
 
 
@@ -56,7 +56,7 @@
 .registration-input input[type="text"],
 .registration-input input[type="number"],
 .registration-input input[type="date"],
-.uregistration-input textarea,
+.registration-input textarea,
 .registration-input select {
   border: none;
   background-color: #e8eeef;
@@ -71,11 +71,7 @@
   float: right;
 }
 
-/* .form-control{
-  border-radius: 5px;
-  height: 30px;
-}
-    */
+
 .form-control-0{
   height: 36px;
   border-radius: 8px;
@@ -87,21 +83,24 @@
 
 .registration-form-button .btn {
   flex-wrap: none;
+  width: 150px;
 }
 
-.registration-form-button{
-  width: 500px;
-}
+/* .registration-form-button{
+  width: 600px;
 
-.registration-input textarea {
+} */
+
+.registration-form-input textarea {
   padding: 10px;
-  height: 50px;
+  height: 100px;
   border: none;
   border-radius: 8px;
+  width:100%;
+
 }
 
 .registration-input-0{
   display: inline-block;
-  margin: auto;
 }
 

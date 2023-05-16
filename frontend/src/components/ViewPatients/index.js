@@ -33,29 +33,30 @@ function ViewPatients() {
     const end = start + rowsPerPage;
 
 return (
-    <div className='content'>
+    <div className='patient-table-container'>
         <h1>View Patient List</h1>
-      <table className='t1' border="1">
-        <tr class="table-dark">
-            <th scope="col">Patient Id</th>
-            <th scope="col">Appointment number</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">NIC Number</th>
-            <th scope="col">Contact Number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Medication History</th>
-            <th scope="col">Appointment date</th>
-            <th scope="col">Appointment type</th>
-            <th scope="col">Appointment doctor</th>
-            <th scope="col">Address</th>
-            
-        </tr>
+      <table class='patient-table table-bordered' >
+      <thead class="table-dark">
+        <tr class="t-row table-dark">
+            <th scope="col" class="col-md-1">Patient Id</th>
+            <th scope="col" class="col-md-1">Appointment number</th>
+            <th scope="col" class="col-md-1">First Name</th>
+            <th scope="col" class="col-md-1">Last Name</th>
+            <th scope="col" class="col-md-1">Age</th>
+            <th scope="col" class="col-md-1">NIC Number</th>
+            <th scope="col" class="col-md-1">Contact Number</th>
+            <th scope="col" class="col-md-1">Email</th>
+            <th scope="col" class="col-md-1">Gender</th>
+            <th scope="col" class="col-md-1">Medication History</th>
+            <th scope="col" class="col-md-1">Appointment date</th>
+            <th scope="col" class="col-md-1">Appointment type</th>
+            <th scope="col" class="col-md-1">Appointment doctor</th>
+            <th scope="col" class="col-md-4">Address</th>
+          </tr>
+        </thead>
         {patients.map((patients)=>
         <tr  key={patients.patient_id}>
-            <td>{patients.patient_id}</td>
+            <td className='t-col'>{patients.patient_id}</td>
             <td>{patients.appointment_number}</td>
             <td>{patients.first_name}</td>
             <td>{patients.last_name}</td>
