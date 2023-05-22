@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from "react";
-import './main.css';
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  TablePagination,
+  Grid,
+  Paper,
+} from "@mui/material";
 
 function ViewStock() {
   const [stock, setStock] = useState([]);
@@ -7,6 +21,7 @@ function ViewStock() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState("Drug Name");
   const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchStock() {
@@ -58,89 +73,96 @@ function ViewStock() {
     setFilterOption(event.target.value);
   };
 
-  const handleNextPage = () => {
-    setPage(page + 1);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handlePrevPage = () => {
-    setPage(page - 1);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  const rowsPerPage = 10;
-  const totalPages = Math.ceil(filteredStock.length / rowsPerPage);
-  const start = page * rowsPerPage;
-  const end = start + rowsPerPage;
-  const hasPrevPage = page > 0;
-  const hasNextPage = page < totalPages - 1;
+  const rows = filteredStock || [];
 
   return (
-    <div className="view-stock-main-container">
-      <h1>View Stock</h1>
-      <div className="view-stock-filter">
-        <div className="view-stock-search-filter">
-          <label className="view-stock-label" htmlFor="filterSelect">Search by</label>
-          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
-            <option value="Drug Name">Drug Name</option>
-            <option value="Drug Type">Drug Type</option>
-            <option value="Quantity">Quantity</option>
-          </select>
-        </div>
-        <div className="view-stock-search-input">
-          <input type="search" className="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
-        </div>
-      </div>
-      <table className="table">
-        <thead>
-          <tr className="table-dark">
-            <th scope="col">Drug ID</th>
-            <th scope="col">Drug Name</th>
-            <th scope="col">Brand Name</th>
-            <th scope="col">Drug Type</th>
-            <th scope="col">Description</th>
-            <th scope="col">Unit Price(Rs)</th>
-            <th scope="col">Selling Price(Rs)</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Manufacture Date</th>
-            <th scope="col">Expiry Date</th>
-            {/* <th scope="col">Total Ac Price</th>
-            <th scope="col">Total Sell Price</th> */}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredStock.slice(start, end).map((item) => (
-            <tr key={item.prdct_id}>
-              <td>{item.prdct_id}</td>
-              <td>{item.prdct_name}</td>
-              <td>{item.brand_name}</td>
-              <td>{item.med_type}</td>
-              <td>{item.description}</td>
-              <td>{item.ac_price}</td>
-              <td>{item.sell_price}</td>
-              <td>{item.total_quantity}</td>
-              <td>{item.mfd_date.slice(0, 10)}</td>
-              <td>{item.exp_date.slice(0, 10)}</td>
-              {/* <td>{item.total_quantity_ac_price}</td>
-              <td>{item.total_quantity_sell_price}</td> */}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <nav aria-label="Page navigation example">
-      <ul className="pagination justify-content-center">
-        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
-          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
-        </li>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
-            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
-          </li>
-        ))}
-        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
-          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
-        </li>
-      </ul>
-    </nav>
-    </div>
+    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
+      <Grid container alignItems='center'>
+        <Grid item xs={1}>
+          <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+        </Grid>
+        <Grid item xs={1.5}>
+          <Select
+            labelId="demo-select-small-label"
+            id="demo-select-small"
+            size="small"
+            value={filterOption}
+            label="Filter option"
+            onChange={handleFilterChange}
+          >
+            <MenuItem value="Drug Name">Drug Name</MenuItem>
+            <MenuItem value="Drug Type">Drug Type</MenuItem>
+            <MenuItem value="Quantity">Quantity</MenuItem>
+          </Select>
+        </Grid>
+        <Grid item xs={4}>
+          <TextField id="outlined-size-small" size="small" value={searchTerm} onChange={handleInputChange} label={`Search by ${filterOption}...`} type="search" />
+        </Grid>
+      <Grid item xs={12}>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Drug ID</TableCell>
+                <TableCell>Drug Name</TableCell>
+                <TableCell>Brand Name</TableCell>
+                <TableCell>Drug Type</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Unit Price(Rs)</TableCell>
+                <TableCell>Selling Price(Rs)</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Manufacture Date</TableCell>
+                <TableCell>Expiry Date</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.length > 0 ? (
+                rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((item) => (
+                    <TableRow hover role="checkbox" key={item.prdct_id}>
+                      <TableCell hover>{item.prdct_id}</TableCell>
+                      <TableCell hover>{item.prdct_name}</TableCell>
+                      <TableCell>{item.brand_name}</TableCell>
+                      <TableCell>{item.med_type}</TableCell>
+                      <TableCell>{item.description}</TableCell>
+                      <TableCell>{item.ac_price}</TableCell>
+                      <TableCell>{item.sell_price}</TableCell>
+                      <TableCell>{item.total_quantity}</TableCell>
+                      <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
+                      <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
+                    </TableRow>
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={10}>No data available</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Grid>
+    </Grid>
+    </Paper>
+    
   );
 }
 
