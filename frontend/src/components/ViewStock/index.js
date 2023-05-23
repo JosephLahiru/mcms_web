@@ -130,8 +130,8 @@ function ViewStock() {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((item) => (
                     <TableRow hover role="checkbox" key={item.prdct_id}>
-                      <TableCell hover>{item.prdct_id}</TableCell>
-                      <TableCell hover>{item.prdct_name}</TableCell>
+                      <TableCell>{item.prdct_id}</TableCell>
+                      <TableCell>{item.prdct_name}</TableCell>
                       <TableCell>{item.brand_name}</TableCell>
                       <TableCell>{item.med_type}</TableCell>
                       <TableCell>{item.description}</TableCell>
