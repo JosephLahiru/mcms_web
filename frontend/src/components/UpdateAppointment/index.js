@@ -84,6 +84,7 @@ function UpdateAppointment() {
   };
 
   return (
+    <div className="update-appointment-main-container">
       <div className="update-appointment-form-container">
       <h1>Update Appointment</h1>
        <form className="update-appointment-form" onSubmit={handleSubmit}>
@@ -123,14 +124,17 @@ function UpdateAppointment() {
             <input type="radio" value="Male" checked={gender === "Male"} onChange={(event) => setGender(event.target.value)} />
             Male
           </label>
+          <br />
           <label>
             <input type="radio" value="Female" checked={gender === "Female"} onChange={(event) => setGender(event.target.value)} />
             Female
           </label>
+          <br />
           <label>
             <input type="radio" value="Other" checked={gender === "Other"} onChange={(event) => setGender(event.target.value)} />
             Other
           </label>
+          <br /> <br />
         </div>
          {error&&gender.length<=0?
         <label className='input-validation-error'>Gender can't be Empty</label>:""}
@@ -213,6 +217,7 @@ function UpdateAppointment() {
         <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button></div>
        </form>
        <ToastContainer />
+    </div>
     </div>
   );
 }
