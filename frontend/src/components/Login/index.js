@@ -22,7 +22,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (username === '' && password === '') {
+    if (username === 'admin' && password === 'admin') {
         navigate('/dashboard', {replace:true});
     } else {
       toast.error('Invalid username or password');
