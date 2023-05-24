@@ -3,7 +3,6 @@ import './main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ViewStock from "../ViewStock/index.js";
 
 function AddStock() {
   const [drugname, setDrugName] = useState("");
@@ -75,7 +74,6 @@ function AddStock() {
 
 
   return (
-    <div className="main-container-add-stock">
       <div className="form-container-add-stock">
         <h1 className="h1-stock">Add Drug into stock</h1>
         <form id="form-add-stock" onSubmit={handleSubmit}>
@@ -141,10 +139,6 @@ function AddStock() {
         </form>
         <ToastContainer />
       </div>
-      <div className="table-container-add-stock">
-        <ViewStock/>
-      </div>
-    </div>
     
   );
 }
