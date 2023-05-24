@@ -5,6 +5,7 @@
     margin: 20px;
     width:100% ;
     height: 100%;
+    background-color:#5fcf80;
     
   }
 
@@ -32,11 +33,6 @@
   padding: 50px 70px;
 }
 
-/* Set up form add appointment body*/
-body
-{
-	background-color:#5fcf80;
-}
 
 /* Set up form add appointment*/
 .form-input-add-appointment input[type="text"],
@@ -49,7 +45,7 @@ body
 }
 
 /* Set up submit button styles */
-button {
+.form-button-add-appointment {
 width: 100%; 
 }
 
@@ -60,11 +56,13 @@ width: 100%;
   display: block;
   align-items: center;
   font-size: 16px;
+  width: 500;
   margin-bottom: 8px;
+  border: none;
 }
 
 /* Set up input validation error styles */
-  .input-validation-error {
+  .input-validation-error-add-appointment {
     color: red;
     font-weight: normal;
   }
@@ -75,7 +73,31 @@ width: 100%;
     flex-direction: row;
     width: 500%;
   }  
+   /* Set up textarea */
+  .form-input-add-appointment textarea {
+    padding: 10px;
+    height: 50px;
+    width: 265px;
+    background:  #e8eeef;
+    border: none;
+  }
 
+  /* Set up radio button styles */
+.form-input-add-appointment input[type="radio"] {
+  
+  /* display:flex; */
+}
+
+/* Set up radio button label styles */
+.form-input-add-appointment label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Set up radio button label styles when selected */
+.form-input-add-appointment input[type="radio"]:checked + label {
+  font-weight: bold;
+}
 
 
 
