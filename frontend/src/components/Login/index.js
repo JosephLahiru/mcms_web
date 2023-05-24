@@ -32,7 +32,6 @@ const Login = () => {
   return (
     <div className='login-background'>
       <div className="login-container">
-        <h1 className='login-topic-text'>M</h1>
         <div className="login-box">
           <h2 className="login-form-topic">Welcome Back!</h2>
           <h2 className='login-form-subtopic'>Login to continue.</h2>
