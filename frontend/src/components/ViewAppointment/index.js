@@ -28,7 +28,7 @@ function ViewAppointment(){
         <div className="view-appointment-main-container">
         <h1>View Appointment</h1>
         <div className="view-appointment-filter">
-          <label htmlFor="dateFilter">Filter by Date:</label>
+          <label htmlFor="dateFilter-view-appointment">Filter by Date:</label>
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
          <label className="view-appointment-label">The Universal Physician:</label>
