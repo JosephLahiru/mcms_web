@@ -90,7 +90,7 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="view-appointment-label">Pediatrician Doctor:</label>
+        <label className="view-appointment-label">Pediatrician :</label>
         <table class="table">
           <thead>
             <tr class="table-dark">
@@ -149,7 +149,7 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="view-appointment-label">Scan Doctor:</label>
+        <label className="view-appointment-label">Radiologist:</label>
         <table class="table">
           <thead>
             <tr class="table-dark">

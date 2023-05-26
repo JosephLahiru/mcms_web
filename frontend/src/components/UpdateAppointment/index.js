@@ -175,7 +175,7 @@ function UpdateAppointment() {
           <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
-          <option value="Scan Doctor">Scan Doctor</option>
+          <option value="Scan Doctor">Radiologist</option>
         </select>
          </div>
         {error&&appointmentDoctor.length<=0?
