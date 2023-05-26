@@ -1,15 +1,11 @@
-/* Set up main container */
 .update-stock-main-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     margin: auto;
     width: 100%;
     background-color: rgb(169, 240, 37);
   }
   
-  /* Set up left form container */
   .update-stock-form-container {
     align-items: center;
     justify-content: center;
@@ -19,16 +15,13 @@
     float: left;
   }
   
-  /* Set up right container */
-  .table-container {
-    margin: 10px 10px auto 10px;
-    padding: 10px 10px;
+  .update-stock-table-container {
     width: 60%;
+    margin: 10px 10px auto 10px;
     background-color: rgb(170, 170, 192);
     float: right;
   }
   
-  /* Set up form styles */
   .update-stock-form {
     display: flex;
     flex-wrap: wrap;
@@ -82,7 +75,6 @@
     border: none;
   }
   
-  /* Set up input validation error styles */
   .input-validation-error {
     color: red;
     font-weight: normal;
