@@ -1,8 +1,8 @@
 import React, { useState ,useEffect } from "react";
-import './main.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Grid, Paper } from "@mui/material";
 
 function AddStock() {
   const [drugname, setDrugName] = useState("");
@@ -45,7 +45,7 @@ function AddStock() {
     console.log("Manufacture Date:", ManufactureDate);
     console.log("Expire Date:", ExpireDate);
 
-    if(drugname.length==0 || ExpireDate.length==0 || unitprice.length==0 || quantity.length==0 ){
+    if(drugname.length===0 || ExpireDate.length===0 || unitprice.length===0 || quantity.length===0 ){
       setError(true);
     }
 
@@ -74,71 +74,78 @@ function AddStock() {
 
 
   return (
-      <div className="form-container-add-stock">
-        <h1 className="h1-stock">Add Drug into stock</h1>
-        <form id="form-add-stock" onSubmit={handleSubmit}>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Drug name</label>
+    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
+    <form id="form-add-stock" onSubmit={handleSubmit}>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <label className="label-add-stock">Drug name</label>
             <input type="text" class="form-control form-control-sm" value={drugname} onChange={(event) => setDrugName(event.target.value)} placeholder="Name of the Drug"/>
             {error&&drugname.length<=0?
             <label class='input-validation-error'>Drug Name can't be empty</label>:""}
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Unit price (Rs)</label>
+        </Grid>
+        <Grid item xs={6}>
+        <label className="label-add-stock">Unit price (Rs)</label>
             <input type="number" class="form-control form-control-sm" value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} placeholder="Unit Price" required/>
             {error&&unitprice.length<=0?
             <label class='input-validation-error'>Drug unit price can't be empty</label>:""}
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Brand name</label> 
+        </Grid>
+        <Grid item xs={6}>
+        <label className="label-add-stock">Brand name</label> 
             <input type="text" class="form-control form-control-sm" value={brandname} onChange={(event) => setBrandName(event.target.value)} placeholder="Brand" required/>
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Selling price (Rs)</label>
+        </Grid>
+        <Grid item xs={6}>
+        <label className="label-add-stock">Selling price (Rs)</label>
             <input type="number" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
             {error&&sellingprice.length<=0?
             <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Purchased Date</label>
+        </Grid>
+        <Grid item xs={6}>
+        <label className="label-add-stock">Selling price (Rs)</label>
+            <input type="number" class="form-control form-control-sm" value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} placeholder="Selling Price" required/>
+            {error&&sellingprice.length<=0?
+            <label class='input-validation-error'>Drug Selling price can't be empty</label>:""}
+          </Grid>
+          <Grid item xs={6}>
+          <label className="label-add-stock">Purchased Date</label>
             <input type="date" class="form-control form-control-sm" value={purchaseDate} onChange={(event) => setPurchaseDate(event.target.value)} required/>
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Drug type</label>
+          </Grid>
+          <Grid item xs={6}>
+          <label className="label-add-stock">Drug type</label>
             <select class="form-control form-control-sm" value={selectedType} onChange={(event) => setSelectedType(event.target.value)}>
               <option value="" disabled selected>Select an option . . .</option>
               {drugTypes.map((type) => (
                 <option key={type.med_type} value={type.med_type}>{type.med_type}</option>
               ))}
             </select>
-          </div>
-          <div className="form-input-add-stock">
+            </Grid>
+            <Grid item xs={6}>
             <label className="label-add-stock">Manufacture Date</label>
             <input type="date" class="form-control form-control-sm" value={ManufactureDate} onChange={(event) => setManufactureDate(event.target.value)} required/>
-          </div>
-          <div className="form-input-add-stock">
+            </Grid>
+            <Grid item xs={6}>
             <label className="label-add-stock">Quantity</label>
             <input type="number" class="form-control form-control-sm" value={quantity} onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity" required/>
             {error&&quantity.length<=0?
             <label class='input-validation-error'>Drug quantity can't be empty or enter 0</label>:""}
-          </div>
-          <div className="form-input-add-stock">
+            </Grid>
+            <Grid item xs={6}>
             <label className="label-add-stock">Expiry Date</label>
             <input type="date" class="form-control form-control-sm" value={ExpireDate} onChange={(event) => setExpireDate(event.target.value)} required/>
             {error&&ExpireDate.length<=0?
             <label class='input-validation-error'>Drug Expire date can't be empty</label>:""}
-          </div>
-          <div className="form-input-add-stock">
-            <label className="label-add-stock">Description</label>
+              </Grid>
+              <Grid item xs={6}>
+              <label className="label-add-stock">Description</label>
             <textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Add description here..."></textarea>
-          </div>
-          <div className="form-button-add-stock">
-            <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
-            <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
-          </div>
-        </form>
+                </Grid>
+                <Grid item xs={12}>
+                <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+                <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+                  </Grid>
+                </Grid>
+                </form>
         <ToastContainer />
-      </div>
+        </Paper>
     
   );
 }
