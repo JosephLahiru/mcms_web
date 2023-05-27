@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 
+
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -15,12 +17,15 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+
 export default function BasicGrid() {
   const [drugId, setDrugId] = useState('');
   const [drugName, setDrugName] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [total, setTotal] = useState(0);
   const [discount, setDiscount] = useState(0);
+  const [invDate, setInvDate] = useState('');
+  const [appointmentId, setAppointmentId] = useState('');
 
   const handleReset = () => {
     setDrugId('');
@@ -46,19 +51,43 @@ export default function BasicGrid() {
 
     // Reset form after submission
     handleReset();
-  };
 
+  
+
+  };
   return (
     <React.Fragment>
     <CssBaseline />
     <Container fixed>
-    <Box sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px' }}>
+    <Box sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px', width:'700px'}}>
       <Grid container spacing={0.5}>
-      <Grid item xs={4}>
-          <Item>xs=4</Item>
+      <Grid item xs={12}>
+          <Item>
+          <h3>K.G.N. Medi house Invoice</h3>
+          No.05, Galle Road,Galle.<br/>
+          contact: +94 715341676<br/>
+          Fax: +94 20 7496 4630.
+          </Item>
         </Grid>
-        <Grid item xs={4}>
-          <Item>xs=4</Item>
+        <Grid item xs={8}>
+          <Item>
+          <form onSubmit={handleSubmit}>
+          <div style={{marginBottom:'20px'}}>
+          <label htmlFor="Date" style={{marginRight:'50px', width:'150px'}}>Inv/Date:</label>
+          <input type="text" id="inv/date" value={invDate} onChange={(e) => setInvDate(e.target.value)}required/>
+        </div>
+
+        <div style={{marginBottom:'20px'}}>
+          <label htmlFor="appointmentId" style={{marginRight:'50px', width:'150px'}}>Appontment ID:</label>
+          <input type="text" id="appointmentId" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}required/>
+        </div>
+
+        <div style={{marginBottom:'20px'}}>
+          <label htmlFor="appointmentId" style={{marginRight:'50px', width:'150px'}}>Appontment ID:</label>
+          <input type="text" id="appointmentId" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}required/>
+        </div>
+            </form>
+          </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>xs=4</Item>
@@ -94,7 +123,8 @@ export default function BasicGrid() {
       </form></Item>
         </Grid>
         <Grid item xs={4}>
-          <Item>xs=4</Item>
+          <Item>
+      </Item>
         </Grid>
         <Grid item xs={4}>
           <Item>xs=4</Item>
