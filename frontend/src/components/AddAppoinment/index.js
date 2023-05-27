@@ -8,15 +8,15 @@ import './main.css';
 
 
 function AddAppointment() {
-  const [appointmentNumber, setAppointmentNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [nic, setNic] = useState("");
-  const [email, setEmail] = useState("");
+  const [email,setEmail] =useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -29,38 +29,65 @@ function AddAppointment() {
   const handleSubmit = async (event) =>{
     event.preventDefault();
 
-       
-    console.log("Appointment Number:", appointmentNumber);
     console.log("First Name:", firstName);
     console.log("Last Name:", lastName);
     console.log("Address:", address);
     console.log("Age",age);
+    console.log("Gender:", gender);
+    console.log("NIC:", nic);
     console.log("Email:", email);
     console.log("Contact Number:", contactNumber);
+    console.log("Appointment Number:", appointmentNumber);
     console.log("Appointment Type:", appointmentType);
     console.log("Appointment Doctor:", appointmentDoctor);
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
 
-    if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !email && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
+    if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
       return;
     }
 
-    if (!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber) {
+   
+    // NIC validation
+    const nicRegex = /^[0-9]{9}[VXvx]$/;
+    if (!nicRegex.test(nic)) {
       setError(true);
+      toast.error('Invalid NIC number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      setError(true);
+      toast.error('Invalid email address', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    // Contact number validation
+    const contactNumberRegex = /^[0-9]{10}$/;
+    if (!contactNumberRegex.test(contactNumber)) {
+      setError(true);
+      toast.error('Invalid contact number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
     }
 
     try {
-      const response = await fetch("https://mcms_api.mtron.me/add_appointment", {
+      const response = await fetch("https://mcms_api.mtron.me/set_appointment", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          app_num: appointmentNumber,
           first_name: firstName,
           last_name: lastName,
           nic: nic,
@@ -68,7 +95,8 @@ function AddAppointment() {
           age: age,
           gender: gender,
           contact_num: contactNumber,
-          email: email,
+          ...(email && { email: email }),    // Include email field conditionally
+          app_num: appointmentNumber,
           at_id: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
@@ -110,14 +138,8 @@ function AddAppointment() {
     <div className="main-container-add-appointment">
       <div className="form-container-add-appointment">
       <h1>Add Appointment</h1>
-      <form className='form-add-appointment'>
+      <form className='form-add-appointment' onSubmit={handleSubmit}>
       <div className="form-input-add-appointment">
-      <label className="label-add-appointment">Appointment Number:</label>
-          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
-        </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error-add-appointment'>AddAppointment Number can't be Empty</label>:""}   
-        <div className="form-input-add-appointment">
         <label className="label-add-appointment">First Name:</label>
           <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
         </div>
@@ -176,6 +198,12 @@ function AddAppointment() {
         {error&&contactNumber.length<=0?
         <label className='input-validation-error-add-appointment'>Contact Number can't be Empty</label>:""}
         <div className="form-input-add-appointment">
+        <label className="label-add-appointment">Appointment Number:</label>
+          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
+        </div>
+        {error&&firstName.length<=0?
+        <label className='input-validation-error-add-appointment'>AddAppointment Number can't be Empty</label>:""}   
+        <div className="form-input-add-appointment">
         <label className="label-add-appointment">Appointment Type:</label>
           <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
           <option value="">Select Appointment Type</option>
@@ -194,7 +222,7 @@ function AddAppointment() {
           <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
-          <option value="Scan Doctor">Scan Doctor</option>
+          <option value="Scan Doctor">Radiologist</option>
         </select>
          </div>
         {error&&appointmentDoctor.length<=0?
