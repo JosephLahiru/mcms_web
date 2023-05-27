@@ -8,7 +8,6 @@ import './main.css';
 
 
 function AddAppointment() {
-  const [appointmentNumber, setAppointmentNumber] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
@@ -17,6 +16,7 @@ function AddAppointment() {
   const [nic, setNic] = useState("");
   const [email,setEmail] =useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -29,8 +29,6 @@ function AddAppointment() {
   const handleSubmit = async (event) =>{
     event.preventDefault();
 
-       
-    console.log("Appointment Number:", appointmentNumber);
     console.log("First Name:", firstName);
     console.log("Last Name:", lastName);
     console.log("Address:", address);
@@ -39,20 +37,48 @@ function AddAppointment() {
     console.log("NIC:", nic);
     console.log("Email:", email);
     console.log("Contact Number:", contactNumber);
+    console.log("Appointment Number:", appointmentNumber);
     console.log("Appointment Type:", appointmentType);
     console.log("Appointment Doctor:", appointmentDoctor);
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
 
-    if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
+    if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
       return;
     }
 
-    if (!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !contactNumber) {
+   
+    // NIC validation
+    const nicRegex = /^[0-9]{9}[VXvx]$/;
+    if (!nicRegex.test(nic)) {
       setError(true);
+      toast.error('Invalid NIC number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      setError(true);
+      toast.error('Invalid email address', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    // Contact number validation
+    const contactNumberRegex = /^[0-9]{10}$/;
+    if (!contactNumberRegex.test(contactNumber)) {
+      setError(true);
+      toast.error('Invalid contact number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
     }
 
     try {
