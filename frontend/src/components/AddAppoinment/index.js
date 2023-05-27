@@ -15,7 +15,7 @@ function AddAppointment() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [nic, setNic] = useState("");
-  const [email, setEmail] = useState("");
+  const [email,setEmail] =useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
@@ -35,6 +35,8 @@ function AddAppointment() {
     console.log("Last Name:", lastName);
     console.log("Address:", address);
     console.log("Age",age);
+    console.log("Gender:", gender);
+    console.log("NIC:", nic);
     console.log("Email:", email);
     console.log("Contact Number:", contactNumber);
     console.log("Appointment Type:", appointmentType);
@@ -42,14 +44,14 @@ function AddAppointment() {
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
 
-    if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !email && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
+    if (!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
       return;
     }
 
-    if (!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !email || !contactNumber) {
+    if (!appointmentNumber || !firstName || !lastName || !address || !age || !nic || !contactNumber) {
       setError(true);
     }
 
@@ -68,7 +70,7 @@ function AddAppointment() {
           age: age,
           gender: gender,
           contact_num: contactNumber,
-          email: email,
+          ...(email && { email: email }),    // Include email field conditionally
           at_name: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
@@ -110,7 +112,7 @@ function AddAppointment() {
     <div className="main-container-add-appointment">
       <div className="form-container-add-appointment">
       <h1>Add Appointment</h1>
-      <form className='form-add-appointment'>
+      <form className='form-add-appointment' onSubmit={handleSubmit}>
       <div className="form-input-add-appointment">
       <label className="label-add-appointment">Appointment Number:</label>
           <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>

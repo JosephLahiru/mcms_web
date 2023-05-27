@@ -1,8 +1,6 @@
-
-// import './../App.css';
-import React from "react";
-import { useEffect, useState } from "react";
+import React,{useStatew} from "react";
 import { ToastContainer, toast } from "react-toastify";
+import 'bootstrap/dist/css/bootstrap.css';
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +26,7 @@ function UpdateAppointment() {
 
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     console.log("Appointment Number:", appointmentNumber);
@@ -46,25 +44,52 @@ function UpdateAppointment() {
     console.log("Appointment Time:", appointmentTime);
     
 
-    if(!appointmentNumber && !firstName ){
+    if(!appointmentNumber && !firstName && !lastName && !address && !age && !gender && !nic && !contactNumber && !appointmentType && !appointmentDoctor && !appointmentDate && !appointmentTime){
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
       return;
     }
 
-    if (appointmentNumber.length==0 || firstName.length==0) {
-      setError(true);
-      return;
+    if (appointmentNumber || firstName || !lastName || !address || !age || !nic || !contactNumber) {
+      setError(true);  
     }
+  
+    try {
+      const response = await fetch("https://mcms_api.mtron.me/get_appointment", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          app_num: appointmentNumber,
+          first_name: firstName,
+          last_name: lastName,
+          nic: nic,
+          address: address,
+          age: age,
+          gender: gender,
+          contact_num: contactNumber,
+          ...(email && { email: email }),    // Include email field conditionally
+          at_name: appointmentType,
+          cd_id: appointmentDoctor,
+          app_date: appointmentDate,
+          atm_type: appointmentTime,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send appointment details');
+      }
+
+      alert('Appointment details sent successfully');
+      handleReset();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to send appointment details');
+    }
+
   }
-
-   function getPatientData(app_num){
-    const response = fetch("https://mcms_api.mcms.me/get_appoinment/" + app_num);
-     const data =  response.json();
-
-     return data;
-   }
 
   const handleReset = () => {
     setAppointmentNumber(""); 
@@ -221,8 +246,5 @@ function UpdateAppointment() {
     </div>
   );
 }
-
-   
-
-    
+ 
    export default UpdateAppointment;
