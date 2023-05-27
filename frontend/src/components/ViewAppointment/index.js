@@ -62,8 +62,8 @@ function ViewAppointment(){
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
                     <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
@@ -121,8 +121,8 @@ function ViewAppointment(){
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
                     <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
@@ -180,8 +180,8 @@ function ViewAppointment(){
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
                     <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
