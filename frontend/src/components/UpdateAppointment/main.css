@@ -5,7 +5,7 @@
     margin: 20px;
     width:100% ;
     height: 100%;
-    background-color:#5fcf80;
+    background-color:	#660066;
     
   }
 
@@ -16,14 +16,14 @@
   margin: auto;
   width: 30%;
   padding-bottom: 80px;
-  background-color: grey;
+  background-color: #c9a7ddc0;
 }
 
 /* Set up form update appointment*/
 .update-appointment-form {
   max-width: 400px;
   margin: 10px auto;
-  background:  #d7dadc;
+  background: #f2eef39d;
   border-radius: 8px;
   display: block;
   flex-wrap:nowrap;
@@ -71,7 +71,8 @@
     display: flex;
     flex-direction: row;
     width: 300%;
-    background:  #e8eeef;
+
+    
   }  
 
   /* Set up textarea */
@@ -101,4 +102,10 @@
 /* Set up submit button styles */
  .btn-primary {
   width: 100%; 
+  }
+
+  h1{
+    text-align: center;
+    font-weight: bold;
+    
   }
