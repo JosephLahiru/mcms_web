@@ -10,16 +10,27 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Button,
   TablePagination,
   Grid,
   Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
+
 
 function ViewStock() {
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState("Drug Name");
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -84,6 +95,37 @@ function ViewStock() {
 
   const rows = filteredStock || [];
 
+  const handleDelete = (id) => {
+    setItemToDelete(id);
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (confirmed) {
+      await fetch(`https://mcms_api.mtron.me/delete_stock/${itemToDelete}`, {
+        method: "GET",
+      });
+      setStock(stock.filter((item) => item.prdct_id !== itemToDelete));
+      setFilteredStock(
+        filteredStock.filter((item) => item.prdct_id !== itemToDelete)
+      );
+    }
+    setItemToDelete(null);
+    setConfirmDialogOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setItemToDelete(null);
+    setConfirmDialogOpen(false);
+  };
+
+  const handleUpdate = (drugId) => {
+    navigate(`/update_stock/${drugId}`);
+  };
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
       <Grid container alignItems='center'>
@@ -122,6 +164,8 @@ function ViewStock() {
                 <TableCell>Quantity</TableCell>
                 <TableCell>Manufacture Date</TableCell>
                 <TableCell>Expiry Date</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -140,6 +184,8 @@ function ViewStock() {
                       <TableCell>{item.total_quantity}</TableCell>
                       <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                       <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
+                      <TableCell><Button variant="outlined" size="small" onClick={() => handleUpdate(item.prdct_id)}>Update</Button></TableCell>
+                      <TableCell><Button variant="outlined" size="small" startIcon={<DeleteIcon />} onClick={() => handleDelete(item.prdct_id)}>Delete</Button></TableCell>
                     </TableRow>
                   ))
               ) : (
@@ -150,6 +196,29 @@ function ViewStock() {
             </TableBody>
           </Table>
         </TableContainer>
+        {itemToDelete && (
+            <Dialog
+              open={confirmDialogOpen}
+              onClose={handleCancelDelete}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Confirm Delete"}
+              </DialogTitle>
+              <DialogContent>
+                <div id="alert-dialog-description">
+                  Are you sure you want to delete this item?
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCancelDelete}>Cancel</Button>
+                <Button onClick={handleConfirmDelete} autoFocus>
+                  Delete
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"

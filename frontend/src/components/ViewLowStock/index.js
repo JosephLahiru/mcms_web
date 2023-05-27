@@ -69,7 +69,7 @@ function ViewLowStock() {
               <MenuItem value="">All</MenuItem>
               <MenuItem value={1}>Small stock</MenuItem>
               <MenuItem value={2}>Medium stock</MenuItem>
-              <MenuItem value={3}>High stock</MenuItem>
+              <MenuItem value={3}>Big stock</MenuItem>
             </Select>
           </FormControl>
         </Grid>
