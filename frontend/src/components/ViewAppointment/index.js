@@ -210,7 +210,6 @@ function ViewAppointment(){
             </table>
         </div>  
 
-
       );
     }
 export default ViewAppointment;
