@@ -82,13 +82,12 @@ function AddAppointment() {
     }
 
     try {
-      const response = await fetch("https://mcms_api.mtron.me/add_appointment", {
+      const response = await fetch("https://mcms_api.mtron.me/set_appointment", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          app_num: appointmentNumber,
           first_name: firstName,
           last_name: lastName,
           nic: nic,
@@ -97,10 +96,11 @@ function AddAppointment() {
           gender: gender,
           contact_num: contactNumber,
           ...(email && { email: email }),    // Include email field conditionally
-          at_name: appointmentType,
+          app_num: appointmentNumber,
+          at_id: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
-          atm_type: appointmentTime,
+          atm_id: appointmentTime,
         }),
       });
 
