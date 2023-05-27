@@ -51,7 +51,7 @@ function App() {
         <Route path='view_patients' element={<ViewPatients />} />
         <Route path='view_stock' element={<ViewStock />} />
         <Route path='update_patient' element={<UpdatePatient />} />
-        <Route path='user_profile' element={<UserProfile />} />
+        <Route path='patient_profile' element={<PatientProfile />} />
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
       </Routes>
