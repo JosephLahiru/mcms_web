@@ -42,10 +42,10 @@ function ViewAppointment(){
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
-              <th scope="col"> Email </th>
+              <th scope="col"> Telephone Number </th>
               <th scope="col"> Appointment Type </th>
               <th scope="col"> Appointment Time </th>
             </tr>
@@ -58,14 +58,15 @@ function ViewAppointment(){
                     <td>{appointment.app_num}</td>
                     <td>{appointment.first_name}</td>
                     <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
-                    <td>{appointment.nic}</td>
-                    <td>{appointment.email}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.atm_type}</td>
                     <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
+
                     <td>
                       <table>
                         <tr>
@@ -95,15 +96,15 @@ function ViewAppointment(){
         <table className="table">
           <thead>
             <tr className="table-dark">
-              <th scope="col"> Appointment Number </th>
+            <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact  Number </th>
-              <th scope="col"> Email </th>
+              <th scope="col"> Telephone Number </th>
               <th scope="col"> Appointment Type </th>
               <th scope="col"> Appointment Time </th>
             </tr>
@@ -113,17 +114,17 @@ function ViewAppointment(){
               if (appointment.cd_id === 'cd_002') {
                 return (
                   <tr key={appointment.app_num}>
-                    <td>{appointment.app_num}</td>
+                     <td>{appointment.app_num}</td>
                     <td>{appointment.first_name}</td>
                     <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
-                    <td>{appointment.nic}</td>
-                    <td>{appointment.email}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.atm_type}</td>
                     <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
@@ -159,10 +160,10 @@ function ViewAppointment(){
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
-              <th scope="col"> Email </th>
+              <th scope="col"> Telephone Number </th>
               <th scope="col"> Appointment Type </th>
               <th scope="col"> Appointment Time </th>
             </tr>
@@ -175,14 +176,14 @@ function ViewAppointment(){
                     <td>{appointment.app_num}</td>
                     <td>{appointment.first_name}</td>
                     <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
-                    <td>{appointment.nic}</td>
-                    <td>{appointment.email}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.atm_type}</td>
                     <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
