@@ -14,6 +14,7 @@ import bgimage from './../../images/background.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function Copyright(props) {
   return (
@@ -33,6 +34,7 @@ const defaultTheme = createTheme();
 export default function SignInSide() {
 
   const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,7 +62,7 @@ export default function SignInSide() {
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            display: 'flex',
+            display: isMobile ? 'none' : 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -95,7 +97,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              <b>MCMS</b><br/>Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
