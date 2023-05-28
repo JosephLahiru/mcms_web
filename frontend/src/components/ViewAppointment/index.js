@@ -15,6 +15,8 @@ function ViewAppointment(){
         async function fetchAppointment() {
             const response = await fetch("https://mcms_api.mtron.me/get_appointment");
             const data = await response.json();
+
+            console.log(data)
             setViewAppointment(data);
         }
         fetchAppointment();
@@ -32,20 +34,20 @@ function ViewAppointment(){
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
          <label className="view-appointment-label">The Universal Physician:</label>
-        <table class="table">
+        <table className="table">
           <thead>
-            <tr class="table-dark">
-              <th scope="col"> App Num </th>
+            <tr className="table-dark">
+            <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Cont Num </th>
-              <th scope="col"> Email </th>
-              <th scope="col"> App Type </th>
-              <th scope="col"> App Time </th>
+              <th scope="col"> Telephone Number </th>
+              <th scope="col"> Appointment Type </th>
+              <th scope="col"> Appointment Time </th>
             </tr>
           </thead>
           <tbody>
@@ -58,12 +60,13 @@ function ViewAppointment(){
                     <td>{appointment.last_name}</td>
                     <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
+
                     <td>
                       <table>
                         <tr>
@@ -76,8 +79,7 @@ function ViewAppointment(){
                             <button
                               className="btn btn-primary btn-sm"
                               type="button"
-                              onClick={() => navigate("/update_appointment")}
-                            >
+                              onClick={() => navigate("/update_appointment")}>
                               Update
                             </button>
                           </td>
@@ -90,21 +92,21 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="view-appointment-label">Pediatrician Doctor:</label>
-        <table class="table">
+        <label className="view-appointment-label">Pediatrician :</label>
+        <table className="table">
           <thead>
-            <tr class="table-dark">
-              <th scope="col"> App Num </th>
+            <tr className="table-dark">
+            <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Cont Num </th>
-              <th scope="col"> Email </th>
-              <th scope="col"> App Type </th>
-              <th scope="col"> App Time </th>
+              <th scope="col"> Telephone Number </th>
+              <th scope="col"> Appointment Type </th>
+              <th scope="col"> Appointment Time </th>
             </tr>
           </thead>
           <tbody>
@@ -112,17 +114,17 @@ function ViewAppointment(){
               if (appointment.cd_id === 'cd_002') {
                 return (
                   <tr key={appointment.app_num}>
-                    <td>{appointment.app_num}</td>
+                     <td>{appointment.app_num}</td>
                     <td>{appointment.first_name}</td>
                     <td>{appointment.last_name}</td>
                     <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
@@ -149,21 +151,21 @@ function ViewAppointment(){
             })}
           </tbody>
         </table>
-        <label className="view-appointment-label">Scan Doctor:</label>
-        <table class="table">
+        <label className="view-appointment-label">Radiologist:</label>
+        <table className="table">
           <thead>
-            <tr class="table-dark">
-              <th scope="col"> App Num </th>
+            <tr className="table-dark">
+            <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
               <th scope="col"> NIC </th>
               <th scope="col"> Address </th>
+              <th scope="col"> Email </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Cont Num </th>
-              <th scope="col"> Email </th>
-              <th scope="col"> App Type </th>
-              <th scope="col"> App Time </th>
+              <th scope="col"> Telephone Number </th>
+              <th scope="col"> Appointment Type </th>
+              <th scope="col"> Appointment Time </th>
             </tr>
           </thead>
           <tbody>
@@ -176,12 +178,12 @@ function ViewAppointment(){
                     <td>{appointment.last_name}</td>
                     <td>{appointment.nic}</td>
                     <td>{appointment.address}</td>
+                    <td>{appointment.email}</td>
                     <td>{appointment.age}</td>
                     <td>{appointment.gender}</td>
                     <td>{appointment.contact_num}</td>
-                    <td>{appointment.email}</td>
-                    <td>{appointment.at_id}</td>
-                    <td>{appointment.atm_id}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
                     <td>
                       <table>
                         <tr>
@@ -209,7 +211,6 @@ function ViewAppointment(){
           </tbody>
             </table>
         </div>  
-
 
       );
     }

@@ -5,25 +5,26 @@
     margin: 20px;
     width:100% ;
     height: 100%;
-    background-color:#5fcf80;
+    background-color:	#660066;
     
   }
 
-/* Set up main container*/
+/* Set up left form  container*/
 .form-container-add-appointment{
   align-items: center;
   justify-content: center;
   margin: auto;
   width: 30%;
   padding-bottom: 80px;
-  background-color: grey;
+  background-color:#c9a7ddc0	;
+ 
 }
 
 /* Set up form add appointment*/
 .form-add-appointment {
   max-width: 400px;
   margin: 10px auto;
-  background: #f4f7f8;
+  background: #f2eef39d;
   border-radius: 8px;
   display: block;
   flex-wrap:nowrap;
@@ -99,6 +100,11 @@ width: 100%;
   font-weight: bold;
 }
 
+h1{
+  text-align: center;
+  font-weight: bold;
+  
+}
 
 
 
