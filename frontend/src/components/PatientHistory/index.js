@@ -2,13 +2,16 @@ import React from "react";
 import { useEffect, useState } from "react";
 // import './../App.css';
 import './main.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function PatientHistory() {
   const [appointment, PatientHistory] = useState([]);
   const [page, setPage] = useState(0);
-   
-    useEffect(() => {
+  const navigate = useNavigate();
+  
+  
+  useEffect(() => {
         async function fetchAppointment() {
             const response = await fetch("http://158.101.10.103/get_appointment");
             const data = await response.json();
@@ -17,6 +20,7 @@ function PatientHistory() {
         fetchAppointment();
     }, []);
 
+  
     const handleNextPage = () => {
       setPage(page + 1);
     };
@@ -34,7 +38,9 @@ return (
   <div className="div1">
       <h1>Patient History</h1>
       <div className="filter">
-          <label htmlFor="dateFilter">Filter by Date:</label>
+          <label htmlFor="dateFilter">Filter by Nic Number:
+          <input type="text" class="form-control-0 " placeholder={`Search by last three digits...`}/>
+          </label>
     </div>
         <div className="t-container1">
         <table class="table table-hover table-hover">
@@ -71,6 +77,7 @@ return (
             <td>{patients.appointment_doctor}</td>
             <td>{patients.address}</td>
             <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td></tr></table></td>
+            <td><table><tr><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/patient_profile")}>View Profile</button></td></tr></table></td>
             </tr> 
             )}
           </tbody>
