@@ -76,8 +76,7 @@ function ViewAppointment(){
                             <button
                               className="btn btn-primary btn-sm"
                               type="button"
-                              onClick={() => navigate("/update_appointment")}
-                            >
+                              onClick={() => navigate("/update_appointment")}>
                               Update
                             </button>
                           </td>
@@ -101,7 +100,7 @@ function ViewAppointment(){
               <th scope="col"> Address </th>
               <th scope="col"> Age </th>
               <th scope="col"> Gender </th>
-              <th scope="col"> Contact Number </th>
+              <th scope="col"> Contact  Number </th>
               <th scope="col"> Email </th>
               <th scope="col"> Appointment Type </th>
               <th scope="col"> Appointment Time </th>
