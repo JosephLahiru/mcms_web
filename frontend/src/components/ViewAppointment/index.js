@@ -15,6 +15,8 @@ function ViewAppointment(){
         async function fetchAppointment() {
             const response = await fetch("https://mcms_api.mtron.me/get_appointment");
             const data = await response.json();
+
+            console.log(data)
             setViewAppointment(data);
         }
         fetchAppointment();
@@ -32,9 +34,9 @@ function ViewAppointment(){
           <input type="date" id="dateFilter" value={filterDate} onChange={handleFilterDateChange} />
         </div>
          <label className="view-appointment-label">The Universal Physician:</label>
-        <table class="table">
+        <table className="table">
           <thead>
-            <tr class="table-dark">
+            <tr className="table-dark">
             <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
@@ -90,9 +92,9 @@ function ViewAppointment(){
           </tbody>
         </table>
         <label className="view-appointment-label">Pediatrician :</label>
-        <table class="table">
+        <table className="table">
           <thead>
-            <tr class="table-dark">
+            <tr className="table-dark">
               <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
@@ -149,9 +151,9 @@ function ViewAppointment(){
           </tbody>
         </table>
         <label className="view-appointment-label">Radiologist:</label>
-        <table class="table">
+        <table className="table">
           <thead>
-            <tr class="table-dark">
+            <tr className="table-dark">
             <th scope="col"> Appointment Number </th>
               <th scope="col"> First Name </th>
               <th scope="col"> Last Name </th>
