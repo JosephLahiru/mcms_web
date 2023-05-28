@@ -69,15 +69,24 @@ const handleReset = () => {
           Fax: +94 20 7496 4630.
           </Item>
         </Grid>
+        <Grid item xs={4}>
+          <Item>
+          <form onSubmit={handleSubmit}>
+          <div style={{marginBottom:'20px'}}>
+          <label htmlFor="Date" style={{ width:'150px'}}>Inv/Date:</label>
+          <input type="date" id="inv/date" value={invDate} style={{width:'150px'}} onChange={(e) => setInvDate(e.target.value)}required/>
+        </div>
+        <div style={{marginBottom:'20px'}}>
+          <label htmlFor="Date" style={{ width:'150px'}}>Inv/Date:</label>
+          <input type="time" id="inv/date" value={invDate} style={{width:'150px'}}  onChange={(e) => setInvDate(e.target.value)}required/>
+        </div>
+        </form>  
+      </Item>
+        </Grid>
         <Grid item xs={8}>
           <Item>
           <form onSubmit={handleSubmit}>
           <div style={{marginBottom:'20px'}}>
-          <label htmlFor="Date" style={{marginRight:'50px', width:'150px'}}>Inv/Date:</label>
-          <input type="text" id="inv/date" value={invDate} onChange={(e) => setInvDate(e.target.value)}required/>
-        </div>
-
-        <div style={{marginBottom:'20px'}}>
           <label htmlFor="appointmentId" style={{marginRight:'50px', width:'150px'}}>Appontment ID:</label>
           <input type="text" id="appointmentId" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}required/>
         </div>
@@ -86,13 +95,12 @@ const handleReset = () => {
           <label htmlFor="appointmentId" style={{marginRight:'50px', width:'150px'}}>Appontment ID:</label>
           <input type="text" id="appointmentId" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}required/>
         </div>
-            </form>
-          </Item>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-    </Item>
-        </Grid>
+
+        <div style={{marginBottom:'20px'}}>
+          <label htmlFor="appointmentId" style={{marginRight:'50px', width:'150px'}}>Appontment ID:</label>
+          <input type="text" id="appointmentId" value={appointmentId} onChange={(e) => setAppointmentId(e.target.value)}required/>
+        </div>
+            </form></Item></Grid>
         <Grid item xs={8}>
           <Item> <form onSubmit={handleSubmit}>
         <div style={{marginBottom:'20px'}}>
@@ -123,11 +131,7 @@ const handleReset = () => {
         </div>
       </form></Item>
         </Grid>
-        <Grid item xs={4}>
-          <Item>
-          
-      </Item>
-        </Grid>
+        
         <Grid item xs={4}>
           <Item>xs=4</Item>
         </Grid>
