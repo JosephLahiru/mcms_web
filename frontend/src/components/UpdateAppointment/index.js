@@ -1,16 +1,13 @@
-
-// import './../App.css';
-import React from "react";
-import { useEffect, useState } from "react";
+import React,{useState} from "react";
 import { ToastContainer, toast } from "react-toastify";
+import 'bootstrap/dist/css/bootstrap.css';
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
 import { useNavigate } from 'react-router-dom';
 
 
 
-function UpdateAppointment() {
-  const [appointmentNumber, setAppointmentNumber] = useState("");
+function UpdateAppointment() { 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
@@ -19,6 +16,7 @@ function UpdateAppointment() {
   const [nic, setNic] = useState("");
   const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -28,10 +26,9 @@ function UpdateAppointment() {
 
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log("Appointment Number:", appointmentNumber);
     console.log("First Name:", firstName);
     console.log("Last Name:", lastName);
     console.log("Address:", address);
@@ -40,31 +37,86 @@ function UpdateAppointment() {
     console.log("NIC:", nic);
     console.log("Email:", email);
     console.log("Contact Number:", contactNumber);
+    console.log("Appointment Number:", appointmentNumber);
     console.log("Appointment Type:", appointmentType);
     console.log("Appointment Doctor:", appointmentDoctor);
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
     
 
-    if(!appointmentNumber && !firstName ){
+    if(!firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber ||  !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime){
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
       return;
     }
-
-    if (appointmentNumber.length==0 || firstName.length==0) {
+  
+    
+    // NIC validation
+    const nicRegex = /^[0-9]{9}[VXvx]$/;
+    if (!nicRegex.test(nic)) {
       setError(true);
+      toast.error('Invalid NIC number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
       return;
     }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      setError(true);
+      toast.error('Invalid email address', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    // Contact number validation
+    const contactNumberRegex = /^[0-9]{10}$/;
+    if (!contactNumberRegex.test(contactNumber)) {
+      setError(true);
+      toast.error('Invalid contact number', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch("https://mcms_api.mtron.me/get_appointment", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          app_num: appointmentNumber,
+          first_name: firstName,
+          last_name: lastName,
+          nic: nic,
+          address: address,
+          age: age,
+          gender: gender,
+          contact_num: contactNumber,
+          ...(email && { email: email }),    // Include email field conditionally
+          at_name: appointmentType,
+          cd_id: appointmentDoctor,
+          app_date: appointmentDate,
+          atm_type: appointmentTime,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send appointment details');
+      }
+
+      alert('Appointment details sent successfully');
+      handleReset();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to send appointment details');
+    }
+
   }
-
-   function getPatientData(app_num){
-    const response = fetch("https://mcms_api.mcms.me/get_appoinment/" + app_num);
-     const data =  response.json();
-
-     return data;
-   }
 
   const handleReset = () => {
     setAppointmentNumber(""); 
@@ -88,12 +140,6 @@ function UpdateAppointment() {
       <div className="update-appointment-form-container">
       <h1>Update Appointment</h1>
        <form className="update-appointment-form" onSubmit={handleSubmit}>
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Number:</label>
-          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
-        </div>
-        {error&&appointmentNumber.length<=0?
-        <label className='input-validation-error'>Appointment Number can't be Empty</label>:""}
         <div className="update-appointment-form-input">
         <label className="update-appointment-label">First Name:</label>
           <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
@@ -157,6 +203,12 @@ function UpdateAppointment() {
         {error&&contactNumber.length<=0?
         <label className='input-validation-error'>Contact Number can't be Empty</label>:""}
         <div className="update-appointment-form-input">
+        <label className="update-appointment-label">Appointment Number:</label>
+          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
+        </div>
+        {error&&appointmentNumber.length<=0?
+        <label className='input-validation-error'>Appointment Number can't be Empty</label>:""}
+        <div className="update-appointment-form-input">
         <label className="update-appointment-label">Appointment Type:</label>
           <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
           <option value="">Select Appointment Type</option>
@@ -175,7 +227,7 @@ function UpdateAppointment() {
           <option value="">Select Appointment Doctor</option>
           <option value="The Universal Physician">The Universal Physician</option>
           <option value="Pediatrician">Pediatrician</option>
-          <option value="Scan Doctor">Scan Doctor</option>
+          <option value="Scan Doctor">Radiologist</option>
         </select>
          </div>
         {error&&appointmentDoctor.length<=0?
@@ -221,8 +273,5 @@ function UpdateAppointment() {
     </div>
   );
 }
-
-   
-
-    
+ 
    export default UpdateAppointment;

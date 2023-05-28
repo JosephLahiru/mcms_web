@@ -22,7 +22,7 @@ import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
 
-const hideNavbarRoutes = ['/', 'view_endpoints'];
+const hideNavbarRoutes = ['/', '/view_endpoints'];
 
 function App() {
   const location = useLocation();
