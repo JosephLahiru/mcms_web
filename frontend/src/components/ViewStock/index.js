@@ -18,9 +18,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  FormControl,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
 
 
 function ViewStock() {
@@ -30,7 +30,6 @@ function ViewStock() {
   const [filterOption, setFilterOption] = useState("Drug Name");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -122,17 +121,12 @@ function ViewStock() {
     setConfirmDialogOpen(false);
   };
 
-  const handleUpdate = (drugId) => {
-    navigate(`/update_stock/${drugId}`);
-  };
-
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
       <Grid container alignItems='center'>
-        <Grid item xs={1}>
-          <InputLabel id="filterSelectLabel">Filter by</InputLabel>
-        </Grid>
         <Grid item xs={1.5}>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="filterSelectLabel">Filter by</InputLabel>
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
@@ -145,6 +139,7 @@ function ViewStock() {
             <MenuItem value="Drug Type">Drug Type</MenuItem>
             <MenuItem value="Quantity">Quantity</MenuItem>
           </Select>
+        </FormControl>
         </Grid>
         <Grid item xs={4}>
           <TextField id="outlined-size-small" size="small" value={searchTerm} onChange={handleInputChange} label={`Search by ${filterOption}...`} type="search" />
@@ -153,7 +148,7 @@ function ViewStock() {
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
-              <TableRow>
+              <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
                 <TableCell>Drug ID</TableCell>
                 <TableCell>Drug Name</TableCell>
                 <TableCell>Brand Name</TableCell>
@@ -184,7 +179,7 @@ function ViewStock() {
                       <TableCell>{item.total_quantity}</TableCell>
                       <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                       <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                      <TableCell><Button variant="outlined" size="small" onClick={() => handleUpdate(item.prdct_id)}>Update</Button></TableCell>
+                      <TableCell><Button variant="outlined" size="small" >Update</Button></TableCell>
                       <TableCell><Button variant="outlined" size="small" startIcon={<DeleteIcon />} onClick={() => handleDelete(item.prdct_id)}>Delete</Button></TableCell>
                     </TableRow>
                   ))

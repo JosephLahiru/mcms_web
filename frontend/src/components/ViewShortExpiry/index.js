@@ -77,7 +77,7 @@ function ViewShortExpiry() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
