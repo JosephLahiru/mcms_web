@@ -15,7 +15,7 @@ import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
-import UserProfile from './components/UserProfile';
+import PatientProfile from './components/PatientProfile';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
@@ -49,7 +49,7 @@ function App() {
         <Route path='view_patients' element={<ViewPatients />} />
         <Route path='view_stock' element={<ViewStock />} />
         <Route path='update_patient' element={<UpdatePatient />} />
-        <Route path='user_profile' element={<UserProfile />} />
+        <Route path='patient_profile' element={<PatientProfile />} />
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
       </Routes>
