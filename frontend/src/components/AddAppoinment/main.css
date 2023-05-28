@@ -9,7 +9,7 @@
     
   }
 
-/* Set up main container*/
+/* Set up left form  container*/
 .form-container-add-appointment{
   align-items: center;
   justify-content: center;
@@ -17,6 +17,7 @@
   width: 30%;
   padding-bottom: 80px;
   background-color:#c9a7ddc0	;
+ 
 }
 
 /* Set up form add appointment*/

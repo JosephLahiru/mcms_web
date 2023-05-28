@@ -1,10 +1,13 @@
-.table{
+/* .table{
     background-color: rgb(180, 206, 220);
 
-}
+} */
 
 .t-container1{
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
+}
+.form-control-0{
+    width: 500px;
 }
