@@ -16,7 +16,6 @@ import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
 import PatientProfile from './components/PatientProfile';
-import DeleteStock from './components/DeleteStock';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
