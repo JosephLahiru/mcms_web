@@ -1,13 +1,12 @@
 import React, { useState ,useEffect} from "react";
+import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './main.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import ViewStock from "../ViewStock/index.js";
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");
-  const [autoFillClicked, setAutoFillClicked] = useState(false);
   const [drugname, setDrugName] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [sellingprice, setSellingPrice] = useState("");
@@ -93,7 +92,7 @@ function UpdateStock() {
   });
   }
 
-  const handleAutoFill = () => {
+  const handleUpdate = () => {
     if (!drugId) {
       toast.error("Please enter a drug ID first", {
         position: toast.POSITION.TOP_RIGHT,
@@ -117,14 +116,12 @@ function UpdateStock() {
         .padStart(2, "0")}-${manufactureDate.getDate().toString().padStart(2, "0")}`;
       setManufactureDate(formattedManufactureDate);
 
-      // Auto-fill and correct ExpiryDate field
       const expiryDate = new Date(data[0].exp_date);
       const formattedExpiryDate = `${expiryDate.getFullYear()}-${(expiryDate.getMonth() + 1)
         .toString()
         .padStart(2, "0")}-${expiryDate.getDate().toString().padStart(2, "0")}`;
       setExpiryDate(formattedExpiryDate);
 
-        setAutoFillClicked(true);
       })
       .catch((error) => {
         toast.error("Failed to fetch drug details", {
@@ -155,25 +152,13 @@ function UpdateStock() {
           <div className="update-stock-form-input">
             <label className="update-stock-label">Drug ID:</label>
             <input type="text" className="form-control form-control-sm" value={drugId} onChange={(event) => {
-                setDrugId(event.target.value);
-                if (autoFillClicked) {
-                  setDrugName("");
-                  setUnitPrice("");
-                  setSellingPrice("");
-                  setBrandName("");
-                  setDrugTypes("");
-                  setQuantity("");
-                  setManufactureDate("");
-                  setExpiryDate("");
-                  setAutoFillClicked(false);
-                }
+
               }} placeholder="Drug ID" required/>
               {error&&drugId.length<=0?
             <label className='input-validation-error'>Drug ID can't be Empty</label>:""}
           </div>
           <div className="update-stock-form-input">
-              <label className="update-stock-autofill">Auto fill</label>
-              <button className="btn btn-primary btn-sm" type="button" onClick={handleAutoFill}>Auto fill</button>
+              <button className="btn btn-primary btn-sm" type="button"></button>
           </div>
           <div className="update-stock-form-input">
             <label className="update-stock-label">Drug name</label>
@@ -228,9 +213,6 @@ function UpdateStock() {
           </div>
         </form>
         <ToastContainer />
-      </div>
-      <div className="update-stock-table-container">
-        <ViewStock/>
       </div>
     </div>
   );
