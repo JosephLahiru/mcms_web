@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
-import { FixedSizeList } from 'react-window';
 
 
 
@@ -18,7 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-
 export default function BasicGrid() {
   const [drugId, setDrugId] = useState('');
   const [drugName, setDrugName] = useState('');
@@ -28,7 +26,8 @@ export default function BasicGrid() {
   const [invDate, setInvDate] = useState('');
   const [appointmentId, setAppointmentId] = useState('');
 
-  const handleReset = () => {
+
+const handleReset = () => {
     setDrugId('');
     setDrugName('');
     setQuantity(0);
@@ -91,11 +90,8 @@ export default function BasicGrid() {
           </Item>
         </Grid>
         <Grid item xs={4}>
-          <Item><FixedSizeList height={200} width={200} itemCount={100} itemSize={50}>
-      {({ index, style }) => (
-        <div style={style}>Item {index}</div>
-      )}
-    </FixedSizeList></Item>
+          <Item>
+    </Item>
         </Grid>
         <Grid item xs={8}>
           <Item> <form onSubmit={handleSubmit}>
