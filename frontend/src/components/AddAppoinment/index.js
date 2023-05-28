@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import './main.css';
 
+
 function AddAppointment() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -320,6 +321,7 @@ function AddAppointment() {
         </form>
         <ToastContainer />
       </div>
+      
      </div >
   );
   }
