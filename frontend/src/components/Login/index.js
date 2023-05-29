@@ -60,8 +60,27 @@ export default function SignInSide() {
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+        >
+          <Typography
+            variant="h1"
+            paragraph
+            sx={{
+              fontFamily: 'Roboto',
+              WebkitTextStroke: '3px #fff',
+              textStroke: '3px #fff',
+              WebkitTextFillColor: 'transparent',
+              textFillColor: 'transparent',
+              textAlign: 'justify',
+            }}
+          ><center>
+            Medical Center Management System
+            </center>
+          </Typography>
+        </Grid>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{backgroundColor:'#f8e7fe'}}>
           <Box
             sx={{
