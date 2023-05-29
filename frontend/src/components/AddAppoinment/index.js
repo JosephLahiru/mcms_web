@@ -3,7 +3,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import './main.css';
+
+import { Grid, TextField, Button, Radio, RadioGroup, FormControlLabel, Select, MenuItem, FormControl, InputLabel, TextareaAutosize,FormLabel } from '@mui/material';
 
 
 function AddAppointment() {
@@ -23,6 +24,21 @@ function AddAppointment() {
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+
+  function generateAppointmentTimeOptions() {
+    const appointmentTimes = [
+      '4:00pm', '4:15pm', '4:30pm', '4:45pm', '5:00pm', '5:15pm', '5:30pm', '5:45pm',
+      '6:00pm', '6:15pm', '6:30pm', '6:45pm', '7:00pm', '7:15pm', '7:30pm', '7:45pm',
+      '8:00pm'
+    ];
+  
+    return appointmentTimes.map((time, index) => (
+      <option key={index} value={time} disabled={appointmentTime === time}>
+        {time}
+      </option>
+    ));
+  }  
+  
 
   function getAtId(doctorType) {
     return fetch('https://mcms_api.mtron.me/get_app_id/' + doctorType)
@@ -191,139 +207,101 @@ function AddAppointment() {
     };
 
   return (
-    <div className="main-container-add-appointment">
-      <div className="form-container-add-appointment">
-      <h1>Add Appointment</h1>
-      <form className='form-add-appointment' onSubmit={handleSubmit}>
-      <div className="form-input-add-appointment">
-        <label className="label-add-appointment">First Name:</label>
-          <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
-        </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error-add-appointment'>First Name can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Last Name:</label>
-          <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
-        </div>
-        {error&&lastName.length<=0?
-        <label className='input-validation-error-add-appointment'>Last Name can't be Empty</label>:""}
-         <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Age:</label>
-          <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age"/>
-        </div>
-        {error&&age.length<=0?
-        <label className='input-validation-error-add-appointment'>Age can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Address:</label>
-        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
-        </div>
-        {error&&address.length<=0?
-        <label className='input-validation-error-add-appointment'>Address can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Gender:</label>
-        <label>
-            <input type="radio" value="Male" checked={gender === "Male"} onChange={(event) => setGender(event.target.value)} />Male
-          </label>
-          <label>
-            <input type="radio" value="Female" checked={gender === "Female"} onChange={(event) => setGender(event.target.value)} />
-            Female
-          </label>
-          <label>
-            <input type="radio" value="Other" checked={gender === "Other"} onChange={(event) => setGender(event.target.value)} />
-            Other
-          </label>
-        </div>
-         {error&&gender.length<=0?
-        <label className='input-validation-error-add-appointment'>Gender can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">NIC:</label>
-          <input type="text" className="form-control form-control-sm" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC"/>
-        </div>
-        {error&&nic.length<=0?
-        <label className='input-validation-error-add-appointment'>NIC can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Email:</label>
-          <input type="text" className="form-control form-control-sm" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email"/>
-        </div>
-        {error&&email.length<=0?
-        <label className='input-validation-error-add-appointment'>Email can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Contact Number:</label>
-          <input type="text" className="form-control form-control-sm" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number"/>
-        </div>
-        {error&&contactNumber.length<=0?
-        <label className='input-validation-error-add-appointment'>Contact Number can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Number:</label>
-          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
-        </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error-add-appointment'>AddAppointment Number can't be Empty</label>:""}   
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Type:</label>
-          <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
-          <option value="">Select Appointment Type</option>
-          <option value="consultation">Consultation</option>
-          <option value="doctor check-up">Doctor Check-up</option>
-          <option value="medical examination">Medical Examination</option>
-          <option value="result analysis">Result Analysis</option>
-          <option value="scanner">Scanner</option>
-        </select>
-         </div>
-        {error&&appointmentType.length<=0?
-        <label className='input-validation-error-add-appointment'>Appointment Type can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Doctor:</label>
-          <select className="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
-          <option value="">Select Appointment Doctor</option>
-          <option value="universal_physician"> Universal Physician</option>
-          <option value="pediatrician">Pediatrician</option>
-          <option value="radiologist">Radiologist</option>
-        </select>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error-add-appointment'>Appointment Doctor can't be Empty</label>:""}
-        <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Time:</label>
-          <select className="form-control form-control-sm" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
-          <option value="">Select  Appointment Time :</option>
-              <option value="00:04:00" disabled={appointmentTime === "00:04:00"}>4:00pm</option>
-              <option value="00:04:15" disabled={appointmentTime === "00:04:15"}>4:15pm</option>
-              <option value="00:04:30" disabled={appointmentTime === "00:04:30"}>4:30pm</option>
-              <option value="00:04:45" disabled={appointmentTime === "00:04:45"}>4:45pm</option>
-              <option value="00:05:00" disabled={appointmentTime === "00:05:00"}>5:00pm</option>
-              <option value="00:05:15" disabled={appointmentTime === "00:05:15"}>5:15pm</option>
-              <option value="00:05:30" disabled={appointmentTime === "00:05:30"}>5:30pm</option>
-              <option value="00:05:45" disabled={appointmentTime === "00:05:45"}>5:45pm</option>
-              <option value="00:06:00" disabled={appointmentTime === "00:06:00"}>6:00pm</option>
-              <option value="00:06:15" disabled={appointmentTime === "00:06:15"}>6:15pm</option>
-              <option value="00:06:30" disabled={appointmentTime === "00:06:30"}>6:30pm</option>
-              <option value="00:06:45" disabled={appointmentTime === "00:06:45"}>6:45pm</option>
-              <option value="00:07:00" disabled={appointmentTime === "00:07:00"}>7:00pm</option>
-              <option value="00:07:15" disabled={appointmentTime === "00:07:15"}>7:15pm</option>
-              <option value="00:07:30" disabled={appointmentTime === "00:07:30"}>7:30pm</option>
-              <option value="00:07:45" disabled={appointmentTime === "00:07:45"}>7:45pm</option>
-              <option value="00:08:00" disabled={appointmentTime === "00:08:00"}>8:00pm</option>
-        </select>
-         </div>
-         {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error-add-appointment'>Appointment Time can't be Empty</label>:""}
-         <div className="form-input-add-appointment">
-        <label className="label-add-appointment">Appointment Time:</label>
-        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error-add-appointment'>Appointment Date can't be Empty</label>:""}
-         <br/>
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleSubmit}>Submit</button><br /><br />
-        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>View Appointment</button>
-        </form>
-        <ToastContainer />
-      </div>
-      
-     </div >
+    <>
+      <Grid container spacing={5}>
+  <Grid item xs={4} sx={{ padding: '10px' }}>
+    <h1>Add Appointment</h1>
+    <FormControl onSubmit={handleSubmit}>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" />
+      </Grid>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter Last Name" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name" />
+      </Grid>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter Age" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
+      </Grid>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField multiline rows={3} fullWidth label="Enter Address" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
+      </Grid>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter NIC" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
+      </Grid>
+      <FormControl>
+      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+   <RadioGroup
+    aria-labelledby="demo-radio-buttons-group-label"
+    defaultValue="female"
+    name="radio-buttons-group"
+  >
+    <FormControlLabel value="female" control={<Radio />} label="Female" />
+    <FormControlLabel value="male" control={<Radio />} label="Male" />
+    <FormControlLabel value="other" control={<Radio />} label="Other" />
+  </RadioGroup>
+</FormControl>
+<Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter Email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
+      </Grid>
+    </FormControl>
+    <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter Contact Number" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
+      </Grid>
+      <Grid item xs={12} sx={{ margin: '10px 0' }}>
+        <TextField label="Enter Appointment Number" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment number" />
+      </Grid> 
+      <Grid>
+      <InputLabel id="demo-simple-select-label">Appointment Type</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    sx={{ width: '42%' }}
+    value={appointmentType}
+    label="Select Appointment Type"
+  
+  >
+    <MenuItem value={10}>Consultation</MenuItem>
+    <MenuItem value={20}>Doctor Check-up</MenuItem>
+    <MenuItem value={30}>Medical Examination</MenuItem>
+    <MenuItem value={20}>Result Analysis</MenuItem>
+    <MenuItem value={30}>Scanner</MenuItem>
+  </Select>
+  </Grid>
+   <Grid>
+   <InputLabel id="demo-simple-select-label">Appointment Doctor</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    sx={{ width: '42%' }}
+    value={appointmentDoctor}
+    label="Select Appointment Doctor"
+  
+  >
+    <MenuItem value={10}>Universal Physician</MenuItem>
+    <MenuItem value={20}>Pediatrician</MenuItem>
+    <MenuItem value={30}>Radiologist</MenuItem>
+  </Select>
+   </Grid>
+   <Grid>
+        <label>Appointment Time</label><br/>
+        <Select  sx={{ width: '42%' }} value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
+          <MenuItem value={""}>Select Appointment Time:</MenuItem>
+          {generateAppointmentTimeOptions()}
+        </Select>
+   </Grid>
+   <Grid >
+      <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+      </Grid>
+      <Grid>
+      <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+    </Grid>
+    <Grid>
+      <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+    </Grid>
+  </Grid>
+  <Grid item xs={8}></Grid>
+</Grid>
+    </>
   );
-  }
+}
 
 export default AddAppointment;
