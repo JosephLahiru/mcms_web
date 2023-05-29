@@ -15,15 +15,14 @@ import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
 import UpdatePatient from './components/UpdatePatient';
-import UserProfile from './components/UserProfile';
-import DeleteStock from './components/DeleteStock';
+import PatientProfile from './components/PatientProfile';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
 
-const hideNavbarRoutes = ['/', 'view_endpoints'];
+const hideNavbarRoutes = ['/', '/view_endpoints'];
 
 function App() {
   const location = useLocation();
@@ -42,7 +41,6 @@ function App() {
         <Route path='registration' element={<RegistrationForm />} />
         <Route path='add_stock' element={<AddStock />} />
         <Route path='update_stock' element={<UpdateStock />} />
-        <Route path='delete_stock' element={<DeleteStock />} />
         <Route path='view_lowstock' element={<ViewLowStock />} />
         <Route path='view_shortexpiry' element={<ViewShortExpiry />} />
         <Route path='get_attendance' element={<GetAttendance />} />
@@ -51,7 +49,7 @@ function App() {
         <Route path='view_patients' element={<ViewPatients />} />
         <Route path='view_stock' element={<ViewStock />} />
         <Route path='update_patient' element={<UpdatePatient />} />
-        <Route path='user_profile' element={<UserProfile />} />
+        <Route path='patient_profile' element={<PatientProfile />} />
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
       </Routes>

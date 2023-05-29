@@ -67,9 +67,9 @@ function ViewShortExpiry() {
               onChange={handleFilterChange}
             >
               <MenuItem value="">All</MenuItem>
-              <MenuItem value={1}>Short</MenuItem>
-              <MenuItem value={2}>Medium</MenuItem>
-              <MenuItem value={3}>Long</MenuItem>
+              <MenuItem value={1}>small Stock</MenuItem>
+              <MenuItem value={2}>Medium Stock</MenuItem>
+              <MenuItem value={3}>Big Stock</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -77,7 +77,7 @@ function ViewShortExpiry() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
