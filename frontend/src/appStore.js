@@ -9,4 +9,6 @@ let appStore = (set) => ({
 });
 
 appStore = persist(appStore, {name: "my_app_store"});
+
 export const useAppstore = create(appStore);
+
