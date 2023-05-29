@@ -100,9 +100,10 @@ const handleReset = () => {
           </Item>
         </Grid>
 
-        <Grid item xs={6} sx={{ height: '300px' }}>
+        <Grid item xs={12} sx={{ height: '300px' }}>
           <Item>
           <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
+
           <label>Invoice Date</label>
             <TextField id="outlined-date" 
             label="Inv/Date" 
@@ -115,11 +116,8 @@ const handleReset = () => {
             margin="normal"
             InputLabelProps={{
             shrink: true,}}/>
-          </FormControl>
-          <br/>
 
-          <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
-            <label>Invoice Number</label>
+          <label>Invoice Number</label>
           <TextField id="outlined-number" 
           label="Inv/Number" 
           type="number" 
@@ -134,7 +132,7 @@ const handleReset = () => {
          
           </FormControl>
      
-        <FormControl fullWidth sx={{  paddingBottom: '6px', marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+        <FormControl fullWidth sx={{  paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
         <label>Appointment Number</label>
         <TextField
           id="outlined"
@@ -146,11 +144,8 @@ const handleReset = () => {
           margin="normal"
           defaultValue="Small"
           size="small"/>
-      </FormControl><br/>
+  
 
- 
-
-      <FormControl fullWidth sx={{   marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
       <label>Select Doctor</label>
       <InputLabel id="outlined-demo-controlled-open-select-label">Select Doctor</InputLabel>
       <Select
@@ -174,7 +169,7 @@ const handleReset = () => {
   </Select>
       </FormControl>
 
-      <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+      <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
       <label>Doctor Charge</label>
         <TextField
           id="outlined-doctor-charge"
@@ -190,14 +185,9 @@ const handleReset = () => {
           inputProps={{
           step: '0.01',
           min: '0',
-        }}
-        />
-      </FormControl></Item>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Item>
-  <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+        }}/>
+      
+      <label>Drug ID</label>
         <TextField
           id="drugId"
           label="Drug ID:"
@@ -226,9 +216,8 @@ const handleReset = () => {
     <MenuItem value="drug 4">Drug 4</MenuItem>
     <MenuItem value="drug 5">Drug 5</MenuItem>
   </Select>
-        </FormControl>
       
-      <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+      {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
         <TextField
           id="quantity"
           label="Quantity:"
@@ -256,9 +245,9 @@ const handleReset = () => {
           margin="normal"
           size="small"
         />
-        </FormControl>
+        {/* </FormControl> */}
       
-      <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+      {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
         <TextField
           id="discount"
           label="Discount(%):"
