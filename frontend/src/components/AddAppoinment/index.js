@@ -3,7 +3,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Grid, TextField, Button, Radio, RadioGroup, FormControlLabel, Select, MenuItem, FormControl, InputLabel, TextareaAutosize,FormLabel } from '@mui/material';
 
 
@@ -282,20 +284,34 @@ function AddAppointment() {
   </Select>
    </Grid>
    <Grid>
-        <label>Appointment Time</label><br/>
+   <InputLabel id="demo-simple-select-label">Appointment Time</InputLabel>
         <Select  sx={{ width: '42%' }} value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
-          <MenuItem value={""}>Select Appointment Time:</MenuItem>
+          <MenuItem value={""}></MenuItem>
           {generateAppointmentTimeOptions()}
         </Select>
    </Grid>
    <Grid >
-      <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+   <InputLabel id="demo-simple-select-label">Appointment Date</InputLabel>
+   <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+               
+                sx={{ width: '42%' }}
+                value={appointmentDate}
+                onChange={(date) => setAppointmentDate(date)}
+              />
+            </LocalizationProvider> 
+   </Grid>
+   <br/>
+   <Grid >
+      <Button sx={{ width: '42%' }} variant="contained" onClick={handleReset}>Reset</Button>
       </Grid>
+      <br/>
       <Grid>
-      <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+      <Button sx={{ width: '42%' }} variant="contained" onClick={handleSubmit}>Submit</Button>
     </Grid>
+    <br/>
     <Grid>
-      <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+      <Button sx={{ width: '42%' }} variant="contained" onClick={() => navigate("/view_appointment")}>View Appointment</Button>
     </Grid>
   </Grid>
   <Grid item xs={8}></Grid>
