@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Grid, TextField, Button, Radio, RadioGroup, FormControlLabel, Select, MenuItem, FormControl, InputLabel, TextareaAutosize,FormLabel } from '@mui/material';
+import { Grid, TextField, Button, Radio, RadioGroup, FormControlLabel, Select, MenuItem, FormControl, InputLabel, TextareaAutosize,FormLabel, Box, Container } from '@mui/material';
 
 
 function AddAppointment() {
@@ -208,11 +208,12 @@ function AddAppointment() {
      setError(false);
     };
 
+    
   return (
-    <>
-      <Grid container spacing={5}>
-  <Grid item xs={4} sx={{ padding: '10px' }}>
+      <Grid container spacing={5} sx={{backgroundColor:'purple'}}>
+  <Grid item xs={4} sx={{ paddingLeft: '50px', backgroundColor:'#ba68c8' , margin:'auto'}}>
     <h1>Add Appointment</h1>
+    <Box sx={{backgroundColor:'#f3e5f5',marginBottom:'20px',padding:'20px',borderRadius:'50px',marginwidth:'70px',borderBlockStartWidth:'40px'}} >
     <FormControl onSubmit={handleSubmit}>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" />
@@ -336,10 +337,10 @@ function AddAppointment() {
     <Grid>
       <Button sx={{ width: '42%' }} variant="contained" onClick={() => navigate("/view_appointment")}>View Appointment</Button>
     </Grid>
+    </Box>
   </Grid>
   <Grid item xs={8}></Grid>
-</Grid>
-    </>
+ </Grid> 
   );
 }
 
