@@ -10,7 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import { useMediaQuery, useTheme } from '@mui/material';
-import { useAppstore } from '../appStore';
+import { useAppstore } from './../../appStore';
 
 const AppBar = styled(MuiAppBar, {})(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
