@@ -216,18 +216,28 @@ function AddAppointment() {
     <FormControl onSubmit={handleSubmit}>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" />
+        {error && firstName.length <= 0 ?
+          <InputLabel class='input-validation-error'>First Name can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Last Name" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name" />
+        {error && lastName.length <= 0 ?
+        <InputLabel class='input-validation-error'>Last Name can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Age" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
+        {error && age.length <= 0 ?
+              <InputLabel class='input-validation-error'>Age can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField multiline rows={3} fullWidth label="Enter Address" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
+        {error && address.length <= 0 ?
+              <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter NIC" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
+        {error && nic.length <= 0 ?
+              <InputLabel class='input-validation-error'>NIC can't be empty</InputLabel> : ""}
       </Grid>
       <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -240,13 +250,19 @@ function AddAppointment() {
     <FormControlLabel value="male" control={<Radio />} label="Male" />
     <FormControlLabel value="other" control={<Radio />} label="Other" />
   </RadioGroup>
+  {error && address.length <= 0 ?
+<InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
 </FormControl>
 <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
+        {error && email.length <= 0 ?
+         <InputLabel class='input-validation-error'>Email can't be empty</InputLabel> : ""}
       </Grid>
     </FormControl>
     <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Contact Number" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
+        {error && contactNumber.length <= 0 ?
+              <InputLabel class='input-validation-error'>Contact Number can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Appointment Number" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment number" />
@@ -267,6 +283,8 @@ function AddAppointment() {
     <MenuItem value={20}>Result Analysis</MenuItem>
     <MenuItem value={30}>Scanner</MenuItem>
   </Select>
+  {error && appointmentType.length <= 0 ?
+  <InputLabel class='input-validation-error'>Please Select Appointment Type</InputLabel> : ""}
   </Grid>
    <Grid>
    <InputLabel id="demo-simple-select-label">Appointment Doctor</InputLabel>
@@ -282,6 +300,8 @@ function AddAppointment() {
     <MenuItem value={20}>Pediatrician</MenuItem>
     <MenuItem value={30}>Radiologist</MenuItem>
   </Select>
+  {error && appointmentDoctor.length <= 0 ?
+  <InputLabel class='input-validation-error'>Please Select Appointment Doctor</InputLabel> : ""}
    </Grid>
    <Grid>
    <InputLabel id="demo-simple-select-label">Appointment Time</InputLabel>
@@ -290,16 +310,19 @@ function AddAppointment() {
           {generateAppointmentTimeOptions()}
         </Select>
    </Grid>
+   {error && appointmentTime.length <= 0 ?
+  <InputLabel class='input-validation-error'>Please Select Appointment Time</InputLabel> : ""}
    <Grid >
    <InputLabel id="demo-simple-select-label">Appointment Date</InputLabel>
    <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-               
                 sx={{ width: '42%' }}
                 value={appointmentDate}
                 onChange={(date) => setAppointmentDate(date)}
               />
             </LocalizationProvider> 
+            {error && appointmentDate.length <= 0 ?
+  <InputLabel class='input-validation-error'>Please Select Appointment Date</InputLabel> : ""}
    </Grid>
    <br/>
    <Grid >
