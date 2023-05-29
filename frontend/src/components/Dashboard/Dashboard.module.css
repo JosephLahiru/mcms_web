@@ -1,7 +1,7 @@
-/* .dash_body{
-    color: #000;
-    background-color: aqua;
-} */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
 .dashboard {
     display: flex;
@@ -43,4 +43,3 @@
   .nav-links a:hover {
     background-color: #f0f0f0;
   }
-  
