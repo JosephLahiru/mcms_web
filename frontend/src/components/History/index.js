@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select } from '@mui/material';
 import Button from '@mui/material/Button';
 
 
@@ -89,7 +89,7 @@ const handleReset = () => {
   return (
     <React.Fragment>
     <CssBaseline />
-    <Container fixed sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px', alignItems:'stretch'}}>
+    <Container fixed sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px'}}>
       <Grid container spacing={0.5} sx={{ alignItems:'stretch'}}>
       <Grid item xs={12}>
           <Item>
@@ -100,24 +100,26 @@ const handleReset = () => {
           </Item>
         </Grid>
 
-        <Grid item xs={12} sx={{ height: '300px' }}>
+        <Grid item xs={12} sx={{paddingTop:'20px', paddingBottom:'30px'}}>
           <Item>
-          <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
+          <FormControl fullWidth sx={{ paddingBottom: '5px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
 
           <label>Invoice Date</label>
+
             <TextField id="outlined-date" 
-            label="Inv/Date" 
-            type="date" 
-            alue={invDate}
-            onChange={(e) => setInvDate(e.target.value)}
-            defaultValue="Small"
-            size="small"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-            shrink: true,}}/>
+                label="Inv/Date" 
+                type="date" 
+                value={invDate}
+                onChange={(e) => setInvDate(e.target.value)}
+                defaultValue="Small"
+                size="small"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,}}/>
 
           <label>Invoice Number</label>
+          
           <TextField id="outlined-number" 
           label="Inv/Number" 
           type="number" 
@@ -128,11 +130,12 @@ const handleReset = () => {
           margin="normal"
           fullWidth
           InputLabelProps={{
-            shrink: true,}}/>
+            shrink: true,}}
+            />
          
           </FormControl>
      
-        <FormControl fullWidth sx={{  paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
+        <FormControl fullWidth sx={{  paddingBottom: '5px', marginLeft:'10px', width:'400px', marginRight:'10px',marginBottom:'20px'}} onSubmit={handleSubmit}>
         <label>Appointment Number</label>
         <TextField
           id="outlined"
@@ -146,8 +149,8 @@ const handleReset = () => {
           size="small"/>
   
 
-      <label>Select Doctor</label>
-      <InputLabel id="outlined-demo-controlled-open-select-label">Select Doctor</InputLabel>
+      <label style={{paddingTop:'15px'}}>Select Doctor</label>
+      {/* <InputLabel id="outlined-demo-controlled-open-select-label">Select Doctor</InputLabel> */}
       <Select
     labelId="demo-controlled-open-select-label"
      open={open}
@@ -199,7 +202,8 @@ const handleReset = () => {
         />
         </FormControl>
 
-     <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+     <FormControl fullWidth sx={{  paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
+     <label style={{paddingTop:'15px'}}>Drug Name</label>
         <Select
           id="drugName"
           label="Drug Name:"
@@ -218,6 +222,7 @@ const handleReset = () => {
   </Select>
       
       {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
+      <label style={{paddingTop:'8px'}}>Drug Quantity</label>
         <TextField
           id="quantity"
           label="Quantity:"
@@ -234,7 +239,8 @@ const handleReset = () => {
         />
         </FormControl>
    
-   <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+   <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
+   <label>Drug Price</label> 
         <TextField
           id="total"
           label="Total:"
@@ -245,9 +251,10 @@ const handleReset = () => {
           margin="normal"
           size="small"
         />
-        {/* </FormControl> */}
+        </FormControl>
       
-      {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
+      <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+      <label>Discount</label> 
         <TextField
           id="discount"
           label="Discount(%):"
@@ -259,9 +266,9 @@ const handleReset = () => {
           size="small"
         /></FormControl>
      
-          <Stack spacing={2} direction="row" sx={{paddingLeft:'100px', paddingTop:'60px'}}>
-          <Button variant="contained" color='success'>Submit</Button>
-          <Button variant="contained" color='error' onClick={handleReset}>Reset</Button>
+          <Stack spacing={3} direction="row" sx={{paddingLeft:'500px', paddingTop:'20px'}}>
+          <Button variant="contained" color='success' size='small'>Submit</Button>
+          <Button variant="contained" color='error' size='small' onClick={handleReset}>Reset</Button>
           </Stack>
           </Item>
           </Grid>
