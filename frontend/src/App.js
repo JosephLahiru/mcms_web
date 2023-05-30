@@ -18,16 +18,18 @@ import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
+import Sidebar from './components/SideBar';
 
-const hideNavbarRoutes = ['/', '/view_endpoints'];
+const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard'];
 
 function App() {
   const location = useLocation();
-  const shouldRenderNavbar = !hideNavbarRoutes.includes(location.pathname);
+  const shouldRenderDashboardComponents = !hideDashboardComponentRoutes.includes(location.pathname);
 
   return (
     <>
-      {shouldRenderNavbar && <Navbar />}
+      {shouldRenderDashboardComponents && <Navbar />}
+      {shouldRenderDashboardComponents && <Sidebar />}
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='dashboard' element={<Dashboard />} />
