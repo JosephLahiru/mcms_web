@@ -61,6 +61,8 @@
 }
 
 /* Set up input validation error styles */
+
+  .input-validation-error,
   .input-validation-error-add-appointment {
     color: red;
     font-weight: normal;
