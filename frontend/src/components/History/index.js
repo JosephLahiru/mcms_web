@@ -146,7 +146,9 @@ const handleReset = () => {
           fullWidth
           margin="normal"
           defaultValue="Small"
-          size="small"/>
+          size="small"
+          inputProps={{ pattern: "\\d*", title: "Please enter a numeric value." }}
+          />
   
 
       <label style={{paddingTop:'15px'}}>Select Doctor</label>
