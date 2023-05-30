@@ -1,5 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "./main.css";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  TablePagination,
+} from "@mui/material";
 
 function ViewAttendance() {
   const [attendance, setAttendance] = useState([]);
@@ -7,6 +22,7 @@ function ViewAttendance() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState("Assistant ID");
   const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchAttendance() {
@@ -17,8 +33,6 @@ function ViewAttendance() {
     }
     fetchAttendance();
   }, []);
-
-
 
   useEffect(() => {
     let results;
@@ -52,73 +66,92 @@ function ViewAttendance() {
     setFilterOption(event.target.value);
   };
 
-  const handleNextPage = () => {
-    setPage(page + 1);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const handlePrevPage = () => {
-    setPage(page - 1);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  const rowsPerPage = 10;
-  const totalPages = Math.ceil(filteredAttendance.length / rowsPerPage);
-  const start = page * rowsPerPage;
-  const end = start + rowsPerPage;
-  const hasPrevPage = page > 0;
-  const hasNextPage = page < totalPages - 1;
+  const rows = filteredAttendance || [];
 
   return (
-    <div className="view-attendance-main-container">
-      <h1>View Attendance</h1>
-      <div className="view-attendance-filter">
-        <div className="view-attendance-search-filter">
-          <label className="view-attendance-label" htmlFor="attendanceSearch">Search by</label>
-          <select id="filterSelect" value={filterOption} onChange={handleFilterChange}>
-            <option value="Assistant ID">Assistant ID</option>
-            <option value="Date">Date</option>
-            <option value="Status">Status</option>
-          </select>
-        </div>
-        <div className="view-attendance-search-input">
-          <input type="search" class="form-control form-control-sm" value={searchTerm} onChange={handleInputChange} placeholder={`Search by ${filterOption}...`} />
-        </div>
-      </div>
-      <table className="table">
-        <thead>
-          <tr className="table-dark">
-            <th scope="col">Attendance ID</th>
-            <th scope="col">Assistant ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredAttendance.slice(start, end).map((att) => (
-            <tr key={att.att_id}>
-              <td>{att.att_id}</td>
-              <td>{att.assit_id}</td>
-              <td>{att.date.slice(0, 10)}</td>
-              <td>{att.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <nav>
-      <ul className="pagination justify-content-center">
-        <li className={`page-item${!hasPrevPage ? ' disabled' : ''}`}>
-          <button className="page-link" disabled={!hasPrevPage} onClick={handlePrevPage}>Prev</button>
-        </li>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <li key={index} className={`page-item${page === index ? ' active' : ''}`}>
-            <button className="page-link" onClick={() => setPage(index)}>{index + 1}</button>
-          </li>
-        ))}
-        <li className={`page-item${!hasNextPage ? ' disabled' : ''}`}>
-          <button className="page-link" disabled={!hasNextPage} onClick={handleNextPage}>Next</button>
-        </li>
-      </ul>
-    </nav>
-    </div>
+    <Paper sx={{ width: "100%", overflow: "hidden", padding: "10px" }}>
+      <Grid container alignItems="center">
+        <Grid item xs={1.5}>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              size="small"
+              value={filterOption}
+              label="Filter option"
+              onChange={handleFilterChange}
+            >
+              <MenuItem value="Assistant ID">Assistant ID</MenuItem>
+              <MenuItem value="Date">Date</MenuItem>
+              <MenuItem value="Status">Status</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            id="outlined-size-small"
+            size="small"
+            value={searchTerm}
+            onChange={handleInputChange}
+            label={`Search by ${filterOption}...`}
+            type="search"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                  <TableCell>Attendance ID</TableCell>
+                  <TableCell>Assistant ID</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {rows.length > 0 ? (
+                rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((att) => (
+                  <TableRow key={att.att_id}>
+                    <TableCell>{att.att_id}</TableCell>
+                    <TableCell>{att.assit_id}</TableCell>
+                    <TableCell>{att.date.slice(0, 10)}</TableCell>
+                    <TableCell>{att.status}</TableCell>
+                  </TableRow>
+                ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={10}>No data available</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Grid item xs={12}>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }
 
