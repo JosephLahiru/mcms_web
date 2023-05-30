@@ -208,9 +208,7 @@ function ViewStock() {
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>
-                  Delete
-                </Button>
+                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
               </DialogActions>
             </Dialog>
           )}
