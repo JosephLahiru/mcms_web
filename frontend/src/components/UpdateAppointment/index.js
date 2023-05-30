@@ -22,6 +22,9 @@ function UpdateAppointment() {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [error, setError] = useState(false);
+  const [nicRegex, setNicRegex] = useState("");
+  const [emailRegex, setEmailRegex] = useState("");
+  const [contactNumberRegex, setContactNumberRegex] = useState("");
 
 
   const navigate = useNavigate();

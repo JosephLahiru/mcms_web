@@ -24,58 +24,49 @@ function AddAppointment2() {
 
   const navigate = useNavigate();
 
-  function getAtId(doctorType) {
-    return fetch('https://mcms_api.mtron.me/get_app_id/' + doctorType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch at_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const atIdValue = data.length > 0 ? data[0].at_id : '';
-        return atIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
+  async function getAtId(doctorType) {
+    try {
+          const response = await fetch('https://mcms_api.mtron.me/get_app_id/' + doctorType);
+          if (!response.ok) {
+              throw new Error('Failed to fetch at_id');
+          }
+          const data = await response.json();
+          const atIdValue = data.length > 0 ? data[0].at_id : '';
+          return atIdValue;
+      } catch (error) {
+          console.error('Error:', error);
+          return '';
+      }
   }  
 
-  function getCdId(doctorType) {
-    return fetch('https://mcms_api.mtron.me/get_cd_id/' + doctorType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch cd_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const cdIdValue = data.length > 0 ? data[0].cd_id : '';
-        return cdIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
+  async function getCdId(doctorType) {
+    try {
+          const response = await fetch('https://mcms_api.mtron.me/get_cd_id/' + doctorType);
+          if (!response.ok) {
+              throw new Error('Failed to fetch cd_id');
+          }
+          const data = await response.json();
+          const cdIdValue = data.length > 0 ? data[0].cd_id : '';
+          return cdIdValue;
+      } catch (error) {
+          console.error('Error:', error);
+          return '';
+      }
   } 
 
-  function getATMId(ATMType) {
-    return fetch('https://mcms_api.mtron.me/get_atm_id/' + ATMType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch atm_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const aTMIdValue = data.length > 0 ? data[0].atm_id : '';
-        return aTMIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
+  async function getATMId(ATMType) {
+    try {
+          const response = await fetch('https://mcms_api.mtron.me/get_atm_id/' + ATMType);
+          if (!response.ok) {
+              throw new Error('Failed to fetch atm_id');
+          }
+          const data = await response.json();
+          const aTMIdValue = data.length > 0 ? data[0].atm_id : '';
+          return aTMIdValue;
+      } catch (error) {
+          console.error('Error:', error);
+          return '';
+      }
   } 
 
   const handleSubmit = async (event) =>{
@@ -199,8 +190,7 @@ function AddAppointment2() {
         <label className="label-add-appointment">First Name:</label>
           <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
         </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error-add-appointment'>First Name can't be Empty</label>:""}
+        
         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Last Name:</label>
           <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
@@ -330,3 +320,5 @@ function AddAppointment2() {
   }
 
 export default AddAppointment2;
+
+
