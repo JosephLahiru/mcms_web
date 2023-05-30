@@ -186,7 +186,7 @@ function UpdateStock() {
         width: "50%",
         overflow: "hidden",
         padding: "10px",
-        margin: "5% 25%",
+        margin: "10% auto",
       }}
     >
       <FormControl onSubmit={handleSubmit}>
