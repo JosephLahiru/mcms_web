@@ -63,7 +63,7 @@ function ViewAppointment(){
           </thead>
           <tbody>
             {appointment.map((appointment) => {
-              if (appointment.cd_id === 'cd_001',) {
+              if (appointment.cd_id === 'cd_001') {
                 return (
                   <tr key={appointment.app_num}>
                     <td>{appointment.app_num}</td>
