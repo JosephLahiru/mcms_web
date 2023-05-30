@@ -26,6 +26,17 @@ function ViewAppointment(){
       setFilterDate(event.target.value);
     };
   
+    const filteredAppointments = appointment.filter((appointment) => {
+      const appointmentDate = new Date(appointment.appointmentTime);
+      const filterDateObj = new Date(filterDate);
+      return (
+        filterDate === "" || 
+        appointmentDate.getFullYear() === filterDateObj.getFullYear() &&
+        appointmentDate.getMonth() === filterDateObj.getMonth() &&
+        appointmentDate.getDate() === filterDateObj.getDate()
+      );
+    });
+    
     return (
         <div className="view-appointment-main-container">
         <h1>View Appointment</h1>
@@ -215,3 +226,5 @@ function ViewAppointment(){
       );
     }
 export default ViewAppointment;
+
+
