@@ -33,6 +33,7 @@ export default function BasicGrid() {
   const [doctor, setDoctor] = useState('');
   const [doctorCharge, setDoctorCharge] = useState('');
   const [open, setOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
 
 
   const handleClose = () => {
@@ -110,7 +111,8 @@ const handleReset = () => {
                 label="Inv/Date" 
                 type="date" 
                 value={invDate}
-                onChange={(e) => setInvDate(e.target.value)}
+                onChange={(e) =>{ setInvDate(e.target.value)
+                setIsError(e.target.value.trim() === '');}}
                 defaultValue="Small"
                 size="small"
                 fullWidth
@@ -118,13 +120,16 @@ const handleReset = () => {
                 InputLabelProps={{
                 shrink: true,}}/>
 
+              {isError && <p style={{ color: 'red' }}>Please enter the Invoice date.</p>}
+
           <label>Invoice Number</label>
           
           <TextField id="outlined-number" 
           label="Inv/Number" 
           type="number" 
           alue={invNum}
-          onChange={(e) => setInvNum(e.target.value)}
+          onChange={(e) => {setInvNum(e.target.value)
+          setIsError(e.target.value.trim() === '');}}
           defaultValue="Small"
           size="small"
           margin="normal"
@@ -132,6 +137,7 @@ const handleReset = () => {
           InputLabelProps={{
             shrink: true,}}
             />
+            {isError && <p style={{ color: 'red' }}>Please enter the Invoice number.</p>}
          
           </FormControl>
      
