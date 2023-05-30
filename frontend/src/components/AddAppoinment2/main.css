@@ -61,13 +61,15 @@
 }
 
 /* Set up input validation error styles */
-  .input-validation-error {
+
+  .input-validation-error,
+  .input-validation-error-add-appointment {
     color: red;
     font-weight: normal;
   }
   
   /* Set up submit button styles */
-  .a-appointment-form-button  {
+  .add-appointment-form-button  {
     display: flex;
     flex-direction: row;
     width: 300%;
