@@ -190,8 +190,7 @@ function AddAppointment2() {
         <label className="label-add-appointment">First Name:</label>
           <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
         </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error-add-appointment'>First Name can't be Empty</label>:""}
+        
         <div className="form-input-add-appointment">
         <label className="label-add-appointment">Last Name:</label>
           <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
