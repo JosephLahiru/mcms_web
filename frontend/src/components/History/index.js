@@ -267,7 +267,7 @@ const handleReset = () => {
         /></FormControl>
      
           <Stack spacing={3} direction="row" sx={{paddingLeft:'500px', paddingTop:'20px'}}>
-          <Button variant="contained" color='success' size='small'>Submit</Button>
+          <Button variant="contained" color='success' size='small' onClick={handleSubmit}>Submit</Button>
           <Button variant="contained" color='error' size='small' onClick={handleReset}>Reset</Button>
           </Stack>
           </Item>
