@@ -122,7 +122,7 @@ function AddStock() {
   };
 
   return (
-    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% 25%' }}>
+    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '10% auto' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
