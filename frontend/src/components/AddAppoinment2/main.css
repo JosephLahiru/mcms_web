@@ -1,0 +1,112 @@
+/* Set up main container*/
+.main-container-add-appointment {
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    width:100% ;
+    height: 100%;
+    background-color:	#660066;
+    
+  }
+
+/* Set up main container*/
+.form-container-add-appointment {
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 30%;
+  padding-bottom: 80px;
+  background-color: #c9a7ddc0;
+}
+
+/* Set up form update appointment*/
+.form-add-appointment {
+  max-width: 400px;
+  margin: 10px auto;
+  background: #f2eef39d;
+  border-radius: 8px;
+  display: block;
+  flex-wrap:nowrap;
+  max-width: 80%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 70px;
+}
+
+
+
+/* Set up form update appointment*/
+.form-input-add-appointment[type="text"],
+.form-input-add-appointment[type="date"],
+.form-input-add-appointment[type="number"],
+.form-input-add-appointment textarea,
+.form-input-add-appointment select {
+  border: none;
+  background-color:  #ffffff;
+}
+
+
+/* Set up form update appointment label*/ 
+.label-add-appointment {
+  display: block;
+  font-weight: bold;
+  display: block;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 8px;
+  width: 300px;
+  border: none;
+
+  
+}
+
+/* Set up input validation error styles */
+  .input-validation-error {
+    color: red;
+    font-weight: normal;
+  }
+  
+  /* Set up submit button styles */
+  .a-appointment-form-button  {
+    display: flex;
+    flex-direction: row;
+    width: 300%;
+
+    
+  }  
+
+  /* Set up textarea */
+  .form-input-add-appointment textarea {
+    padding: 10px;
+    height: 50px;
+    width: 265px;
+    background:  #feffff;
+    border: none;
+  }
+
+ 
+  
+  /* Set up radio button label styles */
+  .label-add-appointment {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    
+  }
+  
+  /* Set up radio button label styles when selected */
+  .form-input-add-appointment[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+
+  
+/* Set up submit button styles */
+ .btn-primary {
+  width: 100%; 
+  }
+
+  h1{
+    text-align: center;
+    font-weight: bold;
+    
+  }
