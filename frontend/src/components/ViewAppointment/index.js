@@ -29,26 +29,13 @@ function ViewAppointment(){
     const filteredAppointments = appointment.filter((appointment) => {
       const appointmentDate = new Date(appointment.appointmentTime);
       const filterDateObj = new Date(filterDate);
-      
-      // Get the year, month, and day of the appointment date
-      const appointmentYear = appointmentDate.getFullYear();
-      const appointmentMonth = appointmentDate.getMonth();
-      const appointmentDay = appointmentDate.getDate();
-      
-      // Get the year, month, and day of the filter date
-      const filterYear = filterDateObj.getFullYear();
-      const filterMonth = filterDateObj.getMonth();
-      const filterDay = filterDateObj.getDate();
-      
-      // Compare year, month, and day to filter appointments for a specific day
       return (
-        filterDate === "" ||
-        (appointmentYear === filterYear &&
-        appointmentMonth === filterMonth &&
-        appointmentDay === filterDay)
+        filterDate === "" || 
+        appointmentDate.getFullYear() === filterDateObj.getFullYear() &&
+        appointmentDate.getMonth() === filterDateObj.getMonth() &&
+        appointmentDate.getDate() === filterDateObj.getDate()
       );
     });
-    
     
     return (
         <div className="view-appointment-main-container">
