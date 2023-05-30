@@ -54,8 +54,8 @@ function ViewLowStock() {
   const rows = filteredLowStock || [];
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
-      <Grid container alignItems='center'>
+    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
+      <Grid container alignItems='center' spacing={2}>
         <Grid item xs={2}>
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
             <InputLabel id="demo-select-small-label">Filter option</InputLabel>

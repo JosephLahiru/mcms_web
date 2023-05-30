@@ -122,8 +122,8 @@ function ViewStock() {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px' }}>
-      <Grid container alignItems='center'>
+    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
+      <Grid container alignItems='center' spacing={2}>
         <Grid item xs={1.5}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="filterSelectLabel">Filter by</InputLabel>
