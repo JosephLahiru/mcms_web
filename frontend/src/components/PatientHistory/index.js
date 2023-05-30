@@ -13,7 +13,7 @@ function PatientHistory() {
   
   useEffect(() => {
         async function fetchAppointment() {
-            const response = await fetch("http://158.101.10.103/get_appointment");
+            const response = await fetch("https://mcms_api.mtron.me/get_appointment");
             const data = await response.json();
            PatientHistory(data);
         }
@@ -37,49 +37,51 @@ function PatientHistory() {
 return (
   <div className="div1">
       <h1>Patient History</h1>
-      <div className="filter">
-          <label htmlFor="dateFilter">Filter by Nic Number:
-          <input type="text" class="form-control-0 " placeholder={`Search by last three digits...`}/>
-          </label>
-    </div>
         <div className="t-container1">
         <table class="table table-hover table-hover">
           <thead>
-            <tr class="table-dark">
-            <th scope="col">Patient Id</th>
-            <th scope="col">Appointment number</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">NIC Number</th>
-            <th scope="col">Contact Number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Appointment date</th>
-            <th scope="col">Appointment type</th>
-            <th scope="col">Appointment doctor</th>
-            <th scope="col">Address</th>
+          <tr className="table-dark">
+            <th scope="col"> Appointment Number </th>
+              <th scope="col"> First Name </th>
+              <th scope="col"> Last Name </th>
+              <th scope="col"> NIC </th>
+              <th scope="col"> Address </th>
+              {/* <th scope="col"> Email </th> */}
+              <th scope="col"> Age </th>
+              <th scope="col"> Gender </th>
+              <th scope="col"> Telephone Number </th>
+              <th scope="col"> Appointment Type </th>
+              <th scope="col"> Appointment Time </th>
             </tr>
           </thead>
           <tbody>
-            {appointment.map((patients) => <tr key={patients.patient_id}>
-            <td>{patients.patient_id}</td>
-            <td>{patients.appointment_number}</td>
-            <td>{patients.first_name}</td>
-            <td>{patients.last_name}</td>
-            <td>{patients.age}</td>
-            <td>{patients.nic_number}</td>
-            <td>{patients.contact_number}</td>
-            <td>{patients.email}</td>
-            <td>{patients.gender}</td>
-            <td>{patients.appointment_date}</td>
-            <td>{patients.appointment_type}</td>
-            <td>{patients.appointment_doctor}</td>
-            <td>{patients.address}</td>
-            <td><table><tr><td><button className="btn btn-primary btn-sm" type="button">Delete</button></td></tr></table></td>
-            <td><table><tr><td><button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/patient_profile")}>View Profile</button></td></tr></table></td>
+          {appointment.map((appointment) => {
+              if (appointment.cd_id === 'cd_002') {
+                return (
+                  <tr key={appointment.app_num}>
+                     <td>{appointment.app_num}</td>
+                    <td>{appointment.first_name}</td>
+                    <td>{appointment.last_name}</td>
+                    <td>{appointment.nic}</td>
+                    <td>{appointment.address}</td>
+                    {/* <td>{appointment.email}</td> */}
+                    <td>{appointment.age}</td>
+                    <td>{appointment.gender}</td>
+                    <td>{appointment.contact_num}</td>
+                    <td>{appointment.at_name}</td>
+                    <td>{appointment.atm_type}</td>
+            <td>
+              <table>
+                <tr>
+                  <td><button className="btn btn-primary btn-sm" type="button">Delete</button>
+                  </td>
+                  </tr>
+                  </table>
+                  </td>
             </tr> 
-            )}
+            );
+          }
+        })}
           </tbody>
         </table>
         <div className="pagination">
