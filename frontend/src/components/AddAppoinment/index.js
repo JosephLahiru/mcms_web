@@ -212,31 +212,32 @@ function AddAppointment() {
   return (
       <Grid container spacing={5} sx={{backgroundColor:'purple'}}>
   <Grid item xs={4} sx={{ paddingLeft: '50px', backgroundColor:'#ba68c8' , margin:'auto'}}>
+    <br/> <br/> <br/>
     <h1>Add Appointment</h1>
-    <Box sx={{backgroundColor:'#f3e5f5',marginBottom:'20px',padding:'20px',borderRadius:'50px',marginwidth:'70px',borderBlockStartWidth:'40px'}} >
-    <FormControl onSubmit={handleSubmit}>
+    <Box sx={{backgroundColor:'#f3e5f5',marginBottom:'20px',padding:'20px',borderRadius:'10px',marginLeft:'30px', marginRight:'30px',height:'auto', marginTop:'50px'}} >
+    <FormControl onSubmit={handleSubmit} sx={{paddingLeft:'60px'}}>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" />
+        <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" sx={{width:'300px'}} size="small"/>
         {error && firstName.length <= 0 ?
           <InputLabel class='input-validation-error'>First Name can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Last Name" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name" />
+        <TextField label="Enter Last Name" sx={{width:'300px'}} size="small" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name" />
         {error && lastName.length <= 0 ?
         <InputLabel class='input-validation-error'>Last Name can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Age" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
+        <TextField label="Enter Age" sx={{width:'300px'}} size="small" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
         {error && age.length <= 0 ?
               <InputLabel class='input-validation-error'>Age can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField multiline rows={3} fullWidth label="Enter Address" value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
+        <TextField multiline rows={3} fullWidth label="Enter Address" sx={{width:'300px'}} size="small"value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
         {error && address.length <= 0 ?
               <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter NIC" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
+        <TextField label="Enter NIC" sx={{width:'300px'}} size="small" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
         {error && nic.length <= 0 ?
               <InputLabel class='input-validation-error'>NIC can't be empty</InputLabel> : ""}
       </Grid>
@@ -255,25 +256,26 @@ function AddAppointment() {
 <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
 </FormControl>
 <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
+        <TextField label="Enter Email" sx={{width:'300px'}} size="small" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
         {error && email.length <= 0 ?
          <InputLabel class='input-validation-error'>Email can't be empty</InputLabel> : ""}
       </Grid>
-    </FormControl>
+   
     <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Contact Number" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
+        <TextField label="Enter Contact Number" sx={{width:'300px'}} size="small" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
         {error && contactNumber.length <= 0 ?
               <InputLabel class='input-validation-error'>Contact Number can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Appointment Number" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment number" />
-      </Grid> 
+        <TextField label="Enter Appointment Number" sx={{width:'300px'}} size="small" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment number" />
+      </Grid> <br/>
       <Grid>
       <InputLabel id="demo-simple-select-label">Appointment Type</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
-    sx={{ width: '42%' }}
+    sx={{width:'300px'}} 
+    size="small"
     value={appointmentType}
     label="Select Appointment Type"
   
@@ -287,12 +289,14 @@ function AddAppointment() {
   {error && appointmentType.length <= 0 ?
   <InputLabel class='input-validation-error'>Please Select Appointment Type</InputLabel> : ""}
   </Grid>
+  <br/>
    <Grid>
    <InputLabel id="demo-simple-select-label">Appointment Doctor</InputLabel>
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
-    sx={{ width: '42%' }}
+    sx={{width:'300px'}} 
+    size="small"
     value={appointmentDoctor}
     label="Select Appointment Doctor"
   
@@ -304,20 +308,22 @@ function AddAppointment() {
   {error && appointmentDoctor.length <= 0 ?
   <InputLabel class='input-validation-error'>Please Select Appointment Doctor</InputLabel> : ""}
    </Grid>
+   <br/>
    <Grid>
    <InputLabel id="demo-simple-select-label">Appointment Time</InputLabel>
-        <Select  sx={{ width: '42%' }} value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
+        <Select  sx={{width:'300px'}} size="small" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
           <MenuItem value={""}></MenuItem>
           {generateAppointmentTimeOptions()}
         </Select>
    </Grid>
    {error && appointmentTime.length <= 0 ?
   <InputLabel class='input-validation-error'>Please Select Appointment Time</InputLabel> : ""}
+  <br/>
    <Grid >
-   <InputLabel id="demo-simple-select-label">Appointment Date</InputLabel>
+   {/* <InputLabel id="demo-simple-select-label">Appointment Date</InputLabel> */}
    <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                sx={{ width: '42%' }}
+                sx={{width:'300px'}} size="small"
                 value={appointmentDate}
                 onChange={(date) => setAppointmentDate(date)}
               />
@@ -325,17 +331,18 @@ function AddAppointment() {
             {error && appointmentDate.length <= 0 ?
   <InputLabel class='input-validation-error'>Please Select Appointment Date</InputLabel> : ""}
    </Grid>
-   <br/>
-   <Grid >
-      <Button sx={{ width: '42%' }} variant="contained" onClick={handleReset}>Reset</Button>
+   </FormControl>
+   <br/><br/>
+   <Grid sx={{paddingLeft:'40px'}}>
+      <Button sx={{ width: '300px' }} variant="contained" onClick={handleReset}>Reset</Button>
       </Grid>
       <br/>
-      <Grid>
-      <Button sx={{ width: '42%' }} variant="contained" onClick={handleSubmit}>Submit</Button>
+      <Grid sx={{paddingLeft:'40px'}}>
+      <Button sx={{ width: '300px' }} variant="contained" onClick={handleSubmit}>Submit</Button>
     </Grid>
     <br/>
-    <Grid>
-      <Button sx={{ width: '42%' }} variant="contained" onClick={() => navigate("/view_appointment")}>View Appointment</Button>
+    <Grid sx={{paddingLeft:'40px'}}>
+      <Button sx={{ width: '300px' }} variant="contained" onClick={() => navigate("/view_appointment")}>View Appointment</Button>
     </Grid>
     </Box>
   </Grid>
