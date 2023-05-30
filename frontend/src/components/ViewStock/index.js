@@ -21,9 +21,10 @@ import {
   FormControl,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import { useAppstore } from './../../appStore';
 
 function ViewStock() {
+  const { dopen } = useAppstore();
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -122,76 +123,103 @@ function ViewStock() {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
-      <Grid container alignItems='center' spacing={2}>
+    <Paper
+      sx={{
+        width: dopen ? "calc(100% - 260px)" : "94%",
+        marginLeft: dopen ? "250px" : "80px",
+        marginTop: '50px',
+        overflow: "hidden",
+        padding: "10px",
+        transition: "width 0.7s ease",
+      }}
+    >
+      <Grid container alignItems='center'>
         <Grid item xs={1.5}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="filterSelectLabel">Filter by</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            size="small"
-            value={filterOption}
-            label="Filter option"
-            onChange={handleFilterChange}
-          >
-            <MenuItem value="Drug Name">Drug Name</MenuItem>
-            <MenuItem value="Drug Type">Drug Type</MenuItem>
-            <MenuItem value="Quantity">Quantity</MenuItem>
-          </Select>
-        </FormControl>
+            <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              size="small"
+              value={filterOption}
+              label="Filter option"
+              onChange={handleFilterChange}
+            >
+              <MenuItem value="Drug Name">Drug Name</MenuItem>
+              <MenuItem value="Drug Type">Drug Type</MenuItem>
+              <MenuItem value="Quantity">Quantity</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={4}>
-          <TextField id="outlined-size-small" size="small" value={searchTerm} onChange={handleInputChange} label={`Search by ${filterOption}...`} type="search" />
+          <TextField
+            id="outlined-size-small"
+            size="small"
+            value={searchTerm}
+            onChange={handleInputChange}
+            label={`Search by ${filterOption}...`}
+            type="search"
+          />
         </Grid>
-      <Grid item xs={12}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
-                <TableCell>Drug ID</TableCell>
-                <TableCell>Drug Name</TableCell>
-                <TableCell>Brand Name</TableCell>
-                <TableCell>Drug Type</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Unit Price(Rs)</TableCell>
-                <TableCell>Selling Price(Rs)</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Manufacture Date</TableCell>
-                <TableCell>Expiry Date</TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.length > 0 ? (
-                rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((item) => (
-                    <TableRow hover role="checkbox" key={item.prdct_id}>
-                      <TableCell>{item.prdct_id}</TableCell>
-                      <TableCell>{item.prdct_name}</TableCell>
-                      <TableCell>{item.brand_name}</TableCell>
-                      <TableCell>{item.med_type}</TableCell>
-                      <TableCell>{item.description}</TableCell>
-                      <TableCell>{item.ac_price}</TableCell>
-                      <TableCell>{item.sell_price}</TableCell>
-                      <TableCell>{item.total_quantity}</TableCell>
-                      <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
-                      <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                      <TableCell><Button variant="outlined" size="small" >Update</Button></TableCell>
-                      <TableCell><Button variant="outlined" size="small" startIcon={<DeleteIcon />} onClick={() => handleDelete(item.prdct_id)}>Delete</Button></TableCell>
-                    </TableRow>
-                  ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={10}>No data available</TableCell>
+        <Grid item xs={12}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                  <TableCell>Drug ID</TableCell>
+                  <TableCell>Drug Name</TableCell>
+                  <TableCell>Brand Name</TableCell>
+                  <TableCell>Drug Type</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Unit Price(Rs)</TableCell>
+                  <TableCell>Selling Price(Rs)</TableCell>
+                  <TableCell>Quantity</TableCell>
+                  <TableCell>Manufacture Date</TableCell>
+                  <TableCell>Expiry Date</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {itemToDelete && (
+              </TableHead>
+              <TableBody>
+                {rows.length > 0 ? (
+                  rows
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((item) => (
+                      <TableRow hover role="checkbox" key={item.prdct_id}>
+                        <TableCell>{item.prdct_id}</TableCell>
+                        <TableCell>{item.prdct_name}</TableCell>
+                        <TableCell>{item.brand_name}</TableCell>
+                        <TableCell>{item.med_type}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell>{item.ac_price}</TableCell>
+                        <TableCell>{item.sell_price}</TableCell>
+                        <TableCell>{item.total_quantity}</TableCell>
+                        <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
+                        <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
+                        <TableCell>
+                          <Button variant="outlined" size="small">Update</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<DeleteIcon />}
+                            onClick={() => handleDelete(item.prdct_id)}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={10}>No data available</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {itemToDelete && (
             <Dialog
               open={confirmDialogOpen}
               onClose={handleCancelDelete}
@@ -212,19 +240,18 @@ function ViewStock() {
               </DialogActions>
             </Dialog>
           )}
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Grid>
       </Grid>
-    </Grid>
     </Paper>
-    
   );
 }
 
