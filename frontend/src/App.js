@@ -7,7 +7,7 @@ import Login from "./components/Login";
 import Dashboard from './components/Dashboard';
 import AddStock from './components/AddStock';
 import GetAttendance from './components/GetAttendance';
-import History from './components/History';
+import GenerateBill from './components/GenerateBill';
 import ViewAttendance from './components/ViewAttendance';
 import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
@@ -15,7 +15,6 @@ import AddAppointment from './components/AddAppoinment';
 import AddAppointment2 from './components/AddAppoinment2';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
-import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
@@ -46,7 +45,6 @@ function App() {
         <Route path='view_shortexpiry' element={<ViewShortExpiry />} />
         <Route path='get_attendance' element={<GetAttendance />} />
         <Route path='view_attendance' element={<ViewAttendance />} />
-        <Route path='history' element={<History />} />
         <Route path='view_stock' element={<ViewStock />} />
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
