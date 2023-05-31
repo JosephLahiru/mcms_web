@@ -12,9 +12,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { useNavigate } from 'react-router-dom';
 import { useAppstore } from './../../appStore';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import BookOnlineIcon from '@mui/icons-material/BookOnline';
 
 const drawerWidth = 240;
 
@@ -99,7 +100,7 @@ export default function Sidebar() {
                     justifyContent: 'center',
                   }}
                 >
-                  <InboxIcon />
+                  <InventoryIcon />
                 </ListItemIcon>
                 <ListItemText primary="Add Stock" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -119,29 +120,9 @@ export default function Sidebar() {
                     justifyContent: 'center',
                   }}
                 >
-                  <InboxIcon />
+                  <InventoryIcon />
                 </ListItemIcon>
                 <ListItemText primary="View Stock" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/delete_stock"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Delete Stock" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/add_appointment"))}>
@@ -159,9 +140,29 @@ export default function Sidebar() {
                     justifyContent: 'center',
                   }}
                 >
-                  <InboxIcon />
+                  <BookOnlineIcon />
                 </ListItemIcon>
                 <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_appointment"))}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <BookOnlineIcon />
+                </ListItemIcon>
+                <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>

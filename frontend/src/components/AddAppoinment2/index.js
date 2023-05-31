@@ -22,6 +22,7 @@ function AddAppointment2() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [error, setError] = useState(false);
 
+
   const navigate = useNavigate();
 
   async function getAtId(doctorType) {
