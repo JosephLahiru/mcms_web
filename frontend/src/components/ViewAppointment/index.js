@@ -107,9 +107,9 @@ function ViewAppointment() {
       await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
         method: "GET",
       });
-      setAppointment(appointment.filter((item) => item.prdct_id !== itemToDelete));
+      setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
       setFilteredAppointment(
-        filteredAppointment.filter((item) => item.prdct_id !== itemToDelete)
+        filteredAppointment.filter((item) => item.app_id !== itemToDelete)
       );
     setItemToDelete(null);
     setConfirmDialogOpen(false);
