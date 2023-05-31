@@ -168,7 +168,6 @@ function ViewAppointment() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
-                <TableCell>Appointment ID</TableCell>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -191,7 +190,6 @@ function ViewAppointment() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.first_name}</TableCell>
                         <TableCell>{item.last_name}</TableCell>
@@ -264,7 +262,6 @@ function ViewAppointment() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
-                <TableCell>Appointment ID</TableCell>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -287,7 +284,6 @@ function ViewAppointment() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.first_name}</TableCell>
                         <TableCell>{item.last_name}</TableCell>
@@ -360,7 +356,6 @@ function ViewAppointment() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
-                <TableCell>Appointment ID</TableCell>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -383,7 +378,6 @@ function ViewAppointment() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.first_name}</TableCell>
                         <TableCell>{item.last_name}</TableCell>
