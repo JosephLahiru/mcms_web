@@ -187,6 +187,199 @@ function ViewAppointment() {
               <TableBody>
                 {rows.length > 0 ? (
                   rows
+                    .filter(item => item.cd_id === "cd_001")
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((item) => (
+                      <TableRow hover role="checkbox" key={item.app_id}>
+                        <TableCell>{item.app_id}</TableCell>
+                        <TableCell>{item.app_num}</TableCell>
+                        <TableCell>{item.first_name}</TableCell>
+                        <TableCell>{item.last_name}</TableCell>
+                        <TableCell>{item.nic}</TableCell>
+                        <TableCell>{item.address}</TableCell>
+                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.age}</TableCell>
+                        <TableCell>{item.gender}</TableCell>
+                        <TableCell>{item.contact_num}</TableCell>
+                        <TableCell>{item.at_name}</TableCell>
+                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>
+                          <Button variant="outlined" size="small">Update</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<DeleteIcon />}
+                            onClick={() => handleDelete(item.app_id)}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={10}>No data available</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {itemToDelete && (
+            <Dialog
+              open={confirmDialogOpen}
+              onClose={handleCancelDelete}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Confirm Delete"}
+              </DialogTitle>
+              <DialogContent>
+                <div id="alert-dialog-description">
+                  Are you sure you want to delete this item?
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCancelDelete}>Cancel</Button>
+                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+              </DialogActions>
+            </Dialog>
+          )}
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Grid>
+      </Grid>
+      <Grid container alignItems='center'>
+        <Grid item xs={12}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableCell>Appointment ID</TableCell>
+                  <TableCell>Appointment Number</TableCell>
+                  <TableCell>First Name</TableCell>
+                  <TableCell>Last Name</TableCell>
+                  <TableCell>NIC</TableCell>
+                  <TableCell>Address</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Age</TableCell>
+                  <TableCell>Gender</TableCell>
+                  <TableCell>Telephone Number</TableCell>
+                  <TableCell>Appointment Type</TableCell>
+                  <TableCell>Appointment Time</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.length > 0 ? (
+                  rows
+                    .filter(item => item.cd_id === "cd_002")
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((item) => (
+                      <TableRow hover role="checkbox" key={item.app_id}>
+                        <TableCell>{item.app_id}</TableCell>
+                        <TableCell>{item.app_num}</TableCell>
+                        <TableCell>{item.first_name}</TableCell>
+                        <TableCell>{item.last_name}</TableCell>
+                        <TableCell>{item.nic}</TableCell>
+                        <TableCell>{item.address}</TableCell>
+                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.age}</TableCell>
+                        <TableCell>{item.gender}</TableCell>
+                        <TableCell>{item.contact_num}</TableCell>
+                        <TableCell>{item.at_name}</TableCell>
+                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>
+                          <Button variant="outlined" size="small">Update</Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<DeleteIcon />}
+                            onClick={() => handleDelete(item.app_id)}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={10}>No data available</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {itemToDelete && (
+            <Dialog
+              open={confirmDialogOpen}
+              onClose={handleCancelDelete}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Confirm Delete"}
+              </DialogTitle>
+              <DialogContent>
+                <div id="alert-dialog-description">
+                  Are you sure you want to delete this item?
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCancelDelete}>Cancel</Button>
+                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+              </DialogActions>
+            </Dialog>
+          )}
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Grid>
+      </Grid>
+      <Grid container alignItems='center'>
+        <Grid item xs={12}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableCell>Appointment ID</TableCell>
+                  <TableCell>Appointment Number</TableCell>
+                  <TableCell>First Name</TableCell>
+                  <TableCell>Last Name</TableCell>
+                  <TableCell>NIC</TableCell>
+                  <TableCell>Address</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Age</TableCell>
+                  <TableCell>Gender</TableCell>
+                  <TableCell>Telephone Number</TableCell>
+                  <TableCell>Appointment Type</TableCell>
+                  <TableCell>Appointment Time</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.length > 0 ? (
+                  rows
+                    .filter(item => item.cd_id === "cd_003")
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
