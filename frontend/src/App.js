@@ -19,6 +19,7 @@ import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
 import Sidebar from './components/SideBar';
+import ReturnPatientsReport from './components/ReturnPatientsReport';
 
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard'];
@@ -49,6 +50,7 @@ function App() {
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
         <Route path='view_generatingbills' element={<ViewGeneratingBill />} />
+        <Route path='return_patients_report' element={<ReturnPatientsReport />} />
       </Routes>
     </>
   );
