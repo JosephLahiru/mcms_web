@@ -183,7 +183,7 @@ export default function Sidebar() {
                 >
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>
