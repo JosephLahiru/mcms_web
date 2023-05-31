@@ -26,8 +26,8 @@ function ViewAppointment(){
       setFilterDate(event.target.value);
     };
   
-    const filteredAppointmentsByDate = appointment.filter((appointment) => {
-      const appointmentDate = new Date(appointment.appointmentDate);
+    const filteredAppointments = appointment.filter((appointment) => {
+      const appointmentDate = new Date(appointment.appointmentTime);
       const filterDateObj = new Date(filterDate);
       return (
         filterDate === "" || 
