@@ -14,8 +14,10 @@ import {
   TablePagination,
   FormControl
 } from "@mui/material";
+import { useAppstore } from './../../appStore';
 
 function ViewShortExpiry() {
+  const { dopen } = useAppstore();
   const [shortexpiry, setShortExpiry] = useState([]);
   const [filteredShortExpiry, setFilteredShortExpiry] = useState([]);
   const [filterOption, setFilterOption] = useState("");
@@ -54,7 +56,7 @@ function ViewShortExpiry() {
   const rows = filteredShortExpiry || [];
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
+    <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container alignItems='center' spacing={2}>
         <Grid item xs={2}>
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
