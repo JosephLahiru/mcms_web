@@ -9,8 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme, Link } from '@mui/material';
 import { useAppstore } from './../../appStore';
+import { Link as RouterLink } from "react-router-dom";
 
 const AppBar = styled(MuiAppBar, {})(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -78,7 +79,14 @@ export default function Navbar() {
             sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}
           >
             <Box sx={{ display: { xs: 'block', sm: 'none' }, mr: 1 }} />
-            MCMS
+            <Link
+              component={RouterLink}
+              to="/dashboard"
+              underline="none"
+              color="inherit"
+            >
+              MCMS
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
