@@ -17,6 +17,7 @@ import ViewShortExpiry from './components/ViewShortExpiry';
 import GenerateBill from './components/GenerateBill';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
+import ViewGeneratingBill from './components/ViewGeneratingBill';
 
 const hideNavbarRoutes = ['/', '/view_endpoints'];
 
@@ -44,6 +45,7 @@ function App() {
         <Route path='view_stock' element={<ViewStock />} />
         <Route path='generate_bill' element={<GenerateBill />} />
         <Route path='view_endpoints' element={<ViewEndpoints />} />
+        <Route path='view_generatingbills' element={<ViewGeneratingBill />} />
       </Routes>
     </>
   );

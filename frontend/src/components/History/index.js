@@ -25,7 +25,7 @@ export default function BasicGrid() {
   const [drugId, setDrugId] = useState('');
   const [drugName, setDrugName] = useState('');
   const [quantity, setQuantity] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [unitPrice, setUnitPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [invDate, setInvDate] = useState('');
   const [appointmentId, setAppointmentId] = useState('');
@@ -34,6 +34,14 @@ export default function BasicGrid() {
   const [doctorCharge, setDoctorCharge] = useState('');
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
+  
+
+
+  function TotalAmount(unitPrice, quantity, discount) {
+    const totalPrice = unitPrice * quantity;
+    const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+    return discountedPrice;
+  }
 
 
   const handleClose = () => {
@@ -47,7 +55,7 @@ export default function BasicGrid() {
     drugId,
     drugName,
     quantity,
-    total,
+    unitPrice,
     discount,
     invDate,
     appointmentId,
@@ -62,7 +70,7 @@ const handleReset = () => {
     setDrugId('');
     setDrugName('');
     setQuantity(0);
-    setTotal(0);
+    setUnitPrice(0);
     setDiscount(0);
     setInvNum(0);
     setDoctor('');
@@ -72,13 +80,13 @@ const handleReset = () => {
     e.preventDefault();
 
     // Calculate total after discount
-    const discountedTotal = total - (total * discount) / 100;
+    const discountedTotal = unitPrice - (unitPrice * discount) / 100;
 
     // Generate bill or perform other actions here
     console.log('Drug ID:', drugId);
     console.log('Drug Name:', drugName);
     console.log('Quantity:', quantity);
-    console.log('Total:', total);
+    console.log('UnitPrice:', unitPrice);
     console.log('Discount:', discount);
     console.log('Discounted Total:', discountedTotal);
     console.log('Invoice Number:',invNum);
@@ -173,10 +181,9 @@ const handleReset = () => {
     size="small"
  
 >
-    <MenuItem value="doctor1">Doctor 1</MenuItem>
-    <MenuItem value="doctor2">Doctor 2</MenuItem>
-    <MenuItem value="doctor3">Doctor 3</MenuItem>
-    <MenuItem value="doctor4">Doctor 4</MenuItem>
+    <MenuItem value="doctor1">Universal Physician</MenuItem>
+    <MenuItem value="doctor2">Pediatrician</MenuItem>
+    <MenuItem value="doctor3">Radiologist</MenuItem>
   </Select>
       </FormControl>
 
@@ -252,9 +259,9 @@ const handleReset = () => {
         <TextField
           id="total"
           label="Total:"
-          type="number"
-          value={total}
-          onChange={(e) => setTotal(Number(e.target.value))}
+          type="decimal"
+          value={unitPrice}
+          onChange={(e) => setUnitPrice(e.target.value)}
           required
           margin="normal"
           size="small"
@@ -273,10 +280,23 @@ const handleReset = () => {
           margin="normal"
           size="small"
         /></FormControl>
+
+<FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
+      <label>Total_Amount</label> 
+        <TextField
+          id="amount"
+          label="tatal_amount:"
+          type="decimal"
+          value={TotalAmount(unitPrice, quantity, discount)}
+          onChange={(e) => TotalAmount(Number(e.target.value))}
+          required
+          margin="normal"
+          size="small"
+        /></FormControl>
      
           <Stack spacing={3} direction="row" sx={{paddingLeft:'500px', paddingTop:'20px'}}>
-          <Button variant="contained" color='success' size='small' onClick={handleSubmit}>Submit</Button>
-          <Button variant="contained" color='error' size='small' onClick={handleReset}>Reset</Button>
+          <Button variant="contained" color='success' size='small' onClick={handleSubmit} sx={{width:'150px'}}>Submit</Button>
+          <Button variant="contained" color='error' size='small' onClick={handleReset} sx={{width:'150px'}}>Reset</Button>
           </Stack>
           </Item>
           </Grid>
