@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppstore } from './../../appStore';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const drawerWidth = 240;
 
@@ -163,6 +164,26 @@ export default function Sidebar() {
                   <BookOnlineIcon />
                 </ListItemIcon>
                 <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/generate_bill"))}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
         </List>
