@@ -21,7 +21,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const updateOpen = useAppstore((state) => state.updateOpen);
   const dopen = useAppstore((state) => state.dopen);
-  const [userName] = React.useState('John Doe'); // const [userName, setUserName] = React.useState('John Doe');
+  const [userName] = React.useState('K. G. Nilantha'); // const [userName, setUserName] = React.useState('John Doe');
 
 
   const isMenuOpen = Boolean(anchorEl);
