@@ -286,11 +286,11 @@ const handleReset = () => {
           size="small"
         >
     
-    <MenuItem value="drug 1">Drug 1</MenuItem>
-    <MenuItem value="drug 2">Drug 2</MenuItem>
-    <MenuItem value="drug 3">Drug 3</MenuItem>
-    <MenuItem value="drug 4">Drug 4</MenuItem>
-    <MenuItem value="drug 5">Drug 5</MenuItem>
+    <MenuItem value="drug 1">Aspirin Tablets</MenuItem>
+    <MenuItem value="drug 2">Ibuprofen Tablets</MenuItem>
+    <MenuItem value="drug 3">Aspirin</MenuItem>
+    <MenuItem value="drug 4">Ibuprofen</MenuItem>
+    <MenuItem value="drug 5">Paracitamol</MenuItem>
   </Select>
       
       {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
