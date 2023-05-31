@@ -14,10 +14,10 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 function GetAttendance() {
   const [assistantId, setAssistantId] = useState('');
-  const [assistantName, setAssistantName] = useState('');
   const [date, setDate] = useState(null);
   const [attendanceStatus, setAttendanceStatus] = useState('');
   const [error, setError] = useState(false);
@@ -25,13 +25,17 @@ function GetAttendance() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!assistantId || !assistantName || !date || !attendanceStatus) {
+    console.log(assistantId, date, attendanceStatus);
+
+    if (!assistantId || !date || !attendanceStatus) {
       setError(true);
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT,
       });
       return;
     }
+
+    const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : null;
 
     try {
       const response = await fetch('http://158.101.10.103/set_attendance', {
@@ -41,8 +45,7 @@ function GetAttendance() {
         },
         body: JSON.stringify({
           assist_id: assistantId,
-          assist_name: assistantName,
-          date: date,
+          date: formattedDate,
           status: attendanceStatus,
         }),
       });
@@ -77,20 +80,16 @@ function GetAttendance() {
 
   const handleReset = () => {
     setAssistantId('');
-    setAssistantName('');
     setDate('');
     setAttendanceStatus('');
     setError(false);
   };
 
   return (
-    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '10% 25%' }}>
+    <Paper sx={{ width: '30%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1>Attendance form</h1>
-          </Grid>
-          <Grid item xs={6}>
             <TextField
               size="small"
               fullWidth
@@ -105,22 +104,7 @@ function GetAttendance() {
               </InputLabel>
             ) : null}
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              size="small"
-              fullWidth
-              value={assistantName}
-              onChange={(event) => setAssistantName(event.target.value)}
-              label="Assistant Name"
-              required
-            />
-            {error && assistantName.length <= 0 ? (
-              <InputLabel className="input-validation-error">
-                Assistant Name can't be empty
-              </InputLabel>
-            ) : null}
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               size="small"
@@ -135,7 +119,7 @@ function GetAttendance() {
             {error && date.length <= 0 ?
               <InputLabel className="input-validation-error">Date can't be Empty</InputLabel> : ""}
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <FormControl fullWidth size="small">
               <InputLabel id="demo-simple-select-label">Attendance Status</InputLabel>
               <Select
@@ -151,9 +135,9 @@ function GetAttendance() {
                 <MenuItem value="" disabled>
                   Select an option
                 </MenuItem>
-                <MenuItem value="present">Present</MenuItem>
-                <MenuItem value="absent">Absent</MenuItem>
-                <MenuItem value="late">Late</MenuItem>
+                <MenuItem value="1">Present</MenuItem>
+                <MenuItem value="0">Absent</MenuItem>
+                <MenuItem value="2">Late</MenuItem>
               </Select>
             </FormControl>
             {error && attendanceStatus.length <= 0 ? (
@@ -162,11 +146,13 @@ function GetAttendance() {
               </InputLabel>
             ) : null}
           </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={handleReset}>
+          <Grid item xs={6}>
+            <Button sx={{ width: "100%" }} variant="contained" color="primary" onClick={handleReset}>
               Reset
             </Button>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+          </Grid>
+          <Grid item xs={6}>
+            <Button sx={{ width: "100%" }} variant="contained" color="primary" onClick={handleSubmit}>
               Submit
             </Button>
           </Grid>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   TableContainer,
   Table,
@@ -101,10 +103,7 @@ function ViewStock() {
   };
 
   const handleConfirmDelete = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (confirmed) {
+    try{
       await fetch(`https://mcms_api.mtron.me/delete_stock/${itemToDelete}`, {
         method: "GET",
       });
@@ -112,9 +111,12 @@ function ViewStock() {
       setFilteredStock(
         filteredStock.filter((item) => item.prdct_id !== itemToDelete)
       );
-    }
     setItemToDelete(null);
     setConfirmDialogOpen(false);
+    toast.success('Drug deleted successfully');
+    } catch (error) {
+      toast.error('Failed to delete drug');
+    }
   };
 
   const handleCancelDelete = () => {
@@ -134,7 +136,7 @@ function ViewStock() {
       }}
     >
       <Grid container alignItems='center'>
-        <Grid item xs={1.5}>
+        <Grid item xs={1.5} marginRight={1}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="filterSelectLabel">Filter by</InputLabel>
             <Select
@@ -251,6 +253,7 @@ function ViewStock() {
           />
         </Grid>
       </Grid>
+      <ToastContainer />
     </Paper>
   );
 }

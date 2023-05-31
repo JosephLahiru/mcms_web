@@ -15,8 +15,10 @@ import {
   TextField,
   TablePagination,
 } from "@mui/material";
+import { useAppstore } from './../../appStore';
 
 function ViewAttendance() {
+  const { dopen } = useAppstore();
   const [attendance, setAttendance] = useState([]);
   const [filteredAttendance, setFilteredAttendance] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -78,9 +80,9 @@ function ViewAttendance() {
   const rows = filteredAttendance || [];
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden", padding: "10px", margin: '5% auto' }}>
+    <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: "hidden", padding: "10px", transition: "width 0.7s ease" }}>
       <Grid container alignItems="center" spacing={2}>
-        <Grid item xs={1.5}>
+        <Grid item xs={1.5} marginRight={1}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="filterSelectLabel">Filter by</InputLabel>
             <Select
