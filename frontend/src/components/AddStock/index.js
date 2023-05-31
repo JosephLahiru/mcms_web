@@ -14,6 +14,7 @@ import {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 function AddStock() {
   const [drugname, setDrugName] = useState("");
@@ -24,23 +25,10 @@ function AddStock() {
   const [unitprice, setUnitPrice] = useState("");
   const [sellingprice, setSellingPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [purchaseDate, setPurchaseDate] = useState(null);
+  const [stocktype, setStockType] = useState("");
+  const [expiretype, setExpireType] = useState("");
   const [ManufacturedDate, setManufacturedDate] = useState(null);
   const [ExpireDate, setExpireDate] = useState(null);
-
-  useEffect(() => {
-    async function getDrugTypes() {
-      try {
-        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
-        const data = await response.json();
-        setDrugTypes(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getDrugTypes();
-  }, []);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -54,30 +42,52 @@ function AddStock() {
     },
   };
 
+  useEffect(() => {
+    async function getDrugTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const data = await response.json();
+        setDrugTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getDrugTypes();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Drug Name:", drugname);
-    console.log("Brand Name:", brandname);
-    console.log("Description", description);
-    console.log("Unit Price:", unitprice);
-    console.log("Selling Price:", sellingprice);
-    console.log("Quantity:", quantity);
-    console.log("Purchased Date:", purchaseDate);
-    console.log("Manufacture Date:", ManufacturedDate);
-    console.log("Expire Date:", ExpireDate);
+    console.log('drugname: ' + drugname);
+    console.log('brandname: ' + brandname);
+    console.log('selectedType: ' + selectedType);
+    console.log('drudescriptiongname: ' + description);
+    console.log('unitprice: ' + unitprice);
+    console.log('sellingprice: ' + sellingprice);
+    console.log('quantity: ' + quantity);
+    console.log('stocktype: ' + stocktype);
+    console.log('expiretype: ' + expiretype);
+    console.log('ManufacturedDate: ' + ManufacturedDate);
+    console.log('ExpireDate: ' + ExpireDate);
+
+    const formattedManufacturedDate = ManufacturedDate ? dayjs(ManufacturedDate).format('YYYY-MM-DD') : null;
+    const formattedExpireDate = ExpireDate ? dayjs(ExpireDate).format('YYYY-MM-DD') : null;
 
     const data = {
-      drugname,
-      brandname,
-      description,
-      unitprice,
-      sellingprice,
-      quantity,
-      purchaseDate,
-      ManufacturedDate,
-      ExpireDate,
+      prdct_name: drugname,
+      brand_name: brandname,
+      med_type: selectedType,
+      description: description,
+      ac_price: unitprice,
+      sell_price: sellingprice,
+      total_quantity: quantity,
+      stock_type: stocktype,
+      expire_type: expiretype,
+      mfd_date: formattedManufacturedDate,
+      exp_date: formattedExpireDate,
     };
+
+    console.log(data);
 
     try {
       const response = await fetch("https://mcms_api.mtron.me/set_stock", {
@@ -116,13 +126,14 @@ function AddStock() {
     setUnitPrice("");
     setSellingPrice("");
     setQuantity("");
-    setPurchaseDate("");
+    setStockType("");
+    setExpireType("");
     setManufacturedDate("");
     setExpireDate("");
   };
 
   return (
-    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '10% auto' }}>
+    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
@@ -136,17 +147,6 @@ function AddStock() {
           </Grid>
           <Grid item xs={6}>
             <TextField type="number" size="small" sx={{ width: "100%" }} value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} label="Selling Price" />
-          </Grid>
-          <Grid item xs={6}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{ width: "100%" }}
-                value={purchaseDate}
-                onChange={(date) => setPurchaseDate(date)}
-                label="Purchase Date"
-                slotProps={{ textField: { size: 'small' } }}
-              />
-            </LocalizationProvider>
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
@@ -185,6 +185,12 @@ function AddStock() {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6}>
+            <TextField type="number" size="small" sx={{ width: "100%" }} value={stocktype} onChange={(event) => setStockType(event.target.value)} label="Stock Type" />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField type="number" size="small" sx={{ width: "100%" }} value={expiretype} onChange={(event) => setExpireType(event.target.value)} label="Expire Type" />
+          </Grid>
+          <Grid item xs={12}>
             <TextField id="outlined-multiline-static" sx={{ width: "100%" }} multiline value={description} onChange={(event) => setDescription(event.target.value)} label="Description"/>
           </Grid>
           <Grid item xs={6}>

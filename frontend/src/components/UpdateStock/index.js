@@ -94,7 +94,7 @@ function UpdateStock() {
       return;
     }
 
-    if (drugId.length == 0 || drugname.length == 0) {
+    if (drugId.length === 0 || drugname.length === 0) {
       setError(true);
       return;
     }
@@ -186,7 +186,7 @@ function UpdateStock() {
         width: "50%",
         overflow: "hidden",
         padding: "10px",
-        margin: "10% auto",
+        margin: "5% auto",
       }}
     >
       <FormControl onSubmit={handleSubmit}>
@@ -228,6 +228,7 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <TextField
+              type="number"
               size="small"
               sx={{ width: "100%" }}
               value={unitprice}
@@ -253,6 +254,7 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <TextField
+              type="number"
               size="small"
               sx={{ width: "100%" }}
               value={sellingprice}
@@ -293,6 +295,7 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <TextField
+              type="number"
               size="small"
               sx={{ width: "100%" }}
               value={quantity}
