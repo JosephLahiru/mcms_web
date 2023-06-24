@@ -19,14 +19,16 @@ import dayjs from 'dayjs';
 function AddStock() {
   const [drugname, setDrugName] = useState("");
   const [drugTypes, setDrugTypes] = useState([]);
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedDrugType, setSelectedDrugType] = useState("");
   const [brandname, setBrandName] = useState("");
   const [description, setDescription] = useState("");
   const [unitprice, setUnitPrice] = useState("");
   const [sellingprice, setSellingPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [stocktype, setStockType] = useState("");
-  const [expiretype, setExpireType] = useState("");
+  const [stockTypes, setStockTypes] = useState([]);
+  const [selectedStockType, setSelectedStockType] = useState("");
+  const [expireTypes, setExpireTypes] = useState([]);
+  const [selectedExpireType, setSelectedExpireType] = useState("");
   const [ManufacturedDate, setManufacturedDate] = useState(null);
   const [ExpireDate, setExpireDate] = useState(null);
 
@@ -45,7 +47,7 @@ function AddStock() {
   useEffect(() => {
     async function getDrugTypes() {
       try {
-        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const response = await fetch('https://mcms_api.mtron.me/get_med_types');
         const data = await response.json();
         setDrugTypes(data);
       } catch (error) {
@@ -55,18 +57,44 @@ function AddStock() {
     getDrugTypes();
   }, []);
 
+  useEffect(() => {
+    async function getStockTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const data = await response.json();
+        setStockTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getStockTypes();
+  }, []);
+
+  useEffect(() => {
+    async function getExpireTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_expire_types');
+        const data = await response.json();
+        setExpireTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getExpireTypes();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     console.log('drugname: ' + drugname);
     console.log('brandname: ' + brandname);
-    console.log('selectedType: ' + selectedType);
-    console.log('drudescriptiongname: ' + description);
+    console.log('selectedDrugType: ' + selectedDrugType);
+    console.log('descriptiongname: ' + description);
     console.log('unitprice: ' + unitprice);
     console.log('sellingprice: ' + sellingprice);
     console.log('quantity: ' + quantity);
-    console.log('stocktype: ' + stocktype);
-    console.log('expiretype: ' + expiretype);
+    console.log('stocktype: ' + selectedStockType);
+    console.log('expiretype: ' + selectedExpireType);
     console.log('ManufacturedDate: ' + ManufacturedDate);
     console.log('ExpireDate: ' + ExpireDate);
 
@@ -76,13 +104,13 @@ function AddStock() {
     const data = {
       prdct_name: drugname,
       brand_name: brandname,
-      med_type: selectedType,
+      med_type: selectedDrugType,
       description: description,
       ac_price: unitprice,
       sell_price: sellingprice,
       total_quantity: quantity,
-      stock_type: stocktype,
-      expire_type: expiretype,
+      stock_type: selectedStockType,
+      expire_type: selectedExpireType,
       mfd_date: formattedManufacturedDate,
       exp_date: formattedExpireDate,
     };
@@ -120,14 +148,14 @@ function AddStock() {
 
   const handleReset = () => {
     setDrugName("");
-    setSelectedType("");
+    setSelectedDrugType("");
     setBrandName("");
     setDescription("");
     setUnitPrice("");
     setSellingPrice("");
     setQuantity("");
-    setStockType("");
-    setExpireType("");
+    setSelectedStockType("");
+    setSelectedExpireType("");
     setManufacturedDate("");
     setExpireDate("");
   };
@@ -151,7 +179,7 @@ function AddStock() {
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
               <InputLabel id="demo-simple-select-label">Drug Type</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedType} onChange={(event) => setSelectedType(event.target.value)} label="Drug Type" MenuProps={MenuProps}>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedDrugType} onChange={(event) => setSelectedDrugType(event.target.value)} label="Drug Type" MenuProps={MenuProps}>
                 {drugTypes.map((type) => (
                 <MenuItem key={type.med_type} value={type.med_type}>{type.med_type}</MenuItem>
               ))}
@@ -185,10 +213,24 @@ function AddStock() {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={stocktype} onChange={(event) => setStockType(event.target.value)} label="Stock Type" />
+            <FormControl sx={{ width: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">Stock Type</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
+                {stockTypes.map((type) => (
+                <MenuItem key={type.stock_type} value={type.stock_type}>{type.stock_type}</MenuItem>
+              ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={expiretype} onChange={(event) => setExpireType(event.target.value)} label="Expire Type" />
+            <FormControl sx={{ width: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">Expire Type</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
+                {expireTypes.map((type) => (
+                <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
+              ))}
+              </Select>
+          </FormControl>
           </Grid>
           <Grid item xs={12}>
             <TextField id="outlined-multiline-static" sx={{ width: "100%" }} multiline value={description} onChange={(event) => setDescription(event.target.value)} label="Description"/>
