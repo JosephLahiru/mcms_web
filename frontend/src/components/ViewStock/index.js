@@ -13,6 +13,7 @@ import {
   MenuItem,
   InputLabel,
   Button,
+  IconButton,
   TablePagination,
   Grid,
   Paper,
@@ -176,6 +177,8 @@ function ViewStock() {
                   <TableCell>Unit Price(Rs)</TableCell>
                   <TableCell>Selling Price(Rs)</TableCell>
                   <TableCell>Quantity</TableCell>
+                  <TableCell>Stock Type</TableCell>
+                  <TableCell>Expiry Type</TableCell>
                   <TableCell>Manufacture Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
                   <TableCell></TableCell>
@@ -196,20 +199,23 @@ function ViewStock() {
                         <TableCell>{item.ac_price}</TableCell>
                         <TableCell>{item.sell_price}</TableCell>
                         <TableCell>{item.total_quantity}</TableCell>
+                        <TableCell>{item.stock_type}</TableCell>
+                        <TableCell>{item.expire_type}</TableCell>
                         <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small">Update</Button>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<DeleteIcon />}
-                            onClick={() => handleDelete(item.prdct_id)}
-                          >
-                            Delete
-                          </Button>
+                        <IconButton
+  aria-label="delete"
+  variant="outlined"
+  size="small"
+  onClick={() => handleDelete(item.prdct_id)}
+>
+  <DeleteIcon />
+</IconButton>
+
                         </TableCell>
                       </TableRow>
                     ))
