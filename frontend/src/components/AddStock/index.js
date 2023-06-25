@@ -18,12 +18,15 @@ import dayjs from 'dayjs';
 
 function AddStock() {
   const [drugname, setDrugName] = useState("");
+  const [drugnameError, setDrugNameError] = useState(false);
   const [drugTypes, setDrugTypes] = useState([]);
   const [selectedDrugType, setSelectedDrugType] = useState("");
   const [brandname, setBrandName] = useState("");
   const [description, setDescription] = useState("");
   const [unitprice, setUnitPrice] = useState("");
+  const [unitpriceError, setUnitPriceError] = useState(false);
   const [sellingprice, setSellingPrice] = useState("");
+  const [sellingpriceError, setSellingPriceError] = useState(false);
   const [quantity, setQuantity] = useState("");
   const [stockTypes, setStockTypes] = useState([]);
   const [selectedStockType, setSelectedStockType] = useState("");
@@ -31,6 +34,24 @@ function AddStock() {
   const [selectedExpireType, setSelectedExpireType] = useState("");
   const [ManufacturedDate, setManufacturedDate] = useState(null);
   const [ExpireDate, setExpireDate] = useState(null);
+
+  const handleDrugNameChange = (event) => {
+    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
+    setDrugName(event.target.value);
+    setDrugNameError(!isValidDrugName);
+  };
+
+  const handleUnitPriceChange = (event) => {
+    const isValidUnitPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    setUnitPrice(event.target.value);
+    setUnitPriceError(!isValidUnitPrice);
+  };
+
+  const handleSellingPriceChange = (event) => {
+    const isValidSellingPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    setSellingPrice(event.target.value);
+    setSellingPriceError(!isValidSellingPrice);
+  };
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -117,30 +138,36 @@ function AddStock() {
 
     console.log(data);
 
-    try {
-      const response = await fetch("https://mcms_api.mtron.me/set_stock", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        // Data successfully saved to the database
-        toast.success("Stock data saved successfully", {
-          position: toast.POSITION.TOP_RIGHT,
+    if(!drugnameError && !unitpriceError && !sellingpriceError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/set_stock", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
         });
-        handleReset();
-      } else {
-        // Error occurred while saving the data
-        toast.error("Failed to save stock data", {
+  
+        if (response.ok) {
+          // Data successfully saved to the database
+          toast.success("Stock data saved successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          handleReset();
+        } else {
+          // Error occurred while saving the data
+          toast.error("Failed to save stock data", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("An error occurred while saving the stock data", {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
-    } catch (error) {
-      console.error(error);
-      toast.error("An error occurred while saving the stock data", {
+    } else {
+      toast.error("Please fill all the fields", {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
@@ -165,16 +192,16 @@ function AddStock() {
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <TextField size="small" sx={{ width: "100%" }} value={drugname} onChange={(event) => setDrugName(event.target.value)} label="Drug Name"/>
+            <TextField size="small" sx={{ width: "100%" }} value={drugname} error={drugnameError} helperText={drugnameError ? 'Pleae enter a valid drug name' : ''} onChange={handleDrugNameChange} label="Drug Name"/>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={unitprice} onChange={(event) => setUnitPrice(event.target.value)} label="Unit Price" />
+            <TextField type="number" size="small" sx={{ width: "100%" }} value={unitprice} error={unitpriceError} helperText={unitpriceError ? 'Please enter a valid unit price' : ''} onChange={handleUnitPriceChange} label="Unit Price" />
           </Grid>
           <Grid item xs={6}>
             <TextField size="small" sx={{ width: "100%" }} value={brandname} onChange={(event) => setBrandName(event.target.value)} label="Brand Name" />
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={sellingprice} onChange={(event) => setSellingPrice(event.target.value)} label="Selling Price" />
+            <TextField type="number" size="small" sx={{ width: "100%" }} value={sellingprice} error={sellingpriceError} helperText={sellingpriceError ? 'Please enter a valid selling price' : ''} onChange={handleSellingPriceChange} label="Selling Price" />
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
