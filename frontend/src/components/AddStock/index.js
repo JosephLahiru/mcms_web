@@ -28,6 +28,7 @@ function AddStock() {
   const [sellingprice, setSellingPrice] = useState("");
   const [sellingpriceError, setSellingPriceError] = useState(false);
   const [quantity, setQuantity] = useState("");
+  const [quantityError, setQuantityError] = useState(false);
   const [stockTypes, setStockTypes] = useState([]);
   const [selectedStockType, setSelectedStockType] = useState("");
   const [expireTypes, setExpireTypes] = useState([]);
@@ -51,6 +52,12 @@ function AddStock() {
     const isValidSellingPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
     setSellingPrice(event.target.value);
     setSellingPriceError(!isValidSellingPrice);
+  };
+
+  const handleQuantityChange = (event) => {
+    const isValidQuantity = /^[0-9]+$/.test(event.target.value);
+    setQuantity(event.target.value);
+    setQuantityError(!isValidQuantity);
   };
 
   const ITEM_HEIGHT = 48;
@@ -138,7 +145,7 @@ function AddStock() {
 
     console.log(data);
 
-    if(!drugnameError && !unitpriceError && !sellingpriceError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
       try {
         const response = await fetch("https://mcms_api.mtron.me/set_stock", {
           method: "POST",
@@ -225,7 +232,7 @@ function AddStock() {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={quantity} onChange={(event) => setQuantity(event.target.value)} label="Quantity" />
+            <TextField type="number" size="small" sx={{ width: "100%" }} value={quantity} error={quantityError} helperText={quantityError ? 'Please enter a valid quantity' : ''} onChange={handleQuantityChange} label="Quantity" />
           </Grid>
           <Grid item xs={6}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
