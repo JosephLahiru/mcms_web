@@ -12,25 +12,60 @@ import {
   MenuItem,
   FormControl,
 } from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 function UpdateStock() {
   const [drugId, setDrugId] = useState("");
   const [drugname, setDrugName] = useState("");
+  const [drugnameError, setDrugNameError] = useState(false);
   const [unitprice, setUnitPrice] = useState("");
+  const [unitpriceError, setUnitPriceError] = useState(false);
   const [sellingprice, setSellingPrice] = useState("");
+  const [sellingpriceError, setSellingPriceError] = useState(false);
   const [brandname, setBrandName] = useState("");
   const [drugTypes, setDrugTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [quantityError, setQuantityError] = useState(false);
+  const [stockTypes, setStockTypes] = useState([]);
+  const [selectedStockType, setSelectedStockType] = useState("");
+  const [expireTypes, setExpireTypes] = useState([]);
+  const [selectedExpireType, setSelectedExpireType] = useState("");
   const [ManufactureDate, setManufactureDate] = useState("");
   const [ExpiryDate, setExpiryDate] = useState("");
-  const [error, setError] = useState(false);
+
+  const handleDrugNameChange = (event) => {
+    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
+    setDrugName(event.target.value);
+    setDrugNameError(!isValidDrugName);
+  };
+
+  const handleUnitPriceChange = (event) => {
+    const isValidUnitPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    setUnitPrice(event.target.value);
+    setUnitPriceError(!isValidUnitPrice);
+  };
+
+  const handleSellingPriceChange = (event) => {
+    const isValidSellingPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    setSellingPrice(event.target.value);
+    setSellingPriceError(!isValidSellingPrice);
+  };
+
+  const handleQuantityChange = (event) => {
+    const isValidQuantity = /^[0-9]+$/.test(event.target.value);
+    setQuantity(event.target.value);
+    setQuantityError(!isValidQuantity);
+  };
 
   useEffect(() => {
     async function getDrugTypes() {
       try {
         const response = await fetch(
-          "https://mcms_api.mtron.me/get_stock_types"
+          "https://mcms_api.mtron.me/get_med_types"
         );
         const data = await response.json();
         setDrugTypes(data);
@@ -41,6 +76,33 @@ function UpdateStock() {
 
     getDrugTypes();
   }, []);
+
+  useEffect(() => {
+    async function getStockTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_stock_types');
+        const data = await response.json();
+        setStockTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getStockTypes();
+  }, []);
+
+  useEffect(() => {
+    async function getExpireTypes() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_expire_types');
+        const data = await response.json();
+        setExpireTypes(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getExpireTypes();
+  }, []);
+
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -94,11 +156,6 @@ function UpdateStock() {
       return;
     }
 
-    if (drugId.length === 0 || drugname.length === 0) {
-      setError(true);
-      return;
-    }
-
     fetch("https://mcms_api.mtron.me/update_stock", {
       method: "POST",
       headers: {
@@ -124,13 +181,6 @@ function UpdateStock() {
   }
 
   const handleUpdate = () => {
-    if (!drugId) {
-      toast.error("Please enter a drug ID first", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      return;
-    }
-
     fetch(`https://mcms_api.mtron.me/get_stock/${drugId}`)
       .then((response) => response.json())
       .then((data) => {
@@ -140,6 +190,8 @@ function UpdateStock() {
         setUnitPrice(data[0].ac_price);
         setSellingPrice(data[0].sell_price);
         setQuantity(data[0].total_quantity);
+        selectedStockType(data[0].stock_type);
+        setSelectedExpireType(data[0].expire_type);
 
         const manufactureDate = new Date(data[0].mfd_date);
         const formattedManufactureDate = `${manufactureDate.getFullYear()}-${(
@@ -174,10 +226,11 @@ function UpdateStock() {
     setSellingPrice("");
     setBrandName("");
     setSelectedType("");
+    setSelectedStockType("");
+    setSelectedExpireType("");
     setQuantity("");
     setManufactureDate("");
     setExpiryDate("");
-    setError(false);
   };
 
   return (
@@ -202,29 +255,17 @@ function UpdateStock() {
               label="Drug ID"
               required
             />
-            {error && drugId.length <= 0 ? (
-              <InputLabel className="input-validation-error">
-                Drug ID can't be Empty
-              </InputLabel>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={6}>
             <TextField
               size="small"
               sx={{ width: "100%" }}
               value={drugname}
-              onChange={(event) => setDrugName(event.target.value)}
+              error={drugnameError} 
+              helperText={drugnameError ? 'Pleae enter a valid drug name' : ''} 
+              onChange={handleDrugNameChange}
               label="Drug Name"
             />
-            {error && drugname.length <= 0 ? (
-              <InputLabel class="input-validation-error">
-                Drug Name can't be empty
-              </InputLabel>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -232,16 +273,11 @@ function UpdateStock() {
               size="small"
               sx={{ width: "100%" }}
               value={unitprice}
-              onChange={(event) => setUnitPrice(event.target.value)}
+              error={unitpriceError}
+              helperText={unitpriceError ? 'Please enter a valid unit price' : ''}
+              onChange={handleUnitPriceChange}
               label="Unit Price"
             />
-            {error && unitprice.length <= 0 ? (
-              <InputLabel class="input-validation-error">
-                Drug unit price can't be empty
-              </InputLabel>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -258,16 +294,11 @@ function UpdateStock() {
               size="small"
               sx={{ width: "100%" }}
               value={sellingprice}
-              onChange={(event) => setSellingPrice(event.target.value)}
+              error={sellingpriceError}
+              helperText={sellingpriceError ? 'Please enter a valid selling price' : ''}
+              onChange={handleSellingPriceChange}
               label="Selling Price"
             />
-            {error && sellingprice.length <= 0 ? (
-              <InputLabel class="input-validation-error">
-                Drug Selling price can't be empty
-              </InputLabel>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
@@ -282,9 +313,6 @@ function UpdateStock() {
                 label="Drug Type"
                 MenuProps={MenuProps}
               >
-                <MenuItem value="" disabled selected>
-                  Select an option . . .
-                </MenuItem>
                 {drugTypes.map((type) => (
                   <MenuItem key={type.med_type} value={type.med_type}>
                     {type.med_type}
@@ -299,16 +327,31 @@ function UpdateStock() {
               size="small"
               sx={{ width: "100%" }}
               value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
+              error={quantityError}
+              helperText={quantityError ? 'Please enter a valid quantity' : ''}
+              onChange={handleQuantityChange}
               label="Quantity"
             />
-            {error && quantity.length <= 0 ? (
-              <InputLabel class="input-validation-error">
-                Drug quantity can't be empty or enter 0
-              </InputLabel>
-            ) : (
-              ""
-            )}
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl sx={{ width: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">Stock Type</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
+                {stockTypes.map((type) => (
+                <MenuItem key={type.stock_type} value={type.stock_type}>{type.stock_type}</MenuItem>
+              ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl sx={{ width: "100%" }} size="small">
+              <InputLabel id="demo-simple-select-label">Expire Type</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
+                {expireTypes.map((type) => (
+                <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
+              ))}
+              </Select>
+          </FormControl>
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -328,13 +371,6 @@ function UpdateStock() {
               label="Expiry Date"
               required
             />
-            {error && ExpiryDate.length <= 0 ? (
-              <InputLabel class="input-validation-error">
-                Drug Expire date can't be empty
-              </InputLabel>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={6}>
             <button class="btn btn-primary btn-sm" onClick={handleReset}>
