@@ -22,9 +22,7 @@ function AddAppointment() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [nic, setNic] = useState("");
   const [email,setEmail] =useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
