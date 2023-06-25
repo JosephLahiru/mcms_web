@@ -3,7 +3,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import './main.css';
+import { 
+  Grid,
+  Paper,
+  InputLabel,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+} from "@mui/material";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 
 function AddAppointment() {
@@ -22,6 +34,19 @@ function AddAppointment() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [error, setError] = useState(false);
 
+
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
 
   const navigate = useNavigate();
 
