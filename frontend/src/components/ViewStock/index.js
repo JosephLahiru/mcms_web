@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -13,6 +14,7 @@ import {
   MenuItem,
   InputLabel,
   Button,
+  IconButton,
   TablePagination,
   Grid,
   Paper,
@@ -27,6 +29,7 @@ import { useAppstore } from './../../appStore';
 
 function ViewStock() {
   const { dopen } = useAppstore();
+  const Navigate = useNavigate();
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -124,6 +127,11 @@ function ViewStock() {
     setConfirmDialogOpen(false);
   };
 
+  const handleUpdate = (item) => {
+    console.log(item.prdct_id);
+    Navigate(`/update_stock/${item.prdct_id}`);
+  };
+
   return (
     <Paper
       sx={{
@@ -176,6 +184,8 @@ function ViewStock() {
                   <TableCell>Unit Price(Rs)</TableCell>
                   <TableCell>Selling Price(Rs)</TableCell>
                   <TableCell>Quantity</TableCell>
+                  <TableCell>Stock Type</TableCell>
+                  <TableCell>Expiry Type</TableCell>
                   <TableCell>Manufacture Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
                   <TableCell></TableCell>
@@ -196,20 +206,23 @@ function ViewStock() {
                         <TableCell>{item.ac_price}</TableCell>
                         <TableCell>{item.sell_price}</TableCell>
                         <TableCell>{item.total_quantity}</TableCell>
+                        <TableCell>{item.stock_type}</TableCell>
+                        <TableCell>{item.expire_type}</TableCell>
                         <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<DeleteIcon />}
-                            onClick={() => handleDelete(item.prdct_id)}
-                          >
-                            Delete
-                          </Button>
+                        <IconButton
+                          aria-label="delete"
+                          variant="outlined"
+                          size="small"
+                          onClick={() => handleDelete(item.prdct_id)}
+                        >
+                        <DeleteIcon />
+                        </IconButton>
+
                         </TableCell>
                       </TableRow>
                     ))

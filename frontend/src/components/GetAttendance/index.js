@@ -4,7 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   Grid,
   Paper,
-  TextField,
   Button,
   FormControl,
   InputLabel,
@@ -20,23 +19,13 @@ function GetAttendance() {
   const [assistantId, setAssistantId] = useState('');
   const [date, setDate] = useState(null);
   const [attendanceStatus, setAttendanceStatus] = useState('');
-  const [error, setError] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    console.log(assistantId, date, attendanceStatus);
-
-    if (!assistantId || !date || !attendanceStatus) {
-      setError(true);
-      toast.error('Please fill all the fields...', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      return;
-    }
+  const handleSubmit = async (data) => {
+    console.log(data);
 
     const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : null;
 
+    if (assistantId && formattedDate && attendanceStatus) {
     try {
       const response = await fetch('http://158.101.10.103/set_attendance', {
         method: 'POST',
@@ -64,6 +53,11 @@ function GetAttendance() {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
+    } else {
+      toast.error('Please fill all the fields', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   const ITEM_HEIGHT = 48;
@@ -82,7 +76,6 @@ function GetAttendance() {
     setAssistantId('');
     setDate('');
     setAttendanceStatus('');
-    setError(false);
   };
 
   return (
@@ -90,34 +83,38 @@ function GetAttendance() {
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
+          <FormControl fullWidth size="small">
+          <InputLabel id="demo-simple-select-label">Assistant ID</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              sx={{ width: "100%" }}
               size="small"
-              fullWidth
+              label="Assistant ID"
               value={assistantId}
               onChange={(event) => setAssistantId(event.target.value)}
-              label="Assistant ID"
-              required
-            />
-            {error && assistantId.length <= 0 ? (
-              <InputLabel className="input-validation-error">
-                Assistant ID can't be Empty
-              </InputLabel>
-            ) : null}
+              MenuProps={MenuProps}
+            >
+              <MenuItem value="" disabled>
+                Select an option
+              </MenuItem>
+              <MenuItem value="1">Assistant 1</MenuItem>
+              <MenuItem value="2">Assistant 2</MenuItem>
+              <MenuItem value="3">Assistant 3</MenuItem>
+            </Select>
+          </FormControl>
           </Grid>
           <Grid item xs={12}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              size="small"
-              sx={{ width: "100%" }}
-              value={date}
-              onChange={(event) => setDate(event.target.value)}
-              label="Date"
-              slotProps={{ textField: { size: 'small' } }}
-              required
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                size="small"
+                sx={{ width: "100%" }}
+                value={date}
+                onChange={(value) => setDate(value)}
+                label="Date"
+                slotProps={{ textField: { size: 'small' } }}
+              />
             </LocalizationProvider>
-            {error && date.length <= 0 ?
-              <InputLabel className="input-validation-error">Date can't be Empty</InputLabel> : ""}
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth size="small">
@@ -140,11 +137,6 @@ function GetAttendance() {
                 <MenuItem value="2">Late</MenuItem>
               </Select>
             </FormControl>
-            {error && attendanceStatus.length <= 0 ? (
-              <InputLabel className="input-validation-error">
-                Assistant Status can't be Empty
-              </InputLabel>
-            ) : null}
           </Grid>
           <Grid item xs={6}>
             <Button sx={{ width: "100%" }} variant="contained" color="primary" onClick={handleReset}>
@@ -152,7 +144,7 @@ function GetAttendance() {
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button sx={{ width: "100%" }} variant="contained" color="primary" onClick={handleSubmit}>
+            <Button sx={{ width: "100%" }} variant="contained" color="primary" type="submit" onClick={handleSubmit}>
               Submit
             </Button>
           </Grid>
