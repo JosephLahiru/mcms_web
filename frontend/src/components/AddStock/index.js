@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
+
 function AddStock() {
   const [drugname, setDrugName] = useState("");
   const [drugnameError, setDrugNameError] = useState(false);
@@ -35,6 +36,7 @@ function AddStock() {
   const [selectedExpireType, setSelectedExpireType] = useState("");
   const [ManufacturedDate, setManufacturedDate] = useState(null);
   const [ExpireDate, setExpireDate] = useState(null);
+
 
   const handleDrugNameChange = (event) => {
     const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
@@ -72,6 +74,7 @@ function AddStock() {
     },
   };
 
+
   useEffect(() => {
     async function getDrugTypes() {
       try {
@@ -84,6 +87,7 @@ function AddStock() {
     }
     getDrugTypes();
   }, []);
+
 
   useEffect(() => {
     async function getStockTypes() {
@@ -98,6 +102,7 @@ function AddStock() {
     getStockTypes();
   }, []);
 
+
   useEffect(() => {
     async function getExpireTypes() {
       try {
@@ -111,20 +116,47 @@ function AddStock() {
     getExpireTypes();
   }, []);
 
+
+  function getStockTypeId(stockType) {
+    return fetch('https://mcms_api.mtron.me/get_stock_type_id/' + stockType)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch Stock Type Id');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const stockTypeValue = data.length > 0 ? data[0].stock_type_id : '';
+        return stockTypeValue;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        return '';
+      });
+  }  
+
+
+  function getExpireTypeId(expireType) {
+    return fetch('https://mcms_api.mtron.me/get_expire_type_id/' + expireType)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch Expire Type Id');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const expireTypeValue = data.length > 0 ? data[0].expire_type_id : '';
+        return expireTypeValue;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        return '';
+      });
+  }  
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log('drugname: ' + drugname);
-    console.log('brandname: ' + brandname);
-    console.log('selectedDrugType: ' + selectedDrugType);
-    console.log('descriptiongname: ' + description);
-    console.log('unitprice: ' + unitprice);
-    console.log('sellingprice: ' + sellingprice);
-    console.log('quantity: ' + quantity);
-    console.log('stocktype: ' + selectedStockType);
-    console.log('expiretype: ' + selectedExpireType);
-    console.log('ManufacturedDate: ' + ManufacturedDate);
-    console.log('ExpireDate: ' + ExpireDate);
 
     const formattedManufacturedDate = ManufacturedDate ? dayjs(ManufacturedDate).format('YYYY-MM-DD') : null;
     const formattedExpireDate = ExpireDate ? dayjs(ExpireDate).format('YYYY-MM-DD') : null;
@@ -137,13 +169,11 @@ function AddStock() {
       ac_price: unitprice,
       sell_price: sellingprice,
       total_quantity: quantity,
-      stock_type: selectedStockType,
-      expire_type: selectedExpireType,
+      stock_type: await getStockTypeId(selectedStockType),
+      expire_type: await getExpireTypeId(selectedExpireType),
       mfd_date: formattedManufacturedDate,
       exp_date: formattedExpireDate,
     };
-
-    console.log(data);
 
     if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
       try {
@@ -180,6 +210,7 @@ function AddStock() {
     }
   };
 
+
   const handleReset = () => {
     setDrugName("");
     setSelectedDrugType("");
@@ -193,31 +224,63 @@ function AddStock() {
     setManufacturedDate("");
     setExpireDate("");
   };
+  
 
   return (
     <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <TextField size="small" sx={{ width: "100%" }} value={drugname} error={drugnameError} helperText={drugnameError ? 'Pleae enter a valid drug name' : ''} onChange={handleDrugNameChange} label="Drug Name"/>
+            <TextField
+              size="small"
+              sx={{ width: "100%" }}
+              value={drugname}
+              error={drugnameError}
+              helperText={drugnameError ? 'Pleae enter a valid drug name' : ''}
+              onChange={handleDrugNameChange}
+              label="Drug Name"/>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={unitprice} error={unitpriceError} helperText={unitpriceError ? 'Please enter a valid unit price' : ''} onChange={handleUnitPriceChange} label="Unit Price" />
+            <TextField 
+              type="number"
+              size="small"
+              sx={{ width: "100%" }} 
+              value={unitprice} 
+              error={unitpriceError} 
+              helperText={unitpriceError ? 'Please enter a valid unit price' : ''} 
+              onChange={handleUnitPriceChange} 
+              label="Unit Price" />
           </Grid>
           <Grid item xs={6}>
             <TextField size="small" sx={{ width: "100%" }} value={brandname} onChange={(event) => setBrandName(event.target.value)} label="Brand Name" />
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={sellingprice} error={sellingpriceError} helperText={sellingpriceError ? 'Please enter a valid selling price' : ''} onChange={handleSellingPriceChange} label="Selling Price" />
+            <TextField 
+              type="number" 
+              size="small" 
+              sx={{ width: "100%" }} 
+              value={sellingprice} 
+              error={sellingpriceError} 
+              helperText={sellingpriceError ? 'Please enter a valid selling price' : ''} 
+              onChange={handleSellingPriceChange} 
+              label="Selling Price" />
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
               <InputLabel id="demo-simple-select-label">Drug Type</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedDrugType} onChange={(event) => setSelectedDrugType(event.target.value)} label="Drug Type" MenuProps={MenuProps}>
+              <Select 
+                labelId="demo-simple-select-label" 
+                id="demo-simple-select" 
+                sx={{ width: "100%" }} 
+                size="small" 
+                value={selectedDrugType} 
+                onChange={(event) => setSelectedDrugType(event.target.value)} 
+                label="Drug Type" 
+                MenuProps={MenuProps}>
                 {drugTypes.map((type) => (
                 <MenuItem key={type.med_type} value={type.med_type}>{type.med_type}</MenuItem>
               ))}
-            </Select>
+              </Select>
             </FormControl>
           </Grid>
           <Grid item xs={6}>
@@ -232,7 +295,14 @@ function AddStock() {
             </LocalizationProvider>
           </Grid>
           <Grid item xs={6}>
-            <TextField type="number" size="small" sx={{ width: "100%" }} value={quantity} error={quantityError} helperText={quantityError ? 'Please enter a valid quantity' : ''} onChange={handleQuantityChange} label="Quantity" />
+            <TextField 
+              type="number" 
+              size="small" 
+              sx={{ width: "100%" }} 
+              value={quantity} error={quantityError} 
+              helperText={quantityError ? 'Please enter a valid quantity' : ''} 
+              onChange={handleQuantityChange} 
+              label="Quantity" />
           </Grid>
           <Grid item xs={6}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -267,7 +337,13 @@ function AddStock() {
           </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <TextField id="outlined-multiline-static" sx={{ width: "100%" }} multiline value={description} onChange={(event) => setDescription(event.target.value)} label="Description"/>
+            <TextField 
+              id="outlined-multiline-static" 
+              sx={{ width: "100%" }} 
+              multiline 
+              value={description} 
+              onChange={(event) => setDescription(event.target.value)} 
+              label="Description"/>
           </Grid>
           <Grid item xs={6}>
             <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
