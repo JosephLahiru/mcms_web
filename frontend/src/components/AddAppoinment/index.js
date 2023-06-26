@@ -202,11 +202,8 @@ function AddAppointment2() {
      setAppointmentNumber(""); 
      setFirstName(""); 
      setLastName(""); 
-     setAddress(""); 
-     setAge(""); 
+     setAddress("");  
      setGender(""); 
-     setNic(""); 
-     setEmail(""); 
      setContactNumber(""); 
      setAppointmentType(""); 
      setAppointmentDoctor(""); 
