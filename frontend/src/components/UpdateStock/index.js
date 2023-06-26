@@ -32,10 +32,14 @@ function UpdateStock() {
   const [quantityError, setQuantityError] = useState(false);
   const [stockTypes, setStockTypes] = useState([]);
   const [selectedStockType, setSelectedStockType] = useState("");
+  const [selectedStockTypeId, setSelectedStockTypeId] = useState("");
   const [expireTypes, setExpireTypes] = useState([]);
   const [selectedExpireType, setSelectedExpireType] = useState("");
-  const [ManufactureDate, setManufactureDate] = useState("");
+  const [selectedExpireTypeId, setSelectedExpireTypeId] = useState("");
+  const [ManufacturedDate, setManufactureDate] = useState("");
   const [ExpiryDate, setExpiryDate] = useState("");
+
+  const { id } = useParams();
 
   const handleDrugNameChange = (event) => {
     const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
@@ -64,6 +68,8 @@ function UpdateStock() {
   useEffect(() => {
     async function getDrugTypes() {
       try {
+        // const idFromPath = window.location.pathname.split("/")[2];
+        // console.log("ID from path:", idFromPath);
         const response = await fetch(
           "https://mcms_api.mtron.me/get_med_types"
         );
@@ -103,6 +109,19 @@ function UpdateStock() {
     getExpireTypes();
   }, []);
 
+  useEffect(() => {
+    async function getStockTypeId() {
+      try {
+        const response = await fetch(`https://mcms_api.mtron.me/get_stock_type_id/${selectedStockType}`);
+        const data = await response.json();
+        console.log("Stock type ID:", data[0].stock_type_id);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getStockTypeId();
+  }, [selectedStockType]);
+
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -116,107 +135,116 @@ function UpdateStock() {
     },
   };
 
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     console.log("Drug ID:", drugId);
     console.log("Drug Name:", drugname);
+    console.log("Drug Type:", selectedType);
     console.log("Unit_price", unitprice);
-    console.log("Selling_price", sellingprice);
-    console.log("Manufacture Date", ManufactureDate);
     console.log("Expiry Date", ExpiryDate);
     console.log("Quantity", quantity);
+    console.log("Stock Type", selectedStockType);
+    console.log("Expire Type", selectedExpireType);
     console.log("Brand Name", brandname);
+    console.log("Selling_price", sellingprice);
+    console.log("Manufacture Date", ManufacturedDate);
+
+    const formattedManufacturedDate = ManufacturedDate ? dayjs(ManufacturedDate).format('YYYY-MM-DD') : null;
+    const formattedExpireDate = ExpiryDate ? dayjs(ExpiryDate).format('YYYY-MM-DD') : null;
 
     const data = {
-      drug_id: drugId,
+      prdct_id: drugId,
       prdct_name: drugname,
       ac_price: unitprice,
       sell_price: sellingprice,
       brand_name: brandname,
       med_type: drugTypes,
       total_quantity: quantity,
-      mfd_date: ManufactureDate,
-      exp_date: ExpiryDate,
+      mfd_date: formattedManufacturedDate,
+      exp_date: formattedExpireDate,
+      stock_type: selectedStockType,
+      expire_type: selectedExpireType,
     };
 
-    if (
-      !drugId ||
-      !drugname ||
-      !unitprice ||
-      !sellingprice ||
-      !quantity ||
-      !ManufactureDate ||
-      !ExpiryDate ||
-      !brandname
-    ) {
-      toast.error("Please fill all the fields...", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      return;
-    }
+    console.log("Data:", data);
 
-    fetch("https://mcms_api.mtron.me/update_stock", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // handle success response
+    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugId && drugname && unitprice && sellingprice && quantity && brandname && selectedType && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+    try{
+      const response = await fetch(`https://mcms_api.mtron.me/update_stock/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if(response.ok){
         console.log("Stock updated successfully", data);
         toast.success("Stock updated successfully", {
           position: toast.POSITION.TOP_RIGHT,
         });
-      })
-      .catch((error) => {
-        // handle error response
-        console.error("Failed to update stock", error);
+        handleReset();
+      }else{
         toast.error("Failed to update stock", {
           position: toast.POSITION.TOP_RIGHT,
         });
+      }
+    }catch(error){
+      console.error(error);
+      toast.error("An error occured while updating stock", {
+        position: toast.POSITION.TOP_RIGHT,
       });
+    }
+  } else {
+    toast.error("Please fill all the fields", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
   }
+  };
 
-  const handleUpdate = () => {
-    fetch(`https://mcms_api.mtron.me/get_stock/${drugId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setDrugName(data[0].prdct_name);
-        setBrandName(data[0].brand_name);
-        setSelectedType(data[0].med_type);
-        setUnitPrice(data[0].ac_price);
-        setSellingPrice(data[0].sell_price);
-        setQuantity(data[0].total_quantity);
-        selectedStockType(data[0].stock_type);
-        setSelectedExpireType(data[0].expire_type);
+  useEffect(() => {
+    async function getStock() {
+      try {
+        const response = await fetch(`https://mcms_api.mtron.me/get_stock/${id}`);
+        const data = await response.json();
 
-        const manufactureDate = new Date(data[0].mfd_date);
-        const formattedManufactureDate = `${manufactureDate.getFullYear()}-${(
-          manufactureDate.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, "0")}-${manufactureDate
-          .getDate()
-          .toString()
-          .padStart(2, "0")}`;
-        setManufactureDate(formattedManufactureDate);
+        if (data.length > 0) {
+          const stock = data[0];
+          setDrugId(stock.prdct_id);
+          setDrugName(stock.prdct_name);
+          setUnitPrice(stock.ac_price);
+          setSellingPrice(stock.sell_price);
+          setBrandName(stock.brand_name);
+          setQuantity(stock.total_quantity);
+          setSelectedType(stock.med_type);
+          setSelectedStockType(stock.stock_type);
+          setSelectedExpireType(stock.expire_type);
 
-        const expiryDate = new Date(data[0].exp_date);
-        const formattedExpiryDate = `${expiryDate.getFullYear()}-${(
-          expiryDate.getMonth() + 1
-        )
-          .toString()
-          .padStart(2, "0")}-${expiryDate.getDate().toString().padStart(2, "0")}`;
-        setExpiryDate(formattedExpiryDate);
-      })
-      .catch((error) => {
-        toast.error("Failed to fetch drug details", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      });
+          // Convert manufacture date and expiry date to "mm-dd-year" format
+          const manufactureDateFormatted = formatDate(stock.mfd_date);
+          const expiryDateFormatted = formatDate(stock.exp_date);
+
+          setManufactureDate(manufactureDateFormatted);
+          setExpiryDate(expiryDateFormatted);
+        } else {
+          toast.error("Drug not found", { position: toast.POSITION.TOP_RIGHT });
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to fetch drug details", { position: toast.POSITION.TOP_RIGHT });
+      }
+    }
+
+    getStock();
+  }, [id]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}-${day}-${year}`;
   };
 
   const handleReset = () => {
@@ -357,7 +385,7 @@ function UpdateStock() {
             <TextField
               size="small"
               sx={{ width: "100%" }}
-              value={ManufactureDate}
+              value={ManufacturedDate}
               onChange={(event) => setManufactureDate(event.target.value)}
               label="Manufactured Date"
             />
