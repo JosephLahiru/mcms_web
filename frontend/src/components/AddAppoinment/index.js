@@ -120,7 +120,7 @@ function AddAppointment2() {
     console.log("Appointment Date:", appointmentDate);
     console.log("Appointment Time:", appointmentTime);
 
-    if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
+    if ( !firstName || !lastName || !address || !gender  || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
       toast.error('Please fill all the fields...', {
         position: toast.POSITION.TOP_RIGHT
       });
@@ -128,25 +128,7 @@ function AddAppointment2() {
     }
 
    
-    // NIC validation
-    const nicRegex = /^[0-9]{9}[VXvx]$/;
-    if (!nicRegex.test(nic)) {
-      setError(true);
-      toast.error('Invalid NIC number', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailRegex.test(email)) {
-      setError(true);
-      toast.error('Invalid email address', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
 
     // Contact number validation
     const contactNumberRegex = /^[0-9]{10}$/;
@@ -161,12 +143,9 @@ function AddAppointment2() {
     const requestBody = {
       first_name: firstName,
       last_name: lastName,
-      nic: nic,
       address: address,
-      age: age,
       gender: gender,
       contact_num: contactNumber,
-      ...(email && { email: email }),
       app_num: appointmentNumber,
       at_id: await getAtId(appointmentType),
       cd_id: await getCdId(appointmentDoctor),
@@ -231,19 +210,9 @@ function AddAppointment2() {
         <InputLabel class='input-validation-error'>Last Name can't be empty</InputLabel> : ""}
       </Grid>
       <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Age" sx={{width:'300px'}} size="small" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
-        {error && age.length <= 0 ?
-              <InputLabel class='input-validation-error'>Age can't be empty</InputLabel> : ""}
-      </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField multiline rows={3} fullWidth label="Enter Address" sx={{width:'300px'}} size="small"value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
         {error && address.length <= 0 ?
               <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
-      </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter NIC" sx={{width:'300px'}} size="small" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
-        {error && nic.length <= 0 ?
-              <InputLabel class='input-validation-error'>NIC can't be empty</InputLabel> : ""}
       </Grid>
       <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -259,12 +228,6 @@ function AddAppointment2() {
   {error && address.length <= 0 ?
 <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
 </FormControl>
-<Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Email" sx={{width:'300px'}} size="small" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
-        {error && email.length <= 0 ?
-         <InputLabel class='input-validation-error'>Email can't be empty</InputLabel> : ""}
-      </Grid>
-   
     <Grid item xs={12} sx={{ margin: '10px 0' }}>
         <TextField label="Enter Contact Number" sx={{width:'300px'}} size="small" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
         {error && contactNumber.length <= 0 ?
