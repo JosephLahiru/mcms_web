@@ -41,7 +41,7 @@ function App() {
         <Route path='update_appointment' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />
-        <Route path='update_stock' element={<UpdateStock />} />
+        <Route path='update_stock/:id' element={<UpdateStock />} />
         <Route path='view_lowstock' element={<ViewLowStock />} />
         <Route path='view_shortexpiry' element={<ViewShortExpiry />} />
         <Route path='get_attendance' element={<GetAttendance />} />
