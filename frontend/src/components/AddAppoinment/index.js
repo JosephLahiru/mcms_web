@@ -26,10 +26,7 @@ function AddAppointment2() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [nic, setNic] = useState("");
-  const [email,setEmail] =useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentType, setAppointmentType] = useState("");
@@ -115,10 +112,7 @@ function AddAppointment2() {
     console.log("First Name:", firstName);
     console.log("Last Name:", lastName);
     console.log("Address:", address);
-    console.log("Age",age);
     console.log("Gender:", gender);
-    console.log("NIC:", nic);
-    console.log("Email:", email);
     console.log("Contact Number:", contactNumber);
     console.log("Appointment Number:", appointmentNumber);
     console.log("Appointment Type:", appointmentType);
