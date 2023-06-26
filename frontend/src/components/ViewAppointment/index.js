@@ -164,10 +164,11 @@ function ViewAppointment() {
           />
         </Grid>
         <Grid item xs={12}>
+          <></>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -261,7 +262,7 @@ function ViewAppointment() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -355,7 +356,7 @@ function ViewAppointment() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
