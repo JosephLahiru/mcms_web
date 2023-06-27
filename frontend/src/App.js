@@ -12,7 +12,6 @@ import ViewAttendance from './components/ViewAttendance';
 import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
-import AddAppointment2 from './components/AddAppoinment2';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import Navbar from './components/Navbar';
@@ -36,7 +35,6 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='dashboard' element={<Dashboard />} />
         <Route path='add_appointment' element={<AddAppointment />} />
-        <Route path='add_appointment2' element={<AddAppointment2 />} />
         <Route path='view_appointment' element={<ViewAppointment />} />
         <Route path='update_appointment' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
