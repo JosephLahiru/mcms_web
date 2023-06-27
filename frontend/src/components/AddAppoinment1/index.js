@@ -10,9 +10,6 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Alert,
-  Stack,
-  AlertTitle,
    } from '@mui/material';
 
   function AddAppointment1(){
@@ -40,12 +37,7 @@ import {
         </Grid>
         </Grid>   
       </Box>
-      <Stack  sx={{ width: '115%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center">
-      <Alert severity="info">
-        <AlertTitle>Info</AlertTitle>
-            Please Select Doctor — <strong>CHECK IT OUT!!</strong>
-      </Alert>
-      </Stack>
+      
       </Grid>
 
     );
