@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -96,9 +97,12 @@ function UpdateAppointment() {
           address: address,
           age: age,
           gender: gender,
-          mobile: mobile,
+          contact_num: contactNumber,
+          ...(email && { email: email }),    // Include email field conditionally
+          at_name: appointmentType,
           cd_id: appointmentDoctor,
           app_date: appointmentDate,
+          atm_type: appointmentTime,
         }),
       });
 
@@ -117,13 +121,18 @@ function UpdateAppointment() {
 
   const handleReset = () => {
     setAppointmentNumber(""); 
-     setPatientName(""); 
+     setFirstName(""); 
+     setLastName(""); 
      setAddress(""); 
+     setAge(""); 
      setGender(""); 
+     setNic(""); 
      setEmail(""); 
-     setMobile(""); 
+     setContactNumber(""); 
+     setAppointmentType(""); 
      setAppointmentDoctor(""); 
      setAppointmentDate(""); 
+     setAppointmentTime("");
      setError(false);
   };
 
