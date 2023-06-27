@@ -2,43 +2,59 @@ import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+
 import { 
   Grid, 
-  Select, 
-  MenuItem, 
-  FormControl, 
-  InputLabel, 
   Box,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
    } from '@mui/material';
 
+  function AddAppointment(){
+    const [selectedOption, setSelectedOption] = useState('');
+    const [formData, setFormData] = useState({
+    
+    });
 
-   export default function BasicSelect() {
-    const [speciality, setSpeciality] = React.useState('');
-  
-    const handleChange = (event) => {
-      setSpeciality(event.target.value);
+    const handleOptionChange = (event) => {
+      setSelectedOption(event.target.value);
     };
-
   
-  return (
-    <Box sx={{width: 2000,height: 200,backgroundColor:'#e040fb', }}>
-      <FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">Age</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    value={speciality}
-    label="Speciality"
-    onChange={handleChange}
-  >
-    <MenuItem value={1}>The Universal Physician</MenuItem>
-    <MenuItem value={2}>Pediatrician</MenuItem>
-    <MenuItem value={3}>Radiologist</MenuItem>
-  </Select>
-</FormControl>
-    </Box>
-  );
-   } 
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      // Perform form submission logic here
+      console.log(formData);
+    };
+    return (
+      <Box sx={{width: 2000,height: 1000,backgroundColor: '#ce93d8', }}>
+          <form onSubmit={handleSubmit} >
+          <Grid item xs={12} sx={{paddingTop:'200px', paddingBottom:'60px'}}>
+        <Grid container spacing={1} alignItems="center" justifyContent="center">
+          <Grid item sx={{backgroundColor : 'white'}}>
+            <Select value={selectedOption} onChange={handleOptionChange}>
+              <MenuItem value="option1">Universal Physician</MenuItem>
+              <MenuItem value="option2">Pediatrician</MenuItem>
+              <MenuItem value="option3">Radiologist</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item>
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+        </Grid>
+      </form>
+     
+      </Box>
+      
+    );
+}
+
+export default AddAppointment;   
   
  
 
