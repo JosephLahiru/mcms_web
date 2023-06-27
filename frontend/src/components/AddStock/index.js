@@ -329,7 +329,7 @@ function AddStock() {
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
               <InputLabel id="demo-simple-select-label">Expire Type</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
                 {expireTypes.map((type) => (
                 <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
               ))}
