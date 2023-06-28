@@ -44,14 +44,14 @@ import {
         </Grid>   
       </Box>
       </Grid>
-      <Grid item xs={12}>
-      <Stack  sx={{ width: '100%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
-      <Alert severity="info">
-        <AlertTitle>Info</AlertTitle>
-            Please Select Doctor — <strong>CHECK IT OUT!!</strong>
-      </Alert>
-      </Stack>
-      </Grid>
+        <Grid item xs={12}>
+          <Stack  sx={{ width: '100%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
+            <Alert severity="info">
+              <AlertTitle>Info</AlertTitle>
+                  Please Select Doctor — <strong>CHECK IT OUT!!</strong>
+            </Alert>
+          </Stack>
+        </Grid>
       </Grid>
     
 
