@@ -26,7 +26,6 @@ function AddAppointment1() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <Box sx={{ width: '100%', height: 250, backgroundColor: '#ce93d8' }}>
@@ -59,8 +58,13 @@ function AddAppointment1() {
             </ToggleButtonGroup>
           </Box>
         </Grid>
+        <Grid item xs={12}>
+          <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            
+          </Box>
+        </Grid>
       </Grid>
-    </ThemeProvider>
+
   );
 }
 
