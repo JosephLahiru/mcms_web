@@ -14,20 +14,16 @@ import {
   Alert,
   Stack,
   AlertTitle,
-  CircularProgress,
   Typography,
    } from '@mui/material';
 
   function AddAppointment(){
     const [doctor, setDoctor] = useState('');
-
-    
     const navigate = useNavigate();
 
     const handleOptionChange = (event) => {
       setDoctor(event.target.value);
     };
-
 
     return (
     <Grid>
@@ -55,6 +51,7 @@ import {
       </Alert>
       </Stack>
       </Grid>
+    
 
     );
 }
