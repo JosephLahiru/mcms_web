@@ -6,13 +6,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { 
   Grid, 
   Box,
-  Select,
-  MenuItem,
   FormControl,
-  InputLabel,
-  Alert,
-  Stack,
-  AlertTitle,
+  TextField,
+  Typography,
    } from '@mui/material';
 
   function AddAppointment(){
@@ -20,13 +16,12 @@ import {
     return (
     <Grid>
     <Box sx={{width: 2000,height: 250,backgroundColor: '#ce93d8', }}>
-      <Grid item xs={12} sx={{paddingTop:'130px', paddingBottom:'50px'}}>
+    <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px',textAlign: 'center' }}  >ADD  APPOINTMENT</Typography>
+      <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label"></InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select"   sx={{width: '500px'}} >
-              </Select>
+            <TextField labelId="demo-simple-select-label" id="demo-simple-select" sx={{width: '500px'}} />
             </FormControl> 
           </Grid> 
         </Grid>
