@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Grid, 
     Box, 
     FormControl,
@@ -13,6 +15,9 @@ import { Grid,
  } from '@mui/material';
 
 function AddAppointment1() {
+      
+const navigate = useNavigate();
+
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDate = new Date();
@@ -102,7 +107,7 @@ function AddAppointment1() {
                     </Typography>
             </Grid>
             <Grid item xs={3} sx={{paddingTop: '30px',paddingRight: '120px'}}>
-                    <Button variant="contained" size="medium" color="secondary" sx={{paddingTop: '10px',textAlign: 'center'}}>Book Now</Button>
+                    <Button variant="contained" size="medium" color="secondary" sx={{paddingTop: '10px',textAlign: 'center'}} onClick={() => navigate("/add_appointment2")}>Book Now</Button>
             </Grid>
           </Box>
         </Grid> 
