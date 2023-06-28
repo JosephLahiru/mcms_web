@@ -168,7 +168,7 @@ function ViewAppointment() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -262,7 +262,7 @@ function ViewAppointment() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -356,7 +356,7 @@ function ViewAppointment() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ea80fc" } }}>
+                <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Last Name</TableCell>
