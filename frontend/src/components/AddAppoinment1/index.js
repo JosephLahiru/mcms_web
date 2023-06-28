@@ -58,23 +58,23 @@ const navigate = useNavigate();
             <Grid item xs={12} sx={{ paddingTop: '80px', paddingBottom: '50px' }}>
               <Grid container spacing={0} alignItems="center" justifyContent="center">
                 <Grid item sx={{ backgroundColor: 'white' }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">SELECT A SPECIALITY</InputLabel>
-                        <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange}  sx={{width: '500px'}} label = "SELECT A DOCTOR" >
-                            <MenuItem value="option1">Universal Physician - Nishantha Gunasekara</MenuItem>
-                            <MenuItem value="option2">Pediatrician - Buddhi Mohotti</MenuItem>
-                            <MenuItem value="option3">Radiologist - Presantha Bandara</MenuItem>
-                        </Select>
-                </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">SELECT A SPECIALITY</InputLabel>
+                            <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange}  sx={{width: '500px'}} label = "SELECT A DOCTOR" >
+                            <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
+                            <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+                            <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
+                            </Select>
+                    </FormControl>
                 </Grid>
               </Grid>
             </Grid>
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Box sx={{ width: '100%', height: 150, backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
-              {dates.map((date, index) => (
+            <Box sx={{ width: '100%', height: 150, backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
+                    {dates.map((date, index) => (
                 <ToggleButton key={index} value={date.toDateString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
                   <div>
                     <div style={{ fontSize: '20px' }}>{months[date.getMonth()]}</div>
@@ -82,34 +82,34 @@ const navigate = useNavigate();
                     <div >{daysOfWeek[date.getDay()]}</div>
                   </div>
                 </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
+                    ))}
+                </ToggleButtonGroup>
           </Box>
         </Grid>
         <Grid item xs={12} sx={{paddingLeft: '80px'}}>
-          <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Grid item xs={3} >
+            <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Grid item xs={3} >
                     <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '150px'}}>
                         K.G.N.Medi House
                     </Typography>
                     <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '5px', textAlign: 'left' ,paddingLeft: '175px'}}>
                         Galle
                     </Typography>
-            </Grid>
-            <Grid item xs={3}>
+                </Grid>
+                <Grid item xs={3}>
                     <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '120px'}}>
                         00
                     </Typography>
-            </Grid>
-            <Grid item xs={3}>
+                </Grid>
+                <Grid item xs={3}>
                     <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '10px'}}>
                         04.00 PM
                     </Typography>
-            </Grid>
-            <Grid item xs={3} sx={{paddingTop: '30px',paddingRight: '120px'}}>
+                </Grid>
+                <Grid item xs={3} sx={{paddingTop: '30px',paddingRight: '120px'}}>
                     <Button variant="contained" size="medium" color="secondary" sx={{paddingTop: '10px',textAlign: 'center'}} onClick={() => navigate("/add_appointment2")}>Book Now</Button>
-            </Grid>
-          </Box>
+                </Grid>
+            </Box>
         </Grid> 
       </Grid>
 
