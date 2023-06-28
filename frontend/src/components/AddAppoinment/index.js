@@ -13,6 +13,7 @@ import {
   Alert,
   Stack,
   AlertTitle,
+  CircularProgress,
    } from '@mui/material';
 
   function AddAppointment(){
@@ -40,12 +41,17 @@ import {
         </Grid>
         </Grid>   
       </Box>
-      <Stack  sx={{ width: '115%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center">
+      <Stack  sx={{ width: '115%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
       <Alert severity="info">
         <AlertTitle>Info</AlertTitle>
             Please Select Doctor — <strong>CHECK IT OUT!!</strong>
       </Alert>
       </Stack>
+      <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+      <CircularProgress color="secondary" />
+      <CircularProgress color="success" />
+      <CircularProgress color="inherit" />
+    </Stack>
       </Grid>
 
     );
