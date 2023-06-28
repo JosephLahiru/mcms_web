@@ -9,6 +9,7 @@ import { Grid,
     MenuItem,
     Select,
     InputLabel,
+    Button,
  } from '@mui/material';
 
 function AddAppointment1() {
@@ -82,25 +83,29 @@ function AddAppointment1() {
         </Grid>
         <Grid item xs={12} sx={{paddingLeft: '80px'}}>
           <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Grid item xs={3}>
-                <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '80px'}}>
-                    K.G.N.Medi House
-                </Typography>
-                <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '5px', textAlign: 'left' ,paddingLeft: '140px'}}>
-                    Galle
-                </Typography>
+            <Grid item xs={3} >
+                    <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '150px'}}>
+                        K.G.N.Medi House
+                    </Typography>
+                    <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '5px', textAlign: 'left' ,paddingLeft: '175px'}}>
+                        Galle
+                    </Typography>
             </Grid>
             <Grid item xs={3}>
-          
+                    <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '120px'}}>
+                        00
+                    </Typography>
             </Grid>
             <Grid item xs={3}>
-          
+                    <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' ,paddingLeft: '10px'}}>
+                        04.00 PM
+                    </Typography>
             </Grid>
-            <Grid item xs={3}>
-          
+            <Grid item xs={3} sx={{paddingTop: '30px',paddingRight: '120px'}}>
+                    <Button variant="contained" size="medium" color="secondary" sx={{paddingTop: '10px',textAlign: 'center'}}>Book Now</Button>
             </Grid>
           </Box>
-        </Grid>
+        </Grid> 
       </Grid>
 
   );
