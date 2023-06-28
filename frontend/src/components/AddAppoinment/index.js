@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -26,8 +24,9 @@ import {
     };
 
     return (
-    <Grid>
-    <Box sx={{width: 2000,height: 250,backgroundColor: '#ce93d8', }}>
+    <Grid container spacing={0}>
+    <Grid item xs={12}>
+    <Box sx={{width: '100%',height: 250,backgroundColor: '#ce93d8', }}>
     <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '35px',textAlign: 'center' }}  >ADD  APPOINTMENT</Typography>
       <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
@@ -44,12 +43,15 @@ import {
         </Grid>
         </Grid>   
       </Box>
-      <Stack  sx={{ width: '115%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
+      </Grid>
+      <Grid item xs={12}>
+      <Stack  sx={{ width: '100%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
       <Alert severity="info">
         <AlertTitle>Info</AlertTitle>
             Please Select Doctor — <strong>CHECK IT OUT!!</strong>
       </Alert>
       </Stack>
+      </Grid>
       </Grid>
     
 
