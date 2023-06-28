@@ -26,7 +26,7 @@ import {
     <Grid container spacing={0}>
     <Grid item xs={12}>
     <Box sx={{width: '100%',height: 250,backgroundColor: '#ce93d8', }}>
-    <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '35px',textAlign: 'center' }}  >ADD  APPOINTMENT</Typography>
+    <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px',textAlign: 'left',paddingLeft :'90px' }}  >ADD  APPOINTMENT</Typography>
       <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >
