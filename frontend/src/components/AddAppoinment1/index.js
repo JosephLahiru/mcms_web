@@ -20,9 +20,9 @@ function AddAppointment1() {
     },
   });
 
-  const [alignment, setAlignment] = useState('web');
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const [appointmentDate, setAppointmentDate] = useState('web');
+  const handleChange = (event, newAppointmentDate) => {
+    setAppointmentDate(newAppointmentDate);
   };
 
   return (
@@ -46,7 +46,7 @@ function AddAppointment1() {
         </Grid>
         <Grid item xs={12}>
           <Box sx={{ width: '100%', height: 150, backgroundColor: '#f3e5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <ToggleButtonGroup color="secondary" value={alignment} exclusive onChange={handleChange} aria-label="Platform" sx={{ height: '100%' }}>
+            <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
               {dates.map((date, index) => (
                 <ToggleButton key={index} value={date.toDateString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
                   <div>
