@@ -10,14 +10,12 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Alert,
+  Stack,
+  AlertTitle,
    } from '@mui/material';
 
-  function AddAppointment1(){
-    const [doctor, setDoctor] = useState('');
-
-    const handleOptionChange = (event) => {
-      setDoctor(event.target.value);
-    };
+  function AddAppointment(){
 
     return (
     <Grid>
@@ -27,17 +25,16 @@ import {
           <Grid item  sx={{backgroundColor : 'white'}} >
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label"></InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} sx={{width: '500px'}}  >
+              <Select labelId="demo-simple-select-label" id="demo-simple-select"   sx={{width: '500px'}} >
               </Select>
             </FormControl> 
           </Grid> 
         </Grid>
         </Grid>   
       </Box>
-      
       </Grid>
 
     );
 }
 
-export default AddAppointment1;   
+export default AddAppointment;   
