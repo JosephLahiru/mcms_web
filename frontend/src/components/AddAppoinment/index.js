@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from 'react-router-dom';
 
 
 import { 
@@ -14,10 +15,14 @@ import {
   Stack,
   AlertTitle,
   CircularProgress,
+  Typography,
    } from '@mui/material';
 
   function AddAppointment(){
     const [doctor, setDoctor] = useState('');
+
+    
+    const navigate = useNavigate();
 
     const handleOptionChange = (event) => {
       setDoctor(event.target.value);
@@ -26,12 +31,13 @@ import {
     return (
     <Grid>
     <Box sx={{width: 2000,height: 250,backgroundColor: '#ce93d8', }}>
-      <Grid item xs={12} sx={{paddingTop:'130px', paddingBottom:'50px'}}>
+    <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '35px',textAlign: 'center' }}  >ADD  APPOINTMENT</Typography>
+      <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">SELECT A DOCTOR</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} onClick={() => navigate("/add_appointment1")} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
                 <MenuItem value="option1">Universal Physician</MenuItem>
                 <MenuItem value="option2">Pediatrician</MenuItem>
                 <MenuItem value="option3">Radiologist</MenuItem>
@@ -47,10 +53,10 @@ import {
             Please Select Doctor — <strong>CHECK IT OUT!!</strong>
       </Alert>
       </Stack>
-      <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+      <Stack sx={{ color: 'grey.500'}} spacing={2} direction="row" >
       <CircularProgress color="secondary" />
-      <CircularProgress color="success" />
-      <CircularProgress color="inherit" />
+      <CircularProgress color="secondary" />
+      <CircularProgress color="secondary" />
     </Stack>
       </Grid>
 

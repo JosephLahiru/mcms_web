@@ -26,11 +26,8 @@ import {
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">SELECT A DOCTOR</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
-                <MenuItem value="option1">Universal Physician</MenuItem>
-                <MenuItem value="option2">Pediatrician</MenuItem>
-                <MenuItem value="option3">Radiologist</MenuItem>
+              <InputLabel id="demo-simple-select-label"></InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} sx={{width: '500px'}}  >
               </Select>
             </FormControl> 
           </Grid> 
