@@ -1,60 +1,64 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.css';
-
+import { useNavigate } from 'react-router-dom';
 
 import { 
   Grid, 
   Box,
-  TextField,
-  Button,
   Select,
   MenuItem,
+  FormControl,
+  InputLabel,
+  Alert,
+  Stack,
+  AlertTitle,
+  Typography,
    } from '@mui/material';
 
   function AddAppointment(){
-    const [selectedOption, setSelectedOption] = useState('');
-    const [formData, setFormData] = useState({
-    
-    });
+    const [doctor, setDoctor] = useState('');
+    const navigate = useNavigate();
 
     const handleOptionChange = (event) => {
-      setSelectedOption(event.target.value);
+      setDoctor(event.target.value);
     };
-  
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // Perform form submission logic here
-      console.log(formData);
-    };
+
     return (
-      <Box sx={{width: 2000,height: 1000,backgroundColor: '#ce93d8', }}>
-          <form onSubmit={handleSubmit} >
-          <Grid item xs={12} sx={{paddingTop:'200px', paddingBottom:'60px'}}>
-        <Grid container spacing={1} alignItems="center" justifyContent="center">
-          <Grid item sx={{backgroundColor : 'white'}}>
-            <Select value={selectedOption} onChange={handleOptionChange}>
-              <MenuItem value="option1">Universal Physician</MenuItem>
-              <MenuItem value="option2">Pediatrician</MenuItem>
-              <MenuItem value="option3">Radiologist</MenuItem>
-            </Select>
-          </Grid>
-          <Grid item>
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
-          </Grid>
+    <Grid container spacing={0}>
+    <Grid item xs={12}>
+    <Box sx={{width: '100%',height: 250,backgroundColor: '#ce93d8', }}>
+    <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px',textAlign: 'left',paddingLeft :'90px' }}  >ADD  APPOINTMENT</Typography>
+      <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
+        <Grid container spacing={0} alignItems="center" justifyContent="center" >
+          <Grid item  sx={{backgroundColor : 'white'}} >
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">SELECT A SPECIALITY</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} onClick={() => navigate("/add_appointment1")} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
+                  <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
+                  <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+                  <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
+              </Select>
+            </FormControl> 
+          </Grid> 
         </Grid>
-        </Grid>
-      </form>
-     
+        </Grid>   
       </Box>
-      
+      </Grid>
+        <Grid item xs={12}>
+          <Stack  sx={{ width: '100%',paddingTop:'70px' }}  spacing={0}  alignItems="center" justifyContent="center" >
+            <Alert severity="info">
+              <AlertTitle>Info</AlertTitle>
+                  Please Select Doctor — <strong>CHECK IT OUT!!</strong>
+            </Alert>
+          </Stack>
+        </Grid>
+      </Grid>
+    
+
     );
 }
 
 export default AddAppointment;   
   
- 
+
+
 
