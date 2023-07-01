@@ -9,6 +9,9 @@ import { Grid,
      FormControlLabel,
      RadioGroup,
      Button,
+     Modal,
+     style,
+
     } from '@mui/material';
 
 function AddAppointment2() {
@@ -17,6 +20,22 @@ function AddAppointment2() {
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
+
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
  
   return (
@@ -132,7 +151,34 @@ function AddAppointment2() {
           />
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px' }}>Book Now</Button>
+            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleOpen}Open modal>Book Now</Button>
+            <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="Patient Information Title"
+                  aria-describedby="Patient Information Description "
+                >
+                  <Box sx={style}>
+                    <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
+                    Patient Information Title
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
+                      NAME: 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
+                      AGE:
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
+                      MOBILE:
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
+                      GENDER:
+                    </Typography>
+                    <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
+                      SUCCESSFULLY!!!
+                    </Typography>
+                  </Box>
+                </Modal>
               </Grid> 
           </Grid>
         </Box>
