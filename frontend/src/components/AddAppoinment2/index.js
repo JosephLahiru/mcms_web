@@ -81,7 +81,7 @@ function AddAppointment2() {
             onChange={(event) => setPatientName(event.target.value)}
             variant="outlined"
             color="secondary"
-            sx={{ width: '90%' , marginBottom: '10px'}}
+            sx={{ width: '90%' , marginBottom: '20px'}}
           />
             </Grid>
           <Grid item xs={12} sm={12} container spacing={8} >
@@ -132,7 +132,7 @@ function AddAppointment2() {
           />
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '26px' }}>Book Now</Button>
+            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px' }}>Book Now</Button>
               </Grid> 
           </Grid>
         </Box>
