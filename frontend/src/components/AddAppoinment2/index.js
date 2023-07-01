@@ -4,12 +4,19 @@ import { Grid,
      Box, 
      Typography,
      Divider,
-     TextField 
+     TextField,
+     Radio,
+     FormControlLabel,
+     RadioGroup,
     } from '@mui/material';
 
 function AddAppointment2() {
 
     const [patientName, setPatientName] = useState("");
+    const [age, setAge] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [area, setArea] = useState("");
+ 
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
@@ -63,6 +70,8 @@ function AddAppointment2() {
       </Grid>
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Box sx={{ width: '1200px', height: 400, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Grid container spacing={1}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
           <TextField
             id="patient-name"
             label="Patient Name"
@@ -70,8 +79,57 @@ function AddAppointment2() {
             onChange={(event) => setPatientName(event.target.value)}
             variant="outlined"
             color="secondary"
-            sx={{ width: '50%' }}
+            sx={{ width: '90%' , marginBottom: '10px'}}
           />
+            </Grid>
+          <Grid item xs={12} sm={12} container spacing={8} >
+          <Grid item xs={6}  sx={{ display: 'flex', justifyContent: 'right' }}>
+            <TextField
+             id="age"
+             label="Patient Age"
+             value={age}
+             onChange={(event) => setAge(event.target.value)}
+             variant="outlined"
+             color="secondary"
+             sx={{ width: '90%' , marginBottom: '10px'}}
+           /> 
+          </Grid>
+          <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'left' }} >
+            <TextField 
+             id="mobile"
+             label="Patient Mobile"
+             value={mobile}
+             onChange={(event) => setMobile(event.target.value)}
+             variant="outlined"
+             color="secondary"
+             sx={{ width: '90%' , marginBottom: '10px'}}
+           />
+          </Grid>
+          </Grid>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}  >
+            <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+        sx={{ width: '90%' }}
+
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+      </RadioGroup>
+          </Grid>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
+          <TextField
+            id="area"
+            label=" Patient Area"
+            value={area}
+            onChange={(event) => setArea(event.target.value)}
+            variant="outlined"
+            color="secondary"
+            sx={{ width: '90%' , marginBottom: '20px'}}
+          />
+            </Grid>
+          </Grid>
         </Box>
     </Grid>
      </Grid>
