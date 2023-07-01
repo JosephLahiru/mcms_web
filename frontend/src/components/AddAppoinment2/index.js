@@ -22,7 +22,7 @@ function AddAppointment2() {
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
+        <Box sx={{ width: '100%', height: 175, backgroundColor: '#ce93d8' }}>
           <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
             BOOK A CHANNEL
           </Typography>
@@ -132,7 +132,7 @@ function AddAppointment2() {
           />
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-            <Button variant="contained" size="medium" color="secondary">Book Now</Button>
+            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '26px' }}>Book Now</Button>
               </Grid> 
           </Grid>
         </Box>
