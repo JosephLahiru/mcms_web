@@ -183,7 +183,7 @@ export default function Sidebar() {
                 >
                   <BookOnlineIcon />
                 </ListItemIcon>
-                <ListItemText primary="Add Appointment1" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Add Appointment2" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_appointment"))}>

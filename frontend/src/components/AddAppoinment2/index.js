@@ -20,6 +20,7 @@ function AddAppointment2() {
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
+    const [gender, setGender] = useState("");
 
     const style = {
       position: 'absolute',
@@ -127,11 +128,13 @@ function AddAppointment2() {
            />
           </Grid>
           </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
+            <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
             <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
+        value={gender} 
+        onChange={(event) => setGender(event.target.value)}
         sx={{ width: '90%',marginBottom: '10px' }}
 
       >
@@ -162,17 +165,17 @@ function AddAppointment2() {
                     <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
                     Patient Information Title
                     </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
-                      NAME: 
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      NAME: {patientName ? `${patientName}` : ''} 
                     </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
-                      AGE:
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      AGE: {age ? `${age}` : ''} 
                     </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
-                      MOBILE:
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      MOBILE: {mobile ? `${mobile}` : ''} 
                     </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 }}>
-                      GENDER:
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      GENDER: {gender ? `${gender}` : ''} 
                     </Typography>
                     <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
                       SUCCESSFULLY!!!
