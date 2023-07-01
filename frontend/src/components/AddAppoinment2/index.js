@@ -8,6 +8,7 @@ import { Grid,
      Radio,
      FormControlLabel,
      RadioGroup,
+     Button,
     } from '@mui/material';
 
 function AddAppointment2() {
@@ -16,11 +17,12 @@ function AddAppointment2() {
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
+
  
   return (
     <Grid container spacing={5}>
       <Grid item xs={12}>
-        <Box sx={{ width: '100%', height: 120, backgroundColor: '#ce93d8' }}>
+        <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
           <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
             BOOK A CHANNEL
           </Typography>
@@ -106,16 +108,16 @@ function AddAppointment2() {
            />
           </Grid>
           </Grid>
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}  >
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
             <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
-        sx={{ width: '90%' }}
+        sx={{ width: '90%',marginBottom: '10px' }}
 
       >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
+        <FormControlLabel value="male" control={<Radio />} label="Male"  />
       </RadioGroup>
           </Grid>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
@@ -129,6 +131,9 @@ function AddAppointment2() {
             sx={{ width: '90%' , marginBottom: '20px'}}
           />
             </Grid>
+            <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
+            <Button variant="contained" size="medium" color="secondary">Book Now</Button>
+              </Grid> 
           </Grid>
         </Box>
     </Grid>
