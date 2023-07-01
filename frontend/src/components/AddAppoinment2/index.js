@@ -69,6 +69,7 @@ function AddAppointment2() {
             value={patientName}
             onChange={(event) => setPatientName(event.target.value)}
             variant="outlined"
+            color="secondary"
             sx={{ width: '50%' }}
           />
         </Box>

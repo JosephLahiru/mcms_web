@@ -31,8 +31,8 @@ import {
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">SELECT A SPECIALITY</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={doctor} onChange={handleOptionChange} onClick={() => navigate("/add_appointment1")} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
+              <InputLabel id="demo-simple-select-label" color="secondary">SELECT A SPECIALITY</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" color="secondary"  value={doctor} onChange={handleOptionChange} onClick={() => navigate("/add_appointment1")} sx={{width: '500px'}} label = "SELECT A DOCTOR" >
                   <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
                   <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
                   <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
