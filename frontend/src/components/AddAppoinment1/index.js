@@ -82,7 +82,7 @@ const navigate = useNavigate();
                     <div >{daysOfWeek[date.getDay()]}</div>
                   </div>
                 </ToggleButton>
-                    ))}
+                    ))}.
                 </ToggleButtonGroup>
           </Box>
         </Grid>
