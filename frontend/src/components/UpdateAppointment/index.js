@@ -1,6 +1,10 @@
 import React,{useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 import { 
   Grid,
@@ -16,6 +20,7 @@ import {
   Radio,
   Button,
   Modal,
+
 
 
 
@@ -61,7 +66,7 @@ function UpdateAppointment() {
 
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={2}>
     <Grid item xs={12}>
       <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -71,7 +76,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 650, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 675, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'30px',paddingTop:'20px' }}>
           Appointment Information
         </Typography> 
@@ -87,7 +92,7 @@ function UpdateAppointment() {
             sx={{ width: '70%' , marginBottom: '20px'}}
           />
     </Grid>
-    <Grid item xs={6}>
+    <Grid item xs={5}>
     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
                             <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
@@ -97,18 +102,18 @@ function UpdateAppointment() {
                             </Select>
                     </FormControl>
     </Grid>
-    <Grid item xs={2}>
-      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DATE</InputLabel>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                size="small"
-                sx={{ width: "100%" }}
-                value={ExpireDate}
-                onChange={(date) => setExpireDate(date)}
-                label="Expire Date"
-                slotProps={{ textField: { size: 'small' } }}
-              />
-            </LocalizationProvider>
+    <Grid item xs={4} sx={{width: '200px'}} >
+    <LocalizationProvider  dateAdapter={AdapterDayjs} >
+      <DemoContainer components={['DatePicke',]}>
+        <DatePicker 
+           value={appointmentDate}
+          label={"APPOINTMENT DATE"}
+          views={['year', 'month', 'day']}
+          color="secondary"
+
+        />
+        </DemoContainer>
+    </LocalizationProvider>
     </Grid>
   </Grid>
   <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '40px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
