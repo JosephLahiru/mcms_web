@@ -20,14 +20,7 @@ import {
   Radio,
   Button,
   Modal,
-
-
-
-
  } from '@mui/material';
-
-
-
 
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
@@ -37,12 +30,9 @@ function UpdateAppointment() {
   const [mobile, setMobile] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState(null);
   const [error, setError] = useState(false);
 
-  const navigate = useNavigate();
-
-  
   const style = {
     position: 'absolute',
     top: '50%',
@@ -63,8 +53,6 @@ function UpdateAppointment() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
-
   return (
     <Grid container spacing={2}>
     <Grid item xs={12}>
@@ -80,8 +68,8 @@ function UpdateAppointment() {
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'30px',paddingTop:'20px' }}>
           Appointment Information
         </Typography> 
-      <Grid container spacing={{ xs: 2 }}>
-    <Grid item xs={3}>
+      <Grid  item xs={4}container spacing={{ xs: 2 }}>
+    <Grid item xs={3} >
     <TextField
             id="appointment number"
             label=" APPOINTMENT NUMBER"
@@ -89,94 +77,97 @@ function UpdateAppointment() {
             onChange={(event) => setAppointmentNumber(event.target.value)}
             variant="outlined"
             color="secondary"
-            sx={{ width: '70%' , marginBottom: '20px'}}
+            sx={{ width: '80%' , marginBottom: '20px',marginLeft: '110px'}}
           />
     </Grid>
     <Grid item xs={5}>
-    <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
-                            <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
-                            <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-                            <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-                            <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
-                            </Select>
-                    </FormControl>
+    <FormControl fullWidth sx={{marginLeft: '60px'}} >
+      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
+          <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
+              <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
+              <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+              <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
+              </Select>
+    </FormControl>
     </Grid>
     <Grid item xs={4} sx={{width: '200px'}} >
-    <LocalizationProvider  dateAdapter={AdapterDayjs} >
-      <DemoContainer components={['DatePicke',]}>
-        <DatePicker 
-           value={appointmentDate}
-          label={"APPOINTMENT DATE"}
-          views={['year', 'month', 'day']}
-          color="secondary"
-
-        />
-        </DemoContainer>
-    </LocalizationProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            color="secondary"
+            label="APPOINTMENT DATE"
+            value={appointmentDate}
+            onChange={(date) => setAppointmentDate(date)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                color="secondary"
+                label="APPOINTMENT DATE"
+                sx={{ width: '100%', marginBottom: '20px',paddingLeft: '60px' }}
+              />
+            )}
+          />
+        </LocalizationProvider>
     </Grid>
   </Grid>
   <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '40px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
           Patient Information
         </Typography>  
       <Grid  item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
-        <TextField
-          id="patient-name"
-          label="Patient Name"
-          value={patientName}
-          onChange={(event) => setPatientName(event.target.value)}
-          variant="outlined"
-          color="secondary"
-          sx={{ width: '90%' , marginBottom: '20px',marginTop: '10px'}}
+          <TextField
+                id="patient-name"
+                label="Patient Name"
+                value={patientName}
+                onChange={(event) => setPatientName(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '20px',marginTop: '10px'}}
         />
           </Grid>
         <Grid item xs={12} sm={12} container spacing={8} >
         <Grid item xs={6}  sx={{ display: 'flex', justifyContent: 'right' }}>
           <TextField
-           id="age"
-           label="Patient Age"
-           value={age}
-           onChange={(event) => setAge(event.target.value)}
-           variant="outlined"
-           color="secondary"
-           sx={{ width: '90%' , marginBottom: '10px'}}
+                id="age"
+                label="Patient Age"
+                value={age}
+                onChange={(event) => setAge(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '10px'}}
          /> 
         </Grid>
         <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'left' }} >
           <TextField 
-           id="mobile"
-           label="Patient Mobile"
-           value={mobile}
-           onChange={(event) => setMobile(event.target.value)}
-           variant="outlined"
-           color="secondary"
-           sx={{ width: '90%' , marginBottom: '10px'}}
+                id="mobile"
+                label="Patient Mobile"
+                value={mobile}
+                onChange={(event) => setMobile(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '10px'}}
          />
         </Grid>
         </Grid>
-          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
+        <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
           <RadioGroup
-      row
-      aria-labelledby="demo-row-radio-buttons-group-label"
-      name="row-radio-buttons-group"
-      value={gender} 
-      onChange={(event) => setGender(event.target.value)}
-      sx={{ width: '90%',marginBottom: '10px' }}
-
-    >
-      <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
-      <FormControlLabel value="male" control={<Radio />} label="Male"  />
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                value={gender} 
+                onChange={(event) => setGender(event.target.value)}
+                sx={{ width: '90%',marginBottom: '10px' }}>
+        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
+        <FormControlLabel value="male" control={<Radio />} label="Male"  />
     </RadioGroup>
         </Grid>
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
         <TextField
-          id="area"
-          label=" Patient Area"
-          value={area}
-          onChange={(event) => setArea(event.target.value)}
-          variant="outlined"
-          color="secondary"
-          sx={{ width: '90%' , marginBottom: '20px'}}
+                id="area"
+                label=" Patient Area"
+                value={area}
+                onChange={(event) => setArea(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '20px'}}
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
@@ -185,26 +176,25 @@ function UpdateAppointment() {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="Patient Information Title"
-                aria-describedby="Patient Information Description "
-              >
+                aria-describedby="Patient Information Description ">
                 <Box sx={style}>
                   <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                  Patient Information Title
+                      Patient Information Title
                   </Typography>
                   <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                    NAME: {patientName ? `${patientName}` : ''} 
+                      NAME: {patientName ? `${patientName}` : ''} 
                   </Typography>
                   <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                    AGE: {age ? `${age}` : ''} 
+                      AGE: {age ? `${age}` : ''} 
                   </Typography>
                   <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                    MOBILE: {mobile ? `${mobile}` : ''} 
+                      MOBILE: {mobile ? `${mobile}` : ''} 
                   </Typography>
                   <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                    GENDER: {gender ? `${gender}` : ''} 
+                      GENDER: {gender ? `${gender}` : ''} 
                   </Typography>
                   <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
-                    UPDATE SUCCESSFULLY!!!
+                      UPDATE SUCCESSFULLY!!!
                   </Typography>
                 </Box>
               </Modal>
