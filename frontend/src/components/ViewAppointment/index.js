@@ -51,7 +51,7 @@ function ViewAppointment() {
   useEffect(() => {
     let results;
     switch (filterOption) {
-      case "NIC":
+      case "Appointment Number":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
             item.nic.includes(searchTerm)
@@ -60,7 +60,7 @@ function ViewAppointment() {
           results = appointment;
         }
         break;
-      case "Email":
+      case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
             item.email.includes(searchTerm)
@@ -69,7 +69,7 @@ function ViewAppointment() {
           results = appointment;
         }
         break;
-      case "Contact Number":
+      case "Mobile":
         results = appointment.filter((item) =>
           item.contact_num.toString().includes(searchTerm)
         );
@@ -149,9 +149,9 @@ function ViewAppointment() {
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="NIC">NIC</MenuItem>
-              <MenuItem value="Email">Email</MenuItem>
-              <MenuItem value="Contact Number">Contact Number</MenuItem>
+              <MenuItem value="Appointment Number">Appointment Number</MenuItem>
+              <MenuItem value="Appointment Date">Appointment Date</MenuItem>
+              <MenuItem value="Mobile">Mobile</MenuItem>
             </Select>
           </FormControl>
         </Grid>
