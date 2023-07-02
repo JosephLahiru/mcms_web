@@ -24,11 +24,11 @@ const navigate = useNavigate();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDate = new Date();
   const dates = [];
-  for (let i = 0; i < 10; i++) {
-    const appointmentDate = new Date();
-    appointmentDate.setAppointmentDate(currentDate.getDate() + i);
-    dates.push(appointmentDate);
-  }
+for (let i = 0; i < 10; i++) {
+  const appointmentDate = new Date();
+  appointmentDate.setDate(currentDate.getDate() + i);
+  dates.push(appointmentDate);
+}
 
   const theme = createTheme({
     palette: {
@@ -73,8 +73,8 @@ const navigate = useNavigate();
         <Grid item xs={12}>
             <Box sx={{ width: '100%', height: 150, backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
-                    {dates.map((date, index) => (
-                <ToggleButton key={index} value={appointmentDate.toDateString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
+                    {dates.map((appointmentDate, index) => (
+                <ToggleButton key={index} value={appointmentDate.toString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
                   <div>
                     <div style={{ fontSize: '20px' }}>{months[appointmentDate.getMonth()]}</div>
                     <div style={{ fontWeight: 'bold', fontSize: '36px' }}>{appointmentDate.getDate()}</div>
