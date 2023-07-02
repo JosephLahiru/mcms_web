@@ -4,7 +4,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
 
 import { 
   Grid,
@@ -19,7 +19,6 @@ import {
   FormControlLabel,
   Radio,
   Button,
-  Modal,
  } from '@mui/material';
 
 function UpdateAppointment() { 
@@ -32,18 +31,7 @@ function UpdateAppointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState(null);
   const [error, setError] = useState(false);
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  const navigate = useNavigate();
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
@@ -96,7 +84,7 @@ function UpdateAppointment() {
             color="secondary"
             label="APPOINTMENT DATE"
             value={appointmentDate}
-            onChange={(date) => setAppointmentDate(date)}
+            onChange={(appointmentDate) => setAppointmentDate(appointmentDate)}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -171,42 +159,7 @@ function UpdateAppointment() {
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleOpen}Open modal>Update Now</Button>
-          <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="Patient Information Title"
-                aria-describedby="Patient Information Description ">
-                <Box sx={style}>
-                <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                      Appointment Information 
-                  </Typography>
-                  <Typography id="Appointment Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                       {appointmentNumber ? `${appointmentNumber}` : ''}  {appointmentDoctor ? `${appointmentDoctor}` : ''}
-                  </Typography>
-                  <Typography id="Appointment Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                       {appointmentDate ? `${appointmentDate}` : ''}  
-                  </Typography>
-                  <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                      Patient Information 
-                  </Typography>
-                  <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      NAME: {patientName ? `${patientName}` : ''} 
-                  </Typography>
-                  <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      AGE: {age ? `${age}` : ''} 
-                  </Typography>
-                  <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      MOBILE: {mobile ? `${mobile}` : ''} 
-                  </Typography>
-                  <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      GENDER: {gender ? `${gender}` : ''} 
-                  </Typography>
-                  <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
-                      UPDATE SUCCESSFULLY!!!
-                  </Typography>
-                </Box>
-              </Modal>
+          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={() => navigate("/view_appointment")}>Update Now</Button>
             </Grid> 
       </Box>
       </Grid>
