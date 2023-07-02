@@ -58,7 +58,7 @@ function UpdateAppointment() {
 
 
   return (
-    <Grid container spacing={5}>
+    <Grid container spacing={3}>
     <Grid item xs={12}>
       <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -72,13 +72,14 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 475, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box sx={{ width: '1200px', height: 480, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Grid container spacing={0}  >
       <Grid item xs={12} >
-        <TextField
-            label="Patient Name"
-            sx={{ width: '100%' , marginBottom: '10px',marginTop: '20px'}}
-        />
+      <Box sx={{ width: '100%', height: 10 ,marginBottom: '80px'}}>
+        <Typography variant="h4" component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '20px', textAlign: 'center' }}>
+          Patient Information
+        </Typography>  
+      </Box>
           </Grid>
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
         <TextField
