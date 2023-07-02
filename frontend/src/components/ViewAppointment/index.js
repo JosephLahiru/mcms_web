@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -35,6 +36,7 @@ function ViewAppointment() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -170,16 +172,12 @@ function ViewAppointment() {
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -192,18 +190,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update </Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -264,16 +258,12 @@ function ViewAppointment() {
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -286,18 +276,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -357,17 +343,13 @@ function ViewAppointment() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
-                  <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                <TableCell>Appointment Number</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -380,18 +362,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
