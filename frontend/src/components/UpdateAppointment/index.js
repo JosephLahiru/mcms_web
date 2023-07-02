@@ -84,9 +84,9 @@ function UpdateAppointment() {
     <FormControl fullWidth sx={{marginLeft: '60px'}} >
       <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
           <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
-              <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-              <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-              <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
+              <MenuItem value="NISHANTHA GUNASEKARA">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
+              <MenuItem value="BUDDHI MOHOTTI">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+              <MenuItem value="PRESANTHA BANDARA">Radiologist - PRESANTHA BANDARA</MenuItem>
               </Select>
     </FormControl>
     </Grid>
@@ -178,8 +178,17 @@ function UpdateAppointment() {
                 aria-labelledby="Patient Information Title"
                 aria-describedby="Patient Information Description ">
                 <Box sx={style}>
+                <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
+                      Appointment Information 
+                  </Typography>
+                  <Typography id="Appointment Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                       {appointmentNumber ? `${appointmentNumber}` : ''}  {appointmentDoctor ? `${appointmentDoctor}` : ''}
+                  </Typography>
+                  <Typography id="Appointment Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                       {appointmentDate ? `${appointmentDate}` : ''}  
+                  </Typography>
                   <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                      Patient Information Title
+                      Patient Information 
                   </Typography>
                   <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
                       NAME: {patientName ? `${patientName}` : ''} 
