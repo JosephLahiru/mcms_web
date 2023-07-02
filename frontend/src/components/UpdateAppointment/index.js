@@ -70,12 +70,49 @@ function UpdateAppointment() {
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box sx={{ width: '1200px', height: 170, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
       <Grid item xs={12} >
-      <Box sx={{ width: '100%', height: 10 ,marginBottom: '160px'}}>
+      <Box sx={{ width: '100%', height: 5 ,marginBottom: '150px'}}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '20px', textAlign: 'center',fontSize: '40px' }}>
           Appointment Information
         </Typography>  
       </Box>
-          </Grid>
+      </Grid>
+      <Grid item xs={12} >
+      <Grid item xs={12} sm={12} container spacing={8} >
+        <Grid item xs={4}  sx={{ display: 'flex', justifyContent: 'left' }}>
+          <TextField
+           id="age"
+           label="Patient Age"
+           value={age}
+           onChange={(event) => setAge(event.target.value)}
+           variant="outlined"
+           color="secondary"
+           sx={{ width: '90%' , marginBottom: '20px'}}
+         /> 
+        </Grid>
+        <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }} >
+          <TextField 
+           id="mobile"
+           label="Patient Mobile"
+           value={mobile}
+           onChange={(event) => setMobile(event.target.value)}
+           variant="outlined"
+           color="secondary"
+           sx={{ width: '90%' , marginBottom: '20px'}}
+         />
+        </Grid>
+        <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'right' }} >
+          <TextField 
+           id="mobile"
+           label="Patient Mobile"
+           value={mobile}
+           onChange={(event) => setMobile(event.target.value)}
+           variant="outlined"
+           color="secondary"
+           sx={{ width: '90%' , marginBottom: '20px'}}
+         />
+        </Grid>
+        </Grid>
+        </Grid>
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -173,7 +210,7 @@ function UpdateAppointment() {
                     GENDER: {gender ? `${gender}` : ''} 
                   </Typography>
                   <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
-                    SUCCESSFULLY!!!
+                    UPDATE SUCCESSFULLY!!!
                   </Typography>
                 </Box>
               </Modal>
