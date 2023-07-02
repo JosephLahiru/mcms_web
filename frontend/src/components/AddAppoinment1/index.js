@@ -15,6 +15,8 @@ import { Grid,
  } from '@mui/material';
 
 function AddAppointment1() {
+  const [appointmentDoctor, setAppointmentDoctor] = useState('');
+  const [appointmentDate, setAppointmentDate] = useState('');
       
 const navigate = useNavigate();
 
@@ -23,9 +25,9 @@ const navigate = useNavigate();
   const currentDate = new Date();
   const dates = [];
   for (let i = 0; i < 10; i++) {
-    const date = new Date();
-    date.setDate(currentDate.getDate() + i);
-    dates.push(date);
+    const appointmentDate = new Date();
+    appointmentDate.setAppointmentDate(currentDate.getDate() + i);
+    dates.push(appointmentDate);
   }
 
   const theme = createTheme({
@@ -36,16 +38,13 @@ const navigate = useNavigate();
     },
   });
 
-  const [doctor, setDoctor] = useState('');
   
-
   const handleOptionChange = (event) => {
-    setDoctor(event.target.value);
+    setAppointmentDoctor(event.target.value);
   };
 
-  const [appointmentDate, setAppointmentDate] = useState('web');
-  const handleChange = (event, newAppointmentDate) => {
-    setAppointmentDate(newAppointmentDate);
+  const handleChange = (event, newappointmentDate) => {
+    setAppointmentDate(newappointmentDate);
   };
 
   return (
@@ -60,7 +59,7 @@ const navigate = useNavigate();
                 <Grid item sx={{ backgroundColor: 'white' }}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label" color="secondary">SELECT A SPECIALITY</InputLabel>
-                            <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={doctor} onChange={handleOptionChange}  sx={{width: '500px'}} label = "SELECT A DOCTOR" >
+                            <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor} onChange={handleOptionChange}  sx={{width: '500px'}} label = "SELECT A DOCTOR" >
                             <MenuItem value="option1">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
                             <MenuItem value="option2">Pediatrician - BUDDHI MOHOTTI</MenuItem>
                             <MenuItem value="option3">Radiologist - PRESANTHA BANDARA</MenuItem>
@@ -75,11 +74,11 @@ const navigate = useNavigate();
             <Box sx={{ width: '100%', height: 150, backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
                     {dates.map((date, index) => (
-                <ToggleButton key={index} value={date.toDateString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
+                <ToggleButton key={index} value={appointmentDate.toDateString()} sx={{ color: theme.palette.secondary.dark, width: '100px', }}>
                   <div>
-                    <div style={{ fontSize: '20px' }}>{months[date.getMonth()]}</div>
-                    <div style={{ fontWeight: 'bold', fontSize: '36px' }}>{date.getDate()}</div>
-                    <div >{daysOfWeek[date.getDay()]}</div>
+                    <div style={{ fontSize: '20px' }}>{months[appointmentDate.getMonth()]}</div>
+                    <div style={{ fontWeight: 'bold', fontSize: '36px' }}>{appointmentDate.getDate()}</div>
+                    <div >{daysOfWeek[appointmentDate.getDay()]}</div>
                   </div>
                 </ToggleButton>
                     ))}.
