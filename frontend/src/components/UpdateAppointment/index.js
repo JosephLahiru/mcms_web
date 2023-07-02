@@ -37,10 +37,6 @@ function UpdateAppointment() {
     setAppointmentDoctor(event.target.value);
   };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
     <Grid container spacing={2}>
     <Grid item xs={12}>
@@ -97,7 +93,12 @@ function UpdateAppointment() {
         </LocalizationProvider>
     </Grid>
   </Grid>
-  <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '40px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
+    <cross>
+     <Box display="flex" justifyContent="center" alignItems="center" pb={3}>
+            <Box position="relative" width={1000} height={2} bgcolor="#bdbdbd" />
+          </Box>
+          </cross>
+  <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
           Patient Information
         </Typography>  
       <Grid  item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
@@ -168,7 +169,7 @@ function UpdateAppointment() {
   );
 }
  
-   export default UpdateAppointment;
+export default UpdateAppointment;
 
 
    
