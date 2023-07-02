@@ -68,20 +68,27 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 150, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ width: '1200px', height: 170, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
+      <Grid item xs={12} >
+      <Box sx={{ width: '100%', height: 10 ,marginBottom: '160px'}}>
+        <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '20px', textAlign: 'center',fontSize: '40px' }}>
+          Appointment Information
+        </Typography>  
+      </Box>
+          </Grid>
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 480, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Box sx={{ width: '1200px', height: 470, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Grid container spacing={0}  >
       <Grid item xs={12} >
-      <Box sx={{ width: '100%', height: 10 ,marginBottom: '80px'}}>
-        <Typography variant="h4" component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '20px', textAlign: 'center' }}>
+      <Box sx={{ width: '100%', height: 5 ,marginBottom: '80px'}}>
+        <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '20px', textAlign: 'center',fontSize: '40px' }}>
           Patient Information
         </Typography>  
       </Box>
           </Grid>
-      <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
+      <Grid  item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
         <TextField
           id="patient-name"
           label="Patient Name"
