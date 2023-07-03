@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -21,6 +23,9 @@ import {
   DialogContent,
   DialogActions,
   FormControl,
+  Box,
+  Typography,
+
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from './../../appStore';
@@ -30,11 +35,12 @@ function ViewAppointment() {
   const [appointment, setAppointment] = useState([]);
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("NIC");
+  const [filterOption, setFilterOption] = useState("");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -49,28 +55,32 @@ function ViewAppointment() {
   useEffect(() => {
     let results;
     switch (filterOption) {
-      case "NIC":
+      case "Appointment Number":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.nic.includes(searchTerm)
+            item.appointmentNumber.includes(searchTerm)
           );
         } else {
           results = appointment;
         }
         break;
-      case "Email":
+      case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.email.includes(searchTerm)
+            item.appointmentDate.includes(searchTerm)
           );
         } else {
           results = appointment;
         }
         break;
-      case "Contact Number":
+      case "Mobile":
+        if (searchTerm.length >= 3) {
         results = appointment.filter((item) =>
-          item.contact_num.toString().includes(searchTerm)
+          item.mobile.includes(searchTerm)
         );
+      } else {
+        results = appointment;
+      }
         break;
       default:
         results = appointment;
@@ -125,6 +135,12 @@ function ViewAppointment() {
   };
 
   return (
+    <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
+      <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+        VIEW APPOINTMENT
+      </Typography>
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
+  
     <Paper
       sx={{
         width: dopen ? "calc(100% - 260px)" : "94%",
@@ -136,8 +152,8 @@ function ViewAppointment() {
       }}
     >
       <Grid container alignItems='center'>
-        <Grid item xs={1.5} marginRight={1}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <Grid item xs={1.5} marginRight={6}>
+          <FormControl sx={{ m: 2, minWidth: 120 }}>
             <InputLabel id="filterSelectLabel">Filter by</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -147,9 +163,9 @@ function ViewAppointment() {
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="NIC">NIC</MenuItem>
-              <MenuItem value="Email">Email</MenuItem>
-              <MenuItem value="Contact Number">Contact Number</MenuItem>
+              <MenuItem value="Appointment Number">Appointment Number</MenuItem>
+              <MenuItem value="Appointment Date">Appointment Date</MenuItem>
+              <MenuItem value="Mobile">Mobile</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -170,16 +186,12 @@ function ViewAppointment() {
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -192,18 +204,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update </Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -264,16 +272,12 @@ function ViewAppointment() {
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
                   <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -286,18 +290,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -357,17 +357,13 @@ function ViewAppointment() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "black", backgroundColor: "#ce93d8" } }}>
-                  <TableCell>Appointment Number</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>NIC</TableCell>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Email</TableCell>
+                <TableCell>Appointment Number</TableCell>
+                  <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Telephone Number</TableCell>
-                  <TableCell>Appointment Type</TableCell>
-                  <TableCell>Appointment Time</TableCell>
+                  <TableCell>Mobile</TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -380,18 +376,14 @@ function ViewAppointment() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
-                        <TableCell>{item.nic}</TableCell>
-                        <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.contact_num}</TableCell>
-                        <TableCell>{item.at_name}</TableCell>
-                        <TableCell>{item.atm_type}</TableCell>
+                        <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.area}</TableCell>
+                        <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small">Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -447,6 +439,7 @@ function ViewAppointment() {
       </Grid>
       <ToastContainer />
     </Paper>
+    </Box>
   );
 }
 
