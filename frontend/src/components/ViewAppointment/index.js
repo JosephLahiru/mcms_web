@@ -44,12 +44,6 @@ function ViewAppointment() {
   const navigate = useNavigate();
 
 
-  const buttons = [
-    <Button key="NISHANTHA GUNASEKARA">NISHANTHA GUNASEKARA</Button>,
-    <Button key="BUDDHI MOHOTTI">BUDDHI MOHOTTI</Button>,
-    <Button key="PRESANTHA BANDARA">PRESANTHA BANDARA</Button>,
-  ];
-
   useEffect(() => {
     async function fetchAppointment() {
       const response = await fetch("https://mcms_api.mtron.me/get_appointment");
@@ -147,34 +141,69 @@ function ViewAppointment() {
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} />
       <Box
-      sx={{
-        display: 'flex',
-        paddingTop: '50px',
-        flexDirection: 'column',
-        alignItems: 'center',
-
-        '& > *': {
-          m: 1,
-        },
-      }}
-
-    >
-      <ButtonGroup color="secondary"  aria-label="select doctor group"  sx={{width:'1100px',height: '70px'}}>
-        {buttons}
+          sx={{
+            display: 'flex',
+            paddingTop: '20px',
+            flexDirection: 'column',
+            alignItems: 'center',
+            '& > *': {
+              m: 1,
+            },
+          }}
+      >
+      <ButtonGroup
+        color="secondary"
+        aria-label="select doctor group"
+        sx={{ width: '1100px', height: '70px', gap: '10px', padding: '10px' }}
+      >
+        <Button
+          sx={{
+            width: '33.33%',
+            fontSize: '18px',
+            color: 'white',
+            backgroundColor: '#9c27b0',
+          }}
+          key="NISHANTHA GUNASEKARA"
+        >
+          Universal Physician
+        </Button>
+        <Button
+          sx={{
+            width: '33.33%',
+            fontSize: '18px',
+            color: 'white',
+            backgroundColor: '#9c27b0',
+          }}
+          key="BUDDHI MOHOTTI"
+        >
+          Pediatrician
+        </Button>
+        <Button
+          sx={{
+            width: '33.33%',
+            fontSize: '18px',
+            color: 'white',
+            backgroundColor: '#9c27b0',
+          }}
+          key="PRESANTHA BANDARA"
+        >
+          Radiologist
+        </Button>
       </ButtonGroup>
     </Box>
-    <Paper
-      sx={{
-        width: dopen ? "calc(100% - 260px)" : "94%",
-        marginLeft: dopen ? "250px" : "80px",
-        marginTop: '40px',
-        overflow: "hidden",
-        padding: "10px",
-        transition: "width 0.7s ease",
-      }}
-    >
+
+        <Paper
+          sx={{
+            width: dopen ? "calc(100% - 260px)" : "94%",
+            marginLeft: dopen ? "250px" : "80px",
+            marginTop: '10px',
+            overflow: "hidden",
+            padding: "10px",
+            transition: "width 0.7s ease",
+          }}
+        >
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
           <FormControl sx={{ m: 2, minWidth: 120 }}>
