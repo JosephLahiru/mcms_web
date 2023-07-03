@@ -25,6 +25,7 @@ import {
   FormControl,
   Box,
   Typography,
+  ButtonGroup,
 
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -41,6 +42,13 @@ function ViewAppointment() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
+
+
+  const buttons = [
+    <Button key="NISHANTHA GUNASEKARA">NISHANTHA GUNASEKARA</Button>,
+    <Button key="BUDDHI MOHOTTI">BUDDHI MOHOTTI</Button>,
+    <Button key="PRESANTHA BANDARA">PRESANTHA BANDARA</Button>,
+  ];
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -140,12 +148,28 @@ function ViewAppointment() {
         VIEW APPOINTMENT
       </Typography>
       <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
-  
+      <Box
+      sx={{
+        display: 'flex',
+        paddingTop: '50px',
+        flexDirection: 'column',
+        alignItems: 'center',
+
+        '& > *': {
+          m: 1,
+        },
+      }}
+
+    >
+      <ButtonGroup color="secondary"  aria-label="select doctor group"  sx={{width:'1100px',height: '70px'}}>
+        {buttons}
+      </ButtonGroup>
+    </Box>
     <Paper
       sx={{
         width: dopen ? "calc(100% - 260px)" : "94%",
         marginLeft: dopen ? "250px" : "80px",
-        marginTop: '50px',
+        marginTop: '40px',
         overflow: "hidden",
         padding: "10px",
         transition: "width 0.7s ease",
