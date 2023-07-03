@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -22,6 +23,9 @@ import {
   DialogContent,
   DialogActions,
   FormControl,
+  Box,
+  Typography,
+
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from './../../appStore';
@@ -131,6 +135,12 @@ function ViewAppointment() {
   };
 
   return (
+    <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
+      <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+        VIEW APPOINTMENT
+      </Typography>
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
+  
     <Paper
       sx={{
         width: dopen ? "calc(100% - 260px)" : "94%",
@@ -142,8 +152,8 @@ function ViewAppointment() {
       }}
     >
       <Grid container alignItems='center'>
-        <Grid item xs={1.5} marginRight={1}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <Grid item xs={1.5} marginRight={6}>
+          <FormControl sx={{ m: 2, minWidth: 120 }}>
             <InputLabel id="filterSelectLabel">Filter by</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -429,6 +439,7 @@ function ViewAppointment() {
       </Grid>
       <ToastContainer />
     </Paper>
+    </Box>
   );
 }
 
