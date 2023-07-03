@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Grid,
      Box, 
@@ -20,6 +21,12 @@ function AddAppointment2() {
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
     const [gender, setGender] = useState("");
+    const navigate = useNavigate();
+
+    
+  const handleClose = () => {
+    navigate(-1);
+};
 
     const style = {
       position: 'absolute',
@@ -35,7 +42,7 @@ function AddAppointment2() {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
 
  
   return (
@@ -45,7 +52,7 @@ function AddAppointment2() {
           <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
             BOOK A CHANNEL
           </Typography>
-          <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
+          <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose}/>
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>

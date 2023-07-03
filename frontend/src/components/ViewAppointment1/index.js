@@ -45,6 +45,11 @@ function ViewAppointment1() {
   const navigate = useNavigate();
 
 
+  const handleClose = () => {
+    navigate(-1);
+};
+
+
   useEffect(() => {
     async function fetchAppointment() {
       const response = await fetch("https://mcms_api.mtron.me/get_appointment");
@@ -70,7 +75,6 @@ function ViewAppointment1() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     let results;
@@ -160,7 +164,7 @@ function ViewAppointment1() {
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} />
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
       <Box
           sx={{
             display: 'flex',

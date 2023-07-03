@@ -44,6 +44,9 @@ function ViewAppointment2() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
 
+  const handleClose = () => {
+    navigate(-1);
+};
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -70,7 +73,6 @@ function ViewAppointment2() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     let results;
@@ -160,7 +162,7 @@ function ViewAppointment2() {
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} />
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
       <Box
           sx={{
             display: 'flex',

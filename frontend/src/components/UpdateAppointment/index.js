@@ -32,8 +32,12 @@ function UpdateAppointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState(null);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-
+  
+  const handleClose = () => {
+    navigate(-1);
+};
 
   const style = {
     position: 'absolute',
@@ -49,7 +53,6 @@ function UpdateAppointment() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
 
   const handleOptionChange = (event) => {
@@ -63,7 +66,7 @@ function UpdateAppointment() {
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
           UPDATE APPOINTMENT
         </Typography>
-        <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} />
+        <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
