@@ -27,7 +27,7 @@ function AddAppointment() {
     setAppointmentDoctor(selectedDoctor);
 
     if (selectedDoctor) {
-      navigate('/add_appointment1');
+      navigate('/add_appointment1', { state: { selectedDoctor } });
     }
   };
 
@@ -91,7 +91,5 @@ function AddAppointment() {
 }
 
 export default AddAppointment;
-
-
 
 
