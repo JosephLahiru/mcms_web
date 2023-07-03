@@ -54,7 +54,7 @@ function ViewAppointment() {
       case "Appointment Number":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.nic.includes(searchTerm)
+            item.appointmentNumber.includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -63,7 +63,7 @@ function ViewAppointment() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.email.includes(searchTerm)
+            item.appointmentDate.includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -71,7 +71,7 @@ function ViewAppointment() {
         break;
       case "Mobile":
         results = appointment.filter((item) =>
-          item.contact_num.toString().includes(searchTerm)
+          item.mobile.toString().includes(searchTerm)
         );
         break;
       default:
