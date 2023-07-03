@@ -17,16 +17,30 @@ import { Grid,
 function AddAppointment2() {
 
     const [patientName, setPatientName] = useState("");
+    const [appointmentDoctor, setAppointmentDoctor] = useState("");
+    const [appointmentDate, setAppointmentDate] = useState("");
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
     const [gender, setGender] = useState("");
     const navigate = useNavigate();
 
-    
+    const [open, setOpen] = React.useState(false); 
   const handleClose = () => {
     navigate(-1);
-};
+      };
+
+      const handleOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleBookNow = () => {
+        if (patientName && age && mobile && area && gender) {
+          handleOpen();
+        } else {
+          alert("Please fill in all the required fields.");
+        }
+      };
 
     const style = {
       position: 'absolute',
@@ -40,8 +54,8 @@ function AddAppointment2() {
       p: 4,
     };
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+   
+    
 
 
  
@@ -63,7 +77,7 @@ function AddAppointment2() {
                 Doctor Name
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                NISHANTHA GUNASEKARA
+                NISHANTHA GUNASEKARA{appointmentDoctor}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -72,7 +86,7 @@ function AddAppointment2() {
                 Date
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                2022-06-28
+                2022-06-28{appointmentDate}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -160,7 +174,7 @@ function AddAppointment2() {
           />
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleOpen}Open modal>Book Now</Button>
+            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleOpen}>Book Now</Button>
             <Modal
                   open={open}
                   onClose={handleClose}
