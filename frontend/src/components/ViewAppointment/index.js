@@ -233,7 +233,6 @@ function ViewAppointment() {
           />
         </Grid>
         <Grid item xs={12}>
-          <></>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
