@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
   Grid, 
   Box,
@@ -18,6 +18,10 @@ import {
     const [appointmentDoctor, setAppointmentDoctor] = useState('');
     const navigate = useNavigate();
 
+    const handleClose = () => {
+      navigate(-1);
+  };
+
     const handleOptionChange = (event) => {
       setAppointmentDoctor(event.target.value);
     };
@@ -27,6 +31,7 @@ import {
     <Grid item xs={12}>
     <Box sx={{width: '100%',height: 250,backgroundColor: '#ce93d8', }}>
     <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px',textAlign: 'left',paddingLeft :'90px' }}  >ADD  APPOINTMENT</Typography>
+    <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
       <Grid item xs={12} sx={{paddingTop:'80px', paddingBottom:'50px'}}>
         <Grid container spacing={0} alignItems="center" justifyContent="center" >
           <Grid item  sx={{backgroundColor : 'white'}} >

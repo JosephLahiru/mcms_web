@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Grid, 
     Box, 
     FormControl,
@@ -14,11 +14,16 @@ import { Grid,
     Button,
  } from '@mui/material';
 
+
+
 function AddAppointment1() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
   const [appointmentDate, setAppointmentDate] = useState('');
-      
-const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate(-1);
+  };
 
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -54,6 +59,7 @@ for (let i = 0; i < 10; i++) {
             <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left',paddingLeft: '90px' }}>
               ADD APPOINTMENT
             </Typography>
+            <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
             <Grid item xs={12} sx={{ paddingTop: '80px', paddingBottom: '50px' }}>
               <Grid container spacing={0} alignItems="center" justifyContent="center">
                 <Grid item sx={{ backgroundColor: 'white' }}>
