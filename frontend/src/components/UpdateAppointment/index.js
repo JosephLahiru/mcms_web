@@ -117,7 +117,7 @@ function UpdateAppointment() {
             <Box position="relative" width={1000} height={2} bgcolor="#bdbdbd" />
           </Box>
           </cross>
-  <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
+      <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
           Patient Information
         </Typography>  
       <Grid  item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
