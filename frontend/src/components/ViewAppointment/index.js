@@ -44,6 +44,7 @@ function ViewAppointment() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
 
+  
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -185,6 +186,7 @@ function ViewAppointment() {
             backgroundColor: '#9c27b0',
           }}
           key="NISHANTHA GUNASEKARA"
+          onClick={() => navigate("/view_appointment")}
         >
           Universal Physician
         </Button>
@@ -196,6 +198,7 @@ function ViewAppointment() {
             backgroundColor: '#9c27b0',
           }}
           key="BUDDHI MOHOTTI"
+          onClick={() => navigate("/view_appointment1")}
         >
           Pediatrician
         </Button>
@@ -207,6 +210,7 @@ function ViewAppointment() {
             backgroundColor: '#9c27b0',
           }}
           key="PRESANTHA BANDARA"
+          onClick={() => navigate("/view_appointment2")}
         >
           Radiologist
         </Button>
@@ -223,6 +227,9 @@ function ViewAppointment() {
             transition: "width 0.7s ease",
           }}
         >
+        <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
+            UNIVERSAL PHYSICIAN
+        </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
           <FormControl sx={{ m: 2, minWidth: 120 }}>
@@ -283,178 +290,6 @@ function ViewAppointment() {
                         <TableCell>{item.app_date}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update </Button>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<DeleteIcon />}
-                            onClick={() => handleDelete(item.app_id)}
-                          >
-                            Delete
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={10}>No data available</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {itemToDelete && (
-            <Dialog
-              open={confirmDialogOpen}
-              onClose={handleCancelDelete}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Confirm Delete"}
-              </DialogTitle>
-              <DialogContent>
-                <div id="alert-dialog-description">
-                  Are you sure you want to delete this item?
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
-              </DialogActions>
-            </Dialog>
-          )}
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Grid>
-      </Grid>
-      <Grid container alignItems='center'>
-        <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" ,fontSize: '17px'} }}>
-                  <TableCell>Appointment Number</TableCell>
-                  <TableCell>Patient Name</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell>Mobile</TableCell>
-                  <TableCell>Gender</TableCell>
-                  <TableCell>Area</TableCell>
-                  <TableCell>Appointment Date</TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.length > 0 ? (
-                  rows
-                    .filter(item => item.cd_id === "cd_002")
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => (
-                      <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.patient_name}</TableCell>
-                        <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.mobile}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.area}</TableCell>
-                        <TableCell>{item.app_date}</TableCell>
-                        <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<DeleteIcon />}
-                            onClick={() => handleDelete(item.app_id)}
-                          >
-                            Delete
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={10}>No data available</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {itemToDelete && (
-            <Dialog
-              open={confirmDialogOpen}
-              onClose={handleCancelDelete}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Confirm Delete"}
-              </DialogTitle>
-              <DialogContent>
-                <div id="alert-dialog-description">
-                  Are you sure you want to delete this item?
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
-              </DialogActions>
-            </Dialog>
-          )}
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Grid>
-      </Grid>
-      <Grid container alignItems='center'>
-        <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
-                <TableCell>Appointment Number</TableCell>
-                  <TableCell>Patient Name</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell>Mobile</TableCell>
-                  <TableCell>Gender</TableCell>
-                  <TableCell>Area</TableCell>
-                  <TableCell>Appointment Date</TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.length > 0 ? (
-                  rows
-                    .filter(item => item.cd_id === "cd_003")
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => (
-                      <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.patient_name}</TableCell>
-                        <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.mobile}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.area}</TableCell>
-                        <TableCell>{item.app_date}</TableCell>
-                        <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
