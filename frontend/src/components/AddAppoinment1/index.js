@@ -17,6 +17,7 @@ import {
 
 function AddAppointment1() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
+  const [appointmentNumber, setAppointmentNumber] = useState('');
   const [appointmentDate, setAppointmentDate] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
@@ -73,6 +74,12 @@ function AddAppointment1() {
       setAppointmentDoctor(selectedDoctor);
     }
   }, [selectedDoctor]);
+
+  const handleBookNow = () => {
+    if (appointmentDate) {
+      navigate('/add_appointment2');
+    }
+  };
 
   return (
     <Grid container spacing={0}>
@@ -146,7 +153,7 @@ function AddAppointment1() {
           </Grid>
           <Grid item xs={3}>
             <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '120px' }}>
-              00
+              00{appointmentNumber}
             </Typography>
           </Grid>
           <Grid item xs={3}>
@@ -155,7 +162,7 @@ function AddAppointment1() {
             </Typography>
           </Grid>
           <Grid item xs={3} sx={{ paddingTop: '30px', paddingRight: '120px' }}>
-            <Button variant="contained" size="medium" color="secondary" sx={{ paddingTop: '10px', textAlign: 'center' }} onClick={() => navigate('/add_appointment2')}>
+            <Button variant="contained" size="medium" color="secondary" sx={{ paddingTop: '10px', textAlign: 'center' }} onClick={handleBookNow}>
               Book Now
             </Button>
           </Grid>
