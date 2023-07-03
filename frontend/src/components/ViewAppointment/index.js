@@ -54,6 +54,23 @@ function ViewAppointment() {
     fetchAppointment();
   }, []);
 
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     let results;
     switch (filterOption) {
@@ -136,6 +153,7 @@ function ViewAppointment() {
     setConfirmDialogOpen(false);
   };
 
+ 
   return (
     <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -234,7 +252,7 @@ function ViewAppointment() {
         </Grid>
         <Grid item xs={12}>
           <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
+            <Table  stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
                   <TableCell>Appointment Number</TableCell>
