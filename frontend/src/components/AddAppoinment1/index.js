@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { 
-  Grid, 
+import {
+  Grid,
   Box,
   Select,
   MenuItem,
@@ -25,7 +25,20 @@ function AddAppointment1() {
     navigate(-1);
   };
 
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDate = new Date();
   const dates = [];
@@ -99,7 +112,18 @@ function AddAppointment1() {
         <Box sx={{ width: '100%', height: 150, backgroundColor: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <ToggleButtonGroup color="secondary" value={appointmentDate} exclusive onChange={handleChange} aria-label="Appointment Date" sx={{ height: '100%' }}>
             {dates.map((appointmentDate, index) => (
-              <ToggleButton key={index} value={appointmentDate.toString()} sx={{ color: theme.palette.secondary.dark, width: '100px' }}>
+              <ToggleButton
+                key={index}
+                value={appointmentDate.toString()}
+                sx={{
+                  color: theme.palette.secondary.dark,
+                  width: '100px',
+                  '&.Mui-selected': {
+                    backgroundColor: '#9c27b0', // Highlight color when selected
+                    color: '#fff', // Toggle button text color when selected
+                  },
+                }}
+              >
                 <div>
                   <div style={{ fontSize: '20px' }}>{months[appointmentDate.getMonth()]}</div>
                   <div style={{ fontWeight: 'bold', fontSize: '36px' }}>{appointmentDate.getDate()}</div>
@@ -142,4 +166,3 @@ function AddAppointment1() {
 }
 
 export default AddAppointment1;
-
