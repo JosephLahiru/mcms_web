@@ -31,7 +31,7 @@ function ViewAppointment() {
   const [appointment, setAppointment] = useState([]);
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("NIC");
+  const [filterOption, setFilterOption] = useState("");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
@@ -70,9 +70,13 @@ function ViewAppointment() {
         }
         break;
       case "Mobile":
+        if (searchTerm.length >= 3) {
         results = appointment.filter((item) =>
-          item.mobile.toString().includes(searchTerm)
+          item.mobile.includes(searchTerm)
         );
+      } else {
+        results = appointment;
+      }
         break;
       default:
         results = appointment;
