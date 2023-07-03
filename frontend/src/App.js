@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment';
+import ViewAppointment1 from './components/ViewAppointment1';
+import ViewAppointment2 from './components/ViewAppointment2';
 import UpdateAppointment from './components/UpdateAppointment';
 import PatientHistory from './components/PatientHistory';
 import Login from "./components/Login";
@@ -40,6 +42,8 @@ function App() {
         <Route path='add_appointment1' element={<AddAppointment1 />} />
         <Route path='add_appointment2' element={<AddAppointment2 />} />
         <Route path='view_appointment' element={<ViewAppointment />} />
+        <Route path='view_appointment1' element={<ViewAppointment1 />} />
+        <Route path='view_appointment2' element={<ViewAppointment2 />} />
         <Route path='update_appointment' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />
