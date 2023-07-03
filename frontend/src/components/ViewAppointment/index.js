@@ -240,8 +240,8 @@ function ViewAppointment() {
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
-                  <TableCell>Gender</TableCell>
                   <TableCell>Mobile</TableCell>
+                  <TableCell>Gender</TableCell>
                   <TableCell>Area</TableCell>
                   <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
@@ -258,8 +258,8 @@ function ViewAppointment() {
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date}</TableCell>
                         <TableCell>
@@ -326,8 +326,8 @@ function ViewAppointment() {
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
-                  <TableCell>Gender</TableCell>
                   <TableCell>Mobile</TableCell>
+                  <TableCell>Gender</TableCell>
                   <TableCell>Area</TableCell>
                   <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
@@ -344,8 +344,8 @@ function ViewAppointment() {
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date}</TableCell>
                         <TableCell>
@@ -412,8 +412,8 @@ function ViewAppointment() {
                 <TableCell>Appointment Number</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
-                  <TableCell>Gender</TableCell>
                   <TableCell>Mobile</TableCell>
+                  <TableCell>Gender</TableCell>
                   <TableCell>Area</TableCell>
                   <TableCell>Appointment Date</TableCell>
                   <TableCell></TableCell>
@@ -430,8 +430,8 @@ function ViewAppointment() {
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
+                        <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date}</TableCell>
                         <TableCell>
