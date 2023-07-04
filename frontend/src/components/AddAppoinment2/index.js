@@ -26,14 +26,28 @@ function AddAppointment2() {
     const navigate = useNavigate();
   
     const [open, setOpen] = React.useState(false); 
-    const handleClose = () => {
-      navigate(-1);
-        };
-
-        const handleOpen = () => {
-          setOpen(true);
-        };
       
+      
+  const handleOpen = () => {
+    if (validateForm()) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  const validateForm = () => {
+    return patientName.trim() !== "" &&
+      age.trim() !== "" &&
+      mobile.trim() !== "" &&
+      area.trim() !== "" &&
+      gender !== "";
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
     const style = {
       position: 'absolute',
       top: '50%',

@@ -34,10 +34,6 @@ function UpdateAppointment() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   
-  
-  const handleClose = () => {
-    navigate(-1);
-};
 
   const style = {
     position: 'absolute',
@@ -53,10 +49,33 @@ function UpdateAppointment() {
 
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
+  };
+
+  const handleOpen = () => {
+    if (validateForm()) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }
+
+  const validateForm = () => {
+    return appointmentNumber.trim() !== "" &&
+    appointmentDoctor.trim() !== "" &&
+    appointmentDate.trim() !== "" &&
+      patientName.trim() !== "" &&
+      age.trim() !== "" &&
+      mobile.trim() !== "" &&
+      area.trim() !== "" &&
+      gender !== "";
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
