@@ -35,8 +35,7 @@ function AddAppointment2() {
       setOpen(false);
     }
       };
-
-    
+ 
   const validateForm = () => {
     const errors = {};
     let formIsValid = true;
