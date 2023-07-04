@@ -1,37 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
+const columns = [
+  { field: 'p_id', headerName: 'ID', width: 100 },
+  { field: 'app_date', headerName: 'Application Date', width: 200 },
+  { field: 'paid_amt', headerName: 'Paid Amount', width: 150 },
+];
 
 const ReturnPatientsReport = () => {
-  const [returnPatients, setReturn] = useState([]);
-  <h1>and known patients transaction report</h1>
-  const rows = [
-    { id: 1, col1: 'Hello', col2: 'World' },
-    { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  ];
-  
-  const columns = [
-    { field: 'col1', headerName: 'Patient Id', width: 150 },
-    { field: 'col2', headerName: 'Appointment Date', width: 150 },
-    { field: 'col2', headerName: 'Paid Amount', width: 150 },
-  ];
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function fetchReturn() {
-      const response = await fetch("https://mcms_api.mtron.me/get_returning_none");
-      const data = await response.json();
-      setReturn(data);
-    }
-    fetchReturn();
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_returning_none');
+        const apiData = await response.json();
+        setData(apiData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <DataGrid
-      rows={rows}
-      columns={columns}
-    />
-  ) 
-}
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid rows={data} columns={columns} pageSize={5} />
+    </div>
+  );
+};
 
-export default ReturnPatientsReport
+export default ReturnPatientsReport;
