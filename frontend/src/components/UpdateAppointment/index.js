@@ -1,281 +1,237 @@
 import React,{useState} from "react";
-import { ToastContainer, toast } from "react-toastify";
-import 'bootstrap/dist/css/bootstrap.css';
-import "react-toastify/dist/ReactToastify.css";
-
 import { useNavigate } from 'react-router-dom';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 
+import { 
+  Grid,
+  Box, 
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Button,
+  Modal,
+ } from '@mui/material';
 
 function UpdateAppointment() { 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [area, setArea] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [nic, setNic] = useState("");
-  const [email, setEmail] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [mobile, setMobile] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
-  const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState("");
-  const [appointmentTime, setAppointmentTime] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState(null);
   const [error, setError] = useState(false);
- 
-
-
   const navigate = useNavigate();
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Address:", address);
-    console.log("Age:", age);
-    console.log("Gender:", gender);
-    console.log("NIC:", nic);
-    console.log("Email:", email);
-    console.log("Contact Number:", contactNumber);
-    console.log("Appointment Number:", appointmentNumber);
-    console.log("Appointment Type:", appointmentType);
-    console.log("Appointment Doctor:", appointmentDoctor);
-    console.log("Appointment Date:", appointmentDate);
-    console.log("Appointment Time:", appointmentTime);
-    
-
-    if(!firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber ||  !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime){
-      toast.error('Please fill all the fields...', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
   
-    
-    // NIC validation
-    const nicRegex = /^[0-9]{9}[VXvx]$/;
-    if (!nicRegex.test(nic)) {
-      setError(true);
-      toast.error('Invalid NIC number', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+  const handleClose = () => {
+    navigate(-1);
+};
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailRegex.test(email)) {
-      setError(true);
-      toast.error('Invalid email address', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
-    // Contact number validation
-    const contactNumberRegex = /^[0-9]{10}$/;
-    if (!contactNumberRegex.test(contactNumber)) {
-      setError(true);
-      toast.error('Invalid contact number', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
 
-    try {
-      const response = await fetch("https://mcms_api.mtron.me/get_appointment", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          app_num: appointmentNumber,
-          first_name: firstName,
-          last_name: lastName,
-          nic: nic,
-          address: address,
-          age: age,
-          gender: gender,
-          contact_num: contactNumber,
-          ...(email && { email: email }),    // Include email field conditionally
-          at_name: appointmentType,
-          cd_id: appointmentDoctor,
-          app_date: appointmentDate,
-          atm_type: appointmentTime,
-        }),
-      });
 
-      if (!response.ok) {
-        throw new Error('Failed to send appointment details');
-      }
-
-      alert('Appointment details sent successfully');
-      handleReset();
-    } catch (error) {
-      console.error(error);
-      alert('Failed to send appointment details');
-    }
-
-  }
-
-  const handleReset = () => {
-    setAppointmentNumber(""); 
-     setFirstName(""); 
-     setLastName(""); 
-     setAddress(""); 
-     setAge(""); 
-     setGender(""); 
-     setNic(""); 
-     setEmail(""); 
-     setContactNumber(""); 
-     setAppointmentType(""); 
-     setAppointmentDoctor(""); 
-     setAppointmentDate(""); 
-     setAppointmentTime("");
-     setError(false);
+  const handleOptionChange = (event) => {
+    setAppointmentDoctor(event.target.value);
   };
 
   return (
-    <div className="update-appointment-main-container">
-      <div className="update-appointment-form-container">
-      <h1>Update Appointment</h1>
-       <form className="update-appointment-form" onSubmit={handleSubmit}>
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">First Name:</label>
-          <input type="text" className="form-control form-control-sm" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name"/>
-        </div>
-        {error&&firstName.length<=0?
-        <label className='input-validation-error'>First Name can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Last Name:</label>
-          <input type="text" className="form-control form-control-sm" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name"/>
-        </div>
-        {error&&lastName.length<=0?
-        <label className='input-validation-error'>Last Name can't be Empty</label>:""}
-         <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Age:</label>
-          <input type="text" className="form-control form-control-sm" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age"/>
-        </div>
-        {error&&age.length<=0?
-        <label className='input-validation-error'>Age can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Address:</label>
-        <textarea value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address here..."></textarea>
-        </div>
-        {error&&address.length<=0?
-        <label className='input-validation-error'>Address can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Gender:</label>
-        <label>
-            <input type="radio" value="Male" checked={gender === "Male"} onChange={(event) => setGender(event.target.value)} />
-            Male
-          </label>
-          <br />
-          <label>
-            <input type="radio" value="Female" checked={gender === "Female"} onChange={(event) => setGender(event.target.value)} />
-            Female
-          </label>
-          <br />
-          <label>
-            <input type="radio" value="Other" checked={gender === "Other"} onChange={(event) => setGender(event.target.value)} />
-            Other
-          </label>
-          <br /> <br />
-        </div>
-         {error&&gender.length<=0?
-        <label className='input-validation-error'>Gender can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">NIC:</label>
-          <input type="text" className="form-control form-control-sm" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC"/>
-        </div>
-        {error&&nic.length<=0?
-        <label className='input-validation-error'>NIC can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Email:</label>
-          <input type="text" className="form-control form-control-sm" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email"/>
-        </div>
-        {error&&email.length<=0?
-        <label className='input-validation-error'>Email can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Contact Number:</label>
-          <input type="text" className="form-control form-control-sm" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number"/>
-        </div>
-        {error&&contactNumber.length<=0?
-        <label className='input-validation-error'>Contact Number can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Number:</label>
-          <input type="text" className="form-control form-control-sm" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment Number"/>
-        </div>
-        {error&&appointmentNumber.length<=0?
-        <label className='input-validation-error'>Appointment Number can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Type:</label>
-          <select className="form-control form-control-sm" value={appointmentType} onChange={(event) => setAppointmentType(event.target.value)}>
-          <option value="">Select Appointment Type</option>
-          <option value="Consultation">Consultation</option>
-          <option value="Doctor Check-up">Doctor Check-up</option>
-          <option value="Medical Examination">Medical Examination</option>
-          <option value="Result Analysis">Result Analysis</option>
-          <option value="Scanner">Scanner</option>
-        </select>
-         </div>
-        {error&&appointmentType.length<=0?
-        <label className='input-validation-error'>Appointment Type can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Doctor:</label>
-          <select className="form-control form-control-sm" value={appointmentDoctor} onChange={(event) => setAppointmentDoctor(event.target.value)}>
-          <option value="">Select Appointment Doctor</option>
-          <option value="The Universal Physician">The Universal Physician</option>
-          <option value="Pediatrician">Pediatrician</option>
-          <option value="Scan Doctor">Radiologist</option>
-        </select>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Doctor can't be Empty</label>:""}
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Time:</label>
-          <select className="form-control form-control-sm" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
-          <option value="">Select  Appointment Time :</option>
-              <option value="4:00pm" disabled={appointmentTime === "4:00pm"}>4:00pm</option>
-              <option value="4:15pm" disabled={appointmentTime === "4:15pm"}>4:15pm</option>
-              <option value="4:30pm" disabled={appointmentTime === "4:30pm"}>4:30pm</option>
-              <option value="4:45pm" disabled={appointmentTime === "4:45pm"}>4:45pm</option>
-              <option value="5:00pm" disabled={appointmentTime === "5:00pm"}>5:00pm</option>
-              <option value="5:15pm" disabled={appointmentTime === "5:15pm"}>5:15pm</option>
-              <option value="5:30pm" disabled={appointmentTime === "5:30pm"}>5:30pm</option>
-              <option value="5:45pm" disabled={appointmentTime === "5:45pm"}>5:45pm</option>
-              <option value="6:00pm" disabled={appointmentTime === "6:00pm"}>6:00pm</option>
-              <option value="6:15pm" disabled={appointmentTime === "6:15pm"}>6:15pm</option>
-              <option value="6:30pm" disabled={appointmentTime === "6:30pm"}>6:30pm</option>
-              <option value="6:45pm" disabled={appointmentTime === "6:45pm"}>6:45pm</option>
-              <option value="7:00pm" disabled={appointmentTime === "7:00pm"}>7:00pm</option>
-              <option value="7:15pm" disabled={appointmentTime === "7:15pm"}>7:15pm</option>
-              <option value="7:30pm" disabled={appointmentTime === "7:30pm"}>7:30pm</option>
-              <option value="7:45pm" disabled={appointmentTime === "7:45pm"}>7:45pm</option>
-              <option value="8:00pm" disabled={appointmentTime === "8:00pm"}>8:00pm</option>
-        </select>
-         </div>
-        {error&&appointmentTime.length<=0?
-        <label className='input-validation-error'>Appointment Time can't be Empty</label>:""}
-        <div>
-        <div className="update-appointment-form-input">
-        <label className="update-appointment-label">Appointment Date:</label>
-        <input type="date" className="form-control form-control-sm" value={appointmentDate} onChange={(event) => setAppointmentDate(event.target.value)} placeholder=""/>
-         </div>
-        {error&&appointmentDoctor.length<=0?
-        <label className='input-validation-error'>Appointment Date can't be Empty</label>:""} 
-        <br />
-        <button className="btn btn-primary btn-sm" type="button" onClick={handleReset}>Reset</button><br /><br />
-        <button className="btn btn-primary btn-sm" type="button" onClick={() => navigate("/view_appointment")}>Submit</button></div>
-       </form>
-       <ToastContainer />
-    </div>
-    </div>
+    <Grid container spacing={2}>
+    <Grid item xs={12}>
+      <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
+        <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+          UPDATE APPOINTMENT
+        </Typography>
+        <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
+      </Box>
+    </Grid>
+    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ width: '1200px', height: 675, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+        <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'30px',paddingTop:'20px' }}>
+          Appointment Information
+        </Typography> 
+      <Grid  item xs={4}container spacing={{ xs: 2 }}>
+    <Grid item xs={3} >
+    <TextField
+            id="appointment number"
+            label=" APPOINTMENT NUMBER"
+            value={appointmentNumber}
+            onChange={(event) => setAppointmentNumber(event.target.value)}
+            variant="outlined"
+            color="secondary"
+            sx={{ width: '80%' , marginBottom: '20px',marginLeft: '110px'}}
+          />
+    </Grid>
+    <Grid item xs={5}>
+    <FormControl fullWidth sx={{marginLeft: '60px'}} >
+      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
+          <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
+              <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
+              <MenuItem value="Buddhi Mohotti">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+              <MenuItem value="Presantha Bandara">Radiologist - PRESANTHA BANDARA</MenuItem>
+              </Select>
+    </FormControl>
+    </Grid>
+    <Grid item xs={4} sx={{width: '200px'}} >
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            color="secondary"
+            label="APPOINTMENT DATE"
+            value={appointmentDate}
+            onChange={(appointmentDate) => setAppointmentDate(appointmentDate)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                color="secondary"
+                label="APPOINTMENT DATE"
+                sx={{ width: '100%', marginBottom: '20px',paddingLeft: '60px' }}
+              />
+            )}
+          />
+        </LocalizationProvider>
+    </Grid>
+  </Grid>
+    <cross>
+     <Box display="flex" justifyContent="center" alignItems="center" pb={3}>
+            <Box position="relative" width={1000} height={2} bgcolor="#bdbdbd" />
+          </Box>
+          </cross>
+      <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'center',fontSize: '40px' }}>
+          Patient Information
+        </Typography>  
+      <Grid  item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
+          <TextField
+                id="patient-name"
+                label="Patient Name"
+                value={patientName}
+                onChange={(event) => setPatientName(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '20px',marginTop: '10px'}}
+        />
+          </Grid>
+        <Grid item xs={12} sm={12} container spacing={8} >
+        <Grid item xs={6}  sx={{ display: 'flex', justifyContent: 'right' }}>
+          <TextField
+                id="age"
+                label="Patient Age"
+                value={age}
+                onChange={(event) => setAge(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '10px'}}
+         /> 
+        </Grid>
+        <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'left' }} >
+          <TextField 
+                id="mobile"
+                label="Patient Mobile"
+                value={mobile}
+                onChange={(event) => setMobile(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '10px'}}
+         />
+        </Grid>
+        </Grid>
+        <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
+          <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                value={gender} 
+                onChange={(event) => setGender(event.target.value)}
+                sx={{ width: '90%',marginBottom: '10px' }}>
+        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
+        <FormControlLabel value="male" control={<Radio />} label="Male"  />
+    </RadioGroup>
+        </Grid>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
+        <TextField
+                id="area"
+                label=" Patient Area"
+                value={area}
+                onChange={(event) => setArea(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                sx={{ width: '90%' , marginBottom: '20px'}}
+        />
+          </Grid>
+          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
+          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleOpen}Open modal>Update Now</Button>
+          <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="Patient Information Title"
+                  aria-describedby="Patient Information Description "
+                >
+                  <Box sx={style}>
+                  <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
+                    Appointment Information 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      NUMBER: {appointmentNumber ? `${appointmentNumber}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                       {appointmentDoctor ? `${appointmentDoctor}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                       DATE:{appointmentDate ? `${appointmentDate}` : ''}  
+                    </Typography>
+                    <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
+                    Patient Information 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      NAME: {patientName ? `${patientName}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      AGE: {age ? `${age}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      MOBILE: {mobile ? `${mobile}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      GENDER: {gender ? `${gender}` : ''} 
+                    </Typography>
+                    <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
+                      UPDATE SUCCESSFULLY!!!
+                    </Typography>
+                  </Box>
+                </Modal> 
+            </Grid>
+            
+      </Box>
+      </Grid>
+      </Grid> 
+  
   );
 }
  
-   export default UpdateAppointment;
+export default UpdateAppointment;
 
 
    
