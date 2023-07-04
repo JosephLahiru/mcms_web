@@ -1,5 +1,4 @@
 import React,{useState} from "react";
-import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -34,7 +33,7 @@ function UpdateAppointment() {
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
-  const navigate = useNavigate();
+
   
   const style = {
     position: 'absolute',
@@ -71,12 +70,12 @@ function UpdateAppointment() {
     }
 
     if (!appointmentDoctor) {
-      errors.appointmentDoctor = "Please select the patient gender";
+      errors.appointmentDoctor = "Please select the appointment doctor";
       formIsValid = false;
     }
 
     if (!appointmentDate) {
-      errors.appointmentDate = "Please select the patient gender";
+      errors.appointmentDate = "Please select the appointment date";
       formIsValid = false;
     }
 
@@ -92,6 +91,9 @@ function UpdateAppointment() {
 
     if (mobile.trim() === "") {
       errors.mobile = "Please enter the patient mobile";
+      formIsValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 10-digit mobile number";
       formIsValid = false;
     }
 

@@ -53,6 +53,9 @@ function AddAppointment2() {
     if (mobile.trim() === "") {
       errors.mobile = "Please enter the patient mobile";
       formIsValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 10-digit mobile number";
+      formIsValid = false;
     }
 
     if (area.trim() === "") {
