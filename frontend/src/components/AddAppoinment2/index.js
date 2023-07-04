@@ -23,25 +23,51 @@ function AddAppointment2() {
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
     const [gender, setGender] = useState("");
-    const navigate = useNavigate();
-  
     const [open, setOpen] = React.useState(false); 
-      
-      
-  const handleOpen = () => {
+    const [validationErrors, setValidationErrors] = useState({}); 
+
+    const navigate = useNavigate();
+
+    const handleOpen = () => {
     if (validateForm()) {
       setOpen(true);
     } else {
       setOpen(false);
     }
-  };
+      };
 
+    
   const validateForm = () => {
-    return patientName.trim() !== "" &&
-      age.trim() !== "" &&
-      mobile.trim() !== "" &&
-      area.trim() !== "" &&
-      gender !== "";
+    const errors = {};
+    let formIsValid = true;
+
+    if (patientName.trim() === "") {
+      errors.patientName = "Please enter the patient name";
+      formIsValid = false;
+    }
+
+    if (age.trim() === "") {
+      errors.age = "Please enter the patient age";
+      formIsValid = false;
+    }
+
+    if (mobile.trim() === "") {
+      errors.mobile = "Please enter the patient mobile";
+      formIsValid = false;
+    }
+
+    if (area.trim() === "") {
+      errors.area = "Please enter the patient area";
+      formIsValid = false;
+    }
+
+    if (!gender) {
+      errors.gender = "Please select the patient gender";
+      formIsValid = false;
+    }
+
+    setValidationErrors(errors);
+    return formIsValid;
   };
 
   const handleClose = () => {
@@ -61,7 +87,7 @@ function AddAppointment2() {
     };
 
   return (
-    <Grid container spacing={5}>
+    <Grid container spacing={2.5}>
       <Grid item xs={12}>
         <Box sx={{ width: '100%', height: 175, backgroundColor: '#ce93d8' }}>
           <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -112,7 +138,7 @@ function AddAppointment2() {
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Box sx={{ width: '1200px', height: 400, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ width: '1200px', height: 470, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Grid container spacing={1}>
         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
           <TextField
@@ -122,6 +148,8 @@ function AddAppointment2() {
             onChange={(event) => setPatientName(event.target.value)}
             variant="outlined"
             color="secondary"
+            error={!!validationErrors.patientName}
+            helperText={validationErrors.patientName}
             sx={{ width: '90%' , marginBottom: '20px'}}
           />
             </Grid>
@@ -134,6 +162,8 @@ function AddAppointment2() {
              onChange={(event) => setAge(event.target.value)}
              variant="outlined"
              color="secondary"
+             error={!!validationErrors.age}
+             helperText={validationErrors.age}
              sx={{ width: '90%' , marginBottom: '10px'}}
            /> 
           </Grid>
@@ -145,22 +175,26 @@ function AddAppointment2() {
              onChange={(event) => setMobile(event.target.value)}
              variant="outlined"
              color="secondary"
+             error={!!validationErrors.mobile}
+             helperText={validationErrors.mobile}
              sx={{ width: '90%' , marginBottom: '10px'}}
            />
           </Grid>
           </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}  >
             <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        value={gender} 
-        onChange={(event) => setGender(event.target.value)}
-        sx={{ width: '90%',marginBottom: '10px' }}
-
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+              value={gender} 
+              onChange={(event) => setGender(event.target.value)}
+              sx={{ width: '90%',marginBottom: '10px' }}
       >
-        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
+        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '80px'}}/>
         <FormControlLabel value="male" control={<Radio />} label="Male"  />
+        {validationErrors.gender && (
+                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.gender}</Typography>
+              )}
       </RadioGroup>
           </Grid>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }} >
@@ -171,6 +205,8 @@ function AddAppointment2() {
             onChange={(event) => setArea(event.target.value)}
             variant="outlined"
             color="secondary"
+            error={!!validationErrors.area}
+            helperText={validationErrors.area}
             sx={{ width: '90%' , marginBottom: '20px'}}
           />
             </Grid>
