@@ -195,7 +195,7 @@ function AddAppointment2() {
         <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '80px'}}/>
         <FormControlLabel value="male" control={<Radio />} label="Male"  />
         {validationErrors.gender && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.gender}</Typography>
+        <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.gender}</Typography>
               )}
       </RadioGroup>
           </Grid>
