@@ -5,7 +5,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-
 import { 
   Grid,
   Box, 
@@ -20,6 +19,7 @@ import {
   Radio,
   Button,
   Modal,
+ 
  } from '@mui/material';
 
 function UpdateAppointment() { 
@@ -33,7 +33,7 @@ function UpdateAppointment() {
   const [appointmentDate, setAppointmentDate] = useState(null);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-
+  
   
   const handleClose = () => {
     navigate(-1);
@@ -51,9 +51,9 @@ function UpdateAppointment() {
     p: 4,
   };
 
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
@@ -98,20 +98,20 @@ function UpdateAppointment() {
     </Grid>
     <Grid item xs={4} sx={{width: '200px'}} >
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            color="secondary"
-            label="APPOINTMENT DATE"
-            value={appointmentDate}
-            onChange={(appointmentDate) => setAppointmentDate(appointmentDate)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                color="secondary"
-                label="APPOINTMENT DATE"
-                sx={{ width: '100%', marginBottom: '20px',paddingLeft: '60px' }}
-              />
-            )}
-          />
+    <DatePicker
+    color="secondary" // Add this line to set the color to secondary
+    label="APPOINTMENT DATE"
+    value={appointmentDate}
+    onChange={(appointmentDate) => setAppointmentDate(appointmentDate)}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        color="secondary"
+        label="APPOINTMENT DATE"
+        sx={{ width: '100%', marginBottom: '20px', paddingLeft: '60px' }}
+      />
+    )}
+  />
         </LocalizationProvider>
     </Grid>
   </Grid>
@@ -222,8 +222,7 @@ function UpdateAppointment() {
                     </Typography>
                   </Box>
                 </Modal> 
-            </Grid>
-            
+            </Grid>     
       </Box>
       </Grid>
       </Grid> 
