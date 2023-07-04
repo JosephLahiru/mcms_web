@@ -24,107 +24,16 @@ function AddAppointment2() {
     const [area, setArea] = useState("");
     const [gender, setGender] = useState("");
     const navigate = useNavigate();
-    const [isPatientNameValid, setIsPatientNameValid] = useState(false);
-    const [isAgeValid, setIsAgeValid] = useState(false);
-    const [isMobileValid, setIsMobileValid] = useState(false);
-    const [isAreaValid, setIsAreaValid] = useState(false);
-    const [isGenderValid, setIsGenderValid] = useState(false);
+  
+    const [open, setOpen] = React.useState(false); 
+    const handleClose = () => {
+      navigate(-1);
+        };
 
-
-    const validateForm = () => {
-      if (patientName.trim() === "") {
-        return "Please enter the patient name.";
-      }
-      if (age.trim() === "") {
-        return "Please enter the patient age.";
-      }
-      if (mobile.trim() === "") {
-        return "Please enter the patient mobile.";
-      }
-      if (area.trim() === "") {
-        return "Please enter the patient area.";
-      }
-      if (gender === "") {
-        return "Please select the patient gender.";
-      }
-      return ""; // Empty string indicates the form is valid
-    };
-
-    const validatePatientName = (name) => {
-      if (name.trim() !== "") {
-        setIsPatientNameValid(true);
-      } else {
-        setIsPatientNameValid(false);
-      }
-    };
-    
-    const validateAge = (age) => {
-      if (age.trim() !== "") {
-        setIsAgeValid(true);
-      } else {
-        setIsAgeValid(false);
-      }
-    };
-    
-    const validateMobile = (mobile) => {
-      if (mobile.trim() !== "") {
-        setIsMobileValid(true);
-      } else {
-        setIsMobileValid(false);
-      }
-    };
-    
-    const validateArea = (area) => {
-      if (area.trim() !== "") {
-        setIsAreaValid(true);
-      } else {
-        setIsAreaValid(false);
-      }
-    };
-    
-    const validateGender = (selectedGender) => {
-      if (selectedGender !== "") {
-        setIsGenderValid(true);
-      } else {
-        setIsGenderValid(false);
-      }
-    };
-    
-    useEffect(() => {
-      validatePatientName(patientName);
-    }, [patientName]);
-    
-    useEffect(() => {
-      validateAge(age);
-    }, [age]);
-    
-    useEffect(() => {
-      validateMobile(mobile);
-    }, [mobile]);
-    
-    useEffect(() => {
-      validateArea(area);
-    }, [area]);
-    
-    useEffect(() => {
-      validateGender(gender);
-    }, [gender]);
-    
-
-  const [open, setOpen] = React.useState(false); 
-  const handleClose = () => {
-    navigate(-1);
-      };
-
-      const handleOpen = () => {
-        setOpen(true);
-      };
-    
+        const handleOpen = () => {
+          setOpen(true);
+        };
       
-      useEffect(() => {
-        validateForm();
-      }, [patientName, age, mobile, area, gender]);
-
     const style = {
       position: 'absolute',
       top: '50%',
