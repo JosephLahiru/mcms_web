@@ -32,7 +32,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from './../../appStore';
 
-function ViewAppointment() {
+function ViewAppointment1() {
   const { dopen } = useAppstore();
   const [appointment, setAppointment] = useState([]);
   const [filteredAppointment, setFilteredAppointment] = useState([]);
@@ -44,9 +44,11 @@ function ViewAppointment() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
 
+
   const handleClose = () => {
     navigate(-1);
 };
+
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -73,7 +75,6 @@ function ViewAppointment() {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
- 
 
   useEffect(() => {
     let results;
@@ -163,7 +164,7 @@ function ViewAppointment() {
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose}/>
+      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
       <Box
           sx={{
             display: 'flex',
@@ -230,7 +231,7 @@ function ViewAppointment() {
           }}
         >
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            UNIVERSAL PHYSICIAN
+            PEDIATRICIAN
         </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
@@ -259,12 +260,13 @@ function ViewAppointment() {
             label={`Search by ${filterOption}...`}
             type="search"
           />
-        </Grid>
+        </Grid>    
+      <Grid container alignItems='center'>
         <Grid item xs={12}>
           <TableContainer sx={{ maxHeight: 440 }}>
-            <Table  stickyHeader aria-label="sticky table">
+            <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" ,fontSize: '17px'} }}>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
@@ -279,7 +281,7 @@ function ViewAppointment() {
               <TableBody>
                 {rows.length > 0 ? (
                   rows
-                    .filter(item => item.cd_id === "cd_001")
+                    .filter(item => item.cd_id === "cd_002")
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
@@ -291,7 +293,7 @@ function ViewAppointment() {
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update </Button>
+                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update</Button>
                         </TableCell>
                         <TableCell>
                           <Button
@@ -346,9 +348,10 @@ function ViewAppointment() {
         </Grid>
       </Grid>
       <ToastContainer />
+      </Grid>
     </Paper>
     </Box>
   );
 }
 
-export default ViewAppointment;
+export default ViewAppointment1;
