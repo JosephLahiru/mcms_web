@@ -126,7 +126,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 700, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 675, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'10px',paddingTop:'10px' }}>
           Appointment Information
         </Typography> 
@@ -139,10 +139,13 @@ function UpdateAppointment() {
             onChange={(event) => setAppointmentNumber(event.target.value)}
             variant="outlined"
             color="secondary"
-            error={!!validationErrors.appointmentNumber}
-            helperText={validationErrors.appointmentNumber}
-            sx={{ width: '80%' , marginBottom: '20px',marginLeft: '110px'}}
+            sx={{ width: '80%' , marginBottom: '5px',marginLeft: '80px'}}
           />
+        {validationErrors.appointmentNumber && (
+    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '100px', marginTop: '2px' }}>
+      {validationErrors.appointmentNumber}
+    </Typography>
+  )}  
     </Grid>
     <Grid item xs={5}>
     <FormControl fullWidth sx={{marginLeft: '60px'}} >
@@ -236,11 +239,11 @@ function UpdateAppointment() {
                 name="row-radio-buttons-group"
                 value={gender} 
                 onChange={(event) => setGender(event.target.value)}
-                sx={{ width: '90%',marginBottom: '10px' }}>
+                sx={{ width: '90%',marginBottom: '5px' }}>
         <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
         <FormControlLabel value="male" control={<Radio />} label="Male"  />
           {validationErrors.gender && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.gender}</Typography>
+                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '5px'}} >{validationErrors.gender}</Typography>
               )}
     </RadioGroup>
         </Grid>
@@ -254,7 +257,7 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.area}
                 helperText={validationErrors.area}
-                sx={{ width: '90%' , marginBottom: '20px'}}
+                sx={{ width: '90%' , marginBottom: '10px'}}
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
