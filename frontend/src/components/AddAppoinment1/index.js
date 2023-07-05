@@ -81,20 +81,7 @@ function AddAppointment1() {
     }
   };
 
-  // Assuming you have a function to handle the user's selection
-const handleSelection = (doctor, date) => {
-  // Redirect to the "Add Appointment2" page with query parameters
-  window.location.href = `/add-appointment2?appointmentDoctor=${encodeURIComponent(doctor)}&appointmentDate=${encodeURIComponent(date)}`;
-}
-
-// Example usage in your component
-
-const selectedDate = "2023-07-06"; // Retrieve this value from user input or state
-
-// Trigger the handleSelection function with the selected values
-handleSelection(selectedDoctor, selectedDate);
-
-
+  
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>

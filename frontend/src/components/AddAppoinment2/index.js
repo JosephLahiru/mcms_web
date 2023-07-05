@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Grid,
      Box, 
@@ -16,9 +16,9 @@ import { Grid,
 
 function AddAppointment2() {
 
-    const [appointmentNumber, setAppointmentNumber] = useState('');
-    
     const [patientName, setPatientName] = useState("");
+    const [appointmentDoctor, setAppointmentDoctor] = useState("");
+    const [appointmentDate, setAppointmentDate] = useState("");
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
@@ -27,8 +27,7 @@ function AddAppointment2() {
     const [validationErrors, setValidationErrors] = useState({}); 
 
     const navigate = useNavigate();
-   
-
+    
 
     const handleOpen = () => {
     if (validateForm()) {
@@ -90,15 +89,6 @@ function AddAppointment2() {
       p: 4,
     };
 
-    // Inside your component
-const location = useLocation();
-const queryParams = new URLSearchParams(location.search);
-
-// Retrieve the values from the query parameters
-const appointmentDoctor = queryParams.get("appointmentDoctor");
-const appointmentDate = queryParams.get("appointmentDate");
-
-
   return (
     <Grid container spacing={2.5}>
       <Grid item xs={12}>
@@ -117,7 +107,7 @@ const appointmentDate = queryParams.get("appointmentDate");
                 Doctor Name
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                {appointmentDoctor}
+                NISHANTHA GUNASEKARA{appointmentDoctor}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -126,7 +116,7 @@ const appointmentDate = queryParams.get("appointmentDate");
                 Date
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                {appointmentDate}
+                2022-06-28{appointmentDate}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -261,5 +251,4 @@ const appointmentDate = queryParams.get("appointmentDate");
 }
 
 export default AddAppointment2;
-
-
+ 
