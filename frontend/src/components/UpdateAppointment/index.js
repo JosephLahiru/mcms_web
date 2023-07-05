@@ -1,8 +1,10 @@
 import React,{useState} from "react";
+import { useParams } from "react-router-dom";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 
 import { 
   Grid,
@@ -46,7 +48,6 @@ function UpdateAppointment() {
     boxShadow: 24,
     p: 4,
   };
-
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
