@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Grid,
      Box, 
@@ -16,9 +16,9 @@ import { Grid,
 
 function AddAppointment2() {
 
+    const [appointmentNumber, setAppointmentNumber] = useState('');
+    
     const [patientName, setPatientName] = useState("");
-    const [appointmentDoctor, setAppointmentDoctor] = useState("");
-    const [appointmentDate, setAppointmentDate] = useState("");
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
@@ -27,6 +27,8 @@ function AddAppointment2() {
     const [validationErrors, setValidationErrors] = useState({}); 
 
     const navigate = useNavigate();
+   
+
 
     const handleOpen = () => {
     if (validateForm()) {
@@ -88,6 +90,15 @@ function AddAppointment2() {
       p: 4,
     };
 
+    // Inside your component
+const location = useLocation();
+const queryParams = new URLSearchParams(location.search);
+
+// Retrieve the values from the query parameters
+const appointmentDoctor = queryParams.get("appointmentDoctor");
+const appointmentDate = queryParams.get("appointmentDate");
+
+
   return (
     <Grid container spacing={2.5}>
       <Grid item xs={12}>
@@ -106,7 +117,7 @@ function AddAppointment2() {
                 Doctor Name
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                NISHANTHA GUNASEKARA{appointmentDoctor}
+                {appointmentDoctor}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -115,7 +126,7 @@ function AddAppointment2() {
                 Date
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                2022-06-28{appointmentDate}
+                {appointmentDate}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -250,4 +261,5 @@ function AddAppointment2() {
 }
 
 export default AddAppointment2;
-  
+
+

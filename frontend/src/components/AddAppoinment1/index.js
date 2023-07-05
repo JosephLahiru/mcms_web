@@ -81,6 +81,20 @@ function AddAppointment1() {
     }
   };
 
+  // Assuming you have a function to handle the user's selection
+const handleSelection = (doctor, date) => {
+  // Redirect to the "Add Appointment2" page with query parameters
+  window.location.href = `/add-appointment2?appointmentDoctor=${encodeURIComponent(doctor)}&appointmentDate=${encodeURIComponent(date)}`;
+}
+
+// Example usage in your component
+
+const selectedDate = "2023-07-06"; // Retrieve this value from user input or state
+
+// Trigger the handleSelection function with the selected values
+handleSelection(selectedDoctor, selectedDate);
+
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -102,12 +116,12 @@ function AddAppointment1() {
                     color="secondary"
                     value={appointmentDoctor}
                     onChange={handleOptionChange}
-                    sx={{ width: '500px' }}
+                    sx={{ width: '400px' }}
                     label="SELECT A DOCTOR"
                   >
-                    <MenuItem value="NISHANTHA GUNASEKARA">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-                    <MenuItem value="BUDDHI MOHOTTI">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-                    <MenuItem value="PRESANTHA BANDARA">Radiologist - PRESANTHA BANDARA</MenuItem>
+                    <MenuItem value="NISHANTHA GUNASEKARA">NISHANTHA GUNASEKARA</MenuItem>
+                    <MenuItem value="BUDDHI MOHOTTI">BUDDHI MOHOTTI</MenuItem>
+                    <MenuItem value="PRESANTHA BANDARA">PRESANTHA BANDARA</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -173,3 +187,4 @@ function AddAppointment1() {
 }
 
 export default AddAppointment1;
+
