@@ -140,10 +140,10 @@ function UpdateAppointment() {
             onChange={(event) => setAppointmentNumber(event.target.value)}
             variant="outlined"
             color="secondary"
-            sx={{ width: '80%' , marginBottom: '5px',marginLeft: '80px'}}
+            sx={{ width: '80%' , marginBottom: '5px',marginLeft: '110px'}}
           />
         {validationErrors.appointmentNumber && (
-    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '100px', marginTop: '2px' }}>
+    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '130px', marginTop: '2px' }}>
       {validationErrors.appointmentNumber}
     </Typography>
   )}  
