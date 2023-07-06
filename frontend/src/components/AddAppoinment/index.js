@@ -27,9 +27,25 @@ function AddAppointment() {
     setAppointmentDoctor(selectedDoctor);
 
     if (selectedDoctor) {
-      navigate('/add_appointment1', { state: { selectedDoctor } });
+      navigate('/add_appointment1');
     }
   };
+
+  async function getAppointmentDoctor(doctor_name,d_type) {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_doctor_names' +  doctor_name + "/" +  d_type );
+      if (!response.ok) {
+        throw new Error('Failed to fetch Expire Type Id');
+      }
+      const data = await response.json();
+      const appointmentDoctorValue = data.length > 0 ? data[0].doctor_name : '';
+      return appointmentDoctorValue;
+
+    } catch (error) {
+      console.error('Error:', error);
+      return '';
+    }
+  }
 
   return (
     <Grid container spacing={0}>
@@ -91,5 +107,7 @@ function AddAppointment() {
 }
 
 export default AddAppointment;
+
+
 
 

@@ -1,10 +1,8 @@
 import React,{useState} from "react";
-import { useParams } from "react-router-dom";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import dayjs from 'dayjs';
 
 import { 
   Grid,
@@ -22,7 +20,7 @@ import {
   Modal,
  
  } from '@mui/material';
-
+ 
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
   const [area, setArea] = useState("");
@@ -31,7 +29,7 @@ function UpdateAppointment() {
   const [mobile, setMobile] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState(null);
+  const [appointmentDate, setAppointmentDate] = useState();
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   

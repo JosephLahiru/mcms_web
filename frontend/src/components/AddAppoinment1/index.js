@@ -81,6 +81,21 @@ function AddAppointment1() {
     }
   };
 
+
+  async function getAppointmentNumber(app_date, cd_id) {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
+      if (!response.ok) {
+        throw new Error('Failed to fetch Appointment Number');
+      }
+      const data = await response.json();
+      const appointmentNumberValue = data.length > 0 ? data[0].max_app_num : '';
+      return appointmentNumberValue + 1;
+    } catch (error) {
+      console.error('Error:', error);
+      return '';
+    }
+  }  
   
   return (
     <Grid container spacing={0}>
