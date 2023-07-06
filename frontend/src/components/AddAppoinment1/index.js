@@ -13,12 +13,15 @@ import {
   ToggleButtonGroup,
   createTheme,
   Button,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 
 function AddAppointment1() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
   const [appointmentNumber, setAppointmentNumber] = useState('');
   const [appointmentDate, setAppointmentDate] = useState('');
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -75,27 +78,16 @@ function AddAppointment1() {
     }
   }, [selectedDoctor]);
 
+ 
   const handleBookNow = () => {
     if (appointmentDate) {
       navigate('/add_appointment2');
+    } else {
+      setShowError(true);
     }
   };
 
-
-  async function getAppointmentNumber(app_date, cd_id) {
-    try {
-      const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
-      if (!response.ok) {
-        throw new Error('Failed to fetch Appointment Number');
-      }
-      const data = await response.json();
-      const appointmentNumberValue = data.length > 0 ? data[0].max_app_num : '';
-      return appointmentNumberValue + 1;
-    } catch (error) {
-      console.error('Error:', error);
-      return '';
-    }
-  }  
+ 
   
   return (
     <Grid container spacing={0}>
@@ -184,6 +176,18 @@ function AddAppointment1() {
           </Grid>
         </Box>
       </Grid>
+      <Grid item xs={12} sx={{ paddingLeft: '80px' }}>
+        <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Grid item xs={3}>
+            {showError && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Please select a date — <strong>check it out!</strong>
+              </Alert>
+            )}
+          </Grid>
+          </Box>
+      </Grid> 
     </Grid>
   );
 }
