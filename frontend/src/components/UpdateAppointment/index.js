@@ -20,7 +20,7 @@ import {
   Modal,
  
  } from '@mui/material';
- 
+
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
   const [area, setArea] = useState("");

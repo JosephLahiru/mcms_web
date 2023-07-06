@@ -84,8 +84,8 @@ function AddAppointment() {
                     sx={{ width: '500px' }}
                     label="SELECT A DOCTOR"
                   >
-                    <MenuItem value="NISHANTHA GUNASEKARA">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-                    <MenuItem value="BUDDHI MOHOTTI">Pediatrician - BUDDHI MOHOTTI</MenuItem>
+                    <MenuItem value="NISHANTHA GUNASEKARA">Neuro Surgeon - NISHANTHA GUNASEKARA</MenuItem>
+                    <MenuItem value="BUDDHI MOHOTTI">Universal Physician - BUDDHI MOHOTTI</MenuItem>
                     <MenuItem value="PRESANTHA BANDARA">Radiologist - PRESANTHA BANDARA</MenuItem>
                   </Select>
                 </FormControl>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Grid,
      Box, 
@@ -17,6 +17,7 @@ import { Grid,
 function AddAppointment2() {
 
     const [patientName, setPatientName] = useState("");
+    const [appointmentNumber, setAppointmentNumber] = useState("");
     const [appointmentDoctor, setAppointmentDoctor] = useState("");
     const [appointmentDate, setAppointmentDate] = useState("");
     const [age, setAge] = useState("");
@@ -25,8 +26,17 @@ function AddAppointment2() {
     const [gender, setGender] = useState("");
     const [open, setOpen] = React.useState(false); 
     const [validationErrors, setValidationErrors] = useState({}); 
+    const location = useLocation();
 
-    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (location.state) {
+        const { appointmentDoctor, appointmentNumber, appointmentDate } = location.state;
+        setAppointmentDoctor(appointmentDoctor);
+        setAppointmentNumber(appointmentNumber);
+        setAppointmentDate(appointmentDate);
+      }
+    }, [location.state]);
     
 
     const handleOpen = () => {
@@ -103,11 +113,11 @@ function AddAppointment2() {
         <Box sx={{ width: '1200px', height: 100, backgroundColor: '#f5f5f5', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
           <Grid container spacing={0}>
             <Grid item xs={3.5}>
-              <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
+              <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px'  }}>
                 Doctor Name
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                NISHANTHA GUNASEKARA{appointmentDoctor}
+                {appointmentDoctor}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -116,7 +126,7 @@ function AddAppointment2() {
                 Date
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                2022-06-28{appointmentDate}
+                {appointmentDate.slice(0,15)}
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem />
@@ -131,10 +141,10 @@ function AddAppointment2() {
             <Divider orientation="vertical" variant="middle" flexItem color />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
-                Channeling Free
+                Channeling Fee
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                LKR 4,500.00
+                LKR 4,200.00
               </Typography>
             </Grid>
           </Grid>

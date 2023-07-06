@@ -22,6 +22,7 @@ function AddAppointment1() {
   const [appointmentNumber, setAppointmentNumber] = useState('');
   const [appointmentDate, setAppointmentDate] = useState('');
   const [showError, setShowError] = useState(false);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -64,9 +65,6 @@ function AddAppointment1() {
     setAppointmentDoctor(event.target.value);
   };
 
-  const handleChange = (event, newappointmentDate) => {
-    setAppointmentDate(newappointmentDate);
-  };
 
   // Get the selectedDoctor from the location state
   const { selectedDoctor } = location.state || {};
@@ -78,16 +76,41 @@ function AddAppointment1() {
     }
   }, [selectedDoctor]);
 
- 
   const handleBookNow = () => {
     if (appointmentDate) {
-      navigate('/add_appointment2');
+      navigate('/add_appointment2', {  
+        state: {
+          appointmentDoctor,
+          appointmentNumber:appointmentNumber,
+          appointmentDate: appointmentDate,
+        },
+      });
     } else {
       setShowError(true);
     }
   };
+  
 
- 
+  const handleChange = (event, newappointmentDate) => {
+    setAppointmentDate(newappointmentDate);
+    setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
+  };
+  
+
+  async function getAppointmentNumber(app_date, cd_id) {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
+      if (!response.ok) {
+        throw new Error('Failed to fetch Appointment Number');
+      }
+      const data = await response.json();
+      const appointmentNumberValue = data.length > 0 ? data[0].max_app_num : '';
+      return appointmentNumberValue + 1;
+    } catch (error) {
+      console.error('Error:', error);
+      return '';
+    }
+  } 
   
   return (
     <Grid container spacing={0}>
@@ -160,9 +183,9 @@ function AddAppointment1() {
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '120px' }}>
-              00{appointmentNumber}
-            </Typography>
+          <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '120px' }}>
+            {selectedButtonIndex !== null && (appointmentNumber + 1).toString().padStart(2, '0')}
+          </Typography>
           </Grid>
           <Grid item xs={3}>
             <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '10px' }}>
@@ -182,7 +205,7 @@ function AddAppointment1() {
             {showError && (
               <Alert severity="error">
                 <AlertTitle>Error</AlertTitle>
-                Please select a date — <strong>check it out!</strong>
+                Please select a Date — <strong>check it out!</strong>
               </Alert>
             )}
           </Grid>
