@@ -1,9 +1,10 @@
 import React,{useState} from "react";
-import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 
 import { 
   Grid,
@@ -34,7 +35,7 @@ function UpdateAppointment() {
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
-  const navigate = useNavigate();
+
   
   const style = {
     position: 'absolute',
@@ -47,7 +48,6 @@ function UpdateAppointment() {
     boxShadow: 24,
     p: 4,
   };
-
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
@@ -71,12 +71,12 @@ function UpdateAppointment() {
     }
 
     if (!appointmentDoctor) {
-      errors.appointmentDoctor = "Please select the patient gender";
+      errors.appointmentDoctor = "Please select the appointment doctor";
       formIsValid = false;
     }
 
     if (!appointmentDate) {
-      errors.appointmentDate = "Please select the patient gender";
+      errors.appointmentDate = "Please select the appointment date";
       formIsValid = false;
     }
 
@@ -92,6 +92,9 @@ function UpdateAppointment() {
 
     if (mobile.trim() === "") {
       errors.mobile = "Please enter the patient mobile";
+      formIsValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 10-digit mobile number";
       formIsValid = false;
     }
 
@@ -124,7 +127,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 700, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 675, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'10px',paddingTop:'10px' }}>
           Appointment Information
         </Typography> 
@@ -137,10 +140,13 @@ function UpdateAppointment() {
             onChange={(event) => setAppointmentNumber(event.target.value)}
             variant="outlined"
             color="secondary"
-            error={!!validationErrors.appointmentNumber}
-            helperText={validationErrors.appointmentNumber}
-            sx={{ width: '80%' , marginBottom: '20px',marginLeft: '110px'}}
+            sx={{ width: '80%' , marginBottom: '5px',marginLeft: '110px'}}
           />
+        {validationErrors.appointmentNumber && (
+    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '130px', marginTop: '2px' }}>
+      {validationErrors.appointmentNumber}
+    </Typography>
+  )}  
     </Grid>
     <Grid item xs={5}>
     <FormControl fullWidth sx={{marginLeft: '60px'}} >
@@ -234,11 +240,11 @@ function UpdateAppointment() {
                 name="row-radio-buttons-group"
                 value={gender} 
                 onChange={(event) => setGender(event.target.value)}
-                sx={{ width: '90%',marginBottom: '10px' }}>
+                sx={{ width: '90%',marginBottom: '5px' }}>
         <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
         <FormControlLabel value="male" control={<Radio />} label="Male"  />
           {validationErrors.gender && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.gender}</Typography>
+                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '5px'}} >{validationErrors.gender}</Typography>
               )}
     </RadioGroup>
         </Grid>
@@ -252,7 +258,7 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.area}
                 helperText={validationErrors.area}
-                sx={{ width: '90%' , marginBottom: '20px'}}
+                sx={{ width: '90%' , marginBottom: '10px'}}
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >

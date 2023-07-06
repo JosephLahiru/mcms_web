@@ -81,6 +81,7 @@ function AddAppointment1() {
     }
   };
 
+  
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -102,12 +103,12 @@ function AddAppointment1() {
                     color="secondary"
                     value={appointmentDoctor}
                     onChange={handleOptionChange}
-                    sx={{ width: '500px' }}
+                    sx={{ width: '400px' }}
                     label="SELECT A DOCTOR"
                   >
-                    <MenuItem value="NISHANTHA GUNASEKARA">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-                    <MenuItem value="BUDDHI MOHOTTI">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-                    <MenuItem value="PRESANTHA BANDARA">Radiologist - PRESANTHA BANDARA</MenuItem>
+                    <MenuItem value="NISHANTHA GUNASEKARA">NISHANTHA GUNASEKARA</MenuItem>
+                    <MenuItem value="BUDDHI MOHOTTI">BUDDHI MOHOTTI</MenuItem>
+                    <MenuItem value="PRESANTHA BANDARA">PRESANTHA BANDARA</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -173,3 +174,4 @@ function AddAppointment1() {
 }
 
 export default AddAppointment1;
+
