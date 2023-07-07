@@ -61,6 +61,9 @@ function AddAppointment2() {
     if (age.trim() === "") {
       errors.age = "Please enter the patient age";
       formIsValid = false;
+    } else if (isNaN(age) || parseInt(age) < 1) {
+      errors.age = "Please enter a valid age";
+      formIsValid = false;
     }
 
     if (mobile.trim() === "") {

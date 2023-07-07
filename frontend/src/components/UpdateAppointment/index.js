@@ -46,6 +46,7 @@ function UpdateAppointment() {
     setAppointmentDoctor(event.target.value);
   };
 
+
  const handleOpen = () => {
     if (validateForm()) {
       setOpen(true);
@@ -75,6 +76,9 @@ function UpdateAppointment() {
 
     if (age.trim() === "") {
       errors.age = "Please enter the patient age";
+      formIsValid = false;
+    } else if (isNaN(age) || parseInt(age) < 1) {
+      errors.age = "Please enter a valid age";
       formIsValid = false;
     }
 
