@@ -105,7 +105,7 @@ function UpdateAppointment() {
   };
 
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
     <Grid item xs={12}>
       <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -115,7 +115,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 675, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 660, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'10px',paddingTop:'10px' }}>
           Appointment Information
         </Typography> 
@@ -128,16 +128,16 @@ function UpdateAppointment() {
             onChange={(event) => setAppointmentId(event.target.value)}
             variant="outlined"
             color="secondary"
-            sx={{ width: '80%' , marginBottom: '5px',marginLeft: '110px'}}
+            sx={{ width: '130%' , marginBottom: '5px',marginLeft: '180px'}}
           />
         {validationErrors.appointmentId && (
-    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '130px', marginTop: '2px' }}>
+    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
       {validationErrors.appointmentId}
     </Typography>
   )}  
     </Grid>
     <Grid item xs={5}>
-    <FormControl fullWidth sx={{marginLeft: '60px'}} >
+    <FormControl fullWidth sx={{marginLeft: '280px'}} >
       <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
           <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
               <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
@@ -145,12 +145,12 @@ function UpdateAppointment() {
               <MenuItem value="Presantha Bandara">Radiologist - PRESANTHA BANDARA</MenuItem>
               </Select>
               {validationErrors.appointmentDoctor && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.appointmentDoctor}</Typography>
+                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingBottom: '20px'}} >{validationErrors.appointmentDoctor}</Typography>
               )}
     </FormControl>
     </Grid>
   </Grid>
-    <cross>
+    <cross >
      <Box display="flex" justifyContent="center" alignItems="center" pb={1}>
             <Box position="relative" width={1000} height={2} bgcolor="#bdbdbd" />
           </Box>
@@ -224,7 +224,7 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.area}
                 helperText={validationErrors.area}
-                sx={{ width: '90%' , marginBottom: '10px'}}
+                sx={{ width: '90%' , marginBottom: '15px'}}
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
