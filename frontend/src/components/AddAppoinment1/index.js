@@ -67,7 +67,7 @@ function AddAppointment1() {
 
 
   // Get the selectedDoctor from the location state
-  const { selectedDoctor } = location.state || {};
+  const { selectedDoctor, selectedDoctorID } = location.state || {};
 
   // Set the selectedDoctor in AddAppointment1 if available
   React.useEffect(() => {
@@ -76,29 +76,27 @@ function AddAppointment1() {
     }
   }, [selectedDoctor]);
 
+ 
   const handleBookNow = () => {
     if (appointmentDate) {
-      navigate('/add_appointment2', {  
+      navigate('/add_appointment2', {
         state: {
           appointmentDoctor,
-          appointmentNumber:appointmentNumber,
-          appointmentDate: appointmentDate,
+          appointmentNumber,
+          appointmentDate,
         },
       });
     } else {
       setShowError(true);
     }
   };
-  
-
-  const handleChange = (event, newappointmentDate) => {
-    setAppointmentDate(newappointmentDate);
-    setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
-  };
-  
-
+   
   async function getAppointmentNumber(app_date, cd_id) {
     try {
+      console.log("app_date")
+      console.log(app_date)
+      console.log("cd_id")
+      console.log(cd_id)
       const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
       if (!response.ok) {
         throw new Error('Failed to fetch Appointment Number');
@@ -110,7 +108,23 @@ function AddAppointment1() {
       console.error('Error:', error);
       return '';
     }
-  } 
+  }
+
+  const handleChange = (event, newappointmentDate) => {
+    setAppointmentDate(newappointmentDate);
+    console.log(newappointmentDate)
+    setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
+
+    console.log(getAppointmentNumber(appointmentDate, selectedDoctorID))
+  };
+  
+
+
+
+  // const handleMultipleFunctions = (event) => {
+  //   (event);
+  //   console.log(getAppointmentNumber(appointmentDate, appointmentDoctor))
+  // }
   
   return (
     <Grid container spacing={0}>

@@ -42,11 +42,11 @@ function AddAppointment2() {
     
 
     const handleOpen = () => {
-    if (validateForm()) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
+      if (validateForm()) {
+        setOpen(true);
+      } else {
+        setOpen(false);
+      }
       };
  
   const validateForm = () => {
@@ -58,7 +58,7 @@ function AddAppointment2() {
       formIsValid = false;
     }
 
-    if (age.trim() === "") {
+     if (age.trim() === "") {
       errors.age = "Please enter the patient age";
       formIsValid = false;
     } else if (isNaN(age) || parseInt(age) < 1) {
@@ -216,7 +216,7 @@ function AddAppointment2() {
                 Channeling Fee
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                LKR 4,200.00
+                {appointmentNumber}
               </Typography>
             </Grid>
           </Grid>
@@ -296,7 +296,7 @@ function AddAppointment2() {
           />
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleOpen}>Book Now</Button>
+            <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleBOOKNOW}>Book Now</Button>
             <Modal
                   open={open}
                   onClose={handleClose}
