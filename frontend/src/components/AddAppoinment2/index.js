@@ -99,6 +99,67 @@ function AddAppointment2() {
       p: 4,
     };
 
+    /*const handleSubmit = async (event) =>{
+      event.preventDefault();
+  
+      console.log("Patient Name:", lastName);
+      console.log("Area:", area);
+      console.log("Age",age);
+      console.log("Gender:", gender);
+      console.log("Mobile:", mobile);
+      console.log("Appointment Number:", appointmentNumber);
+      console.log("Appointment Doctor:", appointmentDoctor);
+      console.log("Appointment Date:", appointmentDate);
+  
+      if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
+        toast.error('Please fill all the fields...', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+        return;
+      }
+  
+  
+  
+      const requestBody = {
+        first_name: firstName,
+        last_name: lastName,
+        nic: nic,
+        address: address,
+        age: age,
+        gender: gender,
+        contact_num: contactNumber,
+        ...(email && { email: email }),
+        app_num: appointmentNumber,
+        at_id: await getAtId(appointmentType),
+        cd_id: await getCdId(appointmentDoctor),
+        app_date: appointmentDate,
+        atm_id: await getATMId(appointmentTime),
+      };
+  
+      console.log(requestBody)
+  
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/set_appointment", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to send appointment details');
+        }
+  
+        alert('Appointment details sent successfully');
+        handleReset();
+      } catch (error) {
+        console.error(error);
+        alert('Failed to send appointment details');
+      }
+  
+    }*/
+
   return (
     <Grid container spacing={2.5}>
       <Grid item xs={12}>

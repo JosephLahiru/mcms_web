@@ -1,9 +1,5 @@
 import React,{useState} from "react";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
 import { 
   Grid,
   Box, 
@@ -27,9 +23,8 @@ function UpdateAppointment() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [mobile, setMobile] = useState("");
-  const [appointmentNumber, setAppointmentNumber] = useState("");
+  const [appointmentId, setAppointmentId] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState();
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
@@ -63,18 +58,13 @@ function UpdateAppointment() {
     const errors = {};
     let formIsValid = true;
 
-    if (appointmentNumber.trim() === "") {
-      errors.appointmentNumber = "Please enter the appointment number";
+    if (appointmentId.trim() === "") {
+      errors.appointmentId = "Please enter the appointment id";
       formIsValid = false;
     }
 
     if (!appointmentDoctor) {
       errors.appointmentDoctor = "Please select the appointment doctor";
-      formIsValid = false;
-    }
-
-    if (!appointmentDate) {
-      errors.appointmentDate = "Please select the appointment date";
       formIsValid = false;
     }
 
@@ -132,17 +122,17 @@ function UpdateAppointment() {
       <Grid  item xs={4}container spacing={{ xs: 2 }}>
     <Grid item xs={3} >
     <TextField
-            id="appointment number"
-            label=" APPOINTMENT NUMBER"
-            value={appointmentNumber}
-            onChange={(event) => setAppointmentNumber(event.target.value)}
+            id="appointment id"
+            label=" APPOINTMENT ID"
+            value={appointmentId}
+            onChange={(event) => setAppointmentId(event.target.value)}
             variant="outlined"
             color="secondary"
             sx={{ width: '80%' , marginBottom: '5px',marginLeft: '110px'}}
           />
-        {validationErrors.appointmentNumber && (
+        {validationErrors.appointmentId && (
     <Typography variant="body2" color="#c62828" sx={{ marginLeft: '130px', marginTop: '2px' }}>
-      {validationErrors.appointmentNumber}
+      {validationErrors.appointmentId}
     </Typography>
   )}  
     </Grid>
@@ -158,28 +148,6 @@ function UpdateAppointment() {
                 <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '10px'}} >{validationErrors.appointmentDoctor}</Typography>
               )}
     </FormControl>
-    </Grid>
-    <Grid item xs={4} sx={{width: '200px'}} >
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <DatePicker
-    color="secondary" // Add this line to set the color to secondary
-    label="APPOINTMENT DATE"
-    value={appointmentDate}
-    onChange={(appointmentDate) => setAppointmentDate(appointmentDate)}
-    renderInput={(params) => (
-      <TextField
-        {...params}
-        color="secondary"
-        label="APPOINTMENT DATE"
-        sx={{ width: '100%', marginBottom: '20px', paddingLeft: '60px' }}
-      />
-    )}
-  />
-  {validationErrors.appointmentDate && (
-  <Typography variant="body2" color="error" sx={{ marginLeft: '25px',margingTop: '10px'}} >{validationErrors.appointmentDate}</Typography>
-              )}
-        </LocalizationProvider>
-       
     </Grid>
   </Grid>
     <cross>
@@ -272,13 +240,10 @@ function UpdateAppointment() {
                     Appointment Information 
                     </Typography>
                     <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      NUMBER: {appointmentNumber ? `${appointmentNumber}` : ''} 
+                      ID: {appointmentId ? `${appointmentId}` : ''} 
                     </Typography>
                     <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
                        {appointmentDoctor ? `${appointmentDoctor}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                       DATE:{appointmentDate ? `${appointmentDate}` : ''}  
                     </Typography>
                     <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
                     Patient Information 
