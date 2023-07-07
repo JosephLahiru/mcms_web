@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment';
+import ViewAppointment1 from './components/ViewAppointment1';
+import ViewAppointment2 from './components/ViewAppointment2';
 import UpdateAppointment from './components/UpdateAppointment';
 import PatientHistory from './components/PatientHistory';
 import Login from "./components/Login";
@@ -12,6 +14,8 @@ import ViewAttendance from './components/ViewAttendance';
 import UpdateStock from './components/UpdateStock';
 import ViewStock from './components/ViewStock';
 import AddAppointment from './components/AddAppoinment';
+import AddAppointment1 from './components/AddAppoinment1';
+import AddAppointment2 from './components/AddAppoinment2';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
 import Navbar from './components/Navbar';
@@ -35,7 +39,11 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='dashboard' element={<Dashboard />} />
         <Route path='add_appointment' element={<AddAppointment />} />
+        <Route path='add_appointment1' element={<AddAppointment1 />} />
+        <Route path='add_appointment2' element={<AddAppointment2 />} />
         <Route path='view_appointment' element={<ViewAppointment />} />
+        <Route path='view_appointment1' element={<ViewAppointment1 />} />
+        <Route path='view_appointment2' element={<ViewAppointment2 />} />
         <Route path='update_appointment' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />

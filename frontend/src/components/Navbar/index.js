@@ -11,7 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import { useMediaQuery, useTheme, Link } from '@mui/material';
 import { useAppstore } from './../../appStore';
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+
 
 const AppBar = styled(MuiAppBar, {})(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -25,6 +26,7 @@ export default function Navbar() {
 
 
   const isMenuOpen = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +35,15 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    // Clear user credentials and tokens
+    // Add your code here to clear the user's credentials and tokens, e.g., session storage, cookies, etc.
+  
+    // Redirect the user to the login page
+    navigate('/');
+  };
+  
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -51,7 +62,7 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
