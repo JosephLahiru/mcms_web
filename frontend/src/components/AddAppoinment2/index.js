@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { ToastContainer, toast } from 'react-toastify';
 import { Grid,
      Box, 
      Typography,
@@ -99,10 +100,10 @@ function AddAppointment2() {
       p: 4,
     };
 
-    /*const handleSubmit = async (event) =>{
+    const handleBOOKNOW = async (event) =>{
       event.preventDefault();
   
-      console.log("Patient Name:", lastName);
+      console.log("Patient Name:", patientName);
       console.log("Area:", area);
       console.log("Age",age);
       console.log("Gender:", gender);
@@ -111,29 +112,22 @@ function AddAppointment2() {
       console.log("Appointment Doctor:", appointmentDoctor);
       console.log("Appointment Date:", appointmentDate);
   
-      if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
+      if ( !patientName  || !area || !age || !gender  || !mobile || !appointmentNumber  || !appointmentDoctor || !appointmentDate) {
         toast.error('Please fill all the fields...', {
           position: toast.POSITION.TOP_RIGHT
         });
         return;
       }
   
-  
-  
       const requestBody = {
-        first_name: firstName,
-        last_name: lastName,
-        nic: nic,
-        address: address,
+        patient_name: patientName,
+        area: area,
         age: age,
         gender: gender,
-        contact_num: contactNumber,
-        ...(email && { email: email }),
+        mobile: mobile,
         app_num: appointmentNumber,
-        at_id: await getAtId(appointmentType),
-        cd_id: await getCdId(appointmentDoctor),
+        cd_id: appointmentDoctor,
         app_date: appointmentDate,
-        atm_id: await getATMId(appointmentTime),
       };
   
       console.log(requestBody)
@@ -152,13 +146,12 @@ function AddAppointment2() {
         }
   
         alert('Appointment details sent successfully');
-        handleReset();
       } catch (error) {
         console.error(error);
         alert('Failed to send appointment details');
       }
   
-    }*/
+    }
 
   return (
     <Grid container spacing={2.5}>
