@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { ToastContainer, toast } from 'react-toastify';
-import { Grid,
-     Box, 
-     Typography,
-     Divider,
-     TextField,
-     Radio,
-     FormControlLabel,
-     RadioGroup,
-     Button,
-     Modal,
-
-    } from '@mui/material';
+import { useLocation } from "react-router-dom";
+import {
+  Grid,
+  Box,
+  Typography,
+  Divider,
+  TextField,
+  Radio,
+  FormControlLabel,
+  RadioGroup,
+  Button,
+  Modal,
+} from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function AddAppointment2() {
 
@@ -100,25 +101,34 @@ function AddAppointment2() {
       p: 4,
     };
 
-    const handleBOOKNOW = async (event) =>{
+    const handleBOOKNOW = async (event) => {
       event.preventDefault();
-  
+    
       console.log("Patient Name:", patientName);
       console.log("Area:", area);
-      console.log("Age",age);
+      console.log("Age", age);
       console.log("Gender:", gender);
       console.log("Mobile:", mobile);
       console.log("Appointment Number:", appointmentNumber);
       console.log("Appointment Doctor:", appointmentDoctor);
       console.log("Appointment Date:", appointmentDate);
-  
-      if ( !patientName  || !area || !age || !gender  || !mobile || !appointmentNumber  || !appointmentDoctor || !appointmentDate) {
-        toast.error('Please fill all the fields...', {
-          position: toast.POSITION.TOP_RIGHT
+    
+      if (
+        !patientName ||
+        !area ||
+        !age ||
+        !gender ||
+        !mobile ||
+        !appointmentNumber ||
+        !appointmentDoctor ||
+        !appointmentDate
+      ) {
+        toast.error("Please fill all the fields...", {
+          position: toast.POSITION.TOP_RIGHT,
         });
         return;
       }
-  
+    
       const requestBody = {
         patient_name: patientName,
         area: area,
@@ -129,30 +139,35 @@ function AddAppointment2() {
         cd_id: appointmentDoctor,
         app_date: appointmentDate,
       };
-  
-      console.log(requestBody)
-  
+    
+      console.log(requestBody);
+    
       try {
-        const response = await fetch("https://mcms_api.mtron.me/set_appointment", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody),
-        });
-  
+        const response = await fetch(
+          "https://mcms_api.mtron.me/set_appointment",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
+    
         if (!response.ok) {
-          throw new Error('Failed to send appointment details');
+          throw new Error("Failed to send appointment details");
         }
-  
-        alert('Appointment details sent successfully');
+    
+        const data = await response.json();
+        console.log(data); // Log the response data from the API
+    
+        alert("Appointment details sent successfully");
       } catch (error) {
         console.error(error);
-        alert('Failed to send appointment details');
+        alert("Failed to send appointment details");
       }
-  
-    }
-
+    };
+    
   return (
     <Grid container spacing={2.5}>
       <Grid item xs={12}>
