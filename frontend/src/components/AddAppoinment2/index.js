@@ -22,6 +22,7 @@ function AddAppointment2() {
     const [appointmentNumber, setAppointmentNumber] = useState("");
     const [appointmentDoctor, setAppointmentDoctor] = useState("");
     const [appointmentDate, setAppointmentDate] = useState("");
+    const [appointmentDoctorID, setppointmentDoctorID] = useState(0);
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
@@ -33,10 +34,11 @@ function AddAppointment2() {
 
     useEffect(() => {
       if (location.state) {
-        const { appointmentDoctor, appointmentNumber, appointmentDate } = location.state;
+        const { appointmentDoctor, appointmentNumber, appointmentDate, selectedDoctorID } = location.state;
         setAppointmentDoctor(appointmentDoctor);
         setAppointmentNumber(appointmentNumber);
         setAppointmentDate(appointmentDate);
+        setppointmentDoctorID(selectedDoctorID);
       }
     }, [location.state]);
     
@@ -106,16 +108,7 @@ function AddAppointment2() {
 
     const handleBOOKNOW = async (event) => {
       event.preventDefault();
-    
-      console.log("Patient Name:", patientName);
-      console.log("Area:", area);
-      console.log("Age", age);
-      console.log("Gender:", gender);
-      console.log("Mobile:", mobile);
-      console.log("Appointment Number:", appointmentNumber);
-      console.log("Appointment Doctor:", appointmentDoctor);
-      console.log("Appointment Date:", appointmentDate);
-    
+        
       if (
         !patientName ||
         !area ||
@@ -123,7 +116,7 @@ function AddAppointment2() {
         !gender ||
         !mobile ||
         !appointmentNumber ||
-        !appointmentDoctor ||
+        !appointmentDoctorID ||
         !appointmentDate
       ) {
         toast.error("Please fill all the fields...", {
@@ -131,6 +124,14 @@ function AddAppointment2() {
         });
         return;
       }
+
+      const inputDate = new Date(appointmentDate);
+
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const _convertedDate = inputDate.toLocaleDateString('en-GB', options).replace(/\//g, '-');
+  
+      const dateParts = _convertedDate.split("-");
+      const convertedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
     
       const requestBody = {
         patient_name: patientName,
@@ -139,8 +140,8 @@ function AddAppointment2() {
         gender: gender,
         mobile: mobile,
         app_num: appointmentNumber,
-        cd_id: appointmentDoctor,
-        app_date: appointmentDate,
+        cd_id: appointmentDoctorID,
+        app_date: convertedDate,
       };
     
       console.log(requestBody);
@@ -213,7 +214,7 @@ function AddAppointment2() {
             <Divider orientation="vertical" variant="middle" flexItem color />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
-                Channeling Fee
+                Appointment Number
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
                 {appointmentNumber}

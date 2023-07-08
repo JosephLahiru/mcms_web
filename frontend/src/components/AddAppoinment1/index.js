@@ -95,7 +95,6 @@ const fetchDoctorNames = async () => {
     }
   }, [selectedDoctor]);
 
- 
   const handleBookNow = () => {
     if (appointmentDate) {
       navigate('/add_appointment2', {
@@ -103,13 +102,14 @@ const fetchDoctorNames = async () => {
           appointmentDoctor,
           appointmentNumber,
           appointmentDate,
+          selectedDoctorID,
         },
       });
     } else {
       setShowError(true);
     }
   };
-   
+
   async function getAppointmentNumber(app_date, cd_id) {
     try {
       const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
@@ -125,7 +125,7 @@ const fetchDoctorNames = async () => {
       return '';
     }
   }
-  
+
   const handleChange = async (event, newappointmentDate) => {
     setAppointmentDate(newappointmentDate);
     setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
@@ -140,7 +140,7 @@ const fetchDoctorNames = async () => {
 
     setAppointmentNumber(await getAppointmentNumber(convertedDate, selectedDoctorID))
   };
-  
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
