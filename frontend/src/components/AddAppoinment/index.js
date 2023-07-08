@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
@@ -16,7 +16,28 @@ import {
 
 function AddAppointment() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
+  const [doctorNames, setDoctorNames] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchDoctorNames();
+  }, []);
+
+const fetchDoctorNames = async () => {
+  try {
+    const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
+    const data = await response.json();
+    const formattedDoctorNames = data.map((doctor) => {
+      const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
+      const fullDoctorName = doctor.doctor_name.toUpperCase();
+      const doctorID = doctor.cd_id;
+      return `${fullDoctorType} - ${fullDoctorName},${doctorID}`;
+    });
+    setDoctorNames(formattedDoctorNames);
+  } catch (error) {
+    console.error('Error fetching doctor names:', error);
+  }
+};
 
   const handleClose = () => {
     navigate(-1);
@@ -24,12 +45,14 @@ function AddAppointment() {
 
   const handleOptionChange = (event) => {
     const selectedDoctor = event.target.value;
-    setAppointmentDoctor(selectedDoctor);
-
+    const [doctorName, doctorID] = selectedDoctor.split(',');
+    setAppointmentDoctor(doctorName);
+  
     if (selectedDoctor) {
-      navigate('/add_appointment1', { state: { selectedDoctor } });
+      navigate('/add_appointment1', { state: { selectedDoctor: doctorName, selectedDoctorID: doctorID } });
     }
   };
+  
 
   return (
     <Grid container spacing={0}>
@@ -68,9 +91,11 @@ function AddAppointment() {
                     sx={{ width: '500px' }}
                     label="SELECT A DOCTOR"
                   >
-                    <MenuItem value="NISHANTHA GUNASEKARA">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-                    <MenuItem value="BUDDHI MOHOTTI">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-                    <MenuItem value="PRESANTHA BANDARA">Radiologist - PRESANTHA BANDARA</MenuItem>
+                    {doctorNames.map((doctor) => (
+                      <MenuItem key={doctor} value={doctor}>
+                        {doctor}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -91,5 +116,3 @@ function AddAppointment() {
 }
 
 export default AddAppointment;
-
-

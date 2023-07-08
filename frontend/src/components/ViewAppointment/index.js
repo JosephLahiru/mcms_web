@@ -66,7 +66,7 @@ function ViewAppointment() {
       case "Appointment Number":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentNumber.includes(searchTerm)
+            item.app_num.includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -75,7 +75,7 @@ function ViewAppointment() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentDate.includes(searchTerm)
+            item.app_date.includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -85,13 +85,13 @@ function ViewAppointment() {
         results = appointment.filter((item) =>
           item.mobile.includes(searchTerm)
         );
-      
         break;
       default:
         results = appointment;
     }
     setFilteredAppointment(results);
   }, [searchTerm, appointment, filterOption]);
+  
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
