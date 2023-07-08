@@ -22,6 +22,7 @@ function AddAppointment2() {
     const [appointmentNumber, setAppointmentNumber] = useState("");
     const [appointmentDoctor, setAppointmentDoctor] = useState("");
     const [appointmentDate, setAppointmentDate] = useState("");
+    const [appointmentDoctorID, setppointmentDoctorID] = useState(0);
     const [age, setAge] = useState("");
     const [mobile, setMobile] = useState("");
     const [area, setArea] = useState("");
@@ -33,10 +34,11 @@ function AddAppointment2() {
 
     useEffect(() => {
       if (location.state) {
-        const { appointmentDoctor, appointmentNumber, appointmentDate } = location.state;
+        const { appointmentDoctor, appointmentNumber, appointmentDate, selectedDoctorID } = location.state;
         setAppointmentDoctor(appointmentDoctor);
         setAppointmentNumber(appointmentNumber);
         setAppointmentDate(appointmentDate);
+        setppointmentDoctorID(selectedDoctorID);
       }
     }, [location.state]);
     
@@ -106,16 +108,7 @@ function AddAppointment2() {
 
     const handleBOOKNOW = async (event) => {
       event.preventDefault();
-    
-      console.log("Patient Name:", patientName);
-      console.log("Area:", area);
-      console.log("Age", age);
-      console.log("Gender:", gender);
-      console.log("Mobile:", mobile);
-      console.log("Appointment Number:", appointmentNumber);
-      console.log("Appointment Doctor:", appointmentDoctor);
-      console.log("Appointment Date:", appointmentDate);
-    
+        
       if (
         !patientName ||
         !area ||
@@ -123,7 +116,7 @@ function AddAppointment2() {
         !gender ||
         !mobile ||
         !appointmentNumber ||
-        !appointmentDoctor ||
+        !appointmentDoctorID ||
         !appointmentDate
       ) {
         toast.error("Please fill all the fields...", {
@@ -131,6 +124,14 @@ function AddAppointment2() {
         });
         return;
       }
+
+      const inputDate = new Date(appointmentDate);
+
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const _convertedDate = inputDate.toLocaleDateString('en-GB', options).replace(/\//g, '-');
+  
+      const dateParts = _convertedDate.split("-");
+      const convertedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
     
       const requestBody = {
         patient_name: patientName,
@@ -139,8 +140,8 @@ function AddAppointment2() {
         gender: gender,
         mobile: mobile,
         app_num: appointmentNumber,
-        cd_id: appointmentDoctor,
-        app_date: appointmentDate,
+        cd_id: appointmentDoctorID,
+        app_date: convertedDate,
       };
     
       console.log(requestBody);
@@ -213,10 +214,10 @@ function AddAppointment2() {
             <Divider orientation="vertical" variant="middle" flexItem color />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
-                Appointment Number
+                Channeling Fee
               </Typography>
-              <Typography variant="h3" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                {appointmentNumber.toString().padStart(2, '0')}
+              <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
+                {appointmentNumber}
               </Typography>
             </Grid>
           </Grid>
@@ -297,6 +298,33 @@ function AddAppointment2() {
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
             <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleBOOKNOW}>Book Now</Button>
+            <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="Patient Information Title"
+                  aria-describedby="Patient Information Description "
+                >
+                  <Box sx={style}>
+                    <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
+                    Patient Information Title
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      NAME: {patientName ? `${patientName}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
+                      AGE: {age ? `${age}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      MOBILE: {mobile ? `${mobile}` : ''} 
+                    </Typography>
+                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
+                      GENDER: {gender ? `${gender}` : ''} 
+                    </Typography>
+                    <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
+                      SUCCESSFULLY!!!
+                    </Typography>
+                  </Box>
+                </Modal>
               </Grid> 
           </Grid>
         </Box>
