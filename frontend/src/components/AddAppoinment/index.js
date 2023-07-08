@@ -93,7 +93,7 @@ const fetchDoctorNames = async () => {
                   >
                     {doctorNames.map((doctor) => (
                       <MenuItem key={doctor} value={doctor}>
-                        {doctor}
+                        {doctor.split(',')[0]}
                       </MenuItem>
                     ))}
                   </Select>
