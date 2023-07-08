@@ -213,10 +213,10 @@ function AddAppointment2() {
             <Divider orientation="vertical" variant="middle" flexItem color />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
-                Channeling Fee
+                Appointment Number
               </Typography>
-              <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
-                {appointmentNumber}
+              <Typography variant="h3" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
+                {appointmentNumber.toString().padStart(2, '0')}
               </Typography>
             </Grid>
           </Grid>
@@ -297,33 +297,6 @@ function AddAppointment2() {
             </Grid>
             <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
             <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }} onClick={handleBOOKNOW}>Book Now</Button>
-            <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="Patient Information Title"
-                  aria-describedby="Patient Information Description "
-                >
-                  <Box sx={style}>
-                    <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                    Patient Information Title
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      NAME: {patientName ? `${patientName}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      AGE: {age ? `${age}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      MOBILE: {mobile ? `${mobile}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      GENDER: {gender ? `${gender}` : ''} 
-                    </Typography>
-                    <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
-                      SUCCESSFULLY!!!
-                    </Typography>
-                  </Box>
-                </Modal>
               </Grid> 
           </Grid>
         </Box>
