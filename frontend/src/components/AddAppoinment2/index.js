@@ -214,7 +214,7 @@ function AddAppointment2() {
             <Divider orientation="vertical" variant="middle" flexItem color />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: 'black', paddingTop: '20px', textAlign: 'left', paddingLeft: '20px' }}>
-                Channeling Fee
+                Appointment Number
               </Typography>
               <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'left', paddingLeft: '20px' }}>
                 {appointmentNumber}
