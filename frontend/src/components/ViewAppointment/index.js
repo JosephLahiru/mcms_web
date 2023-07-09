@@ -26,6 +26,7 @@ import {
   Box,
   Typography,
   ButtonGroup,
+  IconButton,
 
 
 } from "@mui/material";
@@ -59,29 +60,13 @@ function ViewAppointment() {
   }, []);
 
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
- 
-
   useEffect(() => {
     let results;
     switch (filterOption) {
       case "Appointment Number":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentNumber.includes(searchTerm)
+            item.app_num.includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -90,26 +75,23 @@ function ViewAppointment() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentDate.includes(searchTerm)
+            item.app_date.includes(searchTerm)
           );
         } else {
           results = appointment;
         }
         break;
       case "Mobile":
-        if (searchTerm.length >= 3) {
         results = appointment.filter((item) =>
           item.mobile.includes(searchTerm)
         );
-      } else {
-        results = appointment;
-      }
         break;
       default:
         results = appointment;
     }
     setFilteredAppointment(results);
   }, [searchTerm, appointment, filterOption]);
+  
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -157,7 +139,13 @@ function ViewAppointment() {
     setConfirmDialogOpen(false);
   };
 
- 
+  const handleUpdate = (item) => {
+    console.log(item.app_id);
+    navigate(`/update_appointment/${item.app_id}`);
+  };
+
+
+
   return (
     <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -218,7 +206,6 @@ function ViewAppointment() {
         </Button>
       </ButtonGroup>
     </Box>
-
         <Paper
           sx={{
             width: dopen ? "calc(100% - 260px)" : "94%",
@@ -265,6 +252,7 @@ function ViewAppointment() {
             <Table  stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
+                  <TableCell>Appointment Id</TableCell>
                   <TableCell>Appointment Number</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
@@ -283,25 +271,26 @@ function ViewAppointment() {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
+                        <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
                         <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
-                        <TableCell>{item.app_date}</TableCell>
+                        <TableCell>{item.app_date.slice(0,10)}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => navigate("/update_appointment")}>Update </Button>
+                          <Button variant="outlined" size="small" onClick={() => handleUpdate}>Update </Button>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            startIcon={<DeleteIcon />}
-                            onClick={() => handleDelete(item.app_id)}
-                          >
-                            Delete
-                          </Button>
+                        <IconButton
+                          aria-label="delete"
+                          variant="outlined"
+                          size="small"
+                          onClick={() => handleDelete(item.app_id)}
+                        >
+                        <DeleteIcon />
+                        </IconButton>
                         </TableCell>
                       </TableRow>
                     ))
