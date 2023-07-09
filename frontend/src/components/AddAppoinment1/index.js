@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
@@ -13,14 +13,19 @@ import {
   ToggleButtonGroup,
   createTheme,
   Button,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 
 function AddAppointment1() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
-  const [appointmentNumber, setAppointmentNumber] = useState('');
-  const [appointmentDate, setAppointmentDate] = useState('');
+  const [appointmentNumber, setAppointmentNumber] = useState(0);
+  const [appointmentDate, setAppointmentDate] = useState();
+  const [showError, setShowError] = useState(false);
+  const [selectedButtonIndex, setSelectedButtonIndex] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [doctorNames, setDoctorNames] = useState([]);
 
   const handleClose = () => {
     navigate(-1);
@@ -40,9 +45,11 @@ function AddAppointment1() {
     'November',
     'December',
   ];
+
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const currentDate = new Date();
   const dates = [];
+  
   for (let i = 0; i < 10; i++) {
     const appointmentDate = new Date();
     appointmentDate.setDate(currentDate.getDate() + i);
@@ -61,14 +68,27 @@ function AddAppointment1() {
     setAppointmentDoctor(event.target.value);
   };
 
-  const handleChange = (event, newappointmentDate) => {
-    setAppointmentDate(newappointmentDate);
-  };
+  useEffect(() => {
+    fetchDoctorNames();
+  }, []);
 
-  // Get the selectedDoctor from the location state
-  const { selectedDoctor } = location.state || {};
+const fetchDoctorNames = async () => {
+  try {
+    const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
+    const data = await response.json();
+    const formattedDoctorNames = data.map((doctor) => {
+      const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
+      const fullDoctorName = doctor.doctor_name.toUpperCase();
+      return `${fullDoctorType} - ${fullDoctorName}`;
+    });
+    setDoctorNames(formattedDoctorNames);
+  } catch (error) {
+    console.error('Error fetching doctor names:', error);
+  }
+};
 
-  // Set the selectedDoctor in AddAppointment1 if available
+  const { selectedDoctor, selectedDoctorID } = location.state || {};
+
   React.useEffect(() => {
     if (selectedDoctor) {
       setAppointmentDoctor(selectedDoctor);
@@ -77,11 +97,50 @@ function AddAppointment1() {
 
   const handleBookNow = () => {
     if (appointmentDate) {
-      navigate('/add_appointment2');
+      navigate('/add_appointment2', {
+        state: {
+          appointmentDoctor,
+          appointmentNumber,
+          appointmentDate,
+          selectedDoctorID,
+        },
+      });
+    } else {
+      setShowError(true);
     }
   };
 
-  
+  async function getAppointmentNumber(app_date, cd_id) {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_curr_app_num/' + app_date + "/" + cd_id);
+      if (!response.ok) {
+        throw new Error('Failed to fetch Appointment Number');
+      }
+
+      const data = await response.json();
+      const appointmentNumberValue = data.length > 0 && data[0].max_app_num !== null ? data[0].max_app_num : 0;
+      return appointmentNumberValue !== 0 ? appointmentNumberValue + 1 : 1;
+    } catch (error) {
+      console.error('Error:', error);
+      return '';
+    }
+  }
+
+  const handleChange = async (event, newappointmentDate) => {
+    setAppointmentDate(newappointmentDate);
+    setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
+
+    const inputDate = new Date(newappointmentDate);
+
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const _convertedDate = inputDate.toLocaleDateString('en-GB', options).replace(/\//g, '-');
+
+    const dateParts = _convertedDate.split("-");
+    const convertedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+    setAppointmentNumber(await getAppointmentNumber(convertedDate, selectedDoctorID))
+  };
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -106,9 +165,11 @@ function AddAppointment1() {
                     sx={{ width: '400px' }}
                     label="SELECT A DOCTOR"
                   >
-                    <MenuItem value="NISHANTHA GUNASEKARA">NISHANTHA GUNASEKARA</MenuItem>
-                    <MenuItem value="BUDDHI MOHOTTI">BUDDHI MOHOTTI</MenuItem>
-                    <MenuItem value="PRESANTHA BANDARA">PRESANTHA BANDARA</MenuItem>
+                    {doctorNames.map((doctor) => (
+                      <MenuItem key={doctor} value={doctor}>
+                        {doctor.split(',')[0]}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -127,8 +188,8 @@ function AddAppointment1() {
                   color: theme.palette.secondary.dark,
                   width: '100px',
                   '&.Mui-selected': {
-                    backgroundColor: '#9c27b0', // Highlight color when selected
-                    color: '#fff', // Toggle button text color when selected
+                    backgroundColor: '#9c27b0',
+                    color: '#fff',
                   },
                 }}
               >
@@ -153,9 +214,9 @@ function AddAppointment1() {
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '120px' }}>
-              00{appointmentNumber}
-            </Typography>
+          <Typography variant="h2" component="div" sx={{ color: '#7b1fa2', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '120px' }}>
+            {selectedButtonIndex !== null && (appointmentNumber).toString().padStart(2, '0')}
+          </Typography>
           </Grid>
           <Grid item xs={3}>
             <Typography variant="h5" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center', paddingLeft: '10px' }}>
@@ -169,6 +230,18 @@ function AddAppointment1() {
           </Grid>
         </Box>
       </Grid>
+      <Grid item xs={12} sx={{ paddingLeft: '80px' }}>
+        <Box sx={{ width: '100%', height: 200, backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Grid item xs={3}>
+            {showError && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                Please select a Date — <strong>check it out!</strong>
+              </Alert>
+            )}
+          </Grid>
+          </Box>
+      </Grid> 
     </Grid>
   );
 }
