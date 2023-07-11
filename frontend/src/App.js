@@ -4,6 +4,7 @@ import ViewAppointment from './components/ViewAppointment';
 import ViewAppointment1 from './components/ViewAppointment1';
 import ViewAppointment2 from './components/ViewAppointment2';
 import UpdateAppointment from './components/UpdateAppointment';
+import ConfirmAppointment from './components/ConfirmAppointment';
 import PatientHistory from './components/PatientHistory';
 import Login from "./components/Login";
 import Dashboard from './components/Dashboard';
@@ -45,6 +46,7 @@ function App() {
         <Route path='view_appointment1' element={<ViewAppointment1 />} />
         <Route path='view_appointment2' element={<ViewAppointment2 />} />
         <Route path='update_appointment/:id' element={<UpdateAppointment />} />
+        <Route path='confirm_appointment' element={<ConfirmAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />
         <Route path='update_stock/:id' element={<UpdateStock />} />
