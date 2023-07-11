@@ -44,7 +44,7 @@ function App() {
         <Route path='view_appointment' element={<ViewAppointment />} />
         <Route path='view_appointment1' element={<ViewAppointment1 />} />
         <Route path='view_appointment2' element={<ViewAppointment2 />} />
-        <Route path='update_appointment' element={<UpdateAppointment />} />
+        <Route path='update_appointment/:id' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />
         <Route path='update_stock/:id' element={<UpdateStock />} />
