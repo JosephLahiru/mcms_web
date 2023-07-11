@@ -1,353 +1,290 @@
-import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Grid, TextField, Button, Radio, RadioGroup, FormControlLabel, Select, MenuItem, FormControl, InputLabel, TextareaAutosize,FormLabel, Box, Container } from '@mui/material';
-
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import {
+  Grid,
+  Box,
+  Typography,
+  Divider,
+  TextField,
+  Radio,
+  FormControlLabel,
+  RadioGroup,
+  Button,
+} from "@mui/material";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function AddAppointment2() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [nic, setNic] = useState("");
-  const [email,setEmail] =useState("");
-  const [contactNumber, setContactNumber] = useState("");
+  const [patientName, setPatientName] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
-  const [appointmentType, setAppointmentType] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
-  const [appointmentTime, setAppointmentTime] = useState("");
-  const [error, setError] = useState(false);
+  const [appointmentDoctorID, setAppointmentDoctorID] = useState(0);
+  const [age, setAge] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [area, setArea] = useState("");
+  const [gender, setGender] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const location = useLocation();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.state) {
+      const { appointmentDoctor, appointmentNumber, appointmentDate, selectedDoctorID } = location.state;
+      setAppointmentDoctor(appointmentDoctor);
+      setAppointmentNumber(appointmentNumber);
+      setAppointmentDate(appointmentDate);
+      setAppointmentDoctorID(selectedDoctorID);
+    }
+  }, [location.state]);
 
-  function generateAppointmentTimeOptions() {
-    const appointmentTimes = [
-      '4:00pm', '4:15pm', '4:30pm', '4:45pm', '5:00pm', '5:15pm', '5:30pm', '5:45pm',
-      '6:00pm', '6:15pm', '6:30pm', '6:45pm', '7:00pm', '7:15pm', '7:30pm', '7:45pm',
-      '8:00pm'
-    ];
-  
-    return appointmentTimes.map((time, index) => (
-      <option key={index} value={time} disabled={appointmentTime === time}>
-        {time}
-      </option>
-    ));
-  }  
-  
+  const handleOpen = () => {
+    if (validateForm()) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
 
-  function getAtId(doctorType) {
-    return fetch('https://mcms_api.mtron.me/get_app_id/' + doctorType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch at_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const atIdValue = data.length > 0 ? data[0].at_id : '';
-        return atIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
-  }  
+  const validateForm = () => {
+    const errors = {};
+    let formIsValid = true;
 
-  function getCdId(doctorType) {
-    return fetch('https://mcms_api.mtron.me/get_cd_id/' + doctorType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch cd_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const cdIdValue = data.length > 0 ? data[0].cd_id : '';
-        return cdIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
-  } 
+    if (patientName.trim() === "") {
+      errors.patientName = "Please enter the patient name";
+      formIsValid = false;
+    }
 
-  function getATMId(ATMType) {
-    return fetch('https://mcms_api.mtron.me/get_atm_id/' + ATMType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch atm_id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const aTMIdValue = data.length > 0 ? data[0].atm_id : '';
-        return aTMIdValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
-  } 
+    if (age.trim() === "") {
+      errors.age = "Please enter the patient age";
+      formIsValid = false;
+    } else if (isNaN(age) || parseInt(age) < 1) {
+      errors.age = "Please enter a valid age";
+      formIsValid = false;
+    }
 
-  const handleSubmit = async (event) =>{
+    if (mobile.trim() === "") {
+      errors.mobile = "Please enter the patient mobile";
+      formIsValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 10-digit mobile number";
+      formIsValid = false;
+    }
+
+    if (area.trim() === "") {
+      errors.area = "Please enter the patient area";
+      formIsValid = false;
+    }
+
+    if (!gender) {
+      errors.gender = "Please select the patient gender";
+      formIsValid = false;
+    }
+
+    setValidationErrors(errors);
+    return formIsValid;
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleBOOKNOW = async (event) => {
     event.preventDefault();
 
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Address:", address);
-    console.log("Age",age);
-    console.log("Gender:", gender);
-    console.log("NIC:", nic);
-    console.log("Email:", email);
-    console.log("Contact Number:", contactNumber);
-    console.log("Appointment Number:", appointmentNumber);
-    console.log("Appointment Type:", appointmentType);
-    console.log("Appointment Doctor:", appointmentDoctor);
-    console.log("Appointment Date:", appointmentDate);
-    console.log("Appointment Time:", appointmentTime);
+    // Validate the form
+    if (!validateForm()) {
+      return;
+    }
 
-    if ( !firstName || !lastName || !address || !age || !gender || !nic || !contactNumber || !appointmentNumber || !appointmentType || !appointmentDoctor || !appointmentDate || !appointmentTime) {
-      toast.error('Please fill all the fields...', {
-        position: toast.POSITION.TOP_RIGHT
+    if (
+      !patientName ||
+      !area ||
+      !age ||
+      !gender ||
+      !mobile ||
+      !appointmentNumber ||
+      !appointmentDoctorID ||
+      !appointmentDate
+    ) {
+      toast.error("Please fill all the fields...", {
+        position: toast.POSITION.TOP_RIGHT,
       });
       return;
     }
 
-   
-    // NIC validation
-    const nicRegex = /^[0-9]{9}[VXvx]$/;
-    if (!nicRegex.test(nic)) {
-      setError(true);
-      toast.error('Invalid NIC number', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+    const inputDate = new Date(appointmentDate);
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailRegex.test(email)) {
-      setError(true);
-      toast.error('Invalid email address', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    const _convertedDate = inputDate.toLocaleDateString("en-GB", options).replace(/\//g, "-");
 
-    // Contact number validation
-    const contactNumberRegex = /^[0-9]{10}$/;
-    if (!contactNumberRegex.test(contactNumber)) {
-      setError(true);
-      toast.error('Invalid contact number', {
-        position: toast.POSITION.TOP_RIGHT
-      });
-      return;
-    }
+    const dateParts = _convertedDate.split("-");
+    const convertedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
 
     const requestBody = {
-      first_name: firstName,
-      last_name: lastName,
-      nic: nic,
-      address: address,
+      patient_name: patientName,
+      area: area,
       age: age,
       gender: gender,
-      contact_num: contactNumber,
-      ...(email && { email: email }),
+      mobile: mobile,
       app_num: appointmentNumber,
-      at_id: await getAtId(appointmentType),
-      cd_id: await getCdId(appointmentDoctor),
-      app_date: appointmentDate,
-      atm_id: await getATMId(appointmentTime),
+      cd_id: appointmentDoctorID,
+      app_date: convertedDate,
     };
 
-    console.log(requestBody)
+    console.log(requestBody);
 
     try {
       const response = await fetch("https://mcms_api.mtron.me/set_appointment", {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send appointment details');
+        throw new Error("Failed to send appointment details");
       }
 
-      alert('Appointment details sent successfully');
-      handleReset();
+      const data = await response.json();
+      console.log(data); // Log the response data from the API
+
+      alert("Appointment details sent successfully");
     } catch (error) {
       console.error(error);
-      alert('Failed to send appointment details');
+      alert("Failed to send appointment details");
     }
+  };
 
-  }
-
-  const handleReset = () => {
-     setAppointmentNumber(""); 
-     setFirstName(""); 
-     setLastName(""); 
-     setAddress(""); 
-     setAge(""); 
-     setGender(""); 
-     setNic(""); 
-     setEmail(""); 
-     setContactNumber(""); 
-     setAppointmentType(""); 
-     setAppointmentDoctor(""); 
-     setAppointmentDate(""); 
-     setAppointmentTime("");
-     setError(false);
-    };
-
-    
   return (
-      <Grid container spacing={5} sx={{backgroundColor:'purple'}}>
-  <Grid item xs={4} sx={{ paddingLeft: '50px', backgroundColor:'#ba68c8' , margin:'auto'}}>
-    <br/> <br/> <br/>
-    <h1>Add Appointment</h1>
-    <Box sx={{backgroundColor:'#f3e5f5',marginBottom:'20px',padding:'20px',borderRadius:'10px',marginLeft:'30px', marginRight:'30px',height:'auto', marginTop:'50px'}} >
-    <FormControl onSubmit={handleSubmit} sx={{paddingLeft:'60px'}}>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter First Name" value={firstName} onChange={(event) => setFirstName(event.target.value)} placeholder="Enter First Name" sx={{width:'300px'}} size="small"/>
-        {error && firstName.length <= 0 ?
-          <InputLabel class='input-validation-error'>First Name can't be empty</InputLabel> : ""}
+    <Grid container spacing={2.5}>
+      <Grid item xs={12}>
+        <Box sx={{ width: "100%", height: 175, backgroundColor: "#ce93d8" }}>
+          <Typography variant="h4" component="div" sx={{ color: "white", fontWeight: "bold", paddingTop: "50px", textAlign: "left", paddingLeft: "90px" }}>
+            BOOK A CHANNEL
+          </Typography>
+          <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleClose} />
+        </Box>
       </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Last Name" sx={{width:'300px'}} size="small" value={lastName} onChange={(event) => setLastName(event.target.value)} placeholder="Enter Last Name" />
-        {error && lastName.length <= 0 ?
-        <InputLabel class='input-validation-error'>Last Name can't be empty</InputLabel> : ""}
+      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "1200px", height: 100, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center" }}>
+          <Grid container spacing={0}>
+            <Grid item xs={3.5}>
+              <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
+                Doctor Name
+              </Typography>
+              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px", paddingBottom: "15px" }}>
+                {appointmentDoctor}
+              </Typography>
+            </Grid>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Grid item xs={2.5}>
+              <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
+                Date
+              </Typography>
+              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+                {appointmentDate.slice(0, 15)}
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
+                Time
+              </Typography>
+              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+                04.00 PM TO 08.00 PM
+              </Typography>
+            </Grid>
+            <Divider orientation="vertical" variant="middle" flexItem color />
+            <Grid item xs={2.5}>
+              <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
+                Appointment Number
+              </Typography>
+              <Typography variant="h3" component="div" sx={{ color: "purple", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+                {appointmentNumber.toString().padStart(2, "0")}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
       </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Age" sx={{width:'300px'}} size="small" value={age} onChange={(event) => setAge(event.target.value)} placeholder="Enter Age" />
-        {error && age.length <= 0 ?
-              <InputLabel class='input-validation-error'>Age can't be empty</InputLabel> : ""}
-      </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField multiline rows={3} fullWidth label="Enter Address" sx={{width:'300px'}} size="small"value={address} onChange={(event) => setAddress(event.target.value)} placeholder="Enter Address" />
-        {error && address.length <= 0 ?
-              <InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
-      </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter NIC" sx={{width:'300px'}} size="small" value={nic} onChange={(event) => setNic(event.target.value)} placeholder="Enter NIC" />
-        {error && nic.length <= 0 ?
-              <InputLabel class='input-validation-error'>NIC can't be empty</InputLabel> : ""}
-      </Grid>
-      <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-   <RadioGroup
-    aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="female"
-    name="radio-buttons-group"
-  >
-    <FormControlLabel value="female" control={<Radio />} label="Female" />
-    <FormControlLabel value="male" control={<Radio />} label="Male" />
-    <FormControlLabel value="other" control={<Radio />} label="Other" />
-  </RadioGroup>
-  {error && address.length <= 0 ?
-<InputLabel class='input-validation-error'>Address can't be empty</InputLabel> : ""}
-</FormControl>
-<Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Email" sx={{width:'300px'}} size="small" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Enter Email Address" />
-        {error && email.length <= 0 ?
-         <InputLabel class='input-validation-error'>Email can't be empty</InputLabel> : ""}
-      </Grid>
-   
-    <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Contact Number" sx={{width:'300px'}} size="small" value={contactNumber} onChange={(event) => setContactNumber(event.target.value)} placeholder="Enter Contact Number" />
-        {error && contactNumber.length <= 0 ?
-              <InputLabel class='input-validation-error'>Contact Number can't be empty</InputLabel> : ""}
-      </Grid>
-      <Grid item xs={12} sx={{ margin: '10px 0' }}>
-        <TextField label="Enter Appointment Number" sx={{width:'300px'}} size="small" value={appointmentNumber} onChange={(event) => setAppointmentNumber(event.target.value)} placeholder="Enter Appointment number" />
-      </Grid> <br/>
-      <Grid>
-      <InputLabel id="demo-simple-select-label">Appointment Type</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    sx={{width:'300px'}} 
-    size="small"
-    value={appointmentType}
-    label="Select Appointment Type"
-  
-  >
-    <MenuItem value={10}>Consultation</MenuItem>
-    <MenuItem value={20}>Doctor Check-up</MenuItem>
-    <MenuItem value={30}>Medical Examination</MenuItem>
-    <MenuItem value={20}>Result Analysis</MenuItem>
-    <MenuItem value={30}>Scanner</MenuItem>
-  </Select>
-  {error && appointmentType.length <= 0 ?
-  <InputLabel class='input-validation-error'>Please Select Appointment Type</InputLabel> : ""}
-  </Grid>
-  <br/>
-   <Grid>
-   <InputLabel id="demo-simple-select-label">Appointment Doctor</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    sx={{width:'300px'}} 
-    size="small"
-    value={appointmentDoctor}
-    label="Select Appointment Doctor"
-  
-  >
-    <MenuItem value={10}>Universal Physician</MenuItem>
-    <MenuItem value={20}>Pediatrician</MenuItem>
-    <MenuItem value={30}>Radiologist</MenuItem>
-  </Select>
-  {error && appointmentDoctor.length <= 0 ?
-  <InputLabel class='input-validation-error'>Please Select Appointment Doctor</InputLabel> : ""}
-   </Grid>
-   <br/>
-   <Grid>
-   <InputLabel id="demo-simple-select-label">Appointment Time</InputLabel>
-        <Select  sx={{width:'300px'}} size="small" value={appointmentTime} onChange={(event) => setAppointmentTime(event.target.value)}>
-          <MenuItem value={""}></MenuItem>
-          {generateAppointmentTimeOptions()}
-        </Select>
-   </Grid>
-   {error && appointmentTime.length <= 0 ?
-  <InputLabel class='input-validation-error'>Please Select Appointment Time</InputLabel> : ""}
-  <br/>
-   <Grid >
-   {/* <InputLabel id="demo-simple-select-label">Appointment Date</InputLabel> */}
-   <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                sx={{width:'300px'}} size="small"
-                value={appointmentDate}
-                onChange={(date) => setAppointmentDate(date)}
+      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "1200px", height: 470, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Grid container spacing={1}>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <TextField
+                id="patient-name"
+                label="Patient Name"
+                value={patientName}
+                onChange={(event) => setPatientName(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                error={!!validationErrors.patientName}
+                helperText={validationErrors.patientName}
+                sx={{ width: "90%", marginBottom: "20px" }}
               />
-            </LocalizationProvider> 
-            {error && appointmentDate.length <= 0 ?
-  <InputLabel class='input-validation-error'>Please Select Appointment Date</InputLabel> : ""}
-   </Grid>
-   </FormControl>
-   <br/><br/>
-   <Grid sx={{paddingLeft:'40px'}}>
-      <Button sx={{ width: '300px' }} variant="contained" onClick={handleReset}>Reset</Button>
+            </Grid>
+            <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
+                <TextField
+                  id="age"
+                  label="Patient Age"
+                  value={age}
+                  onChange={(event) => setAge(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.age}
+                  helperText={validationErrors.age}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
+                <TextField
+                  id="mobile"
+                  label="Patient Mobile"
+                  value={mobile}
+                  onChange={(event) => setMobile(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.mobile}
+                  helperText={validationErrors.mobile}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}>
+              <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" value={gender} onChange={(event) => setGender(event.target.value)} sx={{ width: "90%", marginBottom: "10px" }}>
+                <FormControlLabel value="female" control={<Radio />} label="Female" sx={{ marginRight: "80px" }} />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                {validationErrors.gender && (
+                  <Typography variant="body2" color="error" sx={{ marginLeft: "100px", marginTop: "10px" }}>
+                    {validationErrors.gender}
+                  </Typography>
+                )}
+              </RadioGroup>
+            </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <TextField
+                id="area"
+                label="Patient Area"
+                value={area}
+                onChange={(event) => setArea(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                error={!!validationErrors.area}
+                helperText={validationErrors.area}
+                sx={{ width: "90%", marginBottom: "20px" }}
+              />
+            </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1075px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
+                Book Now
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
       </Grid>
-      <br/>
-      <Grid sx={{paddingLeft:'40px'}}>
-      <Button sx={{ width: '300px' }} variant="contained" onClick={handleSubmit}>Submit</Button>
     </Grid>
-    <br/>
-    <Grid sx={{paddingLeft:'40px'}}>
-      <Button sx={{ width: '300px' }} variant="contained" onClick={() => navigate("/view_appointment")}>View Appointment</Button>
-    </Grid>
-    </Box>
-  </Grid>
-  <Grid item xs={8}></Grid>
- </Grid> 
   );
 }
 
