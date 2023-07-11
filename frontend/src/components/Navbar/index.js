@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import { useMediaQuery, useTheme, Link } from '@mui/material';
 import { useAppstore } from './../../appStore';
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-
+import { useUser } from './../../scripts/userContext';
 
 const AppBar = styled(MuiAppBar, {})(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -22,11 +22,13 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const updateOpen = useAppstore((state) => state.updateOpen);
   const dopen = useAppstore((state) => state.dopen);
-  const [userName] = React.useState('K. G. Nilantha'); // const [userName, setUserName] = React.useState('John Doe');
+  const user = useUser().user;
+  const reset = useUser().resetUser;
 
+  console.log(user)
+  const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,13 +39,9 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    // Clear user credentials and tokens
-    // Add your code here to clear the user's credentials and tokens, e.g., session storage, cookies, etc.
-  
-    // Redirect the user to the login page
+    reset();
     navigate('/');
   };
-  
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -101,9 +99,11 @@ export default function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: 1 }}>
-            {userName}
-          </Typography>
+            {user && (
+              <Typography variant="body1" sx={{ marginRight: 1 }}>
+                {user.user_name}
+              </Typography>
+            )}
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -112,10 +112,12 @@ export default function Navbar() {
               color="inherit"
               onClick={handleProfileMenuOpen}
             >
-              <Avatar
-                alt="User Avatar"
-                src="/path/to/image/from/database.jpg"
-              />
+              {user && (
+                <Avatar
+                  alt="User Avatar"
+                  src={user.image_url}
+                />
+              )}
             </IconButton>
           </Box>
           {isMobile && (
@@ -127,10 +129,12 @@ export default function Navbar() {
               color="inherit"
               onClick={handleProfileMenuOpen}
             >
-              <Avatar
-                alt="User Avatar"
-                src="/path/to/image/from/database.jpg"
-              />
+              {user && (
+                <Avatar
+                  alt="User Avatar"
+                  src={user.image_url}
+                />
+              )}
             </IconButton>
           )}
         </Toolbar>
