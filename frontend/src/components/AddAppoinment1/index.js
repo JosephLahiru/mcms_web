@@ -17,6 +17,7 @@ import {
   AlertTitle,
 } from '@mui/material';
 
+
 function AddAppointment1() {
   const [appointmentDoctor, setAppointmentDoctor] = useState('');
   const [appointmentNumber, setAppointmentNumber] = useState(0);
@@ -26,7 +27,7 @@ function AddAppointment1() {
   const navigate = useNavigate();
   const location = useLocation();
   const [doctorNames, setDoctorNames] = useState([]);
-
+  
   const handleClose = () => {
     navigate(-1);
   };

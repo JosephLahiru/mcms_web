@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
   Grid,
@@ -13,9 +13,10 @@ import {
   FormControlLabel,
   Radio,
   Button,
-  Modal,
  
  } from '@mui/material';
+ import { useParams } from "react-router-dom";
+ import { ToastContainer, toast } from "react-toastify";
 
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
@@ -28,19 +29,7 @@ function UpdateAppointment() {
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
-
-  
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  const { id } = useParams();
 
   const handleOptionChange = (event) => {
     setAppointmentDoctor(event.target.value);
@@ -108,6 +97,35 @@ function UpdateAppointment() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    async function getappointment() {
+      try {
+        const response = await fetch(`https://mcms_api.mtron.me/get_appointment/${id}`);
+        const data = await response.json();
+
+        if (data.length > 0) {
+          const appointment = data[0];
+          setAppointmentId(appointment.app_id);
+          setAppointmentDoctor(appointment.doctor_name);
+          setPatientName(appointment.patient_name);
+          setAge(appointment.age);
+          setMobile(appointment.mobile);
+          setGender(appointment.gender);
+          setArea(appointment.area);
+
+        } else {
+          toast.error("Appointment not found", { position: toast.POSITION.TOP_RIGHT });
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to fetch appointment details", { position: toast.POSITION.TOP_RIGHT });
+      }
+    }
+
+    getappointment();
+  }, [id]);
+
+
   return (
     <Grid container spacing={2}>
     <Grid item xs={12}>
@@ -129,10 +147,11 @@ function UpdateAppointment() {
             id="appointment id"
             label=" APPOINTMENT ID"
             value={appointmentId}
-            onChange={(event) => setAppointmentId(event.target.value)}
+            onChange={(event) => {setAppointmentId(event.target.value);}}
             variant="outlined"
             color="secondary"
             sx={{ width: '130%' , marginBottom: '5px',marginLeft: '180px'}}
+            disabled
           />
         {validationErrors.appointmentId && (
     <Typography variant="body2" color="#c62828" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
@@ -209,10 +228,21 @@ function UpdateAppointment() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 value={gender} 
-                onChange={(event) => setGender(event.target.value)}
+                onChange={(event) => {setGender(event.target.value);}}
                 sx={{ width: '90%',marginBottom: '5px' }}>
-        <FormControlLabel value="female" control={<Radio />} label="Female"  sx={{ marginRight: '100px' }}/>
-        <FormControlLabel value="male" control={<Radio />} label="Male"  />
+
+        <FormControlLabel 
+          value="female" 
+          control={<Radio />} 
+          label="Female"
+          checked={gender === 'female'} 
+          sx={{ marginRight: '100px' }}/>
+        <FormControlLabel 
+          value="male" 
+          control={<Radio />} 
+          label="Male"  
+          checked={gender === 'male'}
+          />
           {validationErrors.gender && (
                 <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingTop: '5px'}} >{validationErrors.gender}</Typography>
               )}
@@ -233,42 +263,6 @@ function UpdateAppointment() {
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
           <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleOpen}Open modal>Update Now</Button>
-          <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="Patient Information Title"
-                  aria-describedby="Patient Information Description "
-                >
-                  <Box sx={style}>
-                  <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                    Appointment Information 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      ID: {appointmentId ? `${appointmentId}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                       {appointmentDoctor ? `${appointmentDoctor}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Title" variant="h6" component="h2" sx={{ color: 'black', fontWeight: 'bold',fontSize: '24px'}}>
-                    Patient Information 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      NAME: {patientName ? `${patientName}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold' }}>
-                      AGE: {age ? `${age}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      MOBILE: {mobile ? `${mobile}` : ''} 
-                    </Typography>
-                    <Typography id="Patient Information Description" sx={{ mt: 2 ,fontWeight: 'bold'}}>
-                      GENDER: {gender ? `${gender}` : ''} 
-                    </Typography>
-                    <Typography id="Successfull Message" sx={{ mt: 2 ,color: '#9c27b0', fontWeight: 'bold',fontSize: '20px',textAlign: 'center'}}  >
-                      UPDATE SUCCESSFULLY!!!
-                    </Typography>
-                  </Box>
-                </Modal> 
             </Grid>     
       </Box>
       </Grid>
