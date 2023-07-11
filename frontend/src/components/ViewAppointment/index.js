@@ -144,8 +144,6 @@ function ViewAppointment() {
     navigate(`/update_appointment/${item.app_id}`);
   };
 
-
-
   return (
     <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
       <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -280,7 +278,7 @@ function ViewAppointment() {
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date.slice(0,10)}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => handleUpdate}>Update </Button>
+                          <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update </Button>
                         </TableCell>
                         <TableCell>
                         <IconButton
