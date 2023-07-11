@@ -23,16 +23,23 @@ import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
 import Sidebar from './components/SideBar';
 import ReturnPatientsReport from './components/ReturnPatientsReport';
-
+import UserContext from './scripts/userContext';
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard'];
 
 function App() {
+
+  const [currentUser, setCurrentUser] = React.useState(null);
+
   const location = useLocation();
   const shouldRenderDashboardComponents = !hideDashboardComponentRoutes.includes(location.pathname);
 
+  const resetCurrentUser = (message)=>{
+    setCurrentUser(null)
+  };
+
   return (
-    <>
+    <UserContext.Provider value={{ user: currentUser, resetUser: resetCurrentUser, setUser: setCurrentUser }}>
       {shouldRenderDashboardComponents && <Navbar />}
       {shouldRenderDashboardComponents && <Sidebar />}
       <Routes>
@@ -58,7 +65,7 @@ function App() {
         <Route path='view_generatingbills' element={<ViewGeneratingBill />} />
         <Route path='return_patients_report' element={<ReturnPatientsReport />} />
       </Routes>
-    </>
+      </UserContext.Provider>
   );
 }
 
