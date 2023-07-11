@@ -36,15 +36,36 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width:600px)');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    if (data.get('email') === 'admin' && data.get('password') === 'admin') {
-      navigate('/dashboard', {replace:true});
-    } else {
-      toast.error('Invalid username or password');
+    const enteredEmail = data.get('email');
+    const enteredPassword = data.get('password');
+
+  try{
+      const response = await fetch('http://mcms_api.mtron.me/user_authenticate ', {
+        method: 'POST',
+        body: JSON. stringify({email: enteredEmail, password: enteredPassword}),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if(response.ok){
+        navigate('/dashboard', {replace: true});
+      } else {
+        toast.error('Invalid username of password');
+      }
+    } catch(error){
+      console.error('Error:', error);
     }
   };
+  //   if (data.get('email') === 'admin' && data.get('password') === 'admin') {
+  //     navigate('/dashboard', {replace:true});
+  //   } else {
+  //     toast.error('Invalid username or password');
+  //   }
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
