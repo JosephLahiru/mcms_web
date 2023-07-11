@@ -16,7 +16,7 @@ import {
  
  } from '@mui/material';
  import { useParams } from "react-router-dom";
- import { ToastContainer, toast } from "react-toastify";
+ import {  toast } from "react-toastify";
 
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
@@ -26,7 +26,6 @@ function UpdateAppointment() {
   const [mobile, setMobile] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
   const { id } = useParams();
@@ -35,66 +34,7 @@ function UpdateAppointment() {
     setAppointmentDoctor(event.target.value);
   };
 
-
- const handleOpen = () => {
-    if (validateForm()) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-      };
- 
-  const validateForm = () => {
-    const errors = {};
-    let formIsValid = true;
-
-    if (appointmentId.trim() === "") {
-      errors.appointmentId = "Please enter the appointment id";
-      formIsValid = false;
-    }
-
-    if (!appointmentDoctor) {
-      errors.appointmentDoctor = "Please select the appointment doctor";
-      formIsValid = false;
-    }
-
-    if (patientName.trim() === "") {
-      errors.patientName = "Please enter the patient name";
-      formIsValid = false;
-    }
-
-    if (age.trim() === "") {
-      errors.age = "Please enter the patient age";
-      formIsValid = false;
-    } else if (isNaN(age) || parseInt(age) < 1) {
-      errors.age = "Please enter a valid age";
-      formIsValid = false;
-    }
-
-    if (mobile.trim() === "") {
-      errors.mobile = "Please enter the patient mobile";
-      formIsValid = false;
-    } else if (!/^\d{10}$/.test(mobile)) {
-      errors.mobile = "Please enter a valid 10-digit mobile number";
-      formIsValid = false;
-    }
-
-    if (area.trim() === "") {
-      errors.area = "Please enter the patient area";
-      formIsValid = false;
-    }
-
-    if (!gender) {
-      errors.gender = "Please select the patient gender";
-      formIsValid = false;
-    }
-
-    setValidationErrors(errors);
-    return formIsValid;
-  };
-
   const handleClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -128,6 +68,54 @@ function UpdateAppointment() {
 
   const handleUpdateNow = async (event) => {
     event.preventDefault();
+
+
+    if (
+      !appointmentId ||
+      !appointmentDoctor ||
+      !patientName ||
+      !age ||
+      !mobile ||
+      !gender ||
+      !area
+    ) {
+      const errors = {};
+  
+      if (!appointmentId) {
+        errors.appointmentId = "Please enter the appointment id";
+      } 
+  
+      if (!appointmentDoctor) {
+        errors.appointmentDoctor = "Please select the appointment doctor";
+      }
+  
+      if (!patientName) {
+        errors.patientName = "Please enter the patient name";
+      }
+  
+      if (!age) {
+        errors.age = "Please enter the patient age";
+      }else if (isNaN(age) || parseInt(age) < 1) {
+        errors.age = "Please enter a valid age";
+      }
+  
+      if (!mobile) {
+        errors.mobile = "Please enter the patient mobile";
+      }else if (!/^\d{9}$/.test(mobile)) {
+        errors.mobile = "Please enter a valid 10-digit mobile number";
+      }
+  
+      if (!gender) {
+        errors.gender = "Please select the patient gender";
+      }
+  
+      if (!area) {
+        errors.area = "Please enter the patient area";
+      }
+  
+      setValidationErrors(errors);
+      return;
+    }
     
     const data = {
       app_id: appointmentId,
@@ -198,9 +186,11 @@ function UpdateAppointment() {
             color="secondary"
             sx={{ width: '130%' , marginBottom: '5px',marginLeft: '180px'}}
             disabled
+            error={!!validationErrors.appointmentId} 
+            helperText={validationErrors.appointmentId}
           />
         {validationErrors.appointmentId && (
-    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
+    <Typography variant="body2" color="error" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
       {validationErrors.appointmentId}
     </Typography>
   )}  
