@@ -7,7 +7,7 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem,
+  MenuItem, 
   TextField,
   RadioGroup,
   FormControlLabel,
@@ -126,6 +126,52 @@ function UpdateAppointment() {
   }, [id]);
 
 
+  const handleUpdateNow = async (event) => {
+    event.preventDefault();
+    
+    const data = {
+      app_id: appointmentId,
+      doctor_name: appointmentDoctor,
+      patient_name: patientName,
+      age: age,
+      mobile: mobile,
+      gender: gender,
+      area: area,
+    };
+
+    if(!appointmentDoctor && !patientName && !age && !mobile && gender && area ){
+    try{
+      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${data.app_id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if(response.ok){
+        toast.success("Appointment updated successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }else{
+        toast.error("Failed to update appointment", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    }catch(error){
+      console.error(error);
+      toast.error("An error occured while updating appointment", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  } else {
+    toast.error("Please fill all the fields", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+  };
+
+
   return (
     <Grid container spacing={2}>
     <Grid item xs={12}>
@@ -161,7 +207,7 @@ function UpdateAppointment() {
     </Grid>
     <Grid item xs={5}>
     <FormControl fullWidth sx={{marginLeft: '280px'}} >
-      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
+      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT SPECIALITY</InputLabel>
           <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
               <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
               <MenuItem value="Buddhi Mohotti">Pediatrician - BUDDHI MOHOTTI</MenuItem>
@@ -262,7 +308,7 @@ function UpdateAppointment() {
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleOpen}Open modal>Update Now</Button>
+          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleUpdateNow}Open modal>Update Now</Button>
             </Grid>     
       </Box>
       </Grid>
