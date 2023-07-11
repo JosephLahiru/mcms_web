@@ -23,9 +23,12 @@ import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
 import Sidebar from './components/SideBar';
 import ReturnPatientsReport from './components/ReturnPatientsReport';
-import UserContext from './scripts/userContext';
 
-const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard'];
+import UserContext from './scripts/userContext';
+import PrivateRoute from './scripts/privateRoute';
+import LoginRoute from './scripts/loginRoute';
+
+const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/login'];
 
 function App() {
 
@@ -43,8 +46,18 @@ function App() {
       {shouldRenderDashboardComponents && <Navbar />}
       {shouldRenderDashboardComponents && <Sidebar />}
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='dashboard' element={<Dashboard />} />
+
+        <Route path="/" element={<Dashboard />}>
+          <Route index element={<Login />} />
+        </Route>
+        <Route path="/login" element={<LoginRoute />}>
+          <Route index element={<Login />} />
+        </Route>
+
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route index element={<Dashboard />} />
+        </Route>
+
         <Route path='add_appointment' element={<AddAppointment />} />
         <Route path='add_appointment1' element={<AddAppointment1 />} />
         <Route path='add_appointment2' element={<AddAppointment2 />} />
