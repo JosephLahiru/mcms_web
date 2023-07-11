@@ -16,6 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import UserContext, { useUser } from './../../scripts/userContext';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,6 +38,8 @@ export default function SignInSide() {
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width:600px)');
 
+  const setUser = useUser().setUser;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,7 +47,7 @@ export default function SignInSide() {
     const enteredPassword = data.get('password');
 
   try{
-      const response = await fetch('http://mcms_api.mtron.me/user_authenticate ', {
+      const response = await fetch('https://mcms_api.mtron.me/user_authenticate ', {
         method: 'POST',
         body: JSON. stringify({email: enteredEmail, password: enteredPassword}),
         headers: {
@@ -52,6 +56,12 @@ export default function SignInSide() {
       });
 
       if(response.ok){
+
+        const data = await response.json();
+        const { user_type, user_name, image_url } = data;
+        
+        setUser({ user_name, user_type, image_url });
+
         navigate('/dashboard', {replace: true});
       } else {
         toast.error('Invalid username of password');
@@ -60,12 +70,6 @@ export default function SignInSide() {
       console.error('Error:', error);
     }
   };
-  //   if (data.get('email') === 'admin' && data.get('password') === 'admin') {
-  //     navigate('/dashboard', {replace:true});
-  //   } else {
-  //     toast.error('Invalid username or password');
-  //   }
-  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
