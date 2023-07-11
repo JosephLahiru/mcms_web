@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import UserContext, { useUser } from './../../scripts/userContext';
+import { useUser } from './../../scripts/userContext';
 
 function Copyright(props) {
   return (
