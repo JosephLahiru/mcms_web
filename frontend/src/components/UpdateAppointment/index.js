@@ -117,7 +117,23 @@ function UpdateAppointment() {
       return;
     }
     
-    const data = {
+    if (
+      !patientName ||
+      !area ||
+      !age ||
+      !gender ||
+      !mobile ||
+      !appointmentId ||
+      !appointmentDoctor 
+    ) {
+      toast.error("Please fill all the fields...", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+
+    const requestBody = {
       app_id: appointmentId,
       doctor_name: appointmentDoctor,
       patient_name: patientName,
@@ -127,7 +143,9 @@ function UpdateAppointment() {
       area: area,
     };
 
-    if(!appointmentDoctor && !patientName && !age && !mobile && gender && area ){
+    console.log(requestBody); 
+
+    
     try{
       const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${data.app_id}`, {
         method: "POST",
@@ -137,31 +155,23 @@ function UpdateAppointment() {
         body: JSON.stringify(data),
       });
       
-      if(response.ok){
-        toast.success("Appointment updated successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }else{
-        toast.error("Failed to update appointment", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+      if (!response.ok) {
+        throw new Error("Failed to send Update Appointment details");
       }
-    }catch(error){
+
+      const data = await response.json();
+      console.log(data); // Log the response data from the API
+
+      alert("Update Appointment details sent successfully");
+    } catch (error) {
       console.error(error);
-      toast.error("An error occured while updating appointment", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      alert("Failed to send appointment details");
     }
-  } else {
-    toast.error("Please fill all the fields", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  }
   };
 
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={3}>
     <Grid item xs={12}>
       <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -171,7 +181,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 660, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 640, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'10px',paddingTop:'10px' }}>
           Appointment Information
         </Typography> 
@@ -184,9 +194,9 @@ function UpdateAppointment() {
             onChange={(event) => {setAppointmentId(event.target.value);}}
             variant="outlined"
             color="secondary"
-            sx={{ width: '130%' , marginBottom: '5px',marginLeft: '180px'}}
+            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '180px'}}
             disabled
-            error={!!validationErrors.appointmentId} 
+            error={!!validationErrors.appointmentId} // Set error prop
             helperText={validationErrors.appointmentId}
           />
         {validationErrors.appointmentId && (
@@ -294,10 +304,10 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.area}
                 helperText={validationErrors.area}
-                sx={{ width: '90%' , marginBottom: '15px'}}
+                sx={{ width: '90%' , marginBottom: '10px'}}
         />
           </Grid>
-          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
+          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center',paddingTop: '20px'}} >
           <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleUpdateNow}Open modal>Update Now</Button>
             </Grid>     
       </Box>
@@ -307,7 +317,7 @@ function UpdateAppointment() {
   );
 }
  
-export default UpdateAppointment;
 
+export default UpdateAppointment;
 
    
