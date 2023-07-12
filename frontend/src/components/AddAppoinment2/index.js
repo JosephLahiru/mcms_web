@@ -38,6 +38,10 @@ function AddAppointment2() {
       setAppointmentNumber(appointmentNumber);
       setAppointmentDate(appointmentDate);
       setAppointmentDoctorID(selectedDoctorID);
+      setPatientName(patientName);
+      setAge(age);
+      setMobile(mobile);
+      setGender(gender);
     }
   }, [location.state]);
 
@@ -99,6 +103,10 @@ function AddAppointment2() {
           appointmentDoctor,
           appointmentNumber,
           appointmentDate,
+          patientName,
+          age,
+          mobile,
+          gender,
         },
       });
     } else {
