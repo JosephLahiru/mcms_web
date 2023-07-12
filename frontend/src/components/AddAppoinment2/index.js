@@ -172,7 +172,7 @@ function AddAppointment2() {
       const data = await response.json();
       console.log(data); // Log the response data from the API
 
-      alert("Appointment details sent successfully");
+      // alert("Appointment details sent successfully");
     } catch (error) {
       console.error(error);
       alert("Failed to send appointment details");
