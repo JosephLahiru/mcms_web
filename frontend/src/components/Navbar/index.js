@@ -25,7 +25,6 @@ export default function Navbar() {
   const user = useUser().user;
   const reset = useUser().resetUser;
 
-  console.log(user)
   const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
