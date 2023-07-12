@@ -92,12 +92,30 @@ function App() {
           <Route index element={<ViewAppointment2 />} />
         </Route>
 
-        <Route path='update_appointment/:id' element={<UpdateAppointment />} />
-        <Route path='patient_history' element={<PatientHistory />} />
-        <Route path='add_stock' element={<AddStock />} />
-        <Route path='update_stock/:id' element={<UpdateStock />} />
-        <Route path='view_lowstock' element={<ViewLowStock />} />
-        <Route path='view_shortexpiry' element={<ViewShortExpiry />} />
+        <Route path="/update_appointment/:id" element={<PrivateRoute />}>
+          <Route index element={<UpdateAppointment />} />
+        </Route>
+
+        <Route path="/patient_history" element={<PrivateRoute />}>
+          <Route index element={<PatientHistory />} />
+        </Route>
+
+        <Route path="/add_stock" element={<PrivateRoute />}>
+          <Route index element={<AddStock />} />
+        </Route>
+
+        <Route path="/update_stock/:id" element={<PrivateRoute />}>
+          <Route index element={<UpdateStock />} />
+        </Route>
+
+        <Route path="/view_lowstock" element={<PrivateRoute />}>
+          <Route index element={<ViewLowStock />} />
+        </Route>
+
+        <Route path="/view_shortexpiry" element={<PrivateRoute />}>
+          <Route index element={<ViewShortExpiry />} />
+        </Route>
+        
         <Route path='get_attendance' element={<GetAttendance />} />
         <Route path='view_attendance' element={<ViewAttendance />} />
         <Route path='view_stock' element={<ViewStock />} />
