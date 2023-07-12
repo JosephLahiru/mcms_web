@@ -115,14 +115,35 @@ function App() {
         <Route path="/view_shortexpiry" element={<PrivateRoute />}>
           <Route index element={<ViewShortExpiry />} />
         </Route>
-        
-        <Route path='get_attendance' element={<GetAttendance />} />
-        <Route path='view_attendance' element={<ViewAttendance />} />
-        <Route path='view_stock' element={<ViewStock />} />
-        <Route path='generate_bill' element={<GenerateBill />} />
-        <Route path='view_endpoints' element={<ViewEndpoints />} />
-        <Route path='view_generatingbills' element={<ViewGeneratingBill />} />
-        <Route path='return_patients_report' element={<ReturnPatientsReport />} />
+
+        <Route path="/get_attendance" element={<PrivateRoute />}>
+          <Route index element={<GetAttendance />} />
+        </Route>
+
+        <Route path="/view_attendance" element={<PrivateRoute />}>
+          <Route index element={<ViewAttendance />} />
+        </Route>
+
+        <Route path="/view_stock" element={<PrivateRoute />}>
+          <Route index element={<ViewStock />} />
+        </Route>
+
+        <Route path="/generate_bill" element={<PrivateRoute />}>
+          <Route index element={<GenerateBill />} />
+        </Route>
+
+        <Route path="/view_endpoints" element={<PrivateRoute />}>
+          <Route index element={<ViewEndpoints />} />
+        </Route>
+
+        <Route path="/view_generatingbills" element={<PrivateRoute />}>
+          <Route index element={<ViewGeneratingBill />} />
+        </Route>
+
+        <Route path="/return_patients_report" element={<PrivateRoute />}>
+          <Route index element={<ReturnPatientsReport />} />
+        </Route>
+
       </Routes>
       </UserContext.Provider>
   );
