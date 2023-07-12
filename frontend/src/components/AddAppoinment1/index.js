@@ -163,7 +163,7 @@ const fetchDoctorNames = async () => {
                     color="secondary"
                     value={appointmentDoctor}
                     onChange={handleOptionChange}
-                    sx={{ width: '400px' }}
+                    sx={{ width: '450px' }}
                     label="SELECT A DOCTOR"
                   >
                     {doctorNames.map((doctor) => (
