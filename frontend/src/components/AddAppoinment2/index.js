@@ -198,7 +198,7 @@ function AddAppointment2() {
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Date
               </Typography>
-              <Typography variant="h4" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
                 {appointmentDate.slice(0, 15)}
               </Typography>
             </Grid>
