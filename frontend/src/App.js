@@ -97,6 +97,10 @@ function App() {
           <Route index element={<UpdateAppointment />} />
         </Route>
 
+        <Route path="/confirm_appointment" element={<PrivateRoute />}>
+          <Route index element={<ConfirmAppointment />} />
+        </Route>
+
         <Route path="/patient_history" element={<PrivateRoute />}>
           <Route index element={<PatientHistory />} />
         </Route>

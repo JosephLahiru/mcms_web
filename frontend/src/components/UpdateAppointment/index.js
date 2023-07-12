@@ -3,11 +3,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
   Grid,
   Box, 
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem, 
+  Typography, 
   TextField,
   RadioGroup,
   FormControlLabel,
@@ -25,14 +21,10 @@ function UpdateAppointment() {
   const [gender, setGender] = useState("");
   const [mobile, setMobile] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
-  const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
   
   const { id } = useParams();
 
-  const handleOptionChange = (event) => {
-    setAppointmentDoctor(event.target.value);
-  };
 
   const handleClose = () => {
   };
@@ -46,7 +38,6 @@ function UpdateAppointment() {
         if (data.length > 0) {
           const appointment = data[0];
           setAppointmentId(appointment.app_id);
-          setAppointmentDoctor(appointment.doctor_name);
           setPatientName(appointment.patient_name);
           setAge(appointment.age);
           setMobile(appointment.mobile);
@@ -72,7 +63,6 @@ function UpdateAppointment() {
 
     if (
       !appointmentId ||
-      !appointmentDoctor ||
       !patientName ||
       !age ||
       !mobile ||
@@ -84,10 +74,6 @@ function UpdateAppointment() {
       if (!appointmentId) {
         errors.appointmentId = "Please enter the appointment id";
       } 
-  
-      if (!appointmentDoctor) {
-        errors.appointmentDoctor = "Please select the appointment doctor";
-      }
   
       if (!patientName) {
         errors.patientName = "Please enter the patient name";
@@ -123,8 +109,7 @@ function UpdateAppointment() {
       !age ||
       !gender ||
       !mobile ||
-      !appointmentId ||
-      !appointmentDoctor 
+      !appointmentId 
     ) {
       toast.error("Please fill all the fields...", {
         position: toast.POSITION.TOP_RIGHT,
@@ -135,7 +120,6 @@ function UpdateAppointment() {
 
     const requestBody = {
       app_id: appointmentId,
-      doctor_name: appointmentDoctor,
       patient_name: patientName,
       age: age,
       mobile: mobile,
@@ -145,14 +129,13 @@ function UpdateAppointment() {
 
     console.log(requestBody); 
 
-    
     try{
-      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${data.app_id}`, {
+      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${requestBody.app_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
       });
       
       if (!response.ok) {
@@ -194,7 +177,7 @@ function UpdateAppointment() {
             onChange={(event) => {setAppointmentId(event.target.value);}}
             variant="outlined"
             color="secondary"
-            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '180px'}}
+            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '250px'}}
             disabled
             error={!!validationErrors.appointmentId} // Set error prop
             helperText={validationErrors.appointmentId}
@@ -204,19 +187,6 @@ function UpdateAppointment() {
       {validationErrors.appointmentId}
     </Typography>
   )}  
-    </Grid>
-    <Grid item xs={5}>
-    <FormControl fullWidth sx={{marginLeft: '280px'}} >
-      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT SPECIALITY</InputLabel>
-          <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
-              <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-              <MenuItem value="Buddhi Mohotti">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-              <MenuItem value="Presantha Bandara">Radiologist - PRESANTHA BANDARA</MenuItem>
-              </Select>
-              {validationErrors.appointmentDoctor && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingBottom: '20px'}} >{validationErrors.appointmentDoctor}</Typography>
-              )}
-    </FormControl>
     </Grid>
   </Grid>
     <cross >
@@ -308,7 +278,7 @@ function UpdateAppointment() {
         />
           </Grid>
           <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center',paddingTop: '20px'}} >
-          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleUpdateNow}Open modal>Update Now</Button>
+          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleUpdateNow}>Update Now</Button>
             </Grid>     
       </Box>
       </Grid>
