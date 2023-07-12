@@ -68,6 +68,10 @@ function ViewAttendance() {
     setFilteredAttendance(results);
   }, [searchTerm, attendance, filterOption]);
 
+  useEffect(() => {
+    setSearchTerm(""); // Empty the search term when the filter option changes
+  }, [filterOption]);
+
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
