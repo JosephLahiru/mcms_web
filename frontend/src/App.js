@@ -68,12 +68,30 @@ function App() {
           <Route index element={<Dashboard />} />
         </Route>
 
-        <Route path='add_appointment' element={<AddAppointment />} />
-        <Route path='add_appointment1' element={<AddAppointment1 />} />
-        <Route path='add_appointment2' element={<AddAppointment2 />} />
-        <Route path='view_appointment' element={<ViewAppointment />} />
-        <Route path='view_appointment1' element={<ViewAppointment1 />} />
-        <Route path='view_appointment2' element={<ViewAppointment2 />} />
+        <Route path="/add_appointment" element={<PrivateRoute />}>
+          <Route index element={<AddAppointment />} />
+        </Route>
+
+        <Route path="/add_appointment1" element={<PrivateRoute />}>
+          <Route index element={<AddAppointment1 />} />
+        </Route>
+
+        <Route path="/add_appointment2" element={<PrivateRoute />}>
+          <Route index element={<AddAppointment2 />} />
+        </Route>
+
+        <Route path="/view_appointment" element={<PrivateRoute />}>
+          <Route index element={<ViewAppointment />} />
+        </Route>
+
+        <Route path="/view_appointment1" element={<PrivateRoute />}>
+          <Route index element={<ViewAppointment1 />} />
+        </Route>
+
+        <Route path="/view_appointment2" element={<PrivateRoute />}>
+          <Route index element={<ViewAppointment2 />} />
+        </Route>
+
         <Route path='update_appointment/:id' element={<UpdateAppointment />} />
         <Route path='patient_history' element={<PatientHistory />} />
         <Route path='add_stock' element={<AddStock />} />
