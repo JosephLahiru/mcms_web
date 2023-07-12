@@ -13,6 +13,10 @@ function ConfirmAppointment() {
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [age, setAge] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [gender, setGender] = useState("");
   const location = useLocation();
 
   const handleClose = () => {
@@ -20,10 +24,14 @@ function ConfirmAppointment() {
 
   useEffect(() => {
     if (location.state) {
-      const { appointmentDoctor, appointmentNumber, appointmentDate,  } = location.state;
+      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender  } = location.state;
       setAppointmentDoctor(appointmentDoctor);
       setAppointmentNumber(appointmentNumber);
       setAppointmentDate(appointmentDate);
+      setPatientName(patientName);
+      setAge(age);
+      setMobile(mobile);
+      setGender(gender);
     }
   }, [location.state]);
 
@@ -93,16 +101,16 @@ function ConfirmAppointment() {
                     Patient Information
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
-                    Name:
+                    Name:{patientName}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
-                    Age:
+                    Age:{age}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
-                    Mobile:
+                    Mobile:{mobile}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
-                    Gender:
+                    Gender:{gender}
                 </Typography>
             </Box>
           </Grid>
