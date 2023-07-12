@@ -29,7 +29,7 @@ function ConfirmAppointment() {
 
   return (
 
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
          <Grid item xs={12}>
             <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
                 <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -54,7 +54,7 @@ function ConfirmAppointment() {
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Appointment Date/Time
               </Typography>
-              <Typography variant="h6" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
                 {appointmentDate.slice(0, 15)}
               </Typography>
               <Typography variant="h7" component="div" sx={{ color: "black", textAlign: "left", paddingLeft: "20px" }}>
@@ -85,8 +85,38 @@ function ConfirmAppointment() {
           </Grid>
         </Box>
       </Grid>
-      <Grid>
-        
+      <Grid item xs={12}>
+        <Grid container spacing={6}>
+          <Grid item xs={6} >
+            <Box sx={{ width: '50%%', height: 350, backgroundColor: '#f5f5f5',marginLeft: "250px",borderRadius: "10px"}}>
+                <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'center' }}>
+                    Patient Information
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
+                    Name:
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
+                    Age:
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
+                    Mobile:
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '25px', textAlign: 'left', paddingLeft: '50px' }}>
+                    Gender:
+                </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={6}>
+          <Box sx={{ width: '50%%', height: 400, backgroundColor: '#FFFFFF',marginRight: "120px",borderRadius: "10px"}}>
+                <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+                    Payment Information
+                </Typography>
+                <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+                    Payment Information
+                </Typography>
+            </Box>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
 
