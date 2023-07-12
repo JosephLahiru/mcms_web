@@ -258,6 +258,7 @@ function ViewAppointment() {
                   <TableCell>Gender</TableCell>
                   <TableCell>Area</TableCell>
                   <TableCell>Appointment Date</TableCell>
+                  <TableCell>Payment</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -277,6 +278,7 @@ function ViewAppointment() {
                         <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date.slice(0,10)}</TableCell>
+                        <TableCell>{item.payment}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update </Button>
                         </TableCell>

@@ -3,11 +3,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
   Grid,
   Box, 
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  Typography, 
   TextField,
   RadioGroup,
   FormControlLabel,
@@ -16,7 +12,7 @@ import {
  
  } from '@mui/material';
  import { useParams } from "react-router-dom";
- import { ToastContainer, toast } from "react-toastify";
+ import {  toast } from "react-toastify";
 
 function UpdateAppointment() { 
   const [patientName, setPatientName] = useState("");
@@ -25,76 +21,12 @@ function UpdateAppointment() {
   const [gender, setGender] = useState("");
   const [mobile, setMobile] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
-  const [appointmentDoctor, setAppointmentDoctor] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   
   const { id } = useParams();
 
-  const handleOptionChange = (event) => {
-    setAppointmentDoctor(event.target.value);
-  };
-
-
- const handleOpen = () => {
-    if (validateForm()) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-      };
- 
-  const validateForm = () => {
-    const errors = {};
-    let formIsValid = true;
-
-    if (appointmentId.trim() === "") {
-      errors.appointmentId = "Please enter the appointment id";
-      formIsValid = false;
-    }
-
-    if (!appointmentDoctor) {
-      errors.appointmentDoctor = "Please select the appointment doctor";
-      formIsValid = false;
-    }
-
-    if (patientName.trim() === "") {
-      errors.patientName = "Please enter the patient name";
-      formIsValid = false;
-    }
-
-    if (age.trim() === "") {
-      errors.age = "Please enter the patient age";
-      formIsValid = false;
-    } else if (isNaN(age) || parseInt(age) < 1) {
-      errors.age = "Please enter a valid age";
-      formIsValid = false;
-    }
-
-    if (mobile.trim() === "") {
-      errors.mobile = "Please enter the patient mobile";
-      formIsValid = false;
-    } else if (!/^\d{10}$/.test(mobile)) {
-      errors.mobile = "Please enter a valid 10-digit mobile number";
-      formIsValid = false;
-    }
-
-    if (area.trim() === "") {
-      errors.area = "Please enter the patient area";
-      formIsValid = false;
-    }
-
-    if (!gender) {
-      errors.gender = "Please select the patient gender";
-      formIsValid = false;
-    }
-
-    setValidationErrors(errors);
-    return formIsValid;
-  };
 
   const handleClose = () => {
-    setOpen(false);
   };
 
   useEffect(() => {
@@ -106,7 +38,6 @@ function UpdateAppointment() {
         if (data.length > 0) {
           const appointment = data[0];
           setAppointmentId(appointment.app_id);
-          setAppointmentDoctor(appointment.doctor_name);
           setPatientName(appointment.patient_name);
           setAge(appointment.age);
           setMobile(appointment.mobile);
@@ -126,8 +57,104 @@ function UpdateAppointment() {
   }, [id]);
 
 
+  const handleUpdateNow = async (event) => {
+    event.preventDefault();
+
+
+    if (
+      !appointmentId ||
+      !patientName ||
+      !age ||
+      !mobile ||
+      !gender ||
+      !area
+    ) {
+      const errors = {};
+  
+      if (!appointmentId) {
+        errors.appointmentId = "Please enter the appointment id";
+      } 
+  
+      if (!patientName) {
+        errors.patientName = "Please enter the patient name";
+      }
+  
+      if (!age) {
+        errors.age = "Please enter the patient age";
+      }else if (isNaN(age) || parseInt(age) < 1) {
+        errors.age = "Please enter a valid age";
+      }
+  
+      if (!mobile) {
+        errors.mobile = "Please enter the patient mobile";
+      }else if (!/^\d{9}$/.test(mobile)) {
+        errors.mobile = "Please enter a valid 10-digit mobile number";
+      }
+  
+      if (!gender) {
+        errors.gender = "Please select the patient gender";
+      }
+  
+      if (!area) {
+        errors.area = "Please enter the patient area";
+      }
+  
+      setValidationErrors(errors);
+      return;
+    }
+    
+    if (
+      !patientName ||
+      !area ||
+      !age ||
+      !gender ||
+      !mobile ||
+      !appointmentId 
+    ) {
+      toast.error("Please fill all the fields...", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+
+    const requestBody = {
+      app_id: appointmentId,
+      patient_name: patientName,
+      age: age,
+      mobile: mobile,
+      gender: gender,
+      area: area,
+    };
+
+    console.log(requestBody); 
+
+    try{
+      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${requestBody.app_id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to send Update Appointment details");
+      }
+
+      const data = await response.json();
+      console.log(data); // Log the response data from the API
+
+      alert("Update Appointment details sent successfully");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send appointment details");
+    }
+  };
+
+
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={3}>
     <Grid item xs={12}>
       <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
         <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
@@ -137,7 +164,7 @@ function UpdateAppointment() {
       </Box>
     </Grid>
     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Box sx={{ width: '1200px', height: 660, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
+      <Box sx={{ width: '1200px', height: 640, backgroundColor: '#f5f5f5', borderRadius: '10px' }}>
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', textAlign: 'center',fontSize: '40px',paddingBottom:'10px',paddingTop:'10px' }}>
           Appointment Information
         </Typography> 
@@ -150,27 +177,16 @@ function UpdateAppointment() {
             onChange={(event) => {setAppointmentId(event.target.value);}}
             variant="outlined"
             color="secondary"
-            sx={{ width: '130%' , marginBottom: '5px',marginLeft: '180px'}}
+            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '250px'}}
             disabled
+            error={!!validationErrors.appointmentId} // Set error prop
+            helperText={validationErrors.appointmentId}
           />
         {validationErrors.appointmentId && (
-    <Typography variant="body2" color="#c62828" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
+    <Typography variant="body2" color="error" sx={{ marginLeft: '220px' , width: '100%',textAlign: 'center'}}>
       {validationErrors.appointmentId}
     </Typography>
   )}  
-    </Grid>
-    <Grid item xs={5}>
-    <FormControl fullWidth sx={{marginLeft: '280px'}} >
-      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT DOCTOR</InputLabel>
-          <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
-              <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-              <MenuItem value="Buddhi Mohotti">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-              <MenuItem value="Presantha Bandara">Radiologist - PRESANTHA BANDARA</MenuItem>
-              </Select>
-              {validationErrors.appointmentDoctor && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingBottom: '20px'}} >{validationErrors.appointmentDoctor}</Typography>
-              )}
-    </FormControl>
     </Grid>
   </Grid>
     <cross >
@@ -258,11 +274,11 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.area}
                 helperText={validationErrors.area}
-                sx={{ width: '90%' , marginBottom: '15px'}}
+                sx={{ width: '90%' , marginBottom: '10px'}}
         />
           </Grid>
-          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center'}} >
-          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleOpen}Open modal>Update Now</Button>
+          <Grid item xs={12}  sx={{ display: 'flex', justifyContent: 'center',paddingTop: '20px'}} >
+          <Button variant="contained" size="medium" color="secondary" sx={{ width: '1075px', height: '50px',fontSize: '24px' }}onClick={handleUpdateNow}>Update Now</Button>
             </Grid>     
       </Box>
       </Grid>
@@ -271,7 +287,7 @@ function UpdateAppointment() {
   );
 }
  
-export default UpdateAppointment;
 
+export default UpdateAppointment;
 
    
