@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import ViewAppointment from './components/ViewAppointment';
 import ViewAppointment1 from './components/ViewAppointment1';
 import ViewAppointment2 from './components/ViewAppointment2';
@@ -143,6 +144,8 @@ function App() {
         <Route path="/return_patients_report" element={<PrivateRoute />}>
           <Route index element={<ReturnPatientsReport />} />
         </Route>
+
+        <Route path="*?" element={<Navigate to="/dashboard" />} />
 
       </Routes>
       </UserContext.Provider>
