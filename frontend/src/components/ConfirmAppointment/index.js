@@ -168,7 +168,7 @@ function ConfirmAppointment() {
             </Box>
           </Grid>
           <Box sx={{ width: "1000px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "350px",borderRadius: "10px"}}>
-          <Alert severity="warning" sx={{alignItems: 'center'}}>
+          <Alert severity="info" sx={{alignItems: 'center'}}>
                     <AlertTitle >Info</AlertTitle>
                           This Appointment is not Paid Yet — <strong> Now Can pay it!</strong>
                     </Alert> 
