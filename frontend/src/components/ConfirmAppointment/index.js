@@ -119,9 +119,31 @@ function ConfirmAppointment() {
                 <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
                     Payment Information
                 </Typography>
-                <Typography variant="h4" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
-                    Payment Information
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '20px', textAlign: 'left', paddingLeft: '90px' }}>
+                    Professional Fee
                 </Typography>
+                <Typography variant="h4" component="div" sx={{ color: 'purple', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    LKR 2,300.00
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    Medical Center & Payement
+                </Typography>
+                <Typography variant="h4" component="div" sx={{ color: 'purple', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    LKR 1,190.00
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    Discout
+                </Typography>
+                <Typography variant="h4" component="div" sx={{ color: 'purple', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    LKR 0.00
+                </Typography>
+                <Typography variant="h6" component="div" sx={{ color: 'black', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                   Total
+                </Typography>
+                <Typography variant="h4" component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                    LKR 3,490.00
+                </Typography>
+                
             </Box>
           </Grid>
         </Grid>
