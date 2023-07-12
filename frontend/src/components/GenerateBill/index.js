@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
