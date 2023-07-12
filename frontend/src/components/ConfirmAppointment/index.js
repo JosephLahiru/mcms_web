@@ -9,6 +9,7 @@ import {
   Alert,
   AlertTitle,
   Button,
+  Modal,
 
 } from '@mui/material';
 
@@ -21,9 +22,11 @@ function ConfirmAppointment() {
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const location = useLocation();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleClose = () => {
-  }; 
+ 
 
   useEffect(() => {
     if (location.state) {
@@ -41,6 +44,19 @@ function ConfirmAppointment() {
 
   const handlePAYNOW = async (event) => {
   }
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
 
   return (
 
@@ -157,10 +173,54 @@ function ConfirmAppointment() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" ,marginTop: "20px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handlePAYNOW}>
+      <cross >
+     <Box display="flex" justifyContent="center" alignItems="center" pb={1}>
+            <Box position="relative" width={1200} height={2} bgcolor="#bdbdbd" marginLeft={34}  marginTop={2}/>
+          </Box>
+          </cross>
+      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handleOpen}>
                 Pay Now
               </Button>
+              <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+        <Box sx={style}>
+          <Typography id="appointment information" variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
+            Appointment Information
+          </Typography>
+          <Typography id="appointment details" sx={{ mt: 2 }}>
+            Appointment Number:
+          </Typography>
+          <Typography id="appointment details" sx={{ mt: 2 }}>
+            Appointment Doctor:
+          </Typography>
+          <Typography id="appointment details" sx={{ mt: 2 }}>
+            Appointment Date:
+          </Typography>
+          <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px' }}>
+            Appointment Information
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }} >
+             Name:
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }}>
+            Age:
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }}>
+            Mobile:
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }}>
+            Gender:
+          </Typography>
+          <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px',color: 'purple' ,textAlign: 'center'}}>
+             SUCCESSFULLY!!!
+          </Typography>
+        </Box>
+      </Modal>
       </Grid>
     </Grid>
 
