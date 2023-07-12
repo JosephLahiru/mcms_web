@@ -26,6 +26,7 @@ function UpdateStock() {
   const [sellingprice, setSellingPrice] = useState("");
   const [sellingpriceError, setSellingPriceError] = useState(false);
   const [brandname, setBrandName] = useState("");
+  const [brandnameError, setBrandNameError] = useState(false);
   const [drugTypes, setDrugTypes] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -40,25 +41,51 @@ function UpdateStock() {
   const { id } = useParams();
 
   const handleDrugNameChange = (event) => {
-    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
-    setDrugName(event.target.value);
-    setDrugNameError(!isValidDrugName);
+    const value = event.target.value;
+    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(value);
+    const isWithinLengthLimit = value.length <= 50;
+    
+    setDrugName(value);
+    
+    if (!isValidDrugName) {
+      setDrugNameError("Please enter a valid drug name");
+    } else if (!isWithinLengthLimit) {
+      setDrugNameError("Drug name should not exceed 50 characters");
+    } else {
+      setDrugNameError("");
+    }
+  };
+
+  const handleBrandNameChange = (event) => {
+    const value = event.target.value;
+    const isValidBrandName = /^[A-Za-z0-9\s&-]*$/.test(value);
+    const isWithinLengthLimit = value.length <= 50;
+
+    setBrandName(value);
+
+    if (!isValidBrandName) {
+      setBrandNameError("Please enter a valid brand name");
+    } else if (!isWithinLengthLimit) {
+      setBrandNameError("Brand name should not exceed 50 characters");
+    } else {
+      setBrandNameError("");
+    }
   };
 
   const handleUnitPriceChange = (event) => {
-    const isValidUnitPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    const isValidUnitPrice = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
     setUnitPrice(event.target.value);
     setUnitPriceError(!isValidUnitPrice);
   };
 
   const handleSellingPriceChange = (event) => {
-    const isValidSellingPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    const isValidSellingPrice = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
     setSellingPrice(event.target.value);
     setSellingPriceError(!isValidSellingPrice);
   };
 
   const handleQuantityChange = (event) => {
-    const isValidQuantity = /^[0-9]+$/.test(event.target.value);
+    const isValidQuantity = /^\d{1,6}$/.test(event.target.value);
     setQuantity(event.target.value);
     setQuantityError(!isValidQuantity);
   };
@@ -323,7 +350,7 @@ function UpdateStock() {
               sx={{ width: "100%" }}
               value={drugname}
               error={drugnameError} 
-              helperText={drugnameError ? 'Pleae enter a valid drug name' : ''} 
+              helperText={drugnameError}
               onChange={handleDrugNameChange}
               label="Drug Name"
             />
@@ -333,7 +360,9 @@ function UpdateStock() {
               size="small"
               sx={{ width: "100%" }}
               value={brandname}
-              onChange={(event) => setBrandName(event.target.value)}
+              error={brandnameError}
+              helperText={brandnameError}
+              onChange={handleBrandNameChange}
               label="Brand Name"
             />
           </Grid>

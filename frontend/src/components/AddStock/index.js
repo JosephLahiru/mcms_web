@@ -23,7 +23,9 @@ function AddStock() {
   const [drugTypes, setDrugTypes] = useState([]);
   const [selectedDrugType, setSelectedDrugType] = useState("");
   const [brandname, setBrandName] = useState("");
+  const [brandnameError, setBrandNameError] = useState(false);
   const [description, setDescription] = useState("");
+  const [descriptionError, setDescriptionError] = useState(false);
   const [unitprice, setUnitPrice] = useState("");
   const [unitpriceError, setUnitPriceError] = useState(false);
   const [sellingprice, setSellingPrice] = useState("");
@@ -39,25 +41,64 @@ function AddStock() {
 
 
   const handleDrugNameChange = (event) => {
-    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(event.target.value);
-    setDrugName(event.target.value);
-    setDrugNameError(!isValidDrugName);
+    const value = event.target.value;
+    const isValidDrugName = /^[A-Za-z0-9\s]*$/.test(value);
+    const isWithinLengthLimit = value.length <= 50;
+    
+    setDrugName(value);
+    
+    if (!isValidDrugName) {
+      setDrugNameError("Please enter a valid drug name");
+    } else if (!isWithinLengthLimit) {
+      setDrugNameError("Drug name should not exceed 50 characters");
+    } else {
+      setDrugNameError("");
+    }
+  };
+
+  const handleBrandNameChange = (event) => {
+    const value = event.target.value;
+    const isValidBrandName = /^[A-Za-z0-9\s&-]*$/.test(value);
+    const isWithinLengthLimit = value.length <= 50;
+
+    setBrandName(value);
+
+    if (!isValidBrandName) {
+      setBrandNameError("Please enter a valid brand name");
+    } else if (!isWithinLengthLimit) {
+      setBrandNameError("Brand name should not exceed 50 characters");
+    } else {
+      setBrandNameError("");
+    }
+  };
+
+  const handleDescriptionChange = (event) => {
+    const value = event.target.value;
+    const isWithinLengthLimit = value.length <= 255;
+
+    setDescription(value);
+
+    if (!isWithinLengthLimit) {
+      setDescriptionError("Description should not exceed 255 characters");
+    } else {
+      setDescriptionError("");
+    }
   };
 
   const handleUnitPriceChange = (event) => {
-    const isValidUnitPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    const isValidUnitPrice = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
     setUnitPrice(event.target.value);
     setUnitPriceError(!isValidUnitPrice);
   };
 
   const handleSellingPriceChange = (event) => {
-    const isValidSellingPrice = /^[0-9]+(\.[0-9]{1,2})?$/.test(event.target.value);
+    const isValidSellingPrice = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
     setSellingPrice(event.target.value);
     setSellingPriceError(!isValidSellingPrice);
   };
 
   const handleQuantityChange = (event) => {
-    const isValidQuantity = /^[0-9]+$/.test(event.target.value);
+    const isValidQuantity = /^\d{1,6}$/.test(event.target.value);
     setQuantity(event.target.value);
     setQuantityError(!isValidQuantity);
   };
@@ -175,7 +216,7 @@ function AddStock() {
       exp_date: formattedExpireDate,
     };
 
-    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && !descriptionError && drugname && brandname && selectedDrugType && description && unitprice && sellingprice && quantity && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
       try {
         const response = await fetch("https://mcms_api.mtron.me/set_stock", {
           method: "POST",
@@ -231,14 +272,15 @@ function AddStock() {
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <TextField
-              size="small"
-              sx={{ width: "100%" }}
-              value={drugname}
-              error={drugnameError}
-              helperText={drugnameError ? 'Pleae enter a valid drug name' : ''}
-              onChange={handleDrugNameChange}
-              label="Drug Name"/>
+          <TextField
+            size="small"
+            sx={{ width: "100%" }}
+            value={drugname}
+            error={drugnameError}
+            helperText={drugnameError}
+            onChange={handleDrugNameChange}
+            label="Drug Name"
+          />
           </Grid>
           <Grid item xs={6}>
             <TextField 
@@ -252,7 +294,14 @@ function AddStock() {
               label="Unit Price" />
           </Grid>
           <Grid item xs={6}>
-            <TextField size="small" sx={{ width: "100%" }} value={brandname} onChange={(event) => setBrandName(event.target.value)} label="Brand Name" />
+            <TextField 
+              size="small" 
+              sx={{ width: "100%" }} 
+              value={brandname}
+              error={brandnameError}
+              helperText={brandnameError}
+              onChange={handleBrandNameChange}
+              label="Brand Name" />
           </Grid>
           <Grid item xs={6}>
             <TextField 
@@ -341,8 +390,10 @@ function AddStock() {
               id="outlined-multiline-static" 
               sx={{ width: "100%" }} 
               multiline 
-              value={description} 
-              onChange={(event) => setDescription(event.target.value)} 
+              value={description}
+              error={descriptionError}
+              helperText={descriptionError}
+              onChange={handleDescriptionChange}
               label="Description"/>
           </Grid>
           <Grid item xs={6}>
