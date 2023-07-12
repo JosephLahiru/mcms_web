@@ -146,7 +146,7 @@ export default function Sidebar() {
                 <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_appointment"))}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/confirm_appointment"))}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -174,7 +174,7 @@ export default function Sidebar() {
                   px: 2.5,
                 }}
               >
-              <ListItemIcon
+                 <ListItemIcon
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : 'auto',
@@ -183,10 +183,10 @@ export default function Sidebar() {
                 >
                   <BookOnlineIcon />
                 </ListItemIcon>
-                <ListItemText primary="Update Appointment" sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} >
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate(""))}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -194,6 +194,7 @@ export default function Sidebar() {
                   px: 2.5,
                 }}
               >
+
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
