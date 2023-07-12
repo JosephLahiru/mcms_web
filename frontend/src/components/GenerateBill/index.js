@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select, Toolbar } from '@mui/material';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 
@@ -154,6 +154,7 @@ const handleReset = () => {
     // Reset form after submission
   return (
     <React.Fragment>
+      <Toolbar/>
     <CssBaseline />
     <Container fixed sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px'}}>
       <Grid container spacing={0.5} sx={{ alignItems:'stretch'}}>
