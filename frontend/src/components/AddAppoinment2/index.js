@@ -60,26 +60,34 @@ function AddAppointment2() {
     if (patientName.trim() === "") {
       errors.patientName = "Please enter the patient name";
       formIsValid = false;
+    } else if (patientName.trim().length > 100) {
+      errors.patientName = "The patient name must not exceed 100 characters";
+      formIsValid = false;
     }
 
     if (age.trim() === "") {
       errors.age = "Please enter the patient age";
       formIsValid = false;
-    } else if (isNaN(age) || parseInt(age) < 1) {
+    } else if (isNaN(age) || parseInt(age) < 1 || parseInt(age) < 0) {
       errors.age = "Please enter a valid age";
       formIsValid = false;
     }
+    
 
     if (mobile.trim() === "") {
       errors.mobile = "Please enter the patient mobile";
       formIsValid = false;
-    } else if (!/^\d{10}$/.test(mobile)) {
-      errors.mobile = "Please enter a valid 10-digit mobile number";
+    } else if (!/^0\d{9,10}$/.test(mobile) && mobile.length !== 9) {
+      errors.mobile = "Please enter a valid 9 or 10-digit mobile number starting with 0";
       formIsValid = false;
     }
-
+    
+    
     if (area.trim() === "") {
       errors.area = "Please enter the patient area";
+      formIsValid = false;
+    }else if (area.trim().length > 150) {
+      errors.area = "The are must not exceed 150 characters";
       formIsValid = false;
     }
 
@@ -97,21 +105,6 @@ function AddAppointment2() {
   };
 
   const handleBOOKNOW = async (event) => {
-    if (appointmentDate) {
-      navigate('/confirm_appointment', {
-        state: {
-          appointmentDoctor,
-          appointmentNumber,
-          appointmentDate,
-          patientName,
-          age,
-          mobile,
-          gender,
-        },
-      });
-    } else {
-      setShowError(true);
-    }
     event.preventDefault();
 
     // Validate the form
@@ -172,13 +165,22 @@ function AddAppointment2() {
       const data = await response.json();
       console.log(data); // Log the response data from the API
 
-      // alert("Appointment details sent successfully");
+      navigate('/confirm_appointment', {
+        state: {
+          appointmentDoctor,
+          appointmentNumber,
+          appointmentDate,
+          patientName,
+          age,
+          mobile,
+          gender,
+        },
+      });
     } catch (error) {
       console.error(error);
       alert("Failed to send appointment details");
     }
   };
-
 
   return (
     <Grid container spacing={2.5}>
@@ -201,7 +203,7 @@ function AddAppointment2() {
                 {appointmentDoctor}
               </Typography>
             </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161" }}/>
+            <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "#616161" }} />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Date
@@ -210,7 +212,7 @@ function AddAppointment2() {
                 {appointmentDate.slice(0, 15)}
               </Typography>
             </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161"  }} />
+            <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "#616161" }} />
             <Grid item xs={3}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Time
@@ -219,7 +221,7 @@ function AddAppointment2() {
                 04.00 PM TO 08.00 PM
               </Typography>
             </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161" }}  />
+            <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "#616161" }} />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Appointment Number
@@ -300,6 +302,11 @@ function AddAppointment2() {
               />
             </Grid>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              {showError && (
+                <Typography variant="body2" color="error" sx={{ marginBottom: "10px" }}>
+                  Please select the appointment date.
+                </Typography>
+              )}
               <Button variant="contained" size="medium" color="secondary" sx={{ width: "1075px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
                 Book Now
               </Button>
@@ -307,8 +314,6 @@ function AddAppointment2() {
           </Grid>
         </Box>
       </Grid>
-      
-
     </Grid>
   );
 }
