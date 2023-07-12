@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Grid,
   Box,
@@ -28,6 +28,8 @@ function AddAppointment2() {
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
+  const navigate = useNavigate();
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (location.state) {
@@ -91,6 +93,17 @@ function AddAppointment2() {
   };
 
   const handleBOOKNOW = async (event) => {
+    if (appointmentDate) {
+      navigate('/confirm_appointment', {
+        state: {
+          appointmentDoctor,
+          appointmentNumber,
+          appointmentDate,
+        },
+      });
+    } else {
+      setShowError(true);
+    }
     event.preventDefault();
 
     // Validate the form
@@ -158,6 +171,7 @@ function AddAppointment2() {
     }
   };
 
+
   return (
     <Grid container spacing={2.5}>
       <Grid item xs={12}>
@@ -169,7 +183,7 @@ function AddAppointment2() {
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-        <Box sx={{ width: "1200px", height: 100, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "1200px", height: 110, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center" }}>
           <Grid container spacing={0}>
             <Grid item xs={3.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
@@ -179,15 +193,16 @@ function AddAppointment2() {
                 {appointmentDoctor}
               </Typography>
             </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem />
+            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161" }}/>
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Date
               </Typography>
-              <Typography variant="h5" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
+              <Typography variant="h4" component="div" sx={{ color: "black", fontWeight: "bold", textAlign: "left", paddingLeft: "20px" }}>
                 {appointmentDate.slice(0, 15)}
               </Typography>
             </Grid>
+            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161"  }} />
             <Grid item xs={3}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Time
@@ -196,7 +211,7 @@ function AddAppointment2() {
                 04.00 PM TO 08.00 PM
               </Typography>
             </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem color />
+            <Divider orientation="vertical" variant="middle" flexItem sx={{backgroundColor: "#616161" }}  />
             <Grid item xs={2.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
                 Appointment Number
@@ -284,6 +299,8 @@ function AddAppointment2() {
           </Grid>
         </Box>
       </Grid>
+      
+
     </Grid>
   );
 }
