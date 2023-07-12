@@ -32,24 +32,34 @@ const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/lo
 
 function App() {
 
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(() => {
+    const storedUser = localStorage.getItem('mcms_user_data');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const location = useLocation();
   const shouldRenderDashboardComponents = !hideDashboardComponentRoutes.includes(location.pathname);
 
   const resetCurrentUser = (message)=>{
-    setCurrentUser(null)
+    setCurrentUser(null);
+    localStorage.removeItem('mcms_user_data');
+  };
+
+  const _setUser = (userData) => {
+    setCurrentUser(userData);
+    localStorage.setItem('mcms_user_data', JSON.stringify(userData));
   };
 
   return (
-    <UserContext.Provider value={{ user: currentUser, resetUser: resetCurrentUser, setUser: setCurrentUser }}>
+    <UserContext.Provider value={{ user: currentUser, resetUser: resetCurrentUser, setUser: _setUser }}>
       {shouldRenderDashboardComponents && <Navbar />}
       {shouldRenderDashboardComponents && <Sidebar />}
       <Routes>
 
-        <Route path="/" element={<Dashboard />}>
+        <Route path="/" element={<LoginRoute />}>
           <Route index element={<Login />} />
         </Route>
+
         <Route path="/login" element={<LoginRoute />}>
           <Route index element={<Login />} />
         </Route>
