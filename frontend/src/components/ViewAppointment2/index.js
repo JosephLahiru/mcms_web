@@ -279,7 +279,7 @@ function ViewAppointment2() {
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date.slice(0,10)}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => handleUpdate}>Update</Button>
+                          <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
                         </TableCell>
                         <TableCell>
                          <IconButton
