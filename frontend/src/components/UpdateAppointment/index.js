@@ -177,7 +177,7 @@ function UpdateAppointment() {
             onChange={(event) => {setAppointmentId(event.target.value);}}
             variant="outlined"
             color="secondary"
-            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '180px'}}
+            sx={{ width: '130%' , marginBottom: '30px',marginLeft: '250px'}}
             disabled
             error={!!validationErrors.appointmentId} // Set error prop
             helperText={validationErrors.appointmentId}
@@ -188,19 +188,6 @@ function UpdateAppointment() {
     </Typography>
   )}  
     </Grid>
-    {/* <Grid item xs={5}>
-    <FormControl fullWidth sx={{marginLeft: '280px'}} >
-      <InputLabel id="demo-simple-select-label" color="secondary">APPOINTMENT SPECIALITY</InputLabel>
-          <Select labelId="demo-simple-select-label" color="secondary" id="demo-simple-select" value={appointmentDoctor}  onChange={handleOptionChange} sx={{width: '425px'}} label = "SELECT A DOCTOR" >
-              <MenuItem value="Nishantha Gunasekara">Universal Physician - NISHANTHA GUNASEKARA</MenuItem>
-              <MenuItem value="Buddhi Mohotti">Pediatrician - BUDDHI MOHOTTI</MenuItem>
-              <MenuItem value="Presantha Bandara">Radiologist - PRESANTHA BANDARA</MenuItem>
-              </Select>
-              {validationErrors.appointmentDoctor && (
-                <Typography variant="body2" color="error" sx={{ marginLeft: '100px',margingBottom: '20px'}} >{validationErrors.appointmentDoctor}</Typography>
-              )}
-    </FormControl>
-    </Grid> */}
   </Grid>
     <cross >
      <Box display="flex" justifyContent="center" alignItems="center" pb={1}>
