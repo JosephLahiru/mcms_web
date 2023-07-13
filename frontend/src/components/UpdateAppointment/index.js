@@ -66,12 +66,13 @@ function UpdateAppointment() {
       errors.age = "Please enter a valid age";
     }
 
-    if (!mobile) {
-      errors.mobile = "Please enter the patient mobile";
-    } else if (!/^0\d{9,10}$/.test(mobile) && mobile.length !== 9) {
-      errors.mobile = "Please enter a valid 9 or 10-digit mobile number starting with 0";
-    }
 
+  if (!mobile) {
+    errors.mobile = "Please enter the mobile number";
+  }else if (!/^\d{9,10}$/.test(mobile)) {
+    errors.mobile = "Please enter a valid 9 or 10-digit mobile number";
+  } 
+      
     if (!gender) {
       errors.gender = "Please select the patient gender";
     }
