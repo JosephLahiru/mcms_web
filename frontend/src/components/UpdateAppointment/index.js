@@ -87,12 +87,12 @@ function UpdateAppointment() {
 
       // Handle error scenarios
       const responseData = await response.json();
-      const errorMessage = responseData.message || "Failed to send appointment details";
+      const errorMessage = responseData.message || "Failed to send appointment details!!!";
       setErrorMessage(errorMessage);
       setOpen(true);
     } catch (error) {
       console.error(error);
-      setErrorMessage("Failed to send appointment details");
+      setErrorMessage("Failed to send appointment details!!!");
       setOpen(true);
     }
   };
@@ -224,7 +224,7 @@ function UpdateAppointment() {
             {success ? "Successful" : "Not Successful"}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} color="black">
-            {success ? "Appointment details updated successfully!" : errorMessage}
+            {success ? "Appointment details updated successfully!!!" : errorMessage}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
           <Button onClick={handleClose}>
