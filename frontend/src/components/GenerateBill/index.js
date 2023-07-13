@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { FormControl, MenuItem, Select, Toolbar } from '@mui/material';
+import { FormControl, MenuItem, Select, Toolbar,InputLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 
@@ -47,14 +47,6 @@ export default function BasicGrid() {
     return discountedPrice;
   }
 
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
   const formData = {
     drugId,
     drugName,
@@ -153,216 +145,119 @@ const handleReset = () => {
 
     // Reset form after submission
   return (
-    <React.Fragment>
-      <Toolbar/>
-    <CssBaseline />
+    <React.Fragment><Toolbar/><CssBaseline />
     <Container fixed sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px'}}>
       <Grid container spacing={0} sx={{ alignItems:'stretch'}}>
-      <Grid item xs={12}>
-          <Item>
-          <h3>K.G.N. Medi house Invoice</h3>
-          {/* No.05, Galle Road,Galle.<br/>
-          contact: +94 715341676<br/>
-          Fax: +94 20 7496 4630. */}
-          </Item>
+        <Grid item xs={12}>
+          <Item><h3>K.G.N. Medi house Invoice</h3></Item>
         </Grid>
 
-        <Grid container spacing={2} sx={{paddingTop:'10px'}}>
+      <FormControl onSubmit={handleSubmit}>
+      <Grid container spacing={2} sx={{paddingTop:'10px'}}>
+          <Grid item xs={6} sx={{ paddingBottom:'30px'}}>
+          <Item><h4>Doctor Charges</h4>
 
-        <Grid item xs={6} sx={{paddingTop:'20px', paddingBottom:'30px'}}>
-          <Item>
-          <FormControl fullWidth sx={{ paddingBottom: '5px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
-          <h4>Doctor Charges</h4>
-          {/* <label>Invoice Date</label> */}
-
-            <TextField id="outlined-date" 
+            <TextField 
                 label="Inv/Date" 
                 type="date" 
                 value={invDate}
-                onChange={(e) =>{ setInvDate(e.target.value)
-                setIsError(e.target.value.trim() === '');}}
+                onChange={(e) =>{ setInvDate(e.target.value); setIsError(e.target.value.trim() === '');}}
                 defaultValue="Small"
                 size="small"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                shrink: true,}}/>
+                fullWidth margin="normal"/>
 
               {isError && <p style={{ color: 'red' }}>Please enter the Invoice date.</p>}
-
-          <label>Invoice Id</label>
           
-          <TextField id="outlined-number" 
-          label="Inv/Number" 
-          type="number" 
-          value={invId}
-          onChange={(e) => {setInvId(e.target.value)
-          setIsError(e.target.value.trim() === '');}}
-          defaultValue="Small"
-          size="small"
-          margin="normal"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,}}
-            />
-            {isError && <p style={{ color: 'red' }}>Please enter the Invoice number.</p>}
-         
-          </FormControl>
+            <TextField 
+                label="Invoice Number" 
+                type="number" 
+                value={invId}
+                onChange={(e) => {setInvId(e.target.value); setIsError(e.target.value.trim() === '');}}
+                defaultValue="Small"
+                size="small"
+                margin="normal"
+                fullWidth />
+
+              {isError && <p style={{ color: 'red' }}>Please enter the Invoice number.</p>}
+        
      
-        <FormControl fullWidth sx={{  paddingBottom: '5px', marginLeft:'10px', width:'400px', marginRight:'10px',marginBottom:'20px'}} onSubmit={handleSubmit}>
-        <label>Appointment Number</label>
-        <TextField
-          id="outlined"
-          label="App/ID:"
-          value={appointmentNum}
-          onChange={(e) => setAppointmentNum(e.target.value)}
-          required
-          fullWidth
-          margin="normal"
-          defaultValue="Small"
-          size="small"
-          inputProps={{ pattern: "\\d*", title: "Please enter a numeric value." }}
-          />
+            <TextField
+                label="Appointment ID"
+                value={appointmentNum}
+                onChange={(e) => setAppointmentNum(e.target.value)}
+                fullWidth
+                margin="normal"
+                defaultValue="Small"
+                size="small"
+                inputProps={{ pattern: "\\d*", title: "Please enter a numeric value." }}/>
   
+            <FormControl sx={{paddingTop:'20px', width:'100%' }} size="small">
+              <InputLabel id="demo-simple-select-label">Select Doctor</InputLabel>
+                <Select
+                labelId="demo-simple-select-label" 
+                id="demo-simple-select" 
+                value={doctor}
+                onChange={(e) => setDoctor(e.target.value)}
+                fullWidth
+                size="small"
+                label="Select Doctor">
+                {((<MenuItem></MenuItem>))}
+                </Select>
+            </FormControl>
+     
 
-      <label style={{paddingTop:'15px'}}>Select Doctor</label>
-      {/* <InputLabel id="outlined-demo-controlled-open-select-label">Select Doctor</InputLabel> */}
-      <Select
-    labelId="demo-controlled-open-select-label"
-     open={open}
-    onClose={handleClose}
-    onOpen={handleOpen}
-    id="outlined"
-    value={doctor}
-    onChange={(e) => setDoctor(e.target.value)}
-    required
-    fullWidth
-    margin="normal"
-    size="small"
- 
->
-    <MenuItem value="doctor1">Universal Physician</MenuItem>
-    <MenuItem value="doctor2">Pediatrician</MenuItem>
-    <MenuItem value="doctor3">Radiologist</MenuItem>
-  </Select>
-      </FormControl>
-
-      <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
-      <label>Doctor Charge</label>
-        <TextField
-          id="outlined-doctor-charge"
-          label="Doctor Charge:"
-          type='number'
-          value={doctorCharge}
-          onChange={(e) => setDoctorCharge(e.target.value)}
-          required
-          fullWidth
-          margin="normal"
-          defaultValue="Small"
-          size="small"
-          inputProps={{
-          step: '0.01',
-          min: '0',
-        }}/>
+            <TextField
+                id="outlined-doctor-charge"
+                label="Doctor Charge"
+                type='number'
+                value={doctorCharge}
+                onChange={(e) => setDoctorCharge(e.target.value)}
+                fullWidth
+                margin="normal"
+                defaultValue="Small"
+                size="small"
+                inputProps={{
+                step: '0.01',
+                min: '0',}}/>
       
-      {/* <label>Drug ID</label>
-        <TextField
-          id="drugId"
-          label="Drug ID:"
-          value={drugId}
-          onChange={(e) => setDrugId(e.target.value)}
-          required
-          margin="normal"
-          size="small"
-        /> */}
-        </FormControl>
+  
+            <TextField
+                id="discount"
+                label="Discount(%)"
+                type="number"
+                value={discount}
+                onChange={(e) => setDiscount(Number(e.target.value))}
+                margin="normal"
+                size="small"
+                fullWidth/>
 
-     <FormControl fullWidth sx={{  paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
-     {/* <label style={{paddingTop:'15px'}}>Drug Name</label>
-        <Select
-          id="drugName"
-          label="Drug Name:"
-          value={drugName}
-          onChange={(e) => setDrugName(e.target.value)}
-          required
-          margin="normal"
-          size="small"
-        >
-    
-    <MenuItem value="drug 1">Aspirin Tablets</MenuItem>
-    <MenuItem value="drug 2">Ibuprofen Tablets</MenuItem>
-    <MenuItem value="drug 3">Aspirin</MenuItem>
-    <MenuItem value="drug 4">Ibuprofen</MenuItem>
-    <MenuItem value="drug 5">Paracitamol</MenuItem>
-  </Select> */}
-      
-      {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
-      {/* <label style={{paddingTop:'8px'}}>Drug Quantity</label>
-        <TextField
-          id="quantity"
-          label="Quantity:"
-          type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          required
-          margin="normal"
-          size="small"
-             inputProps={{
-          step: '1',
-          min: '0',
-        }}
-        /> */}
-        </FormControl>
-   
-   <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
-   {/* <label>Drug Unit Price</label> 
-        <TextField
-          id="total"
-          label="Total:"
-          type="decimal"
-          value={unitPrice}
-          onChange={(e) => setUnitPrice(e.target.value)}
-          required
-          margin="normal"
-          size="small"
-        /> */}
-        </FormControl>
-      
-      <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
-      <label>Discount</label> 
-        <TextField
-          id="discount"
-          label="Discount(%):"
-          type="number"
-          value={discount}
-          onChange={(e) => setDiscount(Number(e.target.value))}
-          required
-          margin="normal"
-          size="small"
-        /></FormControl>
+            <TextField
+                id="amount"
+                label="Total_Amount"
+                type="decimal"
+                value={TotalAmount(unitPrice, quantity, discount)}
+                onChange={(e) => setTotalAmount(Number(e.target.value))}
+                margin="normal"
+                size="small"
+                fullWidth/>
 
-<FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
-      <label>Total_Amount</label> 
-        <TextField
-          id="amount"
-          label="tatal_amount:"
-          type="decimal"
-          value={TotalAmount(unitPrice, quantity, discount)}
-          onChange={(e) => setTotalAmount(Number(e.target.value))}
-          required
-          margin="normal"
-          size="small"
-        /></FormControl>
+            </Item></Grid>
+
+            <Grid item xs={6} sx={{ paddingBottom:'30px'}}>
+              <Item></Item>
+            </Grid>
+
+
      
           <Stack spacing={3} direction="row" sx={{paddingLeft:'500px', paddingTop:'20px'}}>
           <Button variant="contained" color='success' size='small' onClick={handleSubmit} sx={{width:'150px'}}>Submit</Button>
           <Button variant="contained" color='error' size='small' onClick={handleReset} sx={{width:'150px'}}>Reset</Button>
           </Stack>
-          </Item>
+         
           </Grid>
+        </FormControl>
         </Grid>
-        </Grid>
-    </Container>
+       </Container>
     </React.Fragment>
   );
       }
