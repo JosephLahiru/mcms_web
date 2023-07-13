@@ -157,21 +157,23 @@ const handleReset = () => {
       <Toolbar/>
     <CssBaseline />
     <Container fixed sx={{  backgroundColor:'#CCCCFF', height:'100vh',padding:'20px'}}>
-      <Grid container spacing={0.5} sx={{ alignItems:'stretch'}}>
+      <Grid container spacing={0} sx={{ alignItems:'stretch'}}>
       <Grid item xs={12}>
           <Item>
           <h3>K.G.N. Medi house Invoice</h3>
-          No.05, Galle Road,Galle.<br/>
+          {/* No.05, Galle Road,Galle.<br/>
           contact: +94 715341676<br/>
-          Fax: +94 20 7496 4630.
+          Fax: +94 20 7496 4630. */}
           </Item>
         </Grid>
 
-        <Grid item xs={12} sx={{paddingTop:'20px', paddingBottom:'30px'}}>
+        <Grid container spacing={2} sx={{paddingTop:'10px'}}>
+
+        <Grid item xs={6} sx={{paddingTop:'20px', paddingBottom:'30px'}}>
           <Item>
           <FormControl fullWidth sx={{ paddingBottom: '5px', marginLeft:'10px', width:'400px', marginRight:'10px'}}  onSubmit={handleSubmit}>
-
-          <label>Invoice Date</label>
+          <h4>Doctor Charges</h4>
+          {/* <label>Invoice Date</label> */}
 
             <TextField id="outlined-date" 
                 label="Inv/Date" 
@@ -263,7 +265,7 @@ const handleReset = () => {
           min: '0',
         }}/>
       
-      <label>Drug ID</label>
+      {/* <label>Drug ID</label>
         <TextField
           id="drugId"
           label="Drug ID:"
@@ -272,11 +274,11 @@ const handleReset = () => {
           required
           margin="normal"
           size="small"
-        />
+        /> */}
         </FormControl>
 
      <FormControl fullWidth sx={{  paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
-     <label style={{paddingTop:'15px'}}>Drug Name</label>
+     {/* <label style={{paddingTop:'15px'}}>Drug Name</label>
         <Select
           id="drugName"
           label="Drug Name:"
@@ -292,10 +294,10 @@ const handleReset = () => {
     <MenuItem value="drug 3">Aspirin</MenuItem>
     <MenuItem value="drug 4">Ibuprofen</MenuItem>
     <MenuItem value="drug 5">Paracitamol</MenuItem>
-  </Select>
+  </Select> */}
       
       {/* <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}> */}
-      <label style={{paddingTop:'8px'}}>Drug Quantity</label>
+      {/* <label style={{paddingTop:'8px'}}>Drug Quantity</label>
         <TextField
           id="quantity"
           label="Quantity:"
@@ -309,11 +311,11 @@ const handleReset = () => {
           step: '1',
           min: '0',
         }}
-        />
+        /> */}
         </FormControl>
    
    <FormControl fullWidth sx={{ paddingBottom: '1px', marginLeft:'10px', width:'400px', marginRight:'10px'}} onSubmit={handleSubmit}>
-   <label>Drug Unit Price</label> 
+   {/* <label>Drug Unit Price</label> 
         <TextField
           id="total"
           label="Total:"
@@ -323,7 +325,7 @@ const handleReset = () => {
           required
           margin="normal"
           size="small"
-        />
+        /> */}
         </FormControl>
       
       <FormControl fullWidth sx={{  marginLeft:'10px', width:'400px', marginRight:'10px', marginBottom:'10px'}} onSubmit={handleSubmit}>
@@ -358,6 +360,7 @@ const handleReset = () => {
           </Stack>
           </Item>
           </Grid>
+        </Grid>
         </Grid>
     </Container>
     </React.Fragment>
