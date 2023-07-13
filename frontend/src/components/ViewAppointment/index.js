@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import CancelSharpIcon from '@mui/icons-material/CancelSharp';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import CancelSharpIcon from "@mui/icons-material/CancelSharp";
+import { Link } from "react-router-dom";
 
 import {
   TableContainer,
@@ -31,11 +31,9 @@ import {
   Typography,
   ButtonGroup,
   IconButton,
-
-
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppstore } from './../../appStore';
+import { useAppstore } from "./../../appStore";
 
 function ViewAppointment() {
   const { dopen } = useAppstore();
@@ -51,7 +49,7 @@ function ViewAppointment() {
 
   const handleClose = () => {
     navigate(-1);
-};
+  };
 
   useEffect(() => {
     async function fetchAppointment() {
@@ -63,14 +61,13 @@ function ViewAppointment() {
     fetchAppointment();
   }, []);
 
-
   useEffect(() => {
     let results;
     switch (filterOption) {
       case "Appointment Number":
-        if (searchTerm.length >= 3) {
-          results = appointment.filter((item) =>
-            item.app_num.includes(searchTerm)
+        if (searchTerm.length >= 1) {
+          results = appointment.filter((item) => 
+            String(item.app_num).includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -79,7 +76,7 @@ function ViewAppointment() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.app_date.includes(searchTerm)
+            item.app_date.includes(searchTerm) 
           );
         } else {
           results = appointment;
@@ -87,7 +84,7 @@ function ViewAppointment() {
         break;
       case "Mobile":
         results = appointment.filter((item) =>
-          item.mobile.includes(searchTerm)
+          String(item.mobile).includes(searchTerm)
         );
         break;
       default:
@@ -95,14 +92,14 @@ function ViewAppointment() {
     }
     setFilteredAppointment(results);
   }, [searchTerm, appointment, filterOption]);
-  
-
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
+    setSearchTerm("");
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -122,7 +119,7 @@ function ViewAppointment() {
   };
 
   const handleConfirmDelete = async () => {
-    try{
+    try {
       await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
         method: "GET",
       });
@@ -130,11 +127,11 @@ function ViewAppointment() {
       setFilteredAppointment(
         filteredAppointment.filter((item) => item.app_id !== itemToDelete)
       );
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-    toast.success('Appointment deleted successfully');
+      setItemToDelete(null);
+      setConfirmDialogOpen(false);
+      toast.success("Appointment deleted successfully");
     } catch (error) {
-      toast.error('Failed to delete appointment');
+      toast.error("Failed to delete appointment");
     }
   };
 
@@ -149,146 +146,174 @@ function ViewAppointment() {
   };
 
   return (
-    <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
-      <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+    <Box sx={{ width: "100%", height: 100, backgroundColor: "#ce93d8" }}>
+      <Typography
+        variant="h4"
+        component="div"
+        sx={{
+          color: "white",
+          fontWeight: "bold",
+          paddingTop: "40px",
+          textAlign: "left",
+          paddingLeft: "90px",
+        }}
+      >
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose}/>
+      <CloseOutlinedIcon
+        sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }}
+        onClick={handleClose}
+      />
       <Box
-          sx={{
-            display: 'flex',
-            paddingTop: '20px',
-            flexDirection: 'column',
-            alignItems: 'center',
-            '& > *': {
-              m: 1,
-            },
-          }}
+        sx={{
+          display: "flex",
+          paddingTop: "20px",
+          flexDirection: "column",
+          alignItems: "center",
+          "& > *": {
+            m: 1,
+          },
+        }}
       >
-      <ButtonGroup
-        color="secondary"
-        aria-label="select doctor group"
-        sx={{ width: '1100px', height: '70px', gap: '10px', padding: '10px' }}
-      >
-        <Button
+        <ButtonGroup
+          color="secondary"
+          aria-label="select doctor group"
           sx={{
-            width: '33.33%',
-            fontSize: '18px',
-            color: 'white',
-            backgroundColor: '#9c27b0',
-          }}
-          key="NISHANTHA GUNASEKARA"
-          onClick={() => navigate("/view_appointment")}
-        >
-          Universal Physician
-        </Button>
-        <Button
-          sx={{
-            width: '33.33%',
-            fontSize: '18px',
-            color: 'white',
-            backgroundColor: '#9c27b0',
-          }}
-          key="BUDDHI MOHOTTI"
-          onClick={() => navigate("/view_appointment1")}
-        >
-          Pediatrician
-        </Button>
-        <Button
-          sx={{
-            width: '33.33%',
-            fontSize: '18px',
-            color: 'white',
-            backgroundColor: '#9c27b0',
-          }}
-          key="PRESANTHA BANDARA"
-          onClick={() => navigate("/view_appointment2")}
-        >
-          Radiologist
-        </Button>
-      </ButtonGroup>
-    </Box>
-        <Paper
-          sx={{
-            width: dopen ? "calc(100% - 260px)" : "94%",
-            marginLeft: dopen ? "250px" : "80px",
-            marginTop: '10px',
-            overflow: "hidden",
+            width: "1100px",
+            height: "70px",
+            gap: "10px",
             padding: "10px",
-            transition: "width 0.7s ease",
           }}
         >
-        <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            UNIVERSAL PHYSICIAN
+          <Button
+            sx={{
+              width: "33.33%",
+              fontSize: "18px",
+              color: "white",
+              backgroundColor: "#9c27b0",
+            }}
+            key="NISHANTHA GUNASEKARA"
+            onClick={() => navigate("/view_appointment")}
+          >
+            Universal Physician
+          </Button>
+          <Button
+            sx={{
+              width: "33.33%",
+              fontSize: "18px",
+              color: "white",
+              backgroundColor: "#9c27b0",
+            }}
+            key="BUDDHI MOHOTTI"
+            onClick={() => navigate("/view_appointment1")}
+          >
+            Pediatrician
+          </Button>
+          <Button
+            sx={{
+              width: "33.33%",
+              fontSize: "18px",
+              color: "white",
+              backgroundColor: "#9c27b0",
+            }}
+            key="PRESANTHA BANDARA"
+            onClick={() => navigate("/view_appointment2")}
+          >
+            Radiologist
+          </Button>
+        </ButtonGroup>
+      </Box>
+      <Paper
+        sx={{
+          width: dopen ? "calc(100% - 260px)" : "94%",
+          marginLeft: dopen ? "250px" : "80px",
+          marginTop: "10px",
+          overflow: "hidden",
+          padding: "10px",
+          transition: "width 0.7s ease",
+        }}
+      >
+        <Typography
+          component="div"
+          sx={{
+            color: "purple",
+            fontWeight: "bold",
+            paddingTop: "10px",
+            paddingBottom: "20px",
+            textAlign: "left",
+            fontSize: "25px",
+          }}
+        >
+          UNIVERSAL PHYSICIAN
         </Typography>
-      <Grid container alignItems='center'>
-        <Grid item xs={1.5} marginRight={6}>
-          <FormControl sx={{ m: 2, minWidth: 120 }}>
-            <InputLabel id="filterSelectLabel">Filter by</InputLabel>
-            <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
+        <Grid container alignItems="center">
+          <Grid item xs={1.5} marginRight={6}>
+            <FormControl sx={{ m: 2, minWidth: 120 }}>
+              <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                size="small"
+                value={filterOption}
+                label="Filter option"
+                onChange={handleFilterChange}
+              >
+                <MenuItem value="Appointment Number">Appointment Number</MenuItem>
+                <MenuItem value="Appointment Date">Appointment Date</MenuItem>
+                <MenuItem value="Mobile">Mobile</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              id="outlined-size-small"
               size="small"
-              value={filterOption}
-              label="Filter option"
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="Appointment Number">Appointment Number</MenuItem>
-              <MenuItem value="Appointment Date">Appointment Date</MenuItem>
-              <MenuItem value="Mobile">Mobile</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            id="outlined-size-small"
-            size="small"
-            value={searchTerm}
-            onChange={handleInputChange}
-            label={`Search by ${filterOption}...`}
-            type="search"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table  stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
-                  <TableCell>Appointment Id</TableCell>
-                  <TableCell>Appointment Number</TableCell>
-                  <TableCell>Patient Name</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell>Mobile</TableCell>
-                  <TableCell>Gender</TableCell>
-                  <TableCell>Area</TableCell>
-                  <TableCell>Appointment Date</TableCell>
-                  <TableCell>Payment</TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.length > 0 ? (
-                  rows
-                    .filter(item => item.cd_id === "cd_001")
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => (
-                      <TableRow hover role="checkbox" key={item.app_id}>
-                        <TableCell>{item.app_id}</TableCell>
-                        <TableCell>{item.app_num}</TableCell>
-                        <TableCell>{item.patient_name}</TableCell>
-                        <TableCell>{item.age}</TableCell>
-                        <TableCell>{item.mobile}</TableCell>
-                        <TableCell>{item.gender}</TableCell>
-                        <TableCell>{item.area}</TableCell>
-                        <TableCell>{item.app_date.slice(0,10)}</TableCell>
-                        <TableCell>
+              value={searchTerm}
+              onChange={handleInputChange}
+              label={`Search by ${filterOption}...`}
+              type="search"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey", fontSize: '17px' } }}>
+                    <TableCell>Appointment Id</TableCell>
+                    <TableCell>Appointment Number</TableCell>
+                    <TableCell>Patient Name</TableCell>
+                    <TableCell>Age</TableCell>
+                    <TableCell>Mobile</TableCell>
+                    <TableCell>Gender</TableCell>
+                    <TableCell>Area</TableCell>
+                    <TableCell>Appointment Date</TableCell>
+                    <TableCell>Payment</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.length > 0 ? (
+                    rows
+                      .filter((item) => item.cd_id === "cd_001")
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((item) => (
+                        <TableRow hover role="checkbox" key={item.app_id}>
+                          <TableCell>{item.app_id}</TableCell>
+                          <TableCell>{item.app_num.toString().padStart(2, "0")}</TableCell>
+                          <TableCell>{item.patient_name}</TableCell>
+                          <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
+                          <TableCell>{item.mobile}</TableCell>
+                          <TableCell>{item.gender}</TableCell>
+                          <TableCell>{item.area}</TableCell>
+                          <TableCell>{item.app_date.slice(0, 10)}</TableCell>
+                          <TableCell>
                             {parseInt(item.payment) === 0 ? (
                               <Link to={`/confirm_appointment/${item.app_id}`} style={{ textDecoration: 'none' }}>
-                              <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <CancelSharpIcon sx={{ color: 'red', marginRight: '5px' }} />
-                                <span style={{  color: 'red', textDecoration: 'underline'}}>Not Paid</span>
-                              </div>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                  <CancelSharpIcon sx={{ color: 'red', marginRight: '5px' }} />
+                                  <span style={{ color: 'red', textDecoration: 'underline' }}>Not Paid</span>
+                                </div>
                               </Link>
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -296,64 +321,62 @@ function ViewAppointment() {
                                 <span style={{ color: 'purple' }}>Paid</span>
                               </div>
                             )}
-                        </TableCell>
-                        <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update </Button>
-                        </TableCell>
-                        <TableCell>
-                        <IconButton
-                          aria-label="delete"
-                          variant="outlined"
-                          size="small"
-                          onClick={() => handleDelete(item.app_id)}
-                        >
-                        <DeleteIcon />
-                        </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={10}>No data available</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {itemToDelete && (
-            <Dialog
-              open={confirmDialogOpen}
-              onClose={handleCancelDelete}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">
-                {"Confirm Delete"}
-              </DialogTitle>
-              <DialogContent>
-                <div id="alert-dialog-description">
-                  Are you sure you want to delete this item?
-                </div>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
-              </DialogActions>
-            </Dialog>
-          )}
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+                          </TableCell>
+                          <TableCell>
+                            <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
+                          </TableCell>
+                          <TableCell>
+                            <IconButton
+                              aria-label="delete"
+                              variant="outlined"
+                              size="small"
+                              onClick={() => handleDelete(item.app_id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={10}>No data available</TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {itemToDelete && (
+              <Dialog
+                open={confirmDialogOpen}
+                onClose={handleCancelDelete}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+                <DialogContent>
+                  <div id="alert-dialog-description">
+                    Are you sure you want to delete this item?
+                  </div>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCancelDelete}>Cancel</Button>
+                  <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+                </DialogActions>
+              </Dialog>
+            )}
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <ToastContainer />
-    </Paper>
+        <ToastContainer />
+      </Paper>
     </Box>
   );
 }
