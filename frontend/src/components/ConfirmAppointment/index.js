@@ -197,10 +197,19 @@ function ConfirmAppointment() {
             <Box position="relative" width={1200} height={2} bgcolor="#bdbdbd" marginLeft={34}  marginTop={2}/>
           </Box>
           </cross>
-      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
+          <Grid item xs={12}>
+        <Grid container spacing={5}>
+      <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
                 Pay Now
               </Button>
+              </Grid>
+      <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
+                Cancel
+              </Button>
+              </Grid>
+            </Grid>
               <Modal
                   open={open}
                   onClose={handleClose}
