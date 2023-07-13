@@ -23,7 +23,7 @@ function AddAppointment2() {
   const [appointmentDoctorID, setAppointmentDoctorID] = useState(0);
   const [age, setAge] = useState("");
   const [mobile, setMobile] = useState("");
-  const [area, setArea] = useState("");
+  const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
@@ -83,11 +83,11 @@ function AddAppointment2() {
     }
     
     
-    if (area.trim() === "") {
-      errors.area = "Please enter the patient area";
+    if (address.trim() === "") {
+      errors.address = "Please enter the patient address";
       formIsValid = false;
-    }else if (area.trim().length > 150) {
-      errors.area = "The are must not exceed 150 characters";
+    }else if (address.trim().length > 150) {
+      errors.address = "The address must not exceed 150 characters";
       formIsValid = false;
     }
 
@@ -114,7 +114,7 @@ function AddAppointment2() {
 
     if (
       !patientName ||
-      !area ||
+      !address ||
       !age ||
       !gender ||
       !mobile ||
@@ -138,7 +138,7 @@ function AddAppointment2() {
 
     const requestBody = {
       patient_name: patientName,
-      area: area,
+      area: address,
       age: age,
       gender: gender,
       mobile: mobile,
@@ -267,7 +267,7 @@ function AddAppointment2() {
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
                 <TextField
                   id="mobile"
-                  label="Patient Mobile"
+                  label="Patient's Mobile"
                   value={mobile}
                   onChange={(event) => setMobile(event.target.value)}
                   variant="outlined"
@@ -292,13 +292,13 @@ function AddAppointment2() {
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
               <TextField
                 id="area"
-                label="Patient Area"
-                value={area}
-                onChange={(event) => setArea(event.target.value)}
+                label="Patient Address"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
                 variant="outlined"
                 color="secondary"
-                error={!!validationErrors.area}
-                helperText={validationErrors.area}
+                error={!!validationErrors.address}
+                helperText={validationErrors.address}
                 sx={{ width: "90%", marginBottom: "20px" }}
               />
             </Grid>
