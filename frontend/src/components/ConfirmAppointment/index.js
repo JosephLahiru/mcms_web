@@ -140,7 +140,7 @@ function ConfirmAppointment() {
             </Box>
           </Grid>
           <Grid item xs={6}>
-          <Box sx={{ width: '50%', height: 420, backgroundColor: '#FFFFFF',marginRight: "300px",borderRadius: "10px"}}>
+          <Box sx={{ width: '50%', height: 330, backgroundColor: '#FFFFFF',marginRight: "300px",borderRadius: "10px"}}>
                 <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
                     Professional Fee
                 </Typography>
@@ -165,12 +165,14 @@ function ConfirmAppointment() {
                 <Typography variant="h5" component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px',paddingBottom: '25px' }}>
                     LKR 3,490.00
                 </Typography>
-                <Alert severity="info">
-                    <AlertTitle>Info</AlertTitle>
-                          This Appointment is not Paid Yet — <strong> Now Can pay it!</strong>
-                    </Alert>   
             </Box>
           </Grid>
+          <Box sx={{ width: "1000px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "350px",borderRadius: "10px"}}>
+          <Alert severity="info" sx={{alignItems: 'center'}}>
+                    <AlertTitle >Info</AlertTitle>
+                          This Appointment is not Paid Yet — <strong> Now Can pay it!</strong>
+                    </Alert> 
+                    </Box>  
         </Grid>
       </Grid>
       <cross >
@@ -193,28 +195,28 @@ function ConfirmAppointment() {
             Appointment Information
           </Typography>
           <Typography id="appointment details" sx={{ mt: 2 }}>
-            Appointment Number:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Appointment Number: </span>{appointmentNumber.toString().padStart(2, "0")}
           </Typography>
           <Typography id="appointment details" sx={{ mt: 2 }}>
-            Appointment Doctor:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Appointment Doctor: </span>{appointmentDoctor}
           </Typography>
           <Typography id="appointment details" sx={{ mt: 2 }}>
-            Appointment Date:
+          <span style={{ fontWeight: 'bold', color: '#616161' ,fontSize: '18px'}}>Appointment Date: </span>{appointmentDate.slice(0, 15)}
           </Typography>
           <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px' }}>
             Appointment Information
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }} >
-             Name:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Name: </span>{patientName}
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
-            Age:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Age: </span>{age}
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
-            Mobile:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Mobile: </span>{mobile}
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
-            Gender:
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Gender:</span>{gender}
           </Typography>
           <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px',color: 'purple' ,textAlign: 'center'}}>
              SUCCESSFULLY!!!
