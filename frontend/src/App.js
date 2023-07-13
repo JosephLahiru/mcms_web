@@ -5,6 +5,7 @@ import ViewAppointment from './components/ViewAppointment';
 import ViewAppointment1 from './components/ViewAppointment1';
 import ViewAppointment2 from './components/ViewAppointment2';
 import UpdateAppointment from './components/UpdateAppointment';
+import ConfirmAppointment from './components/ConfirmAppointment';
 import PatientHistory from './components/PatientHistory';
 import Login from "./components/Login";
 import Dashboard from './components/Dashboard';
@@ -56,7 +57,6 @@ function App() {
       {shouldRenderDashboardComponents && <Navbar />}
       {shouldRenderDashboardComponents && <Sidebar />}
       <Routes>
-
         <Route path="/" element={<LoginRoute />}>
           <Route index element={<Login />} />
         </Route>
@@ -95,6 +95,10 @@ function App() {
 
         <Route path="/update_appointment/:id" element={<PrivateRoute />}>
           <Route index element={<UpdateAppointment />} />
+        </Route>
+
+        <Route path="/confirm_appointment" element={<PrivateRoute />}>
+          <Route index element={<ConfirmAppointment />} />
         </Route>
 
         <Route path="/patient_history" element={<PrivateRoute />}>
@@ -146,7 +150,6 @@ function App() {
         </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
-
       </Routes>
       </UserContext.Provider>
   );
