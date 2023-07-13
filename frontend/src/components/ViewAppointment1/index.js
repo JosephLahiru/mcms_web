@@ -69,9 +69,9 @@ function ViewAppointment1() {
     let results;
     switch (filterOption) {
       case "Appointment Number":
-        if (searchTerm.length >= 3) {
-          results = appointment.filter((item) =>
-            item.appointmentNumber.includes(searchTerm)
+        if (searchTerm.length >= 1) {
+          results = appointment.filter((item) => 
+            String(item.app_num).includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -80,18 +80,16 @@ function ViewAppointment1() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentDate.includes(searchTerm)
+            item.app_date.includes(searchTerm) 
           );
         } else {
           results = appointment;
         }
         break;
       case "Mobile":
-        
         results = appointment.filter((item) =>
-          item.mobile.includes(searchTerm)
+          String(item.mobile).includes(searchTerm)
         );
-      
         break;
       default:
         results = appointment;
@@ -280,9 +278,9 @@ function ViewAppointment1() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_id}</TableCell>
-                        <TableCell>{item.app_num}</TableCell>
+                        <TableCell>{item.app_num.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
-                        <TableCell>{item.age}</TableCell>
+                        <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
                         <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
