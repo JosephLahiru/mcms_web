@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   Grid,
   Paper,
   Button,
+  TextField,
   FormControl,
   InputLabel,
   Select,
@@ -16,40 +17,89 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 function GetAttendance() {
-  const [assistantId, setAssistantId] = useState('');
+  const [selectedAssistantId, setSelectedAssistantId] = useState("");
+  const [assistantIds, setAssistantIds] = useState([]);
+  const [assistants, setAssistants] = useState([]);
+  const [assistantName, setAssistantName] = useState('');
   const [date, setDate] = useState(null);
   const [attendanceStatus, setAttendanceStatus] = useState('');
 
-  const handleSubmit = async (data) => {
-    console.log(data);
+  useEffect(() => {
+    async function getAssistantIds() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_assistants');
+        const data = await response.json();
+        setAssistantIds(data.map((assistant) => assistant.assit_id));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAssistantIds();
+  }, []);  
+
+  useEffect(() => {
+    async function getAssistants() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_assistants');
+        const data = await response.json();
+        setAssistants(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAssistants();
+  }, []);
+  
+
+  useEffect(() => {
+    const assistant = assistants.find((assistant) => assistant.assit_id === selectedAssistantId);
+    if (assistant) {
+      const name = `${assistant.first_name} ${assistant.last_name}`;
+      setAssistantName(name);
+    } else {
+      setAssistantName('');
+    }
+  }, [selectedAssistantId, assistants]);
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const formattedDate = date ? dayjs(date).format('YYYY-MM-DD') : null;
 
-    if (assistantId && formattedDate && attendanceStatus) {
+    const data = {
+      assit_id: selectedAssistantId,
+      date: formattedDate,
+      status: attendanceStatus,
+    };
+
+    console.log('Submitting attendance:', data);
+    console.log('Assistant Name:', assistantName);
+
+    if (selectedAssistantId && formattedDate && attendanceStatus) {
     try {
       const response = await fetch('http://158.101.10.103/set_attendance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          assist_id: assistantId,
-          date: formattedDate,
-          status: attendanceStatus,
-        }),
+        body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to send attendance details');
+      if (response.ok) {
+        toast.success('Attendance details sent successfully', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        handleReset();
+      } else {
+        toast.error('Failed to send attendance details', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
 
-      toast.success('Attendance details sent successfully', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      handleReset();
     } catch (error) {
       console.error(error);
-      toast.error('Failed to send attendance details', {
+      toast.error('An error occurred while sending attendance details', {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
@@ -73,7 +123,8 @@ function GetAttendance() {
   };
 
   const handleReset = () => {
-    setAssistantId('');
+    setSelectedAssistantId('');
+    setAssistantName('');
     setDate('');
     setAttendanceStatus('');
   };
@@ -84,25 +135,34 @@ function GetAttendance() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
           <FormControl fullWidth size="small">
-          <InputLabel id="demo-simple-select-label">Assistant ID</InputLabel>
+            <InputLabel id="demo-simple-select-label">Assistant ID</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               sx={{ width: "100%" }}
               size="small"
               label="Assistant ID"
-              value={assistantId}
-              onChange={(event) => setAssistantId(event.target.value)}
+              value={selectedAssistantId}
+              onChange={(event) => setSelectedAssistantId(event.target.value)}
               MenuProps={MenuProps}
             >
               <MenuItem value="" disabled>
                 Select an option
               </MenuItem>
-              <MenuItem value="1">Assistant 1</MenuItem>
-              <MenuItem value="2">Assistant 2</MenuItem>
-              <MenuItem value="3">Assistant 3</MenuItem>
+              {assistantIds.map((id) => (
+              <MenuItem key={id} value={id}>{id}</MenuItem>
+              ))}
             </Select>
           </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              size="small"
+              sx={{ width: "100%" }}
+              value={assistantName}
+              disabled
+              label="Assistant Name"
+            />
           </Grid>
           <Grid item xs={12}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
