@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelSharpIcon from "@mui/icons-material/CancelSharp";
@@ -48,6 +48,7 @@ function ViewAppointment() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClose = () => {
     navigate(-1);
@@ -250,7 +251,7 @@ function ViewAppointment() {
             fontSize: "25px",
           }}
         >
-          UNIVERSAL PHYSICIAN
+          UNIVERSAL PHYSICIAN 
         </Typography>
         <Grid container alignItems="center">
           <Grid item xs={1.5} marginRight={6}>
