@@ -176,6 +176,7 @@ function AddAppointment2() {
           gender,
         },
       });
+      
     } catch (error) {
       console.error(error);
       alert("Failed to send appointment details");
