@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 function UpdateAppointment() {
   const [patientName, setPatientName] = useState("");
-  const [area, setArea] = useState("");
+  const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [mobile, setMobile] = useState("");
@@ -15,6 +15,7 @@ function UpdateAppointment() {
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  
 
   const { id } = useParams();
 
@@ -35,7 +36,7 @@ function UpdateAppointment() {
           setAge(appointment.age);
           setMobile(appointment.mobile);
           setGender(appointment.gender);
-          setArea(appointment.area);
+          setAddress(appointment.area);
         } else {
           toast.error("Appointment not found", { position: toast.POSITION.TOP_RIGHT });
         }
@@ -48,26 +49,66 @@ function UpdateAppointment() {
     getAppointment();
   }, [id]);
 
-  const handleUpdateNow = async (event) => {
-    event.preventDefault();
-
     const errors = {};
 
-    // Validation code...
+    const handleUpdateNow = async (event) => {
+      event.preventDefault();
+  
+      const errors = {};
+  
+      if (!appointmentId) {
+        errors.appointmentId = "Please enter the appointment id";
+      }
+  
+      if (!patientName) {
+        errors.patientName = "Please enter the patient name";
+      } else if (patientName.length > 100) {
+        errors.patientName = "Patient name must be less than 100 characters";
+      }
+  
+      if (!age) {
+        errors.age = "Please enter the patient age";
+      } else if (isNaN(age) || parseInt(age) < 1 || parseInt(age) < 0) {
+        errors.age = "Please enter a valid age";
+      }
+  
+  
+    if (!mobile) {
+      errors.mobile = "Please enter the mobile number";
+    }else if (!/^\d{9,10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 9 or 10-digit mobile number";
+    } 
+        
+      if (!gender) {
+        errors.gender = "Please select the patient gender";
+      }
+  
+      if (!address) {
+        errors.address = "Please enter the patient address";
+      }else if (address.trim().length > 150) {
+        errors.address = "The are must not exceed 150 characters";
+  
+      }
+  
+      if (Object.keys(errors).length > 0) {
+        setValidationErrors(errors);
+        return;
+      }
+  
 
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
       return;
     }
 
-    // Rest of the code for updating appointment
+    
     const requestBody = {
       app_id: appointmentId,
       patient_name: patientName,
       age: age,
       mobile: mobile,
       gender: gender,
-      area: area,
+      area: address,
     };
 
     try {
@@ -202,12 +243,12 @@ function UpdateAppointment() {
             <TextField
               id="area"
               label=" Patient Area"
-              value={area}
-              onChange={(event) => setArea(event.target.value)}
+              value={address}
+              onChange={(event) => setAddress(event.target.value)}
               variant="outlined"
               color="secondary"
-              error={!!validationErrors.area}
-              helperText={validationErrors.area}
+              error={!!validationErrors.address}
+              helperText={validationErrors.address}
               sx={{ width: "90%", marginBottom: "10px" }}
             />
           </Grid>
