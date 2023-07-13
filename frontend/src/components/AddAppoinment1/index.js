@@ -155,7 +155,7 @@ const fetchDoctorNames = async () => {
               <Grid item sx={{ backgroundColor: 'white' }}>
                 <FormControl fullWidth>
                   <InputLabel id="select-doctor" color="secondary">
-                    SELECT A SPECIALITY
+                    SELECT A SPECIALITY DOCTOR
                   </InputLabel>
                   <Select
                     labelId="select-doctor"
