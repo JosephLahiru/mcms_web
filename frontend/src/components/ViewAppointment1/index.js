@@ -287,7 +287,7 @@ const handleModalClose = () => {
                   <TableCell>Age</TableCell>
                   <TableCell>Mobile</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Area</TableCell>
+                  <TableCell>Address</TableCell>
                   <TableCell>Appointment Date</TableCell>
                   <TableCell>Payment</TableCell>
                   <TableCell></TableCell>
