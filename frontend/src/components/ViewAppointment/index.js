@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelSharpIcon from "@mui/icons-material/CancelSharp";
 import { Link } from "react-router-dom";
-
 import {
   TableContainer,
   Table,
@@ -31,6 +30,7 @@ import {
   Typography,
   ButtonGroup,
   IconButton,
+  Modal,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from "./../../appStore";
@@ -45,10 +45,43 @@ function ViewAppointment() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
   const handleClose = () => {
     navigate(-1);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalOpen = (message) => {
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
+        method: "GET",
+      });
+      setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
+      setFilteredAppointment(
+        filteredAppointment.filter((item) => item.app_id !== itemToDelete)
+      );
+      setItemToDelete(null);
+      setConfirmDialogOpen(false);
+      handleModalOpen("Appointment deleted successfully");
+    } catch (error) {
+      handleModalOpen("Failed to delete appointment");
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setItemToDelete(null);
+    setConfirmDialogOpen(false);
   };
 
   useEffect(() => {
@@ -66,26 +99,20 @@ function ViewAppointment() {
     switch (filterOption) {
       case "Appointment Number":
         if (searchTerm.length >= 1) {
-          results = appointment.filter((item) => 
-            String(item.app_num).includes(searchTerm)
-          );
+          results = appointment.filter((item) => String(item.app_num).includes(searchTerm));
         } else {
           results = appointment;
         }
         break;
       case "Appointment Date":
         if (searchTerm.length >= 3) {
-          results = appointment.filter((item) =>
-            item.app_date.includes(searchTerm) 
-          );
+          results = appointment.filter((item) => item.app_date.includes(searchTerm));
         } else {
           results = appointment;
         }
         break;
       case "Mobile":
-        results = appointment.filter((item) =>
-          String(item.mobile).includes(searchTerm)
-        );
+        results = appointment.filter((item) => String(item.mobile).includes(searchTerm));
         break;
       default:
         results = appointment;
@@ -116,28 +143,6 @@ function ViewAppointment() {
   const handleDelete = (id) => {
     setItemToDelete(id);
     setConfirmDialogOpen(true);
-  };
-
-  const handleConfirmDelete = async () => {
-    try {
-      await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
-        method: "GET",
-      });
-      setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
-      setFilteredAppointment(
-        filteredAppointment.filter((item) => item.app_id !== itemToDelete)
-      );
-      setItemToDelete(null);
-      setConfirmDialogOpen(false);
-      toast.success("Appointment deleted successfully");
-    } catch (error) {
-      toast.error("Failed to delete appointment");
-    }
-  };
-
-  const handleCancelDelete = () => {
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
   };
 
   const handleUpdate = (item) => {
@@ -175,6 +180,7 @@ function ViewAppointment() {
           },
         }}
       >
+        {/* ButtonGroup and navigation buttons */}
         <ButtonGroup
           color="secondary"
           aria-label="select doctor group"
@@ -377,6 +383,19 @@ function ViewAppointment() {
         </Grid>
         <ToastContainer />
       </Paper>
+      <Modal open={modalOpen} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "background.paper", boxShadow: 24, p: 4 }}>
+          <Typography id="modal-modal-title" variant="h5" component="h2" color="purple" sx={{ fontWeight: "bold", textAlign: "center" }}>
+            {modalMessage === "Appointment deleted successfully" ? "Successful" : "Not Successful"}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} color="black">
+            {modalMessage === "Appointment deleted successfully" ? "Appointment deleted successfully!" : "Failed to delete appointment"}
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Button onClick={handleModalClose}>Close</Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
