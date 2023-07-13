@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import CancelSharpIcon from '@mui/icons-material/CancelSharp';
+import { Link } from 'react-router-dom';
+
 import {
   TableContainer,
   Table,
@@ -258,6 +262,7 @@ function ViewAppointment() {
                   <TableCell>Gender</TableCell>
                   <TableCell>Area</TableCell>
                   <TableCell>Appointment Date</TableCell>
+                  <TableCell>Payment</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -277,6 +282,21 @@ function ViewAppointment() {
                         <TableCell>{item.gender}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date.slice(0,10)}</TableCell>
+                        <TableCell>
+                            {parseInt(item.payment) === 0 ? (
+                              <Link to={`/confirm_appointment/${item.app_id}`} style={{ textDecoration: 'none' }}>
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <CancelSharpIcon sx={{ color: 'red', marginRight: '5px' }} />
+                                <span style={{  color: 'red', textDecoration: 'underline'}}>Not Paid</span>
+                              </div>
+                              </Link>
+                            ) : (
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <TaskAltIcon sx={{ color: 'purple', marginRight: '5px' }} />
+                                <span style={{ color: 'purple' }}>Paid</span>
+                              </div>
+                            )}
+                        </TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update </Button>
                         </TableCell>

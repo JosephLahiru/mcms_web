@@ -146,7 +146,7 @@ export default function Sidebar() {
                 <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/confirm_appointment"))}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_appointment"))}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -186,7 +186,7 @@ export default function Sidebar() {
                 <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate(""))}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/generate_bill"))}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -194,7 +194,7 @@ export default function Sidebar() {
                   px: 2.5,
                 }}
               >
-
+                
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
