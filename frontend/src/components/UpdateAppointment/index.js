@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button } from '@mui/material';
+import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal } from '@mui/material';
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -12,11 +12,16 @@ function UpdateAppointment() {
   const [mobile, setMobile] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
+  const [open, setOpen] = useState(false);
 
   const { id } = useParams();
 
   const handleClose = () => {
-    // Handle close logic
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -66,22 +71,20 @@ function UpdateAppointment() {
       errors.age = "Please enter a valid age";
     }
 
+    if (!mobile) {
+      errors.mobile = "Please enter the mobile number";
+    } else if (!/^\d{9,10}$/.test(mobile)) {
+      errors.mobile = "Please enter a valid 9 or 10-digit mobile number";
+    }
 
-  if (!mobile) {
-    errors.mobile = "Please enter the mobile number";
-  }else if (!/^\d{9,10}$/.test(mobile)) {
-    errors.mobile = "Please enter a valid 9 or 10-digit mobile number";
-  } 
-      
     if (!gender) {
       errors.gender = "Please select the patient gender";
     }
 
     if (!area) {
       errors.area = "Please enter the patient area";
-    }else if (area.trim().length > 150) {
-      errors.area = "The are must not exceed 150 characters";
-
+    } else if (area.trim().length > 150) {
+      errors.area = "The area must not exceed 150 characters";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -99,8 +102,6 @@ function UpdateAppointment() {
       area: area,
     };
 
-    console.log(requestBody);
-
     try {
       const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${requestBody.app_id}`, {
         method: "POST",
@@ -117,10 +118,10 @@ function UpdateAppointment() {
       const data = await response.json();
       console.log(data); // Log the response data from the API
 
-      alert("Update Appointment details sent successfully");
+      setOpen(true); // Show the success message Modal dialog
     } catch (error) {
       console.error(error);
-      alert("Failed to send appointment details");
+      setOpen(true); // Show the error message Modal dialog
     }
   };
 
@@ -160,11 +161,9 @@ function UpdateAppointment() {
               )}
             </Grid>
           </Grid>
-          <cross>
-            <Box display="flex" justifyContent="center" alignItems="center" pb={1}>
-              <Box position="relative" width={1000} height={2} bgcolor="#bdbdbd" />
-            </Box>
-          </cross>
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", pb: 1 }}>
+            <Box sx={{ position: "relative", width: 1000, height: 2, bgcolor: "#bdbdbd" }} />
+          </Box>
           <Typography component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px', textAlign: 'center', fontSize: '30px' }}>
             Patient Information
           </Typography>
@@ -261,6 +260,24 @@ function UpdateAppointment() {
           </Grid>
         </Box>
       </Grid>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", bgcolor: "background.paper", boxShadow: 24, p: 4 }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {open ? "Error" : "Success"}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {open ? "Failed to send appointment details" : "Update Appointment details sent successfully"}
+          </Typography>
+          <Button onClick={handleClose} sx={{ mt: 2 }}>
+            Close
+          </Button>
+        </Box>
+      </Modal>
     </Grid>
   );
 }
