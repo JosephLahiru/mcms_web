@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 
 function ConfirmAppointment() { 
+  const [appointmentId, setAppointmentDoctorID] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -41,10 +42,6 @@ function ConfirmAppointment() {
     }
   }, [location.state]);
 
-
-  const handlePAYNOW = async (event) => {
-  }
-
   const style = {
     position: 'absolute',
     top: '50%',
@@ -57,6 +54,26 @@ function ConfirmAppointment() {
     p: 4,
   };
 
+  const handleConfirmPayment = async () => {
+    console.log("hello")
+
+    try {
+      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentNumber}`
+      console.log(query)
+      await fetch(query, {
+        method: "GET",
+      });
+      // setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
+      // setFilteredAppointment(
+      //   filteredAppointment.filter((item) => item.app_id !== itemToDelete)
+      // );
+      // setItemToDelete(null);
+      // setConfirmDialogOpen(false);
+      // handleModalOpen("Appointment deleted successfully");
+    } catch (error) {
+      // handleModalOpen("Failed to delete appointment");
+    }
+  };
 
   return (
 
@@ -181,7 +198,7 @@ function ConfirmAppointment() {
           </Box>
           </cross>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handleOpen}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
                 Pay Now
               </Button>
               <Modal
