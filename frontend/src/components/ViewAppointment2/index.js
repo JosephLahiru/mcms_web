@@ -30,6 +30,7 @@ import {
   Typography,
   ButtonGroup,
   IconButton,
+  Modal,
 
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -45,13 +46,46 @@ function ViewAppointment2() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
   const handleClose = () => {
     navigate(-1);
 };
 
-  useEffect(() => {
+const handleModalClose = () => {
+  setModalOpen(false);
+};
+
+const handleModalOpen = (message) => {
+  setModalMessage(message);
+  setModalOpen(true);
+};
+
+const handleConfirmDelete = async () => {
+  try {
+    await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
+      method: "GET",
+    });
+    setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
+    setFilteredAppointment(
+      filteredAppointment.filter((item) => item.app_id !== itemToDelete)
+    );
+    setItemToDelete(null);
+    setConfirmDialogOpen(false);
+    handleModalOpen("Appointment deleted successfully");
+  } catch (error) {
+    handleModalOpen("Failed to delete appointment");
+  }
+};
+
+const handleCancelDelete = () => {
+  setItemToDelete(null);
+  setConfirmDialogOpen(false);
+};
+
+useEffect(() => {
     async function fetchAppointment() {
       const response = await fetch("https://mcms_api.mtron.me/get_appointment");
       const data = await response.json();
@@ -60,7 +94,6 @@ function ViewAppointment2() {
     }
     fetchAppointment();
   }, []);
-
 
   useEffect(() => {
     let results;
@@ -94,12 +127,13 @@ function ViewAppointment2() {
     setFilteredAppointment(results);
   }, [searchTerm, appointment, filterOption]);
 
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
+    setSearchTerm("");
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -118,28 +152,6 @@ function ViewAppointment2() {
     setConfirmDialogOpen(true);
   };
 
-  const handleConfirmDelete = async () => {
-    try{
-      await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
-        method: "GET",
-      });
-      setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
-      setFilteredAppointment(
-        filteredAppointment.filter((item) => item.app_id !== itemToDelete)
-      );
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-    toast.success('Appointment deleted successfully');
-    } catch (error) {
-      toast.error('Failed to delete appointment');
-    }
-  };
-
-  const handleCancelDelete = () => {
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-  };
-  
    const handleUpdate = (item) => {
     console.log(item.app_id);
     navigate(`/update_appointment/${item.app_id}`);
@@ -147,7 +159,16 @@ function ViewAppointment2() {
  
   return (
     <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
-      <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+      <Typography 
+      variant="h4" 
+      component="div" 
+      sx={{ 
+        color: 'white', 
+        fontWeight: 'bold', 
+        paddingTop: '40px', 
+        textAlign: 'left', 
+        paddingLeft: '90px' 
+        }}>
         VIEW APPOINTMENT
       </Typography>
       <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
@@ -354,6 +375,19 @@ function ViewAppointment2() {
       </Grid>
       <ToastContainer />
     </Paper>
+    <Modal open={modalOpen} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "background.paper", boxShadow: 24, p: 4 }}>
+          <Typography id="modal-modal-title" variant="h5" component="h2" color="purple" sx={{ fontWeight: "bold", textAlign: "center" }}>
+            {modalMessage === "Appointment deleted successfully" ? "Successful" : "Not Successful"}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 ,textAlign: "center"}} color="black">
+            {modalMessage === "Appointment deleted successfully" ? "Appointment deleted successfully!!!" : "Failed to delete appointment!!!"}
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "right", mt: 2 }}>
+            <Button onClick={handleModalClose}>Close</Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }

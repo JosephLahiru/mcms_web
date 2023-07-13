@@ -388,10 +388,10 @@ function ViewAppointment() {
           <Typography id="modal-modal-title" variant="h5" component="h2" color="purple" sx={{ fontWeight: "bold", textAlign: "center" }}>
             {modalMessage === "Appointment deleted successfully" ? "Successful" : "Not Successful"}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} color="black">
-            {modalMessage === "Appointment deleted successfully" ? "Appointment deleted successfully!" : "Failed to delete appointment"}
+          <Typography id="modal-modal-description" sx={{ mt: 2,textAlign: "center" }} color="black">
+            {modalMessage === "Appointment deleted successfully" ? "Appointment deleted successfully!!!" : "Failed to delete appointment!!!"}
           </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "right", mt: 2 }}>
             <Button onClick={handleModalClose}>Close</Button>
           </Box>
         </Box>
