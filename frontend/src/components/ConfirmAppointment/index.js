@@ -153,12 +153,12 @@ function ConfirmAppointment() {
                 <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
                     LKR 1,190.00
                 </Typography>
-                <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
+                {/* <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
                     Discout
                 </Typography>
                 <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
                     LKR 0.00
-                </Typography>
+                </Typography> */}
                 <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
                    Total
                 </Typography>
@@ -167,7 +167,7 @@ function ConfirmAppointment() {
                 </Typography>
             </Box>
           </Grid>
-          <Box sx={{ width: "1000px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "350px",borderRadius: "10px"}}>
+          <Box sx={{ width: "600px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "550px",borderRadius: "10px",}}>
           <Alert severity="info" sx={{alignItems: 'center'}}>
                     <AlertTitle >Info</AlertTitle>
                           This Appointment is not Paid Yet — <strong> Now Can pay it!</strong>
