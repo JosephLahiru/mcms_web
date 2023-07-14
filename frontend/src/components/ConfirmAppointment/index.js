@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { 
   Grid,
   Box,
@@ -26,6 +26,7 @@ function ConfirmAppointment() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
  
 
@@ -52,6 +53,10 @@ function ConfirmAppointment() {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+  };
+
+  const handlepayLater = () => {
+    navigate('/view_appointment');
   };
 
   const handleConfirmPayment = async () => {
@@ -205,8 +210,8 @@ function ConfirmAppointment() {
               </Button>
               </Grid>
       <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
-                Cancel
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlepayLater}>
+                Pay Later
               </Button>
               </Grid>
             </Grid>
