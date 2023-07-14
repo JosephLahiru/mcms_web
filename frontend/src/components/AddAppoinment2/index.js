@@ -23,6 +23,7 @@ function AddAppointment2() {
   const [appointmentDoctorID, setAppointmentDoctorID] = useState(0);
   const [age, setAge] = useState("");
   const [mobile, setMobile] = useState("");
+  const [nic, setNIC] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -39,6 +40,7 @@ function AddAppointment2() {
       setAppointmentDate(appointmentDate);
       setAppointmentDoctorID(selectedDoctorID);
       setPatientName(patientName);
+      setNIC(nic)
       setAge(age);
       setMobile(mobile);
       setGender(gender);
@@ -75,7 +77,7 @@ function AddAppointment2() {
     
 
     if (mobile.trim() === "") {
-      errors.mobile = "Please enter the patient mobile";
+      errors.mobile = "Please enter the patient's mobile";
       formIsValid = false;
     } else if (!/^0\d{9,10}$/.test(mobile) && mobile.length !== 9) {
       errors.mobile = "Please enter a valid 9 or 10-digit mobile number starting with 0";
@@ -96,12 +98,51 @@ function AddAppointment2() {
       formIsValid = false;
     }
 
+    if (!nic) {
+      errors.nic = "Please select the patient's NIC";
+      formIsValid = false;
+    } else {
+      // Remove any spaces or dashes from the NIC
+      nic = nic.replace(/[\s-]/g, '');
+    
+      // Check the length of the NIC
+      if (nic.length !== 10 && nic.length !== 12) {
+        errors.nic = "Invalid NIC length";
+        formIsValid = false;
+      } else {
+        // Regular expression pattern for NIC validation
+        const nicPattern = /^[0-9]{9}[vV]|[12][0-9]{11}$/;
+    
+        // Check if the NIC matches the pattern
+        if (!nicPattern.test(nic)) {
+          errors.nic = "Invalid NIC format";
+          formIsValid = false;
+        } else {
+          // Validate the last character of the NIC
+          const lastDigit = nic.charAt(nic.length - 1);
+          if (nic.length === 10 && lastDigit.toLowerCase() !== 'v') {
+            errors.nic = "Invalid last character for old NIC format";
+            formIsValid = false;
+          } else if (nic.length === 12 && !/[0-9]/.test(lastDigit)) {
+            errors.nic = "Invalid last character for new NIC format";
+            formIsValid = false;
+          }
+        }
+      }
+    }
+    
+
     setValidationErrors(errors);
     return formIsValid;
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+ 
+  const handlecancel = () => {
+    navigate('/add_appointment');
   };
 
   const handleBOOKNOW = async (event) => {
@@ -118,6 +159,7 @@ function AddAppointment2() {
       !age ||
       !gender ||
       !mobile ||
+      !nic ||
       !appointmentNumber ||
       !appointmentDoctorID ||
       !appointmentDate
@@ -142,6 +184,7 @@ function AddAppointment2() {
       age: age,
       gender: gender,
       mobile: mobile,
+      nic:nic,
       app_num: appointmentNumber,
       cd_id: appointmentDoctorID,
       app_date: convertedDate,
@@ -174,6 +217,7 @@ function AddAppointment2() {
           age,
           mobile,
           gender,
+          nic,
         },
       });
       
@@ -194,7 +238,7 @@ function AddAppointment2() {
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-        <Box sx={{ width: "1200px", height: 110, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "1200px", height: 100, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center" }}>
           <Grid container spacing={0}>
             <Grid item xs={3.5}>
               <Typography variant="h7" component="div" sx={{ color: "black", paddingTop: "20px", textAlign: "left", paddingLeft: "20px" }}>
@@ -289,28 +333,45 @@ function AddAppointment2() {
                 )}
               </RadioGroup>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              <TextField
-                id="area"
-                label="Patient Address"
-                value={address}
-                onChange={(event) => setAddress(event.target.value)}
-                variant="outlined"
-                color="secondary"
-                error={!!validationErrors.address}
-                helperText={validationErrors.address}
-                sx={{ width: "90%", marginBottom: "20px" }}
-              />
+            <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
+                <TextField
+                  id="nic"
+                  label="Patient's NIC"
+                  value={nic}
+                  onChange={(event) => setNIC(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.nic}
+                  helperText={validationErrors.nic}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
+                <TextField
+                  id="address"
+                  label="Patient's Address"
+                  value={address}
+                  onChange={(event) => setAddress(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.address}
+                  helperText={validationErrors.address}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              {showError && (
-                <Typography variant="body2" color="error" sx={{ marginBottom: "10px" }}>
-                  Please select the appointment date.
-                </Typography>
-              )}
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1075px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
+            <Grid container spacing={5}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
                 Book Now
               </Button>
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
+                Cancel
+              </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Box>
