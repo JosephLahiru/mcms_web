@@ -30,7 +30,7 @@ function AddAppointment2() {
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
-  const [showError, setShowError] = useState(false);
+  
 
   useEffect(() => {
     if (location.state) {
