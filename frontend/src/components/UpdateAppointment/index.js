@@ -3,24 +3,32 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function UpdateAppointment() {
   const [patientName, setPatientName] = useState("");
   const [address, setAddress] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+  const [nic, setNIC] = useState("");
   const [mobile, setMobile] = useState("");
   const [appointmentId, setAppointmentId] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   
 
   const { id } = useParams();
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+
+  const handlecancel = () => {
+    navigate('/dashboard');
   };
 
   useEffect(() => {
@@ -34,6 +42,7 @@ function UpdateAppointment() {
           setAppointmentId(appointment.app_id);
           setPatientName(appointment.patient_name);
           setAge(appointment.age);
+          setNIC(appointment.nic)
           setMobile(appointment.mobile);
           setGender(appointment.gender);
           setAddress(appointment.area);
@@ -89,6 +98,39 @@ function UpdateAppointment() {
         errors.address = "The are must not exceed 150 characters";
   
       }
+
+      if (!nic) {
+        errors.nic = "Please select the patient's NIC";
+      
+      } else {
+        // Remove any spaces or dashes from the NIC
+        nic = nic.replace(/[\s-]/g, '');
+      
+        // Check the length of the NIC
+        if (nic.length !== 10 && nic.length !== 12) {
+          errors.nic = "Invalid NIC length";
+         
+        } else {
+          // Regular expression pattern for NIC validation
+          const nicPattern = /^[0-9]{9}[vV]|[12][0-9]{11}$/;
+      
+          // Check if the NIC matches the pattern
+          if (!nicPattern.test(nic)) {
+            errors.nic = "Invalid NIC format";
+           
+          } else {
+            // Validate the last character of the NIC
+            const lastDigit = nic.charAt(nic.length - 1);
+            if (nic.length === 10 && lastDigit.toLowerCase() !== 'v') {
+              errors.nic = "Invalid last character for old NIC format";
+             
+            } else if (nic.length === 12 && !/[0-9]/.test(lastDigit)) {
+              errors.nic = "Invalid last character for new NIC format";
+             
+            }
+          }
+        }
+      }
   
       if (Object.keys(errors).length > 0) {
         setValidationErrors(errors);
@@ -108,6 +150,7 @@ function UpdateAppointment() {
       age: age,
       mobile: mobile,
       gender: gender,
+      nic:nic,
       area: address,
     };
 
@@ -239,23 +282,45 @@ function UpdateAppointment() {
               {validationErrors.gender && <Typography variant="body2" color="error" sx={{ marginLeft: "100px", marginTop: "5px" }}>{validationErrors.gender}</Typography>}
             </RadioGroup>
           </Grid>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <TextField
-              id="area"
-              label=" Patient Area"
-              value={address}
-              onChange={(event) => setAddress(event.target.value)}
-              variant="outlined"
-              color="secondary"
-              error={!!validationErrors.address}
-              helperText={validationErrors.address}
-              sx={{ width: "90%", marginBottom: "10px" }}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", paddingTop: "20px" }}>
-            <Button variant="contained" size="medium" color="secondary" sx={{ width: "1075px", height: "50px", fontSize: "24px" }} onClick={handleUpdateNow}>
-              Update Now
-            </Button>
+          <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
+                <TextField
+                  id="nic"
+                  label="Patient's NIC"
+                  value={nic}
+                  onChange={(event) => setNIC(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.nic}
+                  helperText={validationErrors.nic}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
+                <TextField
+                  id="address"
+                  label="Patient's Address"
+                  value={address}
+                  onChange={(event) => setAddress(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.address}
+                  helperText={validationErrors.address}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+            </Grid>
+            <Grid container spacing={10}>
+          <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "20px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleUpdateNow}>
+                Update Now
+              </Button>
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "20px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
+                Cancel
+              </Button>
+              </Grid>  
           </Grid>
         </Box>
       </Grid>
