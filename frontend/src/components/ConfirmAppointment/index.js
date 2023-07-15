@@ -20,6 +20,7 @@ function ConfirmAppointment() {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [patientName, setPatientName] = useState("");
   const [age, setAge] = useState("");
+  const [nic, setNIC] = useState("");
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const location = useLocation();
@@ -32,12 +33,13 @@ function ConfirmAppointment() {
 
   useEffect(() => {
     if (location.state) {
-      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender  } = location.state;
+      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
       setAppointmentDoctor(appointmentDoctor);
       setAppointmentNumber(appointmentNumber);
       setAppointmentDate(appointmentDate);
       setPatientName(patientName);
       setAge(age);
+      setAge(nic);
       setMobile(mobile);
       setGender(gender);
     }
@@ -155,6 +157,9 @@ function ConfirmAppointment() {
                   <span style={{ fontWeight: 'bold', color: '#616161' }}>Mobile: </span>{mobile}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{  paddingTop: '10px', textAlign: 'left', paddingLeft: '50px' }}>
+                  <span style={{ fontWeight: 'bold', color: '#616161' }}>NIC: </span>{nic}
+                </Typography>
+                <Typography variant="h6" component="div" sx={{  paddingTop: '10px', textAlign: 'left', paddingLeft: '50px' }}>
                   <span style={{ fontWeight: 'bold', color: '#616161' }}>Gender: </span>{gender}
                 </Typography>
 
@@ -245,6 +250,9 @@ function ConfirmAppointment() {
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Mobile: </span>{mobile}
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }}>
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>NIC: </span>{nic}
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Gender:</span>{gender}
