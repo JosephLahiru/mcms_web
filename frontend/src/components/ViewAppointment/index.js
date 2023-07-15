@@ -292,6 +292,7 @@ function ViewAppointment() {
                     <TableCell>Age</TableCell>
                     <TableCell>Mobile</TableCell>
                     <TableCell>Gender</TableCell>
+                    <TableCell>NIC</TableCell>
                     <TableCell>Address</TableCell>
                     <TableCell>Appointment Date</TableCell>
                     <TableCell>Payment</TableCell>
@@ -312,6 +313,7 @@ function ViewAppointment() {
                           <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
                           <TableCell>{item.mobile}</TableCell>
                           <TableCell>{item.gender}</TableCell>
+                          <TableCell>{item.nic}</TableCell>
                           <TableCell>{item.area}</TableCell>
                           <TableCell>{item.app_date.slice(0, 10)}</TableCell>
                           <TableCell>
