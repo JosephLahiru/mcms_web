@@ -286,7 +286,7 @@ const handleReset = () => {
 
      
           <Stack spacing={3} direction="row" sx={{paddingLeft:'500px', paddingTop:'20px'}}>
-          <Button variant="contained" color='success' size='small' onClick={handleSubmit} sx={{width:'150px'}}>Submit</Button>
+          <Button variant="contained" color='success' size='small' sx={{width:'150px'}}>Submit</Button>
           <Button variant="contained" color='error' size='small' onClick={handleReset} sx={{width:'150px'}}>Reset</Button>
           </Stack>
          
