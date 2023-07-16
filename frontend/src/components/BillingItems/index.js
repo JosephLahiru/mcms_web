@@ -20,13 +20,64 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BillingItems() {
 
   const [listId, setListId] = useState('');
+  const [listidError, setListIdError] = useState(false);
   const [drugId, setDrugId] = useState('');
+  const [drugidError, setDrugIdError] = useState(false);
   const [quantity, setQuantity] = useState(0);
+  const [quantityError, setQuantityError] = useState(false);
   const [unitPrice, setUnitPrice] = useState(0);
+  const [unitpriceError, setUnitPriceError] = useState(false);
   const [totalAmount, setTotalAmount] = useState('');
   const navigate = useNavigate();
 
-  function TotalAmount(unitPrice,quantity){
+  const handleListIdChange  = (event) => {
+    const value = event.target.value;
+    const isvalidListId = /^\d+$/.test(value);
+
+    setListId(value)
+
+    if(!isvalidListId){
+      setListIdError('Invalid input, please enter a number')
+    }
+    else if (value.trim() === '') {
+      console.setListIdError('Field is empty');
+    }
+    else{
+      setListIdError('');
+    }
+};
+
+const handleDrugIdChange  = (event) => {
+  const value = event.target.value;
+  const isvalidDrugId = /^\d+$/.test(value);
+
+  setDrugId(value)
+
+  if(!isvalidDrugId){
+    setDrugIdError('Invalid input, please enter a number')
+  }
+  else if (value.trim() === '') {
+    console.setDrugIdError('Field is empty');
+  }
+  else{
+    setDrugIdError('');
+  }
+};
+
+const handleUnitPriceChange = (event) => {
+  const isValidUnitPrice = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
+  setUnitPrice(event.target.value);
+  setUnitPriceError(!isValidUnitPrice);
+};
+
+const handleQuantityChange = (event) => {
+  const isValidQuantity = /^\d{1,6}$/.test(event.target.value);
+  setQuantity(event.target.value);
+  setQuantityError(!isValidQuantity);
+};
+
+
+function TotalAmount(unitPrice,quantity){
     const totalPrice = unitPrice * quantity;
     return totalPrice;
   }
@@ -51,8 +102,8 @@ const handleReset = () => {
 
 }
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+const handleSubmit = async (_event) => {
+  _event.preventDefault();
 
 
 const totalPrice= unitPrice * quantity;
@@ -69,6 +120,7 @@ const data = {
 
 console.log(data)
 
+if (!listidError && !drugidError && !quantityError && !unitpriceError && listId && drugId && quantity && unitPrice && totalAmount){
 try {
   const response = await fetch("https://mcms_api.mtron.me/set_billing_items", {
     method: "POST",
@@ -92,19 +144,21 @@ try {
   }
 } catch (error) {
   console.error(error);
-  toast.error("An error occurred while saving the stock data", {
+  toast.error("An error occurred while saving the billing data", {
     position: toast.POSITION.TOP_RIGHT,
   });
-}
-};
+}}
+else {
+  toast.error("Please fill all the fields", {
+    position: toast.POSITION.TOP_RIGHT,
+  });
+}};
 
 function handleBillingHistoryClick() {
   navigate('/bill_history');
 }
 
-
-
-  return (
+return (
 
       <Box
       sx={{
@@ -144,9 +198,9 @@ function handleBillingHistoryClick() {
                 value={listId}
                 size="small"
                 sx={{width:'300px',paddingBottom:'20px'}}
-                // onChange={}
-                // error={}
-                // helperText={}
+                onChange={ handleListIdChange}
+                error={listidError}
+                helperText={listidError}
                   />
 
               <TextField
@@ -155,9 +209,9 @@ function handleBillingHistoryClick() {
                 value={drugId}
                 size="small"
                 sx={{width:'300px',paddingBottom:'20px'}}
-                // onChange={}
-                // error={}
-                // helperText={}
+                onChange={handleDrugIdChange }
+                error={drugidError}
+                helperText={drugidError}
                 />
 
               <TextField
@@ -166,9 +220,9 @@ function handleBillingHistoryClick() {
                 value={unitPrice}
                 size="small"
                 sx={{width:'300px',paddingBottom:'20px'}}
-                // onChange={ }
-                // error={}
-                // helperText={}
+                onChange={handleUnitPriceChange}
+                error={unitpriceError}
+                helperText={unitpriceError ? 'Please enter a valid unit price' : ''}
               /> 
 
 
@@ -178,20 +232,18 @@ function handleBillingHistoryClick() {
                 value={quantity}
                 size="small"
                 sx={{width:'300px',paddingBottom:'20px'}}
-                // onChange={ }
-                // error={}
-                // helperText={}
+                onChange={handleQuantityChange}
+                error={quantityError}
+                helperText={quantityError ? 'Please enter a valid quantity' : ''}
               />
 
               <TextField
                 label="Total_Amount:"
                 type="decimal"
-                // value={TotalAmount(unitPrice, quantity, discount)}
+                value={TotalAmount(unitPrice, quantity,)}
                 size="small"
                 sx={{width:'300px',paddingBottom:'20px'}}
                 onChange={(e) => setTotalAmount(Number(e.target.value))}
-                // error={}
-                // helperText={}
               />
 
             

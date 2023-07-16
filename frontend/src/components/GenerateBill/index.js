@@ -22,9 +22,9 @@ export default function DoctorCharges() {
   }));
 
   
- function handleSubmit(event) {
-  event.preventDefault();
- }
+//  function handleSubmit(event) {
+//   event.preventDefault();
+//  }
 
  function handleDoctorChargesClick() {
   navigate('/doctor_charges');
