@@ -1,12 +1,13 @@
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import { FormControl, MenuItem, Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -24,16 +25,35 @@ export default function BasicGrid() {
 
   const navigate = useNavigate();
   const [invId, setInvId] = useState('');
+  const [invidError, setInvIdError] = useState(false);
   const [invDate, setInvDate] = useState(new Date);
   const [appointmentNum, setAppointmentNum] = useState('');
+  const [appointmentnumError, setAppointmentNumError] = useState(false);
   const [doctor, setDoctor] = useState('');
   const [doctorCharge, setDoctorCharge] = useState('');
+  const [doctorchargeError, setDoctorChargeError] = useState(false);
+
+  // const [open, setOpen] = useState(false);
+  // const [isError, setIsError] = useState(false);
   // const [discount, setDiscount] = useState(0);
   // const [totalAmount, setTotalAmount] = useState('');
-  const [open, setOpen] = useState(false);
-  const [isError, setIsError] = useState(false);
 
+  useEffect(() => {
+    async function getDoctor() {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_channelling_doctor');
+        const data = await response.json();
+        setDoctor(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getDoctor();
+  }, []);
 
+  const handleDoctorChange = (event) => {
+    setDoctor(event.target.value);
+  };
 
 
   // function TotalAmount(unitPrice, quantity, discount) {
@@ -54,6 +74,46 @@ export default function BasicGrid() {
   };
 
   console.log('Form Data:', formData);
+
+  const handleInvIdChange  = (event) => {
+    const value = event.target.value;
+    const isvalidInvId = /^\d+$/.test(value);
+  
+    setInvId(value)
+  
+    if(!isvalidInvId){
+      setInvIdError('Invalid input, please enter a number')
+    }
+    else if (value.trim() === '') {
+      console.setInvIdError('Field is empty');
+    }
+    else{
+      setInvIdError('');
+    }
+  };
+
+  const handleAppointmentNumChange  = (event) => {
+    const value = event.target.value;
+    const isvalidappointmentNum = /^\d+$/.test(value);
+  
+    setAppointmentNum(value)
+  
+    if(!isvalidappointmentNum){
+      setAppointmentNumError('Invalid input, please enter a number')
+    }
+    else if (value.trim() === '') {
+      console.setAppointmentNumError('Field is empty');
+    }
+    else{
+      setAppointmentNumError('');
+    }
+  };
+
+  const handleDoctorChargeChange = (event) => {
+    const isValiddoctorCharge = /^[0-9]{1,6}(\.[0-9]{1,2})?$/.test(event.target.value);
+    setDoctorCharge(event.target.value);
+    setDoctorChargeError(!isValiddoctorCharge);
+  };
 
   const handleReset = () => {
     
@@ -162,9 +222,7 @@ export default function BasicGrid() {
                     value={invDate}
                     size="small"
                     sx={{width:'300px',paddingBottom:'20px'}}
-                    // onChange={}
-                    // error={}
-                    // helperText={}
+                    onChange={(date) => setInvDate(date)}
                     />
 
           
@@ -175,9 +233,9 @@ export default function BasicGrid() {
                     value={invId}
                     size="small"
                     sx={{width:'300px',paddingBottom:'20px'}}
-                    // onChange={}
-                    // error={}
-                    // helperText={}
+                    onChange={handleInvIdChange}
+                    error={invidError}
+                    helperText={invidError}
                   />
         
      
@@ -187,9 +245,9 @@ export default function BasicGrid() {
                     value={appointmentNum}
                     size="small"
                     sx={{width:'300px',paddingBottom:'20px'}}
-                    // onChange={}
-                    // error={}
-                    // helperText={}
+                    onChange={handleAppointmentNumChange }
+                    error={appointmentnumError}
+                    helperText={appointmentnumError}
                   />
   
                  
@@ -200,13 +258,14 @@ export default function BasicGrid() {
                     label="Select Doctor"
                     select
                     sx={{width:'300px',paddingBottom:'20px'}}
-                    // onChange={}
-                    // error={}
-                    // helperText={}
-                    />
-                    {/* {((<MenuItem></MenuItem>))} */}
+                    onChange={handleDoctorChange }
+                    >
                     
-                 
+                  {Array.isArray(doctor) && doctor.map((type) => (
+                    <MenuItem key={type.doctor_name} value={type.doctor_name}>{type.doctor_name}</MenuItem>
+                        ))}
+                  </TextField>
+                  
                   <TextField
                     variant="outlined"
                     label="Doctor Charge"
@@ -214,9 +273,9 @@ export default function BasicGrid() {
                     value={doctorCharge}
                     size="small"
                     sx={{width:'300px',paddingBottom:'20px'}}
-                    // onChange={}
-                    // error={}
-                    // helperText={}
+                    onChange={handleDoctorChargeChange}
+                    error={doctorchargeError}
+                    helperText={doctorchargeError ? 'Please enter a valid amount' : ''}
                   />
       
   
