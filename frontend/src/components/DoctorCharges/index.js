@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -25,91 +23,66 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BasicGrid() {
 
   const navigate = useNavigate();
-  
-  const [drugName, setDrugName] = useState('');
-
-
-  const [discount, setDiscount] = useState(0);
+  const [invId, setInvId] = useState('');
   const [invDate, setInvDate] = useState(new Date);
   const [appointmentNum, setAppointmentNum] = useState('');
-  const [invId, setInvId] = useState('');
   const [doctor, setDoctor] = useState('');
   const [doctorCharge, setDoctorCharge] = useState('');
+  // const [discount, setDiscount] = useState(0);
+  // const [totalAmount, setTotalAmount] = useState('');
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
 
 
 
 
-  function TotalAmount(unitPrice, quantity, discount) {
-    const totalPrice = unitPrice * quantity;
-    const discountedPrice = totalPrice - (totalPrice * discount) / 100;
-    return discountedPrice;
-  }
+  // function TotalAmount(unitPrice, quantity, discount) {
+  //   const totalPrice = unitPrice * quantity;
+  //   const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+  //   return discountedPrice;
+  // }
 
   const formData = {
-    drugId,
-    drugName,
-    quantity,
-    unitPrice,
-    discount,
+    
+    invId,
     invDate,
     appointmentNum,
-    invId,
     doctor,
     doctorCharge,
-    totalAmount,
+    // discount,
+    // totalAmount,
   };
 
   console.log('Form Data:', formData);
 
-const handleReset = () => {
+  const handleReset = () => {
     
-    setDrugName('');
-    
-    
-    setDiscount(0);
+    // setDiscount(0);
     setInvId(0);
     setDoctor('');
     setInvDate(new Date);
     setDoctorCharge('');
     setAppointmentNum('');
+    // setTotalAmount('');
   
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-// Calculate total after discount
- const discountedTotal = unitPrice - (unitPrice * discount) / 100;
+  // Calculate total after discount
+  // const discountedTotal = unitPrice - (unitPrice * discount) / 100;
 
-    // Generate bill or perform other actions here
-    // console.log('Drug ID:', drugId);
-    // console.log('Drug Name:', drugName);
-    // console.log('Quantity:', quantity);
-    // console.log('UnitPrice:', unitPrice);
-    // console.log('Discount:', discount);
-    // console.log('Discounted Total:', discountedTotal);
-    // console.log('Invoice Id:',invId);
-    // console.log('Invoice Date',invDate);
-    // console.log('Select Doctor',doctor);
-    // console.log('Doctor Charge',doctorCharge);
-    // console.log('Appointment Number', appointmentNum);
-    // console.log('Total Amount', totalAmount);
-
-    let _totalAmount = TotalAmount(unitPrice, quantity, discount);
+  //   let _totalAmount = TotalAmount(unitPrice, quantity, discount);
     
     const data = {
+      inv_id: invId,
       inv_date: invDate,
       app_num: parseInt(appointmentNum),
       selected_doctor: doctor,
       doctor_Charge: parseInt(doctorCharge),
-      drug_name: drugName,
-      drug_id: parseInt(drugId),
-      quantity: parseInt(quantity),
-      unit_price: parseFloat(unitPrice),
-      discount: parseInt(discount),
-      total_amount: _totalAmount,
+      // discount: parseInt(discount),
+      // total_amount: _totalAmount,
     };
 
     console.log(data)
@@ -247,7 +220,7 @@ const handleReset = () => {
                   />
       
   
-                  <TextField
+                  {/* <TextField
                     label="Discount(%)"
                     type="number"
                     value={discount}
@@ -256,9 +229,9 @@ const handleReset = () => {
                     onChange={(e) => setDiscount(Number(e.target.value))}
                     // error={}
                     // helperText={}
-                  />
+                  /> */}
 
-                  <TextField
+                  {/* <TextField
                     label="Total_Amount"
                     type="decimal"
                     value={TotalAmount(unitPrice, quantity, discount)}
@@ -267,71 +240,38 @@ const handleReset = () => {
                     sx={{width:'300px',paddingBottom:'20px'}}
                     // error={}
                     // helperText={}
-                  />
+                  /> */}
 
                 </Item>
               </Grid>
+              
               <Grid item xs={4} sx={{ paddingBottom:'30px', width:'600px'}}>
-                <Item>
+                <Item sx={{paddingTop:'40px'}}>
                     <Button variant="contained"  
                     size='medium'
                     onClick={handleSubmit}
-                    sx={{width:'150px'}}>Submit
+                    sx={{width:'150px',marginBottom:'60px'}}>Submit
                     </Button>
 
                     <Button variant="contained" 
                     size='small' 
                     onClick={handleReset} 
-                    sx={{width:'150px'}}>Reset
+                    sx={{width:'150px',marginBottom:'60px'}}>Reset
                     </Button>
 
                     <Button variant="contained" 
                     size='small' 
                     onClick={handleBillingHistoryClick} 
-                    sx={{width:'150px'}}>See More
+                    sx={{width:'150px',marginBottom:'87px'}}>See More
                     </Button>
-          </Item>
+                  </Item>
                 </Grid>
-            {/* <Grid item xs={6} sx={{ paddingBottom:'30px'}}>
-              <Item><h4>Billing Items</h4>
-              <Select
-          id="drugName"
-          label="Drug Name"
-          value={drugName}
-          onChange={(e) => setDrugName(e.target.value)}
-          required
-          fullWidth
-          margin="normal"
-          size="small"/>
-
-
-
-<TextField
-          id="total"
-          label="Total"
-          type="decimal"
-          value={unitPrice}
-          onChange={(e) => setUnitPrice(e.target.value)}
-          fullWidth
-          margin="normal"
-          size="small"
-        /> 
-              
-              </Item>
-            </Grid> */}
-
-     
-          
-         
-          </Grid>
-        </FormControl>
+            </Grid>
+          </FormControl>
         </Box>
-        </div>
-       
-       
-        
-</Paper>
+      </div>
+  </Paper>
 </Box>
-  );
-      }
+);
+}
   

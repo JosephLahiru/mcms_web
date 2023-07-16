@@ -26,6 +26,8 @@ import ViewGeneratingBill from './components/ViewGeneratingBill';
 import Sidebar from './components/SideBar';
 import ReturnPatientsReport from './components/ReturnPatientsReport';
 import DoctorCharges from './components/DoctorCharges';
+import BillingHistory from './components/BillingHistory';
+import BillingItems from './components/BillingItems';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
@@ -152,6 +154,14 @@ function App() {
 
         <Route path="/doctor_charges" element={<PrivateRoute/>}>
         <Route index element={<DoctorCharges />}/>
+      </Route>
+
+      <Route path="/bill_history" element={<PrivateRoute/>}>
+        <Route index element={<BillingHistory />}/>
+      </Route>
+
+      <Route path="/billing_items" element={<PrivateRoute/>}>
+        <Route index element={<BillingItems />}/>
       </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />

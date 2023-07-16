@@ -30,6 +30,10 @@ export default function DoctorCharges() {
   navigate('/doctor_charges');
 }
 
+function handleBillingItemsClick() {
+  navigate('/billing_items');
+}
+
 
   return (
     <Box
@@ -50,8 +54,17 @@ export default function DoctorCharges() {
         </Item>
       <Item>
         <Stack direction="row" spacing={5} sx={{paddingLeft:'490px', paddingBottom:'25px'}}>
-            <Button variant="contained" size='large'  sx={{width:'250px'}} onClick={handleDoctorChargesClick}>Doctor Charges</Button>
-            <Button variant="contained" size='large' onClick={handleSubmit} sx={{width:'250px'}}>Billing Items</Button>
+            <Button variant="contained" 
+            size='large'  
+            sx={{width:'250px'}} 
+            onClick={handleDoctorChargesClick}>Doctor Charges
+            </Button>
+
+            <Button variant="contained" 
+            size='large' 
+            onClick={handleBillingItemsClick} 
+            sx={{width:'250px'}}>Billing Items
+            </Button>
         </Stack>
       </Item>
       </Grid>
