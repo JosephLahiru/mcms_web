@@ -310,7 +310,7 @@ function UpdateAppointment() {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={10}>
+            <Grid container spacing={11}>
           <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "20px"}}>
               <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleUpdateNow}>
                 Update Now
