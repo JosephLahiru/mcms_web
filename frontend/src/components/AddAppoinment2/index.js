@@ -32,6 +32,10 @@ function AddAppointment2() {
   const navigate = useNavigate();
   
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (location.state) {
       const { appointmentDoctor, appointmentNumber, appointmentDate, selectedDoctorID } = location.state;
@@ -136,9 +140,6 @@ function AddAppointment2() {
     return formIsValid;
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
  
   const handlecancel = () => {
