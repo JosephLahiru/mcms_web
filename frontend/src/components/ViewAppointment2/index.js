@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
@@ -50,9 +49,6 @@ function ViewAppointment2() {
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    navigate(-1);
-};
 
 const handleModalClose = () => {
   setModalOpen(false);
@@ -171,7 +167,6 @@ useEffect(() => {
         }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
       <Box
           sx={{
             display: 'flex',
