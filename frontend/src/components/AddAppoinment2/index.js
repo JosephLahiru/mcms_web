@@ -30,8 +30,17 @@ function AddAppointment2() {
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
- 
+  const [appointmentId, setAppointmentID] = useState("");
   
+  useEffect(() => {
+    async function fetchAppointmentID() {
+      const response = await fetch("https://mcms_api.mtron.me/get_lat_app_id");
+      const data = await response.json();
+      setAppointmentID(data.app_id+1);
+      
+    }
+    fetchAppointmentID();
+  }, []);
 
   const handleClose = () => {
     navigate(-1);
@@ -101,7 +110,7 @@ function AddAppointment2() {
       formIsValid = false;
     } else {
       // Remove any spaces or dashes from the NIC
-      nic = nic.replace(/[\s-]/g, '');
+      setNIC(nic.replace(/[\s-]/g, ''));
     
       // Check the length of the NIC
       if (nic.length !== 10 && nic.length !== 12) {
@@ -203,7 +212,7 @@ function AddAppointment2() {
       const data = await response.json();
       console.log(data); // Log the response data from the API
 
-      navigate('/confirm_appointment', {
+      navigate(`/confirm_appointment/${appointmentId}`, {
         state: {
           appointmentDoctor,
           appointmentNumber,
