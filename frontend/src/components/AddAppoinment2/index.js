@@ -23,13 +23,17 @@ function AddAppointment2() {
   const [appointmentDoctorID, setAppointmentDoctorID] = useState(0);
   const [age, setAge] = useState("");
   const [mobile, setMobile] = useState("");
-  const [area, setArea] = useState("");
+  const [nic, setNIC] = useState("");
+  const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
-  const [showError, setShowError] = useState(false);
+  
+
+  const handleClose = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     if (location.state) {
@@ -39,19 +43,13 @@ function AddAppointment2() {
       setAppointmentDate(appointmentDate);
       setAppointmentDoctorID(selectedDoctorID);
       setPatientName(patientName);
+      setNIC(nic);
       setAge(age);
       setMobile(mobile);
       setGender(gender);
     }
   }, [location.state]);
 
-  const handleOpen = () => {
-    if (validateForm()) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  };
 
   const validateForm = () => {
     const errors = {};
@@ -75,7 +73,7 @@ function AddAppointment2() {
     
 
     if (mobile.trim() === "") {
-      errors.mobile = "Please enter the patient mobile";
+      errors.mobile = "Please enter the patient's mobile";
       formIsValid = false;
     } else if (!/^0\d{9,10}$/.test(mobile) && mobile.length !== 9) {
       errors.mobile = "Please enter a valid 9 or 10-digit mobile number starting with 0";
@@ -83,11 +81,11 @@ function AddAppointment2() {
     }
     
     
-    if (area.trim() === "") {
-      errors.area = "Please enter the patient area";
+    if (address.trim() === "") {
+      errors.address = "Please enter the patient address";
       formIsValid = false;
-    }else if (area.trim().length > 150) {
-      errors.area = "The are must not exceed 150 characters";
+    }else if (address.trim().length > 150) {
+      errors.address = "The address must not exceed 150 characters";
       formIsValid = false;
     }
 
@@ -96,12 +94,48 @@ function AddAppointment2() {
       formIsValid = false;
     }
 
+    if (!nic) {
+      errors.nic = "Please select the patient's NIC";
+      formIsValid = false;
+    } else {
+      // Remove any spaces or dashes from the NIC
+      nic = nic.replace(/[\s-]/g, '');
+    
+      // Check the length of the NIC
+      if (nic.length !== 10 && nic.length !== 12) {
+        errors.nic = "Invalid NIC length";
+        formIsValid = false;
+      } else {
+        // Regular expression pattern for NIC validation
+        const nicPattern = /^[0-9]{9}[vV]|[12][0-9]{11}$/;
+    
+        // Check if the NIC matches the pattern
+        if (!nicPattern.test(nic)) {
+          errors.nic = "Invalid NIC format";
+          formIsValid = false;
+        } else {
+          // Validate the last character of the NIC
+          const lastDigit = nic.charAt(nic.length - 1);
+          if (nic.length === 10 && lastDigit.toLowerCase() !== 'v') {
+            errors.nic = "Invalid last character for old NIC format";
+            formIsValid = false;
+          } else if (nic.length === 12 && !/[0-9]/.test(lastDigit)) {
+            errors.nic = "Invalid last character for new NIC format";
+            formIsValid = false;
+          }
+        }
+      }
+    }
+    
+
     setValidationErrors(errors);
     return formIsValid;
   };
 
-  const handleClose = () => {
-    setOpen(false);
+
+ 
+  const handlecancel = () => {
+    navigate('/add_appointment');
   };
 
   const handleBOOKNOW = async (event) => {
@@ -114,10 +148,11 @@ function AddAppointment2() {
 
     if (
       !patientName ||
-      !area ||
+      !address ||
       !age ||
       !gender ||
       !mobile ||
+      !nic ||
       !appointmentNumber ||
       !appointmentDoctorID ||
       !appointmentDate
@@ -138,10 +173,11 @@ function AddAppointment2() {
 
     const requestBody = {
       patient_name: patientName,
-      area: area,
+      area: address,
       age: age,
       gender: gender,
       mobile: mobile,
+      nic:nic,
       app_num: appointmentNumber,
       cd_id: appointmentDoctorID,
       app_date: convertedDate,
@@ -174,8 +210,10 @@ function AddAppointment2() {
           age,
           mobile,
           gender,
+          nic,
         },
       });
+      
     } catch (error) {
       console.error(error);
       alert("Failed to send appointment details");
@@ -183,7 +221,7 @@ function AddAppointment2() {
   };
 
   return (
-    <Grid container spacing={2.5}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Box sx={{ width: "100%", height: 175, backgroundColor: "#ce93d8" }}>
           <Typography variant="h4" component="div" sx={{ color: "white", fontWeight: "bold", paddingTop: "50px", textAlign: "left", paddingLeft: "90px" }}>
@@ -266,7 +304,7 @@ function AddAppointment2() {
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
                 <TextField
                   id="mobile"
-                  label="Patient Mobile"
+                  label="Patient's Mobile"
                   value={mobile}
                   onChange={(event) => setMobile(event.target.value)}
                   variant="outlined"
@@ -288,28 +326,45 @@ function AddAppointment2() {
                 )}
               </RadioGroup>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              <TextField
-                id="area"
-                label="Patient Area"
-                value={area}
-                onChange={(event) => setArea(event.target.value)}
-                variant="outlined"
-                color="secondary"
-                error={!!validationErrors.area}
-                helperText={validationErrors.area}
-                sx={{ width: "90%", marginBottom: "20px" }}
-              />
+            <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
+                <TextField
+                  id="nic"
+                  label="Patient's NIC"
+                  value={nic}
+                  onChange={(event) => setNIC(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.nic}
+                  helperText={validationErrors.nic}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
+                <TextField
+                  id="address"
+                  label="Patient's Address"
+                  value={address}
+                  onChange={(event) => setAddress(event.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  error={!!validationErrors.address}
+                  helperText={validationErrors.address}
+                  sx={{ width: "90%", marginBottom: "10px" }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-              {showError && (
-                <Typography variant="body2" color="error" sx={{ marginBottom: "10px" }}>
-                  Please select the appointment date.
-                </Typography>
-              )}
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1075px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
+            <Grid container spacing={11}>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
                 Book Now
               </Button>
+              </Grid>
+              <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
+                Cancel
+              </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Box>

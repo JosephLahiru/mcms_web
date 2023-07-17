@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from "react";
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import { 
   Grid,
   Box,
@@ -19,31 +18,28 @@ function ConfirmAppointment() {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [patientName, setPatientName] = useState("");
   const [age, setAge] = useState("");
+  const [nic, setNIC] = useState("");
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
  
-
   useEffect(() => {
     if (location.state) {
-      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender  } = location.state;
+      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
       setAppointmentDoctor(appointmentDoctor);
       setAppointmentNumber(appointmentNumber);
       setAppointmentDate(appointmentDate);
       setPatientName(patientName);
       setAge(age);
+      setNIC(nic);
       setMobile(mobile);
       setGender(gender);
     }
   }, [location.state]);
-
-
-  const handlePAYNOW = async (event) => {
-  }
 
   const style = {
     position: 'absolute',
@@ -57,6 +53,31 @@ function ConfirmAppointment() {
     p: 4,
   };
 
+  const handlepayLater = () => {
+    navigate('/view_appointment');
+  };
+
+  const handleConfirmPayment = async () => {
+    console.log("hello")
+
+    try {
+      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentNumber}`
+      console.log(query)
+      await fetch(query, {
+        method: "GET",
+      });
+      // setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
+      // setFilteredAppointment(
+      //   filteredAppointment.filter((item) => item.app_id !== itemToDelete)
+      // );
+      // setItemToDelete(null);
+      // setConfirmDialogOpen(false);
+      // handleModalOpen("Appointment deleted successfully");
+    } catch (error) {
+      // handleModalOpen("Failed to delete appointment");
+    }
+  };
+
 
   return (
 
@@ -66,7 +87,6 @@ function ConfirmAppointment() {
                 <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
                     CONFIRM APPOINTMENT
                 </Typography>
-                    <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
             </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
@@ -133,6 +153,9 @@ function ConfirmAppointment() {
                   <span style={{ fontWeight: 'bold', color: '#616161' }}>Mobile: </span>{mobile}
                 </Typography>
                 <Typography variant="h6" component="div" sx={{  paddingTop: '10px', textAlign: 'left', paddingLeft: '50px' }}>
+                  <span style={{ fontWeight: 'bold', color: '#616161' }}>NIC: </span>{nic}
+                </Typography>
+                <Typography variant="h6" component="div" sx={{  paddingTop: '10px', textAlign: 'left', paddingLeft: '50px' }}>
                   <span style={{ fontWeight: 'bold', color: '#616161' }}>Gender: </span>{gender}
                 </Typography>
 
@@ -148,16 +171,10 @@ function ConfirmAppointment() {
                     LKR 2,300.00
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
-                    Medical Center & Payement
+                    Medical Center Payment
                 </Typography>
                 <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
                     LKR 1,190.00
-                </Typography>
-                <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
-                    Discout
-                </Typography>
-                <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
-                    LKR 0.00
                 </Typography>
                 <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
                    Total
@@ -167,12 +184,12 @@ function ConfirmAppointment() {
                 </Typography>
             </Box>
           </Grid>
-          <Box sx={{ width: "1000px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "350px",borderRadius: "10px"}}>
-          <Alert severity="info" sx={{alignItems: 'center'}}>
+          <Box sx={{ width: "600px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "550px",borderRadius: "10px",}}>
+            <Alert severity="info" sx={{alignItems: 'center'}}>
                     <AlertTitle >Info</AlertTitle>
-                          This Appointment is not Paid Yet — <strong> Now Can pay it!</strong>
-                    </Alert> 
-                    </Box>  
+                      his appointment is not paid yet — <strong> Now you can pay it!</strong>
+            </Alert> 
+          </Box>  
         </Grid>
       </Grid>
       <cross >
@@ -180,10 +197,19 @@ function ConfirmAppointment() {
             <Box position="relative" width={1200} height={2} bgcolor="#bdbdbd" marginLeft={34}  marginTop={2}/>
           </Box>
           </cross>
-      <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "1000px", height: "50px", fontSize: "24px" }} onClick={handleOpen}>
+          <Grid item xs={12}>
+        <Grid container spacing={5}>
+      <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleConfirmPayment}>
                 Pay Now
               </Button>
+              </Grid>
+      <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlepayLater}>
+                Pay Later
+              </Button>
+              </Grid>
+            </Grid>
               <Modal
                   open={open}
                   onClose={handleClose}
@@ -214,6 +240,9 @@ function ConfirmAppointment() {
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Mobile: </span>{mobile}
+          </Typography>
+          <Typography id="patient details" sx={{ mt: 2 }}>
+          <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>NIC: </span>{nic}
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }}>
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Gender:</span>{gender}

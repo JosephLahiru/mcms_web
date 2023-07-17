@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
@@ -30,6 +29,7 @@ import {
   Typography,
   ButtonGroup,
   IconButton,
+  Modal,
 
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -45,13 +45,43 @@ function ViewAppointment2() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    navigate(-1);
+
+const handleModalClose = () => {
+  setModalOpen(false);
 };
 
-  useEffect(() => {
+const handleModalOpen = (message) => {
+  setModalMessage(message);
+  setModalOpen(true);
+};
+
+const handleConfirmDelete = async () => {
+  try {
+    await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
+      method: "GET",
+    });
+    setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
+    setFilteredAppointment(
+      filteredAppointment.filter((item) => item.app_id !== itemToDelete)
+    );
+    setItemToDelete(null);
+    setConfirmDialogOpen(false);
+    handleModalOpen("Appointment deleted successfully");
+  } catch (error) {
+    handleModalOpen("Failed to delete appointment");
+  }
+};
+
+const handleCancelDelete = () => {
+  setItemToDelete(null);
+  setConfirmDialogOpen(false);
+};
+
+useEffect(() => {
     async function fetchAppointment() {
       const response = await fetch("https://mcms_api.mtron.me/get_appointment");
       const data = await response.json();
@@ -61,14 +91,13 @@ function ViewAppointment2() {
     fetchAppointment();
   }, []);
 
-
   useEffect(() => {
     let results;
     switch (filterOption) {
       case "Appointment Number":
-        if (searchTerm.length >= 3) {
-          results = appointment.filter((item) =>
-            item.appointmentNumber.includes(searchTerm)
+        if (searchTerm.length >= 1) {
+          results = appointment.filter((item) => 
+            String(item.app_num).includes(searchTerm)
           );
         } else {
           results = appointment;
@@ -77,7 +106,7 @@ function ViewAppointment2() {
       case "Appointment Date":
         if (searchTerm.length >= 3) {
           results = appointment.filter((item) =>
-            item.appointmentDate.includes(searchTerm)
+            item.app_date.includes(searchTerm) 
           );
         } else {
           results = appointment;
@@ -85,9 +114,8 @@ function ViewAppointment2() {
         break;
       case "Mobile":
         results = appointment.filter((item) =>
-          item.mobile.includes(searchTerm)
+          String(item.mobile).includes(searchTerm)
         );
-     
         break;
       default:
         results = appointment;
@@ -95,12 +123,13 @@ function ViewAppointment2() {
     setFilteredAppointment(results);
   }, [searchTerm, appointment, filterOption]);
 
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   const handleFilterChange = (event) => {
     setFilterOption(event.target.value);
+    setSearchTerm("");
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -119,28 +148,6 @@ function ViewAppointment2() {
     setConfirmDialogOpen(true);
   };
 
-  const handleConfirmDelete = async () => {
-    try{
-      await fetch(`https://mcms_api.mtron.me/delete_appointment/${itemToDelete}`, {
-        method: "GET",
-      });
-      setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
-      setFilteredAppointment(
-        filteredAppointment.filter((item) => item.app_id !== itemToDelete)
-      );
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-    toast.success('Appointment deleted successfully');
-    } catch (error) {
-      toast.error('Failed to delete appointment');
-    }
-  };
-
-  const handleCancelDelete = () => {
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-  };
-  
    const handleUpdate = (item) => {
     console.log(item.app_id);
     navigate(`/update_appointment/${item.app_id}`);
@@ -148,10 +155,18 @@ function ViewAppointment2() {
  
   return (
     <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
-      <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
+      <Typography 
+      variant="h4" 
+      component="div" 
+      sx={{ 
+        color: 'white', 
+        fontWeight: 'bold', 
+        paddingTop: '40px', 
+        textAlign: 'left', 
+        paddingLeft: '90px' 
+        }}>
         VIEW APPOINTMENT
       </Typography>
-      <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px' ,color: 'white'}} onClick={handleClose} />
       <Box
           sx={{
             display: 'flex',
@@ -178,7 +193,7 @@ function ViewAppointment2() {
           key="NISHANTHA GUNASEKARA"
           onClick={() => navigate("/view_appointment")}
         >
-          Universal Physician
+         Neuro Surgeon
         </Button>
         <Button
           sx={{
@@ -190,7 +205,7 @@ function ViewAppointment2() {
           key="BUDDHI MOHOTTI"
           onClick={() => navigate("/view_appointment1")}
         >
-          Pediatrician
+          Universal Physician
         </Button>
         <Button
           sx={{
@@ -218,7 +233,7 @@ function ViewAppointment2() {
           }}
         >
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            RADIOLOGIST
+            RADIOLOGIST - PRESANTHA BANDARA
         </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
@@ -260,7 +275,8 @@ function ViewAppointment2() {
                   <TableCell>Age</TableCell>
                   <TableCell>Mobile</TableCell>
                   <TableCell>Gender</TableCell>
-                  <TableCell>Area</TableCell>
+                  <TableCell>NIC</TableCell>
+                  <TableCell>Address</TableCell>
                   <TableCell>Appointment Date</TableCell>
                   <TableCell>Payment</TableCell>
                   <TableCell></TableCell>
@@ -275,11 +291,12 @@ function ViewAppointment2() {
                     .map((item) => (
                       <TableRow hover role="checkbox" key={item.app_id}>
                          <TableCell>{item.app_id}</TableCell>
-                        <TableCell>{item.app_num}</TableCell>
+                        <TableCell>{item.app_num.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
-                        <TableCell>{item.age}</TableCell>
+                        <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
                         <TableCell>{item.gender}</TableCell>
+                        <TableCell>{item.nic}</TableCell>
                         <TableCell>{item.area}</TableCell>
                         <TableCell>{item.app_date.slice(0,10)}</TableCell>
                         <TableCell>
@@ -327,7 +344,7 @@ function ViewAppointment2() {
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title">
+              <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>
                 {"Confirm Delete"}
               </DialogTitle>
               <DialogContent>
@@ -336,8 +353,8 @@ function ViewAppointment2() {
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+                <Button onClick={handleCancelDelete} sx={{ color: 'purple' }}>Cancel</Button>
+                <Button onClick={handleConfirmDelete} sx={{ color: 'purple' }} autoFocus>Delete</Button>
               </DialogActions>
             </Dialog>
           )}
@@ -355,6 +372,19 @@ function ViewAppointment2() {
       </Grid>
       <ToastContainer />
     </Paper>
+    <Modal open={modalOpen} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "background.paper", boxShadow: 24, p: 4 }}>
+          <Typography id="modal-modal-title" variant="h5" component="h2" color="purple" sx={{ fontWeight: "bold", textAlign: "center" }}>
+            {modalMessage === "Appointment deleted successfully" ? "Successful" : "Not Successful"}
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 ,textAlign: "center"}} color="black">
+            {modalMessage === "Appointment deleted successfully" ? "Appointment deleted successfully!!!" : "Failed to delete appointment!!!"}
+          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "right", mt: 2 }}>
+            <Button onClick={handleModalClose}>Close</Button>
+          </Box>
+        </Box>
+      </Modal>
     </Box>
   );
 }
