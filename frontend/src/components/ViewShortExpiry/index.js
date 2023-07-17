@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Paper,
   Grid,
+  Typography,
   InputLabel,
   Select,
   MenuItem,
@@ -58,12 +59,19 @@ function ViewShortExpiry() {
   return (
     <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container alignItems='center' spacing={2}>
+      <Grid item xs={12}>
+        <Typography variant="h5" gutterBottom >
+            View Short Expiry
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+        </Grid>
         <Grid item xs={2}>
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-            <InputLabel id="demo-select-small-label">Filter option</InputLabel>
+            <InputLabel id="demo-select-small-label" color="secondary">Filter option</InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
+              color="secondary"
               value={filterOption}
               label="Filter option"
               onChange={handleFilterChange}

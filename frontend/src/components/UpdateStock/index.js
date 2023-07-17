@@ -8,10 +8,13 @@ import {
   Paper,
   InputLabel,
   TextField,
+  Typography,
   Select,
   MenuItem,
   FormControl,
+  Button,
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -37,6 +40,14 @@ function UpdateStock() {
   const [selectedExpireType, setSelectedExpireType] = useState("");
   const [ManufacturedDate, setManufactureDate] = useState("");
   const [ExpiryDate, setExpiryDate] = useState("");
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#A15B9E", // Replace with your desired color
+      },
+    },
+  });
 
   const { id } = useParams();
 
@@ -329,10 +340,17 @@ function UpdateStock() {
         overflow: "hidden",
         padding: "10px",
         margin: "5% auto",
+        backgroundColor: '#f5f5f5'
       }}
     >
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom sx={{ margin:'10px 0px 15px' }} >
+            Update Stock
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+          </Grid>
           <Grid item xs={6}>
             <TextField
               size="small"
@@ -348,6 +366,7 @@ function UpdateStock() {
             <TextField
               size="small"
               sx={{ width: "100%" }}
+              color="secondary"
               value={drugname}
               error={drugnameError} 
               helperText={drugnameError}
@@ -359,6 +378,7 @@ function UpdateStock() {
             <TextField
               size="small"
               sx={{ width: "100%" }}
+              color="secondary"
               value={brandname}
               error={brandnameError}
               helperText={brandnameError}
@@ -368,11 +388,12 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Drug Type</InputLabel>
+              <InputLabel id="demo-simple-select-label" color="secondary">Drug Type</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 sx={{ width: "100%" }}
+                color="secondary"
                 size="small"
                 value={selectedType}
                 onChange={(event) => setSelectedType(event.target.value)}
@@ -389,8 +410,8 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Stock Type</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
+              <InputLabel id="demo-simple-select-label" color="secondary">Stock Type</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
                 {stockTypes.map((type) => (
                 <MenuItem key={type.stock_type} value={type.stock_type}>{type.stock_type}</MenuItem>
               ))}
@@ -399,8 +420,8 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Expire Type</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
+              <InputLabel id="demo-simple-select-label" color="secondary">Expiry Type</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
                 {expireTypes.map((type) => (
                 <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
               ))}
@@ -408,6 +429,7 @@ function UpdateStock() {
           </FormControl>
           </Grid>
           <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 sx={{ width: "100%" }}
@@ -417,24 +439,28 @@ function UpdateStock() {
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
+            </ThemeProvider>
           </Grid>
           <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 size="small"
                 sx={{ width: "100%" }}
                 value={ExpiryDate}
                 onChange={(date) => setExpiryDate(date)}
-                label="Expire Date"
+                label="Expiry Date"
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
+            </ThemeProvider>
           </Grid>
           <Grid item xs={4}>
             <TextField
               type="number"
               size="small"
               sx={{ width: "100%" }}
+              color="secondary"
               value={unitprice}
               error={unitpriceError}
               helperText={unitpriceError ? 'Please enter a valid unit price' : ''}
@@ -447,6 +473,7 @@ function UpdateStock() {
               type="number"
               size="small"
               sx={{ width: "100%" }}
+              color="secondary"
               value={sellingprice}
               error={sellingpriceError}
               helperText={sellingpriceError ? 'Please enter a valid selling price' : ''}
@@ -459,6 +486,7 @@ function UpdateStock() {
               type="number"
               size="small"
               sx={{ width: "100%" }}
+              color="secondary"
               value={quantity}
               error={quantityError}
               helperText={quantityError ? 'Please enter a valid quantity' : ''}
@@ -466,15 +494,17 @@ function UpdateStock() {
               label="Quantity"
             />
           </Grid>
-          <Grid item xs={6}>
-            <button class="btn btn-primary btn-sm" onClick={handleReset}>
+        </Grid>
+        <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
+          <Grid item xs={2}>
+            <Button variant="outlined" color="secondary" size="small" onClick={handleReset} sx={{ width: '100%' }}>
               Reset
-            </button>
+            </Button>
           </Grid>
-          <Grid item xs={6}>
-            <button class="btn btn-primary btn-sm" onClick={handleSubmit}>
+          <Grid item xs={2}>
+            <Button variant="contained" color="secondary" size="small" onClick={handleSubmit} sx={{ width: '100%' }}>
               Submit
-            </button>
+            </Button>
           </Grid>
         </Grid>
       </FormControl>
