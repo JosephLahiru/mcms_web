@@ -27,7 +27,6 @@ function ConfirmAppointment() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const { appointmentId } = useParams();
 
@@ -59,7 +58,7 @@ function ConfirmAppointment() {
 
 
   const handleConfirmPayment = async () => {
-    console.log("hello")
+    console.log()
 
     try {
       const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentId}`
@@ -68,7 +67,6 @@ function ConfirmAppointment() {
         method: "GET",
       });
       console.log("Done")
-      setPaymentSuccess(true);
       setOpen(true);
     } catch (error) {
       console.log(error)
