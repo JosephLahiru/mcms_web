@@ -11,8 +11,10 @@ import {
   Modal,
 
 } from '@mui/material';
+import { useParams } from "react-router-dom";
 
 function ConfirmAppointment() { 
+  
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -26,7 +28,8 @@ function ConfirmAppointment() {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
- 
+  const { appointmentId } = useParams();
+
   useEffect(() => {
     if (location.state) {
       const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
@@ -61,7 +64,7 @@ function ConfirmAppointment() {
     console.log("hello")
 
     try {
-      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentNumber}`
+      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentId}`
       console.log(query)
       await fetch(query, {
         method: "GET",
@@ -79,6 +82,7 @@ function ConfirmAppointment() {
       console.log(error)
     }
   };
+
 
 
   return (
