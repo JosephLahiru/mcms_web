@@ -18,8 +18,6 @@ function UpdateAppointment() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  
-
   const { id } = useParams();
 
   const handleClose = () => {
