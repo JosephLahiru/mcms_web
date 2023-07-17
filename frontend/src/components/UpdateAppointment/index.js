@@ -99,7 +99,7 @@ function UpdateAppointment() {
       
       } else {
         // Remove any spaces or dashes from the NIC
-        nic = nic.replace(/[\s-]/g, '');
+        setNIC(nic.replace(/[\s-]/g, ''));
       
         // Check the length of the NIC
         if (nic.length !== 10 && nic.length !== 12) {
