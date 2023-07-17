@@ -66,6 +66,7 @@ function ConfirmAppointment() {
       await fetch(query, {
         method: "GET",
       });
+      console.log("Done")
       // setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
       // setFilteredAppointment(
       //   filteredAppointment.filter((item) => item.app_id !== itemToDelete)
@@ -75,6 +76,7 @@ function ConfirmAppointment() {
       // handleModalOpen("Appointment deleted successfully");
     } catch (error) {
       // handleModalOpen("Failed to delete appointment");
+      console.log(error)
     }
   };
 
