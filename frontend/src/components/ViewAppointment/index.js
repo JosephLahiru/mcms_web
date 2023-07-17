@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -194,7 +194,7 @@ function ViewAppointment() {
             key="NISHANTHA GUNASEKARA"
             onClick={() => navigate("/view_appointment")}
           >
-            Universal Physician
+           Neuro Surgeon
           </Button>
           <Button
             sx={{
@@ -206,7 +206,7 @@ function ViewAppointment() {
             key="BUDDHI MOHOTTI"
             onClick={() => navigate("/view_appointment1")}
           >
-            Pediatrician
+             Universal Physician
           </Button>
           <Button
             sx={{
@@ -243,7 +243,7 @@ function ViewAppointment() {
             fontSize: "25px",
           }}
         >
-          UNIVERSAL PHYSICIAN 
+          NEURO SURGEON 
         </Typography>
         <Grid container alignItems="center">
           <Grid item xs={1.5} marginRight={6}>
