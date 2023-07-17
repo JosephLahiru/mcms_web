@@ -199,7 +199,7 @@ const handleModalClose = () => {
           key="NISHANTHA GUNASEKARA"
           onClick={() => navigate("/view_appointment")}
         >
-          Universal Physician
+          Neuro Surgeon
         </Button>
         <Button
           sx={{
@@ -211,7 +211,7 @@ const handleModalClose = () => {
           key="BUDDHI MOHOTTI"
           onClick={() => navigate("/view_appointment1")}
         >
-          Pediatrician
+          Universal Physician
         </Button>
         <Button
           sx={{
@@ -238,7 +238,7 @@ const handleModalClose = () => {
           }}
         >
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            PEDIATRICIAN
+        UNIVERSAL PHYSICIAN
         </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
