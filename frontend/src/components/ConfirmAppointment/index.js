@@ -23,14 +23,10 @@ function ConfirmAppointment() {
   const [gender, setGender] = useState("");
   const location = useLocation();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
  
-  
-
-
   useEffect(() => {
     if (location.state) {
       const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
@@ -39,7 +35,7 @@ function ConfirmAppointment() {
       setAppointmentDate(appointmentDate);
       setPatientName(patientName);
       setAge(age);
-      setAge(nic);
+      setNIC(nic);
       setMobile(mobile);
       setGender(gender);
     }
@@ -180,12 +176,6 @@ function ConfirmAppointment() {
                 <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
                     LKR 1,190.00
                 </Typography>
-                {/* <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
-                    Discout
-                </Typography>
-                <Typography variant="h5" component="div" sx={{ color: 'purple', paddingTop: '5px', textAlign: 'left', paddingLeft: '90px' }}>
-                    LKR 0.00
-                </Typography> */}
                 <Typography variant="h6" component="div" sx={{ color: 'red', fontWeight: 'bold', paddingTop: '10px', textAlign: 'left', paddingLeft: '90px' }}>
                    Total
                 </Typography>
@@ -195,11 +185,11 @@ function ConfirmAppointment() {
             </Box>
           </Grid>
           <Box sx={{ width: "600px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "550px",borderRadius: "10px",}}>
-          <Alert severity="info" sx={{alignItems: 'center'}}>
+            <Alert severity="info" sx={{alignItems: 'center'}}>
                     <AlertTitle >Info</AlertTitle>
-                          This appointment is not paid yet — <strong> Now you can pay it!</strong>
-                    </Alert> 
-                    </Box>  
+                      his appointment is not paid yet — <strong> Now you can pay it!</strong>
+            </Alert> 
+          </Box>  
         </Grid>
       </Grid>
       <cross >
