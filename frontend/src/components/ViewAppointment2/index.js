@@ -193,7 +193,7 @@ useEffect(() => {
           key="NISHANTHA GUNASEKARA"
           onClick={() => navigate("/view_appointment")}
         >
-          Universal Physician
+         Neuro Surgeon
         </Button>
         <Button
           sx={{
@@ -205,7 +205,7 @@ useEffect(() => {
           key="BUDDHI MOHOTTI"
           onClick={() => navigate("/view_appointment1")}
         >
-          Pediatrician
+          Universal Physician
         </Button>
         <Button
           sx={{
