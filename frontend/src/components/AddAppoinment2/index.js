@@ -26,7 +26,6 @@ function AddAppointment2() {
   const [nic, setNIC] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
-  const [open, setOpen] = React.useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,20 +43,13 @@ function AddAppointment2() {
       setAppointmentDate(appointmentDate);
       setAppointmentDoctorID(selectedDoctorID);
       setPatientName(patientName);
-      setNIC(nic)
+      setNIC(nic);
       setAge(age);
       setMobile(mobile);
       setGender(gender);
     }
   }, [location.state]);
 
-  const handleOpen = () => {
-    if (validateForm()) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  };
 
   const validateForm = () => {
     const errors = {};
