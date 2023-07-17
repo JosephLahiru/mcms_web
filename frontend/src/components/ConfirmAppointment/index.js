@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from "react";
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useLocation,useNavigate } from "react-router-dom";
 import { 
   Grid,
@@ -14,7 +13,6 @@ import {
 } from '@mui/material';
 
 function ConfirmAppointment() { 
-  const [appointmentId, setAppointmentDoctorID] = useState("");
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -30,6 +28,8 @@ function ConfirmAppointment() {
   const navigate = useNavigate();
 
  
+  
+
 
   useEffect(() => {
     if (location.state) {
@@ -82,6 +82,7 @@ function ConfirmAppointment() {
     }
   };
 
+
   return (
 
     <Grid container spacing={2}>
@@ -90,7 +91,6 @@ function ConfirmAppointment() {
                 <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
                     CONFIRM APPOINTMENT
                 </Typography>
-                    <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
             </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
