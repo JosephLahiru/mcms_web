@@ -57,8 +57,6 @@ function UpdateAppointment() {
     getAppointment();
   }, [id]);
 
-    const errors = {};
-
     const handleUpdateNow = async (event) => {
       event.preventDefault();
   
@@ -79,7 +77,6 @@ function UpdateAppointment() {
       } else if (isNaN(age) || parseInt(age) < 1 || parseInt(age) < 0) {
         errors.age = "Please enter a valid age";
       }
-  
   
     if (!mobile) {
       errors.mobile = "Please enter the mobile number";
@@ -168,7 +165,6 @@ function UpdateAppointment() {
         return;
       }
 
-      // Handle error scenarios
       const responseData = await response.json();
       const errorMessage = responseData.message || "Failed to send appointment details!!!";
       setErrorMessage(errorMessage);
