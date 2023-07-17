@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal } from "@mui/material";
+import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal,} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ function UpdateAppointment() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
   
 
   const { id } = useParams();
@@ -176,6 +177,9 @@ function UpdateAppointment() {
     }
   };
 
+
+
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -219,19 +223,19 @@ function UpdateAppointment() {
           <Typography component="div" sx={{ color: "purple", fontWeight: "bold", paddingTop: "5px", paddingBottom: "5px", textAlign: "center", fontSize: "30px" }}>
             Patient Information
           </Typography>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <TextField
-              id="patient-name"
-              label="Patient Name"
-              value={patientName}
-              onChange={(event) => setPatientName(event.target.value)}
-              variant="outlined"
-              color="secondary"
-              error={!!validationErrors.patientName}
-              helperText={validationErrors.patientName}
-              sx={{ width: "90%", marginBottom: "20px", marginTop: "10px" }}
-            />
-          </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <TextField
+                id="patient-name"
+                label="Patient Name"
+                value={patientName}
+                onChange={(event) => setPatientName(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                error={!!validationErrors.patientName}
+                helperText={validationErrors.patientName}
+                sx={{ width: "90%", marginBottom: "20px"}}
+              />
+            </Grid>
           <Grid item xs={12} sm={12} container spacing={8}>
             <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
               <TextField
@@ -331,7 +335,7 @@ function UpdateAppointment() {
             Close
           </Button>
           </Box>
-        </Box>
+        </Box> 
       </Modal>
     </Grid>
   );
