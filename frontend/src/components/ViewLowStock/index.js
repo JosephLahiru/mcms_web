@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Paper,
   Grid,
+  Typography,
   InputLabel,
   Select,
   MenuItem,
@@ -39,7 +40,7 @@ function ViewLowStock() {
     if (event.target.value === "") {
       setFilteredLowStock(lowstock);
     } else {
-      const filteredData = lowstock.filter((item) => item.expire_type === Number(event.target.value));
+      const filteredData = lowstock.filter((item) => item.stock_type === Number(event.target.value));
       setFilteredLowStock(filteredData);
     }
   };
@@ -58,12 +59,19 @@ function ViewLowStock() {
   return (
     <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container alignItems='center' spacing={2}>
+      <Grid item xs={12}>
+        <Typography variant="h5" gutterBottom >
+            View Low Stock
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+        </Grid>
         <Grid item xs={2}>
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-            <InputLabel id="demo-select-small-label">Filter option</InputLabel>
+            <InputLabel id="demo-select-small-label" color="secondary">Filter option</InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
+              color="secondary"
               value={filterOption}
               label="Filter option"
               onChange={handleFilterChange}
@@ -114,7 +122,7 @@ function ViewLowStock() {
                   ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={10}>No data available</TableCell>
+                  <TableCell colSpan={11}>No data available</TableCell>
                 </TableRow>
               )}
               </TableBody>
@@ -123,7 +131,7 @@ function ViewLowStock() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={filteredLowStock.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
