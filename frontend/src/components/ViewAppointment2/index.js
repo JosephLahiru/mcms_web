@@ -233,7 +233,7 @@ useEffect(() => {
           }}
         >
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            RADIOLOGIST
+            RADIOLOGIST - PRESANTHA BANDARA
         </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
@@ -344,7 +344,7 @@ useEffect(() => {
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title">
+              <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>
                 {"Confirm Delete"}
               </DialogTitle>
               <DialogContent>
@@ -353,8 +353,8 @@ useEffect(() => {
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+                <Button onClick={handleCancelDelete} sx={{ color: 'purple' }}>Cancel</Button>
+                <Button onClick={handleConfirmDelete} sx={{ color: 'purple' }} autoFocus>Delete</Button>
               </DialogActions>
             </Dialog>
           )}
