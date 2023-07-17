@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -188,7 +187,6 @@ function UpdateAppointment() {
           <Typography variant="h4" component="div" sx={{ color: "white", fontWeight: "bold", paddingTop: "40px", textAlign: "left", paddingLeft: "90px" }}>
             UPDATE APPOINTMENT
           </Typography>
-          <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleClose} />
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
