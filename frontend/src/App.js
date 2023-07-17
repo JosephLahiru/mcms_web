@@ -100,7 +100,7 @@ function App() {
           <Route index element={<UpdateAppointment />} />
         </Route>
 
-        <Route path="/confirm_appointment" element={<PrivateRoute />}>
+        <Route path="/confirm_appointment/:appointmentId" element={<PrivateRoute />}>
           <Route index element={<ConfirmAppointment />} />
         </Route>
 
