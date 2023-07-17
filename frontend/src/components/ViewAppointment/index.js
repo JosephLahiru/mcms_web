@@ -243,7 +243,7 @@ function ViewAppointment() {
             fontSize: "25px",
           }}
         >
-          NEURO SURGEON 
+          NEURO SURGEON - NISHANTHA GUNASEKARA
         </Typography>
         <Grid container alignItems="center">
           <Grid item xs={1.5} marginRight={6}>
@@ -353,15 +353,15 @@ function ViewAppointment() {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
-                <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>{"Confirm Delete"}</DialogTitle>
                 <DialogContent>
                   <div id="alert-dialog-description">
                     Are you sure you want to delete this item?
                   </div>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleCancelDelete}>Cancel</Button>
-                  <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+                  <Button onClick={handleCancelDelete} sx={{ color: 'purple' }}>Cancel</Button>
+                  <Button onClick={handleConfirmDelete} sx={{ color: 'purple' }}>Delete</Button>
                 </DialogActions>
               </Dialog>
             )}
