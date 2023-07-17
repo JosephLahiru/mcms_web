@@ -286,7 +286,7 @@ function AddAppointment2() {
                 color="secondary"
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
-                sx={{ width: "90%", marginBottom: "20px",marginRight: "30px" }}
+                sx={{ width: "90%", marginBottom: "20px"}}
               />
             </Grid>
             <Grid item xs={12} sm={12} container spacing={8}>
