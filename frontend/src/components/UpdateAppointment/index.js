@@ -3,6 +3,7 @@ import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, 
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function UpdateAppointment() {
   const [patientName, setPatientName] = useState("");
@@ -22,8 +23,9 @@ function UpdateAppointment() {
 
   const handleClose = () => {
     setOpen(false);
-  };
+    navigate(-1);
 
+  };
 
   const handlecancel = () => {
     navigate('/dashboard');
@@ -138,7 +140,6 @@ function UpdateAppointment() {
       return;
     }
 
-    
     const requestBody = {
       app_id: appointmentId,
       patient_name: patientName,
@@ -175,9 +176,6 @@ function UpdateAppointment() {
     }
   };
 
-
-
-
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -185,6 +183,7 @@ function UpdateAppointment() {
           <Typography variant="h4" component="div" sx={{ color: "white", fontWeight: "bold", paddingTop: "40px", textAlign: "left", paddingLeft: "90px" }}>
             UPDATE APPOINTMENT
           </Typography>
+          <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleClose} />
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
