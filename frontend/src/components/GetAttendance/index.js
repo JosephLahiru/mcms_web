@@ -15,6 +15,8 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import dayjs from 'dayjs';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function GetAttendance() {
   const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-14'));
@@ -76,31 +78,60 @@ function GetAttendance() {
 
   const handleAttendanceSubmit = async (date) => {
     const formattedDate = dayjs(date).format('YYYY-MM-DD');
-
-    const attendancePayload = attendanceData.map((data) => ({
-      assit_id: data.assistantId,
-      date: formattedDate,
-      status: data.attendance[formattedDate] === 'Present' ? 1 : 0,
-    }));
-
-    try {
-      const response = await fetch('http://158.101.10.103/set_attendance', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(attendancePayload),
+    const currentDate = dayjs().format('YYYY-MM-DD');
+    
+    if (formattedDate > currentDate) {
+      toast.error("Cannot submit attendance for future dates.", {
+        position: toast.POSITION.TOP_RIGHT
       });
-
-      if (response.ok) {
-        console.log('Attendance set successfully:', attendancePayload);
-      } else {
-        console.error('Failed to set attendance:', attendancePayload);
+      console.log('Cannot submit attendance for future dates.');
+      return;
+    }
+  
+    for (const data of attendanceData) {
+      const attendanceStatus = data.attendance[formattedDate];
+      if (attendanceStatus === undefined) {
+        console.log(`Attendance not filled for Assistant ID ${data.assistantId} on ${formattedDate}.`);
+        continue;
       }
-    } catch (error) {
-      console.error('An error occurred while setting attendance:', error);
+  
+      const status = attendanceStatus === 'Present' ? 1 : 0;
+      const attendancePayload = {
+        assit_id: data.assistantId,
+        date: formattedDate,
+        status: status,
+      };
+  
+      try {
+        const response = await fetch('http://158.101.10.103/set_attendance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(attendancePayload),
+        });
+  
+        if (response.ok) {
+          toast.success("Attendance set successfully for Assistant ID " + data.assistantId, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          console.log('Attendance set successfully:', attendancePayload);
+        } else {
+          toast.error("Failed to set attendance for Assistant ID " + data.assistantId, {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          console.error('Failed to set attendance:', attendancePayload);
+        }
+      } catch (error) {
+        toast.error("An error occurred while setting attendance for Assistant ID " + data.assistantId, {
+          position: toast.POSITION.TOP_RIGHT
+        });
+        console.error('An error occurred while setting attendance:', error);
+      }
     }
   };
+  
+  
 
   const renderTableHeader = () => {
     const headerCells = [];
@@ -200,6 +231,7 @@ function GetAttendance() {
           </Button>
         </Grid>            
       </Grid>
+      <ToastContainer />
     </Paper>
   );
 }
