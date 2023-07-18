@@ -142,8 +142,6 @@ function AddAppointment2() {
     setValidationErrors(errors);
     return formIsValid;
   };
-
-
  
   const handlecancel = () => {
     navigate('/add_appointment');
