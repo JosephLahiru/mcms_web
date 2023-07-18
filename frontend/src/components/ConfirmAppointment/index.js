@@ -11,8 +11,10 @@ import {
   Modal,
 
 } from '@mui/material';
+import { useParams } from "react-router-dom";
 
 function ConfirmAppointment() { 
+  
   const [appointmentNumber, setAppointmentNumber] = useState("");
   const [appointmentDoctor, setAppointmentDoctor] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -26,7 +28,8 @@ function ConfirmAppointment() {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
- 
+  const { appointmentId } = useParams();
+
   useEffect(() => {
     if (location.state) {
       const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
@@ -53,31 +56,36 @@ function ConfirmAppointment() {
     p: 4,
   };
 
-  const handlepayLater = () => {
-    navigate('/view_appointment');
-  };
 
   const handleConfirmPayment = async () => {
-    console.log("hello")
+    console.log()
 
     try {
-      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentNumber}`
+      const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentId}`
       console.log(query)
       await fetch(query, {
         method: "GET",
       });
-      // setAppointment(appointment.filter((item) => item.app_id !== itemToDelete));
-      // setFilteredAppointment(
-      //   filteredAppointment.filter((item) => item.app_id !== itemToDelete)
-      // );
-      // setItemToDelete(null);
-      // setConfirmDialogOpen(false);
-      // handleModalOpen("Appointment deleted successfully");
+      console.log("Done")
+      setOpen(true);
     } catch (error) {
-      // handleModalOpen("Failed to delete appointment");
+      console.log(error)
     }
   };
 
+  const handlepayLater = () => {
+    // Check the appointmentDoctor value and navigate accordingly
+    if (appointmentDoctor === "NEURO SURGEON - NISHANTHA GUNASEKARA") {
+      navigate("/view_appointment");
+    } else if (appointmentDoctor === "UNIVERSAL PHYSICIAN - BUDDHI MOHOTTI") {
+      navigate("/view_appointment1");
+    } else if (appointmentDoctor === "RADIOLOGIST - PRESANTHA BANDARA") {
+      navigate("/view_appointment2");
+    } else {
+      // Add a default route in case appointmentDoctor doesn't match any of the above conditions
+      navigate("/default_route");
+    }
+  };
 
   return (
 
@@ -254,7 +262,6 @@ function ConfirmAppointment() {
       </Modal>
       </Grid>
     </Grid>
-
   );
 }
 export default ConfirmAppointment;

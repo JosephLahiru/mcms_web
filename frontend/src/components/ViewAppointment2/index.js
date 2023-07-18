@@ -309,8 +309,8 @@ useEffect(() => {
                               </Link>
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <TaskAltIcon sx={{ color: 'purple', marginRight: '5px' }} />
-                                <span style={{ color: 'purple' }}>Paid</span>
+                                <TaskAltIcon sx={{ color: 'green', marginRight: '5px' }} />
+                                <span style={{ color: 'green' }}>Paid</span>
                               </div>
                             )}
                         </TableCell>
