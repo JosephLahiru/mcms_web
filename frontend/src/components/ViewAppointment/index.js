@@ -48,7 +48,6 @@ function ViewAppointment() {
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
- 
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -145,6 +144,11 @@ function ViewAppointment() {
   const handleUpdate = (item) => {
     console.log(item.app_id);
     navigate(`/update_appointment/${item.app_id}`);
+  };
+
+  const handleNotPaid= (item) => {
+    console.log(item.app_id);
+    navigate(`/confirm_appointment/${item.app_id}`);
   };
 
   return (
@@ -319,7 +323,7 @@ function ViewAppointment() {
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <TaskAltIcon sx={{ color: 'green', marginRight: '5px' }} />
-                                <span style={{ color: 'green' }}>Paid</span>
+                                <span style={{ color: 'green' }} onClick={() => handleNotPaid(item)}>Paid</span>
                               </div>
                             )}
                           </TableCell>
