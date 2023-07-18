@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal } from "@mui/material";
+import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal,} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function UpdateAppointment() {
   const [patientName, setPatientName] = useState("");
@@ -17,14 +18,14 @@ function UpdateAppointment() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  
 
   const { id } = useParams();
 
   const handleClose = () => {
     setOpen(false);
-  };
+    navigate(-1);
 
+  };
 
   const handlecancel = () => {
     navigate('/dashboard');
@@ -100,7 +101,7 @@ function UpdateAppointment() {
       
       } else {
         // Remove any spaces or dashes from the NIC
-        nic = nic.replace(/[\s-]/g, '');
+        setNIC(nic.replace(/[\s-]/g, ''));
       
         // Check the length of the NIC
         if (nic.length !== 10 && nic.length !== 12) {
@@ -139,7 +140,6 @@ function UpdateAppointment() {
       return;
     }
 
-    
     const requestBody = {
       app_id: appointmentId,
       patient_name: patientName,
@@ -183,6 +183,7 @@ function UpdateAppointment() {
           <Typography variant="h4" component="div" sx={{ color: "white", fontWeight: "bold", paddingTop: "40px", textAlign: "left", paddingLeft: "90px" }}>
             UPDATE APPOINTMENT
           </Typography>
+          <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleClose} />
         </Box>
       </Grid>
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
@@ -219,19 +220,19 @@ function UpdateAppointment() {
           <Typography component="div" sx={{ color: "purple", fontWeight: "bold", paddingTop: "5px", paddingBottom: "5px", textAlign: "center", fontSize: "30px" }}>
             Patient Information
           </Typography>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <TextField
-              id="patient-name"
-              label="Patient Name"
-              value={patientName}
-              onChange={(event) => setPatientName(event.target.value)}
-              variant="outlined"
-              color="secondary"
-              error={!!validationErrors.patientName}
-              helperText={validationErrors.patientName}
-              sx={{ width: "90%", marginBottom: "20px", marginTop: "10px" }}
-            />
-          </Grid>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+              <TextField
+                id="patient-name"
+                label="Patient Name"
+                value={patientName}
+                onChange={(event) => setPatientName(event.target.value)}
+                variant="outlined"
+                color="secondary"
+                error={!!validationErrors.patientName}
+                helperText={validationErrors.patientName}
+                sx={{ width: "90%", marginBottom: "20px"}}
+              />
+            </Grid>
           <Grid item xs={12} sm={12} container spacing={8}>
             <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
               <TextField
@@ -327,11 +328,11 @@ function UpdateAppointment() {
             {success ? "Appointment details updated successfully!!!" : errorMessage}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Button onClick={handleClose}>
-            Close
+          <Button onClick={handlecancel}>
+            Cancel
           </Button>
           </Box>
-        </Box>
+        </Box> 
       </Modal>
     </Grid>
   );

@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Button,
+
 } from "@mui/material";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +30,17 @@ function AddAppointment2() {
   const [validationErrors, setValidationErrors] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
+  const [appointmentId, setAppointmentID] = useState("");
   
+  useEffect(() => {
+    async function fetchAppointmentID() {
+      const response = await fetch("https://mcms_api.mtron.me/get_lat_app_id");
+      const data = await response.json();
+      setAppointmentID(data.app_id+1);
+      
+    }
+    fetchAppointmentID();
+  }, []);
 
   const handleClose = () => {
     navigate(-1);
@@ -99,7 +110,7 @@ function AddAppointment2() {
       formIsValid = false;
     } else {
       // Remove any spaces or dashes from the NIC
-      nic = nic.replace(/[\s-]/g, '');
+      setNIC(nic.replace(/[\s-]/g, ''));
     
       // Check the length of the NIC
       if (nic.length !== 10 && nic.length !== 12) {
@@ -131,8 +142,6 @@ function AddAppointment2() {
     setValidationErrors(errors);
     return formIsValid;
   };
-
-
  
   const handlecancel = () => {
     navigate('/add_appointment');
@@ -201,7 +210,7 @@ function AddAppointment2() {
       const data = await response.json();
       console.log(data); // Log the response data from the API
 
-      navigate('/confirm_appointment', {
+      navigate(`/confirm_appointment/${appointmentId}`, {
         state: {
           appointmentDoctor,
           appointmentNumber,
@@ -274,7 +283,7 @@ function AddAppointment2() {
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: "1200px", height: 470, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Grid container spacing={1}>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
               <TextField
                 id="patient-name"
                 label="Patient Name"
@@ -284,7 +293,7 @@ function AddAppointment2() {
                 color="secondary"
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
-                sx={{ width: "90%", marginBottom: "20px" }}
+                sx={{ width: "90%", marginBottom: "20px"}}
               />
             </Grid>
             <Grid item xs={12} sm={12} container spacing={8}>
