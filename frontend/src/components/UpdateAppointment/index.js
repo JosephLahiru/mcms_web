@@ -328,8 +328,8 @@ function UpdateAppointment() {
             {success ? "Appointment details updated successfully!!!" : errorMessage}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Button onClick={handleClose}>
-            Close
+          <Button onClick={handlecancel}>
+            Cancel
           </Button>
           </Box>
         </Box> 
