@@ -148,7 +148,7 @@ function ViewAppointment() {
 
   const handleNotPaid= (item) => {
     console.log(item.app_id);
-    navigate(`/confirm_appointment/${item.app_id}`);
+    navigate(`/_appointment/${item.app_id}`);
   };
 
   return (
@@ -323,7 +323,7 @@ function ViewAppointment() {
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <TaskAltIcon sx={{ color: 'green', marginRight: '5px' }} />
-                                <span style={{ color: 'green' }} onClick={() => handleNotPaid(item)}>Paid</span>
+                                <span style={{ color: 'green' }} onClick={() => (item)}>Paid</span>
                               </div>
                             )}
                           </TableCell>
