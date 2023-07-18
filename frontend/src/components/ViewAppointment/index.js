@@ -318,13 +318,13 @@ function ViewAppointment() {
                               </Link>
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <TaskAltIcon sx={{ color: 'purple', marginRight: '5px' }} />
-                                <span style={{ color: 'purple' }}>Paid</span>
+                                <TaskAltIcon sx={{ color: 'green', marginRight: '5px' }} />
+                                <span style={{ color: 'green' }}>Paid</span>
                               </div>
                             )}
                           </TableCell>
                           <TableCell>
-                            <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
+                            <Button variant="outlined" size="small"  onClick={() => handleUpdate(item)} >Update</Button>
                           </TableCell>
                           <TableCell>
                             <IconButton
