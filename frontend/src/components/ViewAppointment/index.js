@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelSharpIcon from "@mui/icons-material/CancelSharp";
-import { Link } from "react-router-dom";
 import {
   TableContainer,
   Table,
@@ -47,6 +46,11 @@ function ViewAppointment() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+  const [doctorNames, setDoctorNames] = useState([]);
+
+  useEffect(() => {
+    fetchDoctorNames();
+  }, []);
   
   const handleModalClose = () => {
     setModalOpen(false);
@@ -89,6 +93,34 @@ function ViewAppointment() {
     fetchAppointment();
   }, []);
 
+  const fetchDoctorNames = async () => {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
+      const data = await response.json();
+      const formattedDoctorNames = data.map((doctor) => {
+        const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
+        const fullDoctorName = doctor.doctor_name.toUpperCase();
+        return {
+          cd_id: doctor.cd_id, // Assuming you have the cd_id field in the doctor data
+          doctorType: fullDoctorType,
+          doctorName: fullDoctorName,
+        };
+      });
+      setDoctorNames(formattedDoctorNames);
+    } catch (error) {
+      console.error('Error fetching doctor names:', error);
+    }
+  };
+
+  const getDoctorInfo = (cd_id) => {
+    const doctorInfo = doctorNames.find((name) => name.cd_id === cd_id);
+    if (doctorInfo) {
+      const { doctorType, doctorName } = doctorInfo;
+      return { doctorType, doctorName };
+    }
+    return { doctorType: "", doctorName: "" };
+  };
+
   useEffect(() => {
     let results;
     switch (filterOption) {
@@ -128,14 +160,15 @@ function ViewAppointment() {
 
     const appointmentDate = app_date.slice(0, 10);
     const appointmentNumber = app_num;
-    const appointmentDoctor = cd_id;
     const patientName = patient_name;
 
     console.log("hello  2")
 
+     const { doctorName, doctorType } = getDoctorInfo(cd_id);
     navigate(`/confirm_appointment/${app_id}`, {
       state: {
-        appointmentDoctor,
+        appointmentDoctor: doctorName, 
+        appointmentType: doctorType, 
         appointmentNumber,
         appointmentDate,
         patientName,
