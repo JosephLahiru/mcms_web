@@ -38,6 +38,7 @@ function ViewAttendance() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [assistantNames, setAssistantNames] = useState({});
 
   const theme = createTheme({
     palette: {
@@ -116,6 +117,24 @@ function ViewAttendance() {
   };
 
   const rows = filteredAttendance || [];
+
+
+  useEffect(() => {
+    async function fetchAssistantNames() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_assistants");
+        const data = await response.json();
+        const names = {};
+        data.forEach((assistant) => {
+          names[assistant.assit_id] = `${assistant.first_name} ${assistant.last_name}`;
+        });
+        setAssistantNames(names);
+      } catch (error) {
+        console.error("Error fetching assistant names:", error);
+      }
+    }
+    fetchAssistantNames();
+  }, []);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -197,6 +216,7 @@ function ViewAttendance() {
                   >
                     <TableCell>Attendance ID</TableCell>
                     <TableCell>Assistant ID</TableCell>
+                    <TableCell>Assistant Name</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Status</TableCell>
                   </TableRow>
@@ -212,12 +232,13 @@ function ViewAttendance() {
                         <TableRow hover key={att.att_id}>
                           <TableCell>{att.att_id}</TableCell>
                           <TableCell>{att.assit_id}</TableCell>
+                          <TableCell>{assistantNames[att.assit_id]}</TableCell>
                           <TableCell>
                             {dayjs(att.date).format("YYYY-MM-DD")}
                           </TableCell>
                           <TableCell>{att.status}</TableCell>
                         </TableRow>
-                      ))
+                      )) 
                   ) : (
                     <TableRow>
                       <TableCell colSpan={10}>No data available</TableCell>

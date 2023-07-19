@@ -291,11 +291,11 @@ function UpdateStock() {
   function getDrugType(selectedStockTypeId) {
     switch (selectedStockTypeId) {
       case 1:
-        return 'small';
+        return 'essential meds';
       case 2:
-        return 'medium';
+        return 'standard inventory';
       case 3:
-        return 'high';
+        return 'bulk supplies';
       default:
         return '';
     }
