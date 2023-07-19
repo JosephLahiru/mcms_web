@@ -33,7 +33,7 @@ function ConfirmAppointment() {
 
   useEffect(() => {
     if (location.state) {
-      const { appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
+      const {appointmentDoctor, appointmentNumber, appointmentDate, patientName,age,mobile,gender,nic  } = location.state;
       setAppointmentDoctor(appointmentDoctor);
       setAppointmentNumber(appointmentNumber);
       setAppointmentDate(appointmentDate);
