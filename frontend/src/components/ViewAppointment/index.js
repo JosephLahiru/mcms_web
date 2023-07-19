@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CancelSharpIcon from "@mui/icons-material/CancelSharp";
-import { Link } from "react-router-dom";
 import {
   TableContainer,
   Table,
@@ -47,8 +46,12 @@ function ViewAppointment() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+  const [doctorNames, setDoctorNames] = useState([]);
 
-
+  useEffect(() => {
+    fetchDoctorNames();
+  }, []);
+  
   const handleModalClose = () => {
     setModalOpen(false);
   };
@@ -90,6 +93,34 @@ function ViewAppointment() {
     fetchAppointment();
   }, []);
 
+  const fetchDoctorNames = async () => {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
+      const data = await response.json();
+      const formattedDoctorNames = data.map((doctor) => {
+        const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
+        const fullDoctorName = doctor.doctor_name.toUpperCase();
+        return {
+          cd_id: doctor.cd_id, // Assuming you have the cd_id field in the doctor data
+          doctorType: fullDoctorType,
+          doctorName: fullDoctorName,
+        };
+      });
+      setDoctorNames(formattedDoctorNames);
+    } catch (error) {
+      console.error('Error fetching doctor names:', error);
+    }
+  };
+
+  const getDoctorInfo = (cd_id) => {
+    const doctorInfo = doctorNames.find((name) => name.cd_id === cd_id);
+    if (doctorInfo) {
+      const { doctorType, doctorName } = doctorInfo;
+      return { doctorType, doctorName };
+    }
+    return { doctorType: "", doctorName: "" };
+  };
+
   useEffect(() => {
     let results;
     switch (filterOption) {
@@ -121,6 +152,36 @@ function ViewAppointment() {
     setSearchTerm("");
   };
 
+  const handleConfirmAppointment = (item) => {
+
+    console.log("hello  ")
+
+    const {age, app_id, app_date, app_num, cd_id, mobile, nic, gender, patient_name} = item;
+
+    const appointmentDate = app_date.slice(0, 10);
+    const appointmentNumber = app_num;
+    const patientName = patient_name;
+
+    console.log("hello  2")
+
+     const { doctorName, doctorType } = getDoctorInfo(cd_id);
+    navigate(`/confirm_appointment/${app_id}`, {
+      state: {
+        appointmentDoctor: doctorName, 
+        appointmentType: doctorType, 
+        appointmentNumber,
+        appointmentDate,
+        patientName,
+        age,
+        mobile,
+        gender,
+        nic,
+      },
+    });
+
+    console.log("hello  3")
+  };
+
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -146,10 +207,6 @@ function ViewAppointment() {
     navigate(`/update_appointment/${item.app_id}`);
   };
 
-  const handleNotPaid= (item) => {
-    console.log(item.app_id);
-    navigate(`/_appointment/${item.app_id}`);
-  };
 
   return (
     <Box sx={{ width: "100%", height: 100, backgroundColor: "#ce93d8" }}>
@@ -313,19 +370,19 @@ function ViewAppointment() {
                           <TableCell>{item.area}</TableCell>
                           <TableCell>{item.app_date.slice(0, 10)}</TableCell>
                           <TableCell>
-                            {parseInt(item.payment) === 0 ? (
-                              <Link to={`/confirm_appointment/${item.app_id}`} style={{ textDecoration: 'none' }}>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                  <CancelSharpIcon sx={{ color: 'red', marginRight: '5px' }} />
-                                  <span style={{ color: 'red', textDecoration: 'underline' }}>Not Paid</span>
-                                </div>
-                              </Link>
+                          {
+                            parseInt(item.payment) === 0 ? (
+                              <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <CancelSharpIcon sx={{ color: 'red', marginRight: '5px' }} />
+                                <span style={{ color: 'red', textDecoration: 'underline' }} onClick={() => handleConfirmAppointment(item)}>Not Paid</span>
+                              </div>
                             ) : (
                               <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <TaskAltIcon sx={{ color: 'green', marginRight: '5px' }} />
-                                <span style={{ color: 'green' }} onClick={() => (item)}>Paid</span>
+                                <span style={{ color: 'green' }}>Paid</span>
                               </div>
-                            )}
+                            )
+                          }
                           </TableCell>
                           <TableCell>
                             <Button variant="outlined" size="small"  onClick={() => handleUpdate(item)} >Update</Button>
