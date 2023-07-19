@@ -12,6 +12,7 @@ import {
 
 } from '@mui/material';
 import { useParams } from "react-router-dom";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 function ConfirmAppointment() { 
   
@@ -87,6 +88,12 @@ function ConfirmAppointment() {
     }
   };
 
+ 
+  const handleCancel = () => {
+  navigate(-1);
+   }; 
+
+
   return (
 
     <Grid container spacing={2}>
@@ -95,6 +102,7 @@ function ConfirmAppointment() {
                 <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
                     CONFIRM APPOINTMENT
                 </Typography>
+                <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleCancel} />
             </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
