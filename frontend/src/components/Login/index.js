@@ -39,6 +39,8 @@ export default function SignInSide() {
   const isMobile = useMediaQuery('(max-width:600px)');
 
   const setUser = useUser().setUser;
+  const reset = useUser().resetUser;
+  const [lastActivityTime, setLastActivityTime] = React.useState(new Date());
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -61,7 +63,7 @@ export default function SignInSide() {
         const { user_type, user_name, image_url } = data;
         
         setUser({ user_name, user_type, image_url });
-
+        setLastActivityTime(new Date());
         navigate('/dashboard', {replace: true});
       } else {
         toast.error('Invalid username of password');
@@ -70,6 +72,21 @@ export default function SignInSide() {
       console.error('Error:', error);
     }
   };
+
+  React.useEffect(() => {
+    const logoutTimer = setInterval(() => {
+      const currentTime = new Date();
+      const timeDifference = currentTime.getTime() - lastActivityTime.getTime();
+      const thirtyMinutes = 30 * 60 * 1000;
+
+      if (timeDifference > thirtyMinutes) {
+        reset();
+        clearInterval(logoutTimer);
+      }
+    }, 60000);
+
+    return () => clearInterval(logoutTimer);
+  }, [lastActivityTime, setUser]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
