@@ -41,19 +41,40 @@ function App() {
     const storedUser = localStorage.getItem('mcms_user_data');
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [lastActivityTimestamp, setLastActivityTimestamp] = React.useState(Date.now());
 
   const location = useLocation();
   const shouldRenderDashboardComponents = !hideDashboardComponentRoutes.includes(location.pathname);
 
-  const resetCurrentUser = (message)=>{
+  const resetCurrentUser = (message) => {
     setCurrentUser(null);
     localStorage.removeItem('mcms_user_data');
+    setLastActivityTimestamp(Date.now());
   };
 
   const _setUser = (userData) => {
     setCurrentUser(userData);
     localStorage.setItem('mcms_user_data', JSON.stringify(userData));
   };
+
+  React.useEffect(() => {
+    const inactivityTimeout = setTimeout(() => {
+      resetCurrentUser("User inactive for 5 minute");
+    }, 600000);
+  
+    const resetTimerOnActivity = () => {
+      setLastActivityTimestamp(Date.now());
+    };
+  
+    document.addEventListener("mousemove", resetTimerOnActivity);
+    document.addEventListener("keydown", resetTimerOnActivity);
+  
+    return () => {
+      clearTimeout(inactivityTimeout);
+      document.removeEventListener("mousemove", resetTimerOnActivity);
+      document.removeEventListener("keydown", resetTimerOnActivity);
+    };
+  }, [lastActivityTimestamp]);
 
   return (
     <UserContext.Provider value={{ user: currentUser, resetUser: resetCurrentUser, setUser: _setUser }}>
