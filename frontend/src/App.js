@@ -38,7 +38,7 @@ const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/lo
 function App() {
 
   const [currentUser, setCurrentUser] = React.useState(() => {
-    const storedUser = localStorage.getItem('mcms_user_data');
+    const storedUser = sessionStorage.getItem('mcms_user_data');
     return storedUser ? JSON.parse(storedUser) : null;
   });
   const [lastActivityTimestamp, setLastActivityTimestamp] = React.useState(Date.now());
@@ -48,13 +48,13 @@ function App() {
 
   const resetCurrentUser = (message) => {
     setCurrentUser(null);
-    localStorage.removeItem('mcms_user_data');
+    sessionStorage.removeItem('mcms_user_data');
     setLastActivityTimestamp(Date.now());
   };
 
   const _setUser = (userData) => {
     setCurrentUser(userData);
-    localStorage.setItem('mcms_user_data', JSON.stringify(userData));
+    sessionStorage.setItem('mcms_user_data', JSON.stringify(userData));
   };
 
   React.useEffect(() => {
@@ -174,21 +174,21 @@ function App() {
         </Route>
 
         <Route path="/doctor_charges" element={<PrivateRoute/>}>
-        <Route index element={<DoctorCharges />}/>
-      </Route>
+          <Route index element={<DoctorCharges />}/>
+        </Route>
 
-      <Route path="/bill_history" element={<PrivateRoute/>}>
-        <Route index element={<BillingHistory />}/>
-      </Route>
+        <Route path="/bill_history" element={<PrivateRoute/>}>
+          <Route index element={<BillingHistory />}/>
+        </Route>
 
-      <Route path="/billing_items" element={<PrivateRoute/>}>
-        <Route index element={<BillingItems />}/>
-      </Route>
+        <Route path="/billing_items" element={<PrivateRoute/>}>
+          <Route index element={<BillingItems />}/>
+        </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
       </Routes>
       
-      </UserContext.Provider>
+    </UserContext.Provider>
   );
 }
 
