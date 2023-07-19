@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Paper,
+  Typography,
   Select,
   Table,
   TableBody,
@@ -14,7 +16,10 @@ import {
   TableRow,
   TextField,
   TablePagination,
+  IconButton,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -33,6 +38,15 @@ function ViewAttendance() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [assistantNames, setAssistantNames] = useState({});
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#A15B9E", // Replace with your desired color
+      },
+    },
+  });
 
   useEffect(() => {
     async function fetchAttendance() {
@@ -65,11 +79,19 @@ function ViewAttendance() {
       default:
         results = attendance;
     }
+
+    if (filterOption === "Date" && selectedDate) {
+      results = results.filter((att) =>
+        dayjs(att.date).isSame(selectedDate, "day")
+      );
+    }
+  
     setFilteredAttendance(results);
-  }, [searchTerm, attendance, filterOption]);
+  }, [searchTerm, attendance, filterOption, selectedDate]);
 
   useEffect(() => {
     setSearchTerm(""); // Empty the search term when the filter option changes
+    setSelectedDate(null); // Empty the selected date when the filter option changes
   }, [filterOption]);
 
   const handleInputChange = (event) => {
@@ -96,6 +118,24 @@ function ViewAttendance() {
 
   const rows = filteredAttendance || [];
 
+
+  useEffect(() => {
+    async function fetchAssistantNames() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_assistants");
+        const data = await response.json();
+        const names = {};
+        data.forEach((assistant) => {
+          names[assistant.assit_id] = `${assistant.first_name} ${assistant.last_name}`;
+        });
+        setAssistantNames(names);
+      } catch (error) {
+        console.error("Error fetching assistant names:", error);
+      }
+    }
+    fetchAssistantNames();
+  }, []);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Paper
@@ -109,13 +149,19 @@ function ViewAttendance() {
         }}
       >
         <Grid container alignItems="center" spacing={2}>
-          <Grid item xs={1.5} marginRight={1}>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+          <Grid item xs={12}>
+            <Typography variant="h5" gutterBottom>
+              Attendance
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <FormControl sx={{ minWidth: "120px", width: "100%" }}>
+              <InputLabel id="filterSelectLabel" color="secondary">Filter by</InputLabel>
               <Select
                 labelId="demo-select-small-label"
                 id="demo-select-small"
                 size="small"
+                color="secondary"
                 value={filterOption}
                 label="Filter option"
                 onChange={handleFilterChange}
@@ -126,8 +172,9 @@ function ViewAttendance() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6} md={8}>
             {filterOption === "Date" ? (
+              <ThemeProvider theme={theme}>
               <DatePicker
                 value={selectedDate}
                 onChange={handleDateChange}
@@ -138,14 +185,25 @@ function ViewAttendance() {
                 inputFormat="LL"
                 slotProps={{ textField: { size: 'small' } }}
               />
+              </ThemeProvider>
             ) : (
               <TextField
                 id="outlined-size-small"
                 size="small"
+                color="secondary"
                 value={searchTerm}
                 onChange={handleInputChange}
                 label={`Search by ${filterOption}...`}
                 type="search"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             )}
           </Grid>
@@ -158,6 +216,7 @@ function ViewAttendance() {
                   >
                     <TableCell>Attendance ID</TableCell>
                     <TableCell>Assistant ID</TableCell>
+                    <TableCell>Assistant Name</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Status</TableCell>
                   </TableRow>
@@ -173,12 +232,13 @@ function ViewAttendance() {
                         <TableRow hover key={att.att_id}>
                           <TableCell>{att.att_id}</TableCell>
                           <TableCell>{att.assit_id}</TableCell>
+                          <TableCell>{assistantNames[att.assit_id]}</TableCell>
                           <TableCell>
                             {dayjs(att.date).format("YYYY-MM-DD")}
                           </TableCell>
                           <TableCell>{att.status}</TableCell>
                         </TableRow>
-                      ))
+                      )) 
                   ) : (
                     <TableRow>
                       <TableCell colSpan={10}>No data available</TableCell>
