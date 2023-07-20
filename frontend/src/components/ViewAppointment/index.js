@@ -47,6 +47,7 @@ function ViewAppointment() {
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
   const [doctorNames, setDoctorNames] = useState([]);
+  
 
   useEffect(() => {
     fetchDoctorNames();
