@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
   Grid,
   Box,
@@ -28,10 +28,6 @@ function AddAppointment1() {
   const location = useLocation();
   const [doctorNames, setDoctorNames] = useState([]);
   
-  const handleClose = () => {
-    navigate(-1);
-  };
-
   const months = [
     'January',
     'February',
@@ -142,6 +138,10 @@ const fetchDoctorNames = async () => {
     setAppointmentNumber(await getAppointmentNumber(convertedDate, selectedDoctorID))
   };
 
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -149,13 +149,13 @@ const fetchDoctorNames = async () => {
           <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '50px', textAlign: 'left', paddingLeft: '90px' }}>
             ADD APPOINTMENT
           </Typography>
-          <CloseOutlinedIcon sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }} onClick={handleClose} />
+          <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleClose} />
           <Grid item xs={12} sx={{ paddingTop: '80px', paddingBottom: '50px' }}>
             <Grid container spacing={0} alignItems="center" justifyContent="center">
               <Grid item sx={{ backgroundColor: 'white' }}>
                 <FormControl fullWidth>
                   <InputLabel id="select-doctor" color="secondary">
-                    SELECT A SPECIALITY
+                    SELECT A SPECIALITY DOCTOR
                   </InputLabel>
                   <Select
                     labelId="select-doctor"

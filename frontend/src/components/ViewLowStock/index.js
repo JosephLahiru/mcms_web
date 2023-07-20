@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Paper,
   Grid,
+  Typography,
   InputLabel,
   Select,
   MenuItem,
@@ -39,7 +40,7 @@ function ViewLowStock() {
     if (event.target.value === "") {
       setFilteredLowStock(lowstock);
     } else {
-      const filteredData = lowstock.filter((item) => item.expire_type === Number(event.target.value));
+      const filteredData = lowstock.filter((item) => item.stock_type === Number(event.target.value));
       setFilteredLowStock(filteredData);
     }
   };
@@ -58,20 +59,27 @@ function ViewLowStock() {
   return (
     <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container alignItems='center' spacing={2}>
+      <Grid item xs={12}>
+        <Typography variant="h5" gutterBottom >
+            View Low Stock
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+        </Grid>
         <Grid item xs={2}>
           <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-            <InputLabel id="demo-select-small-label">Filter option</InputLabel>
+            <InputLabel id="demo-select-small-label" color="secondary">Filter option</InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
+              color="secondary"
               value={filterOption}
               label="Filter option"
               onChange={handleFilterChange}
             >
               <MenuItem value="">All</MenuItem>
-              <MenuItem value={1}>Small stock</MenuItem>
-              <MenuItem value={2}>Medium stock</MenuItem>
-              <MenuItem value={3}>Big stock</MenuItem>
+              <MenuItem value={1}>Essential meds</MenuItem>
+              <MenuItem value={2}>Standard Inventory</MenuItem>
+              <MenuItem value={3}>bulk supplies</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -83,14 +91,9 @@ function ViewLowStock() {
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
-                  <TableCell>Drug Type</TableCell>
-                  <TableCell>Unit Price(Rs)</TableCell>
-                  <TableCell>Selling Price(Rs)</TableCell>
-                  <TableCell>Quantity</TableCell>
                   <TableCell>Manufacture Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
-                  <TableCell>Total Ac Price(Rs)</TableCell>
-                  <TableCell>Total Sell Price(Rs)</TableCell>
+                  <TableCell>Quantity</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -102,19 +105,14 @@ function ViewLowStock() {
                       <TableCell>{item.prdct_id}</TableCell>
                       <TableCell>{item.prdct_name}</TableCell>
                       <TableCell>{item.brand_name}</TableCell>
-                      <TableCell>{item.med_type}</TableCell>
-                      <TableCell>{item.ac_price}</TableCell>
-                      <TableCell>{item.sell_price}</TableCell>
-                      <TableCell>{item.total_quantity}</TableCell>
                       <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                       <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                      <TableCell>{item.total_quantity_ac_price}</TableCell>
-                      <TableCell>{item.total_quantity_sell_price}</TableCell>
+                      <TableCell>{item.total_quantity}</TableCell>
                       </TableRow>
                   ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={10}>No data available</TableCell>
+                  <TableCell colSpan={11}>No data available</TableCell>
                 </TableRow>
               )}
               </TableBody>
@@ -123,7 +121,7 @@ function ViewLowStock() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={filteredLowStock.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

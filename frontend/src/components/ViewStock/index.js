@@ -18,6 +18,7 @@ import {
   TablePagination,
   Grid,
   Paper,
+  Typography,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -147,14 +148,21 @@ function ViewStock() {
         transition: "width 0.7s ease",
       }}
     >
-      <Grid container alignItems='center'>
-        <Grid item xs={1.5} marginRight={1}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+      <Grid container alignItems='center' spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom >
+            View Stock
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+        </Grid>
+        <Grid item xs={12} sm={6} md={2}>
+          <FormControl sx={{ minWidth: "120px", width: "100%" }}>
+            <InputLabel id="filterSelectLabel" color="secondary">Filter by</InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
               size="small"
+              color="secondary"
               value={filterOption}
               label="Filter option"
               onChange={handleFilterChange}
@@ -165,10 +173,11 @@ function ViewStock() {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={6} md={8}>
           <TextField
             id="outlined-size-small"
             size="small"
+            color="secondary"
             value={searchTerm}
             onChange={handleInputChange}
             label={`Search by ${filterOption}...`}

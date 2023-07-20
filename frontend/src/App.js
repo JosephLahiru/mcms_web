@@ -25,6 +25,9 @@ import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
 import Sidebar from './components/SideBar';
 import ReturnPatientsReport from './components/ReturnPatientsReport';
+import DoctorCharges from './components/DoctorCharges';
+import BillingHistory from './components/BillingHistory';
+import BillingItems from './components/BillingItems';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
@@ -35,22 +38,43 @@ const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/lo
 function App() {
 
   const [currentUser, setCurrentUser] = React.useState(() => {
-    const storedUser = localStorage.getItem('mcms_user_data');
+    const storedUser = sessionStorage.getItem('mcms_user_data');
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [lastActivityTimestamp, setLastActivityTimestamp] = React.useState(Date.now());
 
   const location = useLocation();
   const shouldRenderDashboardComponents = !hideDashboardComponentRoutes.includes(location.pathname);
 
-  const resetCurrentUser = (message)=>{
+  const resetCurrentUser = (message) => {
     setCurrentUser(null);
-    localStorage.removeItem('mcms_user_data');
+    sessionStorage.removeItem('mcms_user_data');
+    setLastActivityTimestamp(Date.now());
   };
 
   const _setUser = (userData) => {
     setCurrentUser(userData);
-    localStorage.setItem('mcms_user_data', JSON.stringify(userData));
+    sessionStorage.setItem('mcms_user_data', JSON.stringify(userData));
   };
+
+  React.useEffect(() => {
+    const inactivityTimeout = setTimeout(() => {
+      resetCurrentUser("User inactive for 5 minute");
+    }, 600000);
+  
+    const resetTimerOnActivity = () => {
+      setLastActivityTimestamp(Date.now());
+    };
+  
+    document.addEventListener("mousemove", resetTimerOnActivity);
+    document.addEventListener("keydown", resetTimerOnActivity);
+  
+    return () => {
+      clearTimeout(inactivityTimeout);
+      document.removeEventListener("mousemove", resetTimerOnActivity);
+      document.removeEventListener("keydown", resetTimerOnActivity);
+    };
+  }, [lastActivityTimestamp]);
 
   return (
     <UserContext.Provider value={{ user: currentUser, resetUser: resetCurrentUser, setUser: _setUser }}>
@@ -97,7 +121,7 @@ function App() {
           <Route index element={<UpdateAppointment />} />
         </Route>
 
-        <Route path="/confirm_appointment" element={<PrivateRoute />}>
+        <Route path="/confirm_appointment/:appointmentId" element={<PrivateRoute />}>
           <Route index element={<ConfirmAppointment />} />
         </Route>
 
@@ -149,9 +173,22 @@ function App() {
           <Route index element={<ReturnPatientsReport />} />
         </Route>
 
+        <Route path="/doctor_charges" element={<PrivateRoute/>}>
+          <Route index element={<DoctorCharges />}/>
+        </Route>
+
+        <Route path="/bill_history" element={<PrivateRoute/>}>
+          <Route index element={<BillingHistory />}/>
+        </Route>
+
+        <Route path="/billing_items" element={<PrivateRoute/>}>
+          <Route index element={<BillingItems />}/>
+        </Route>
+
         <Route path="*?" element={<Navigate to="/dashboard" />} />
       </Routes>
-      </UserContext.Provider>
+      
+    </UserContext.Provider>
   );
 }
 
