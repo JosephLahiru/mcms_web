@@ -28,6 +28,8 @@ function GenerateBillNew() {
   const [selectedExpiry, setSelectedExpiry] = useState("");
   const [quantity, setQuantity] = useState("");
   const [addedDrugs, setAddedDrugs] = useState([]);
+  const [doctorCharges, setDoctorCharges] = useState("");
+  const [otherCharges, setOtherCharges] = useState("");
 
 
 
@@ -144,10 +146,38 @@ const calculateTotalAmount = () => {
       0
     );
 
-    return totalAmount.toFixed(2); // Convert the total to a fixed decimal format (e.g., 2 decimal places)
+    // Add the doctor charges and other charges to the total amount if they are valid numbers
+    const parsedDoctorCharges = parseFloat(doctorCharges);
+    const parsedOtherCharges = parseFloat(otherCharges);
+
+    let total = totalAmount;
+
+    if (!isNaN(parsedDoctorCharges)) {
+      total += parsedDoctorCharges;
+    }
+
+    if (!isNaN(parsedOtherCharges)) {
+      total += parsedOtherCharges;
+    }
+
+    return total.toFixed(2);
   }
 
-  return "0.00"; // Return 0.00 if there are no drugs added
+  // Include the doctor charges and other charges in the total amount if they are valid numbers
+  const parsedDoctorCharges = parseFloat(doctorCharges);
+  const parsedOtherCharges = parseFloat(otherCharges);
+
+  let total = 0;
+
+  if (!isNaN(parsedDoctorCharges)) {
+    total += parsedDoctorCharges;
+  }
+
+  if (!isNaN(parsedOtherCharges)) {
+    total += parsedOtherCharges;
+  }
+
+  return total.toFixed(2);
 };
 
 
@@ -242,13 +272,13 @@ const calculateTotalAmount = () => {
                                 {addedDrugs.length > 0 ? (
                                 addedDrugs.map((drug, index) => (
                                   <TableRow key={index}>
-                                    <TableCell>{drug.product}</TableCell>
-                                    <TableCell>{drug.expiry.slice(0, 10)}</TableCell>
-                                    <TableCell>{drug.quantity}</TableCell>
-                                    <TableCell>{drug.unitPrice}</TableCell>
-                                    <TableCell>{drug.discount}</TableCell>
-                                    <TableCell>{drug.amount.toFixed(2)}</TableCell>
-                                    <TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.product}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.expiry.slice(0, 10)}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.quantity}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.unitPrice}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.discount}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.amount.toFixed(2)}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>
                                       <IconButton
                                         aria-label="delete"
                                         variant="outlined"
@@ -277,14 +307,27 @@ const calculateTotalAmount = () => {
                         <Paper style={{ padding: "10px" }}>
                             <Grid container spacing={1}>
                                 <Grid item xs={6}>
+                                <TextField
+                                  size="small"
+                                  label="Dr/charges"
+                                  style={{ marginBottom: "10px" }}
+                                  value={doctorCharges}
+                                  onChange={(e) => setDoctorCharges(e.target.value)}
+                                />
+                                  <TextField
+                                    size="small"
+                                    label="Other Charges"
+                                    style={{ marginBottom: "10px" }}
+                                    value={otherCharges}
+                                    onChange={(e) => setOtherCharges(e.target.value)}
+                                  />
                                 </Grid>
                                 <Grid item xs={3}>
                                     <TextField size="small" label="Discount" style={{ marginBottom: "10px" }} />
                                     <TextField
                                       size="small"
                                       label="$Total"
-                                      value={calculateTotalAmount()} // Bind the value to the calculated total amount
-                                      // Optionally, you can add the following to make the field non-editable
+                                      value={calculateTotalAmount()}
                                       InputProps={{
                                       readOnly: true,
                                     }}
@@ -325,7 +368,7 @@ const calculateTotalAmount = () => {
                 <TableRow>
                   <TableCell style={{ padding: "4px" }}>P/ID</TableCell>
                   <TableCell
-                    style={{ padding: "4px", cursor: "pointer" }}
+                    style={{ padding: "5px", cursor: "pointer" }}
                     onClick={handleSort}
                   >
                     Product Name
@@ -336,10 +379,10 @@ const calculateTotalAmount = () => {
                 {rows.length > 0 ? (
                   rows.map((item) => (
                     <TableRow hover role="checkbox" key={item.prdct_id} onClick={() => handleRowClick(item)}>  
-                      <TableCell style={{ padding: "4px" }}>
+                      <TableCell style={{ padding: "5px" }}>
                         {item.prdct_id}
                       </TableCell>
-                      <TableCell style={{ padding: "4px" }}>
+                      <TableCell style={{ padding: "5px" }}>
                         {item.prdct_name}
                       </TableCell>
                     </TableRow>
