@@ -38,8 +38,12 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    reset();
-    navigate('/');
+    const shouldLogout = window.confirm("Are you sure you want to log out?");
+  
+    if (shouldLogout) {
+      reset();
+      navigate('/');
+    }
   };
 
   const menuId = 'primary-search-account-menu';
