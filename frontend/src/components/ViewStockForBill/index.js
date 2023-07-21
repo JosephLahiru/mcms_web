@@ -7,53 +7,56 @@ import {
   TableRow,
   TableCell,
   TextField,
-  TablePagination,
   Grid,
   Paper,
-  Typography,
 } from "@mui/material";
 
 function ViewStockForBill() {
   const [stock, setStock] = useState([]);
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sortDirection, setSortDirection] = useState("asc");
 
   useEffect(() => {
     async function fetchStock() {
       const response = await fetch("https://mcms_api.mtron.me/get_stock");
       const data = await response.json();
-      setStock(data);
-      setFilteredStock(data);
+
+      // Sort the data by product name in ascending order (A to Z)
+      const sortedData = data.sort((a, b) =>
+        a.prdct_name.localeCompare(b.prdct_name)
+      );
+
+      setStock(sortedData);
+      setFilteredStock(sortedData);
     }
+
     fetchStock();
   }, []);
 
   const handleInputChange = (event) => {
     const searchTerm = event.target.value.toLowerCase();
     setSearchTerm(searchTerm);
-  
+
     if (searchTerm.length >= 3) {
       const filteredData = stock.filter((item) =>
         item.prdct_name.toLowerCase().includes(searchTerm)
       );
       setFilteredStock(filteredData);
-      setPage(0);
     } else {
       // If the search term is less than 3 characters, reset the filtered data to display all stock data.
       setFilteredStock(stock);
     }
   };
-  
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const handleSort = () => {
+    const sortedData = [...filteredStock].sort((a, b) =>
+      sortDirection === "asc"
+        ? a.prdct_name.localeCompare(b.prdct_name)
+        : b.prdct_name.localeCompare(a.prdct_name)
+    );
+    setFilteredStock(sortedData);
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
 
   const rows = filteredStock || [];
@@ -65,17 +68,12 @@ function ViewStockForBill() {
         overflow: "hidden",
       }}
     >
-      <Grid container alignItems='center' spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom >
-            View Stock
-          </Typography>
-            <hr style={{ margin: '10px 0' }} />
-        </Grid>
+      <Grid container alignItems="center" spacing={2}>
         <Grid item xs={12} sm={6} md={8}>
           <TextField
             id="outlined-size-small"
             size="small"
+            fullWidth
             color="secondary"
             value={searchTerm}
             onChange={handleInputChange}
@@ -86,21 +84,28 @@ function ViewStockForBill() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
-                  <TableCell>Drug ID</TableCell>
-                  <TableCell>Drug Name</TableCell>
+                <TableRow>
+                  <TableCell style={{ padding: "4px" }}>Product ID</TableCell>
+                  <TableCell
+                    style={{ padding: "4px", cursor: "pointer" }}
+                    onClick={handleSort}
+                  >
+                    Product Name
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.length > 0 ? (
-                  rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => (
-                      <TableRow hover role="checkbox" key={item.prdct_id}>
-                        <TableCell>{item.prdct_id}</TableCell>
-                        <TableCell>{item.prdct_name}</TableCell>
-                      </TableRow>
-                    ))
+                  rows.map((item) => (
+                    <TableRow hover role="checkbox" key={item.prdct_id}>
+                      <TableCell style={{ padding: "4px" }}>
+                        {item.prdct_id}
+                      </TableCell>
+                      <TableCell style={{ padding: "4px" }}>
+                        {item.prdct_name}
+                      </TableCell>
+                    </TableRow>
+                  ))
                 ) : (
                   <TableRow>
                     <TableCell colSpan={2}>No data available</TableCell>
@@ -109,15 +114,6 @@ function ViewStockForBill() {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
         </Grid>
       </Grid>
     </Paper>
