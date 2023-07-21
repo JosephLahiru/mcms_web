@@ -30,6 +30,7 @@ import BillingHistory from './components/BillingHistory';
 import BillingItems from './components/BillingItems';
 import ViewDoctors from './components/DoctorManagement/ViewDoctors';
 import UpdateDoctor from './components/DoctorManagement/UpdateDoctors';
+import AddDoctor from './components/DoctorManagement/AddDoctor';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
@@ -203,6 +204,10 @@ function App() {
 
         <Route path="/update_doctors/:id" element={<PrivateRoute/>}>
           <Route index element={<UpdateDoctor />}/>
+        </Route>
+
+        <Route path="/add_doctor" element={<PrivateRoute/>}>
+          <Route index element={<AddDoctor />}/>
         </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
