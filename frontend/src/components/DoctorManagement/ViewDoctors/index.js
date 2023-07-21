@@ -26,7 +26,7 @@ import {
   FormControl,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppstore } from './../../appStore';
+import { useAppstore } from './../../../appStore';
 
 function ViewDoctors() {
   const { dopen } = useAppstore();
