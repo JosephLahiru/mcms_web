@@ -79,15 +79,15 @@ function UpdateDoctor() {
 
   const handleEmailChange = (event) => {
     const value = event.target.value;
-    const isValid = /^[A-Za-z0-9\s&-]*$/.test(value);
+    const isValid = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value);
     const isWithinLengthLimit = value.length <= 50;
-
+  
     setEmail(value);
-
+  
     if (!isValid) {
       setEmailError("Please enter a valid Email");
     } else if (!isWithinLengthLimit) {
-      setEmailError("Email should not exceed 10 characters");
+      setEmailError("Email should not exceed 50 characters");
     } else {
       setEmailError("");
     }
@@ -95,11 +95,11 @@ function UpdateDoctor() {
 
   const handleAddressChange = (event) => {
     const value = event.target.value;
-    const isValid = /^[A-Za-z0-9\s&-]*$/.test(value);
-    const isWithinLengthLimit = value.length <= 50;
-
+    const isValid = /^[A-Za-z0-9\s&-.,#]*$/.test(value);
+    const isWithinLengthLimit = value.length <= 100;
+  
     setAddress(value);
-
+  
     if (!isValid) {
       setAddressError("Please enter a valid Address");
     } else if (!isWithinLengthLimit) {
@@ -107,7 +107,7 @@ function UpdateDoctor() {
     } else {
       setAddressError("");
     }
-  };
+  };  
 
   const handleContactNoChange = (event) => {
     const value = event.target.value;
