@@ -3,13 +3,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { 
   Grid,
   Paper,
-  TextField,
+  TextField, 
   TableContainer,
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableCell,
+  Button,
 } from "@mui/material";
 import { useAppstore } from './../../appStore';
 
@@ -22,7 +23,11 @@ function GenerateBillNew() {
   const [sortDirection, setSortDirection] = useState("asc");
   const [selectedDrugName, setSelectedDrugName] = useState("");
   const [selectedUnitPrice, setSelectedUnitPrice] = useState("");
+  const [selectedExpiry, setSelectedExpiry] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [addedDrugs, setAddedDrugs] = useState([]);
+
+
 
   useEffect(() => {
     async function fetchStock() {
@@ -70,9 +75,10 @@ function GenerateBillNew() {
 
   const handleRowClick = (selectedDrug) => {
     // Extract the product name and unit price from the selected drug object
-    const { prdct_name, sell_price } = selectedDrug;
+    const { prdct_name, sell_price, exp_date } = selectedDrug;
     setSelectedDrugName(prdct_name);
     setSelectedUnitPrice(sell_price);
+    setSelectedExpiry(exp_date);
   };
 
 const handleAmountCalculation = () => {
@@ -90,8 +96,30 @@ const handleAmountCalculation = () => {
     return "";
   };
   
-  
+  const handleAddButton = () => {
+  // Check if both selectedDrugName and quantity are valid
+  if (selectedDrugName && !isNaN(quantity)) {
+    // Calculate the amount based on the quantity and unit price
+    const calculatedAmount = handleAmountCalculation();
 
+    // Create a new drug object with the details
+    const newDrug = {
+      product: selectedDrugName,
+      expiry: selectedExpiry,
+      quantity: parseFloat(quantity),
+      unitPrice: parseFloat(selectedUnitPrice),
+      discount: "", // Fill in the discount if available
+      amount: parseFloat(calculatedAmount),
+    };
+
+    // Add the new drug to the list of added drugs
+    setAddedDrugs([...addedDrugs, newDrug]);
+
+    // Reset the quantity and selectedDrugName states for the next entry
+    setQuantity("");
+    setSelectedDrugName("");
+  }
+};
 
 
     return (
@@ -123,6 +151,7 @@ const handleAmountCalculation = () => {
                                 }}
                             />
                         </Grid>
+
                         <Grid item xs={2}>
                             <TextField
                                 size="small"
@@ -157,11 +186,15 @@ const handleAmountCalculation = () => {
                                     }}
                                 />
                             </Grid>
+                            <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={handleAddButton}>Add</Button>
+                                    <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }}>Clear</Button>
+                            </Grid>
                             <Grid item xs={12}>
                             <TableContainer sx={{ maxHeight: 200, minHeight: 200 }} md={{ minWidth: 650 }} sm={{ minWidth: 650 }}>
                             <Table>
                                 <TableHead>
-                                    <TableRow>
+                                    <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
                                         <TableCell>Product</TableCell>
                                         <TableCell>Expiry</TableCell>
                                         <TableCell>Quantity</TableCell>
@@ -172,10 +205,23 @@ const handleAmountCalculation = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {/* Empty row to display no data available */}
-                                    <TableRow>
-                                        <TableCell colSpan={2}>No data available</TableCell>
-                                    </TableRow>
+                                {addedDrugs.length > 0 ? (
+                                addedDrugs.map((drug, index) => (
+                                  <TableRow key={index}>
+                                    <TableCell>{drug.product}</TableCell>
+                                    <TableCell>{drug.expiry.slice(0, 10)}</TableCell>
+                                    <TableCell>{drug.quantity}</TableCell>
+                                    <TableCell>{drug.unitPrice}</TableCell>
+                                    <TableCell>{drug.discount}</TableCell>
+                                    <TableCell>{drug.amount.toFixed(2)}</TableCell>
+                                    {/* Add more TableCell components for additional columns */}
+                                  </TableRow>
+                                ))
+                              ) : (
+                                <TableRow>
+                                  <TableCell colSpan={6}>No data available</TableCell>
+                                </TableRow>
+                              )}
                                 </TableBody>
                             </Table> 
                             </TableContainer>
