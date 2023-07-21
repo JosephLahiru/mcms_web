@@ -20,6 +20,9 @@ function GenerateBillNew() {
   const [filteredStock, setFilteredStock] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [selectedDrugName, setSelectedDrugName] = useState("");
+  const [selectedUnitPrice, setSelectedUnitPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
 
   useEffect(() => {
     async function fetchStock() {
@@ -65,6 +68,30 @@ function GenerateBillNew() {
 
   const rows = filteredStock || [];
 
+  const handleRowClick = (selectedDrug) => {
+    // Extract the product name and unit price from the selected drug object
+    const { prdct_name, sell_price } = selectedDrug;
+    setSelectedDrugName(prdct_name);
+    setSelectedUnitPrice(sell_price);
+  };
+
+const handleAmountCalculation = () => {
+    // Parse the quantity and unit price as numbers
+    const parsedQuantity = parseFloat(quantity);
+    const parsedUnitPrice = parseFloat(selectedUnitPrice);
+  
+    // Check if both quantity and unit price are valid numbers
+    if (!isNaN(parsedQuantity) && !isNaN(parsedUnitPrice)) {
+      // Calculate the amount as quantity multiplied by unit price
+      const calculatedAmount = (parsedQuantity * parsedUnitPrice).toFixed(2);
+      return calculatedAmount;
+    }
+    // Return an empty string if either quantity or unit price is invalid
+    return "";
+  };
+  
+  
+
 
 
     return (
@@ -85,16 +112,34 @@ function GenerateBillNew() {
                     </Grid>
                     <Grid item xs={12}>
                     <Paper style={{ padding: "10px" }}>
-                        <Grid container spacing={1}>
-                            
-                            <Grid item xs={2}>
-                                <TextField size="small" label="Product Name" />
+                        <Grid container spacing={1}>     
+                        <Grid item xs={2}>
+                            <TextField
+                                size="small"
+                                label="Product Name"
+                                value={selectedDrugName}
+                                InputProps={{
+                                readOnly: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <TextField
+                                size="small"
+                                label="Unit Price"
+                                value={selectedUnitPrice}
+                                InputProps={{
+                                readOnly: true,
+                                }}
+                            />
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField size="small" label="Unit Price" />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextField size="small" label="Quantity" />
+                                <TextField
+                                    size="small"
+                                    label="Quantity"
+                                    value={quantity}
+                                    onChange={(e) => setQuantity(e.target.value)}
+                                />
                             </Grid>
                             <Grid item xs={2}>
                                 <TextField size="small" label="Discount" />
@@ -103,7 +148,14 @@ function GenerateBillNew() {
                                 <TextField size="small" label="Discount %" />
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField size="small" label="Amount" />
+                                <TextField
+                                    size="small"
+                                    label="Amount"
+                                    value={handleAmountCalculation()}
+                                    InputProps={{
+                                    readOnly: true,
+                                    }}
+                                />
                             </Grid>
                             <Grid item xs={12}>
                             <TableContainer sx={{ maxHeight: 200, minHeight: 200 }} md={{ minWidth: 650 }} sm={{ minWidth: 650 }}>
@@ -185,7 +237,7 @@ function GenerateBillNew() {
               <TableBody>
                 {rows.length > 0 ? (
                   rows.map((item) => (
-                    <TableRow hover role="checkbox" key={item.prdct_id}>
+                    <TableRow hover role="checkbox" key={item.prdct_id} onClick={() => handleRowClick(item)}>  
                       <TableCell style={{ padding: "4px" }}>
                         {item.prdct_id}
                       </TableCell>
