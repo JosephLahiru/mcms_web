@@ -28,6 +28,8 @@ import ReturnPatientsReport from './components/ReturnPatientsReport';
 import DoctorCharges from './components/DoctorCharges';
 import BillingHistory from './components/BillingHistory';
 import BillingItems from './components/BillingItems';
+import ViewDoctors from './components/DoctorManagement/ViewDoctors';
+import UpdateDoctor from './components/DoctorManagement/UpdateDoctors';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
@@ -195,6 +197,13 @@ function App() {
           <Route index element={<ViewStockForBill />}/>
         </Route>
 
+        <Route path="/view_doctors" element={<PrivateRoute/>}>
+          <Route index element={<ViewDoctors />}/>
+        </Route>
+
+        <Route path="/update_doctors/:id" element={<PrivateRoute/>}>
+          <Route index element={<UpdateDoctor />}/>
+        </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
       </Routes>
