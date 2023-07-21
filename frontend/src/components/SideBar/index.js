@@ -17,6 +17,12 @@ import { useAppstore } from './../../appStore';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useLocation } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -46,7 +52,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -69,15 +74,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Sidebar() {
   const theme = useTheme();
-  // const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const open = useAppstore((state) => state.dopen);
+  const location = useLocation();
 
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Box height={30}/>
+      <Box height={30} />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton>
@@ -85,109 +90,120 @@ export default function Sidebar() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-        <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/add_stock"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InventoryIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add Stock" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_stock"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InventoryIcon />
-                </ListItemIcon>
-                <ListItemText primary="View Stock" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/add_appointment"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <BookOnlineIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/view_appointment"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-               
-                 <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <BookOnlineIcon />
-                </ListItemIcon>
-                <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>(navigate("/generate_bill"))}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <AssignmentIcon />
-                </ListItemIcon>
-                <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+        <List sx={{ paddingTop: 0 }}>
+          <Accordion sx={{ margin: '0', borderRadius: '0' }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <ListItemIcon>
+                <InventoryIcon />
+              </ListItemIcon>
+              <ListItemText primary="Stock" />
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: '0' }}>
+              <List sx={{ paddingTop: 0 }}>
+                <ListItem disablePadding onClick={() => (navigate("/add_stock"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/add_stock' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="Add Stock" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => (navigate("/view_stock"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/view_stock' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="View Stock" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                {/* Add more components for the "Stock" category */}
+                <ListItem disablePadding onClick={() => (navigate("/stock_report"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/stock_report' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="Stock Report" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion sx={{ margin: '0', borderRadius: '0' }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <ListItemIcon>
+                <BookOnlineIcon />
+              </ListItemIcon>
+              <ListItemText primary="Appointments" />
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: '0' }}>
+              <List sx={{ paddingTop: 0 }}>
+                <ListItem disablePadding onClick={() => (navigate("/add_appointment"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/add_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => (navigate("/view_appointment"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                {/* Add more components for the "Appointments" category */}
+                <ListItem disablePadding onClick={() => (navigate("/appointments_history"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/appointments_history' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                    }}
+                  >
+                    <ListItemText primary="Appointments History" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
+          <ListItem disablePadding onClick={() => (navigate("/generate_bill"))}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                backgroundColor: location.pathname === '/generate_bill' ? '#e1f5fe' : 'transparent', // Highlight the active component
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
         </List>
         <List>
         </List>
