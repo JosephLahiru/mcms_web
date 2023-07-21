@@ -32,6 +32,8 @@ import BillingItems from './components/BillingItems';
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
 import LoginRoute from './scripts/loginRoute';
+import GenerateBillNew from './components/GenerateBillNew';
+import ViewStockForBill from './components/ViewStockForBill';
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/login'];
 
@@ -184,6 +186,15 @@ function App() {
         <Route path="/billing_items" element={<PrivateRoute/>}>
           <Route index element={<BillingItems />}/>
         </Route>
+
+        <Route path="/generate_bill_new" element={<PrivateRoute/>}>
+          <Route index element={<GenerateBillNew />}/>
+        </Route>
+
+        <Route path="/view_stock_for_bill" element={<PrivateRoute/>}>
+          <Route index element={<ViewStockForBill />}/>
+        </Route>
+
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
       </Routes>
