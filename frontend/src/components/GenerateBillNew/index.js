@@ -11,7 +11,9 @@ import {
   TableRow,
   TableCell,
   Button,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from './../../appStore';
 
 
@@ -118,8 +120,21 @@ const handleAmountCalculation = () => {
     // Reset the quantity and selectedDrugName states for the next entry
     setQuantity("");
     setSelectedDrugName("");
+    setSelectedUnitPrice("");
   }
 };
+
+const handleDeleteRow = (index) => {
+  // Create a copy of the addedDrugs array
+  const updatedAddedDrugs = [...addedDrugs];
+
+  // Remove the drug at the specified index from the array
+  updatedAddedDrugs.splice(index, 1);
+
+  // Update the addedDrugs state with the updated array
+  setAddedDrugs(updatedAddedDrugs);
+};
+
 
 const calculateTotalAmount = () => {
   if (addedDrugs.length > 0) {
@@ -220,7 +235,7 @@ const calculateTotalAmount = () => {
                                         <TableCell>U/P</TableCell>
                                         <TableCell>Discount</TableCell>
                                         <TableCell>Amount</TableCell>
-                                                {/* Add more TableCell components for additional columns */}
+                                        <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -233,7 +248,17 @@ const calculateTotalAmount = () => {
                                     <TableCell>{drug.unitPrice}</TableCell>
                                     <TableCell>{drug.discount}</TableCell>
                                     <TableCell>{drug.amount.toFixed(2)}</TableCell>
-                                    {/* Add more TableCell components for additional columns */}
+                                    <TableCell>
+                                      <IconButton
+                                        aria-label="delete"
+                                        variant="outlined"
+                                        size="small"
+                                        onClick={() => handleDeleteRow(index)}
+                                      >
+                                      <DeleteIcon />
+                                      </IconButton>
+
+                                    </TableCell>
                                   </TableRow>
                                 ))
                               ) : (
