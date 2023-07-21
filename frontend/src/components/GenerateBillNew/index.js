@@ -121,23 +121,40 @@ const handleAmountCalculation = () => {
   }
 };
 
+const calculateTotalAmount = () => {
+  if (addedDrugs.length > 0) {
+    // Use the reduce function to calculate the total amount
+    const totalAmount = addedDrugs.reduce(
+      (accumulator, currentDrug) => accumulator + currentDrug.amount,
+      0
+    );
+
+    return totalAmount.toFixed(2); // Convert the total to a fixed decimal format (e.g., 2 decimal places)
+  }
+
+  return "0.00"; // Return 0.00 if there are no drugs added
+};
+
+
 
     return (
         <Grid container spacing={1} sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '30px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
             <Grid item xs={9}>
                 <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Paper style={{ padding: "10px" }}>
+                    <Grid container spacing={1}>
                     <Grid item xs={6}>
-                        <Paper style={{ padding: "10px" }}>
                             <TextField size="small" label="Date" variant="standard" style={{ marginBottom: "5px" }}/>
                             <TextField size="small" label="Invoice no" variant="standard" />
-                        </Paper>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper style={{ padding: "10px" }}>
                             <TextField size="small" label="Patient's Name" variant="standard" style={{ marginBottom: "5px" }}/>
                             <TextField size="small" label="Doctor's Name" variant="standard"/>
-                        </Paper>
                     </Grid>
+                    </Grid>
+                    </Paper>
+                  </Grid>
                     <Grid item xs={12}>
                     <Paper style={{ padding: "10px" }}>
                         <Grid container spacing={1}>     
@@ -187,7 +204,9 @@ const handleAmountCalculation = () => {
                                 />
                             </Grid>
                             <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
-                                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={handleAddButton}>Add</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }}>Print</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px",marginLeft: "10px" }}>Save</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={handleAddButton}>Add</Button>
                                     <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }}>Clear</Button>
                             </Grid>
                             <Grid item xs={12}>
@@ -236,7 +255,15 @@ const handleAmountCalculation = () => {
                                 </Grid>
                                 <Grid item xs={3}>
                                     <TextField size="small" label="Discount" style={{ marginBottom: "10px" }} />
-                                    <TextField size="small" label="$Total" />
+                                    <TextField
+                                      size="small"
+                                      label="$Total"
+                                      value={calculateTotalAmount()} // Bind the value to the calculated total amount
+                                      // Optionally, you can add the following to make the field non-editable
+                                      InputProps={{
+                                      readOnly: true,
+                                    }}
+                                    />
                                 </Grid>
                                 <Grid item xs={3}>
                                     <TextField size="small" label="$Cash" style={{ marginBottom: "10px" }}/>
@@ -267,7 +294,7 @@ const handleAmountCalculation = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={{ maxHeight: 500 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
