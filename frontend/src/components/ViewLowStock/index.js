@@ -77,9 +77,9 @@ function ViewLowStock() {
               onChange={handleFilterChange}
             >
               <MenuItem value="">All</MenuItem>
-              <MenuItem value={1}>Small stock</MenuItem>
-              <MenuItem value={2}>Medium stock</MenuItem>
-              <MenuItem value={3}>Big stock</MenuItem>
+              <MenuItem value={1}>Essential meds</MenuItem>
+              <MenuItem value={2}>Standard Inventory</MenuItem>
+              <MenuItem value={3}>bulk supplies</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -91,14 +91,9 @@ function ViewLowStock() {
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
-                  <TableCell>Drug Type</TableCell>
-                  <TableCell>Unit Price(Rs)</TableCell>
-                  <TableCell>Selling Price(Rs)</TableCell>
-                  <TableCell>Quantity</TableCell>
                   <TableCell>Manufacture Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
-                  <TableCell>Total Ac Price(Rs)</TableCell>
-                  <TableCell>Total Sell Price(Rs)</TableCell>
+                  <TableCell>Quantity</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -110,14 +105,9 @@ function ViewLowStock() {
                       <TableCell>{item.prdct_id}</TableCell>
                       <TableCell>{item.prdct_name}</TableCell>
                       <TableCell>{item.brand_name}</TableCell>
-                      <TableCell>{item.med_type}</TableCell>
-                      <TableCell>{item.ac_price}</TableCell>
-                      <TableCell>{item.sell_price}</TableCell>
-                      <TableCell>{item.total_quantity}</TableCell>
                       <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                       <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                      <TableCell>{item.total_quantity_ac_price}</TableCell>
-                      <TableCell>{item.total_quantity_sell_price}</TableCell>
+                      <TableCell>{item.total_quantity}</TableCell>
                       </TableRow>
                   ))
               ) : (

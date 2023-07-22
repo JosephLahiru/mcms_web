@@ -463,9 +463,9 @@ function UpdateStock() {
               color="secondary"
               value={unitprice}
               error={unitpriceError}
-              helperText={unitpriceError ? 'Please enter a valid unit price' : ''}
+              helperText={unitpriceError ? 'Please enter a valid Purchased price' : ''}
               onChange={handleUnitPriceChange}
-              label="Unit Price"
+              label="Purchased Price"
             />
           </Grid>
           <Grid item xs={4}>

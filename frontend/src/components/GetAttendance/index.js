@@ -198,13 +198,24 @@ function GetAttendance() {
     return attendanceData.every((data) => data.attendance[date] !== undefined);
   };
 
+  const startOfWeek = selectedWeekStart.format('D MMMM YYYY');
+  const endOfWeek = selectedWeekStart.clone().add(6, 'day').format('D MMMM YYYY');
+
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography variant="h4">
+        <Grid item xs={5}>
+          <Typography variant="h4" marginTop={1} >
             Today, {currentDate.format('D MMMM YYYY')}
           </Typography>
+        </Grid>
+        <Grid item xs={6} marginTop={1} >
+          <Typography variant="h4" align="right">
+            {startOfWeek} - {endOfWeek}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <hr style={{ margin: '10px 0' }} />
         </Grid>
         <Grid item xs={12}>
           <TableContainer>
@@ -222,14 +233,18 @@ function GetAttendance() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" onClick={handlePreviousWeek}>
-            Previous Week
-          </Button>
-          <Button variant="contained" onClick={handleNextWeek}>
-            Next Week
-          </Button>
-        </Grid>            
+        <Grid item xs={12} container justifyContent="flex-end" spacing={1} >
+  <Grid item>
+    <Button variant="contained" onClick={handlePreviousWeek}>
+      Previous Week
+    </Button>
+  </Grid>
+  <Grid item>
+    <Button variant="contained" onClick={handleNextWeek}>
+      Next Week
+    </Button>
+  </Grid>
+</Grid>         
       </Grid>
       <ToastContainer />
     </Paper>
