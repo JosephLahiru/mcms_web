@@ -365,12 +365,12 @@ function AddAppointment2() {
             </Grid>
             <Grid container spacing={11}>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "495px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
                 Book Now
               </Button>
               </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
+              <Button variant="contained" size="medium" color="secondary"  sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
                 Cancel
               </Button>
               </Grid>
