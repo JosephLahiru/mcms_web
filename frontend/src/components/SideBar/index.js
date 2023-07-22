@@ -205,21 +205,44 @@ export default function Sidebar() {
               <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding onClick={() => (navigate("/view_doctors"))}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-                backgroundColor: location.pathname === '/view_doctors' ? '#e1f5fe' : 'transparent', // Highlight the active component
-              }}
-            >
+
+          {/* Doctor Management */}
+          <Accordion sx={{ margin: '0', borderRadius: '0' }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <ListItemIcon>
                 <Person4Icon />
               </ListItemIcon>
-              <ListItemText primary="Doctor Management" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+              <ListItemText primary="Doctor Management" />
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: '0' }}>
+              <List sx={{ paddingTop: 0 }}>
+                <ListItem disablePadding onClick={() => (navigate("/add_doctor"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/add_doctor' ? '#e1f5fe' : 'transparent',
+                    }}
+                  >
+                    <ListItemText primary="Add Doctor" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => (navigate("/view_doctors"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/view_doctors' ? '#e1f5fe' : 'transparent',
+                    }}
+                  >
+                    <ListItemText primary="View Doctor" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
         </List>
         <List>
         </List>

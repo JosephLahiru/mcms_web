@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "bootstrap/dist/css/bootstrap.css";
-import {
+import React, { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { 
   Grid,
   Paper,
   TextField,
@@ -12,22 +11,20 @@ import {
   Button,
 } from "@mui/material";
 
-function UpdateDoctor() {
-  const [doctorID, setDoctorID] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [firstNameError, setFirstNameError] = useState(false);
-  const [lastName, setLastName] = useState("");
-  const [lastNameError, setLastNameError] = useState(false);
-  const [nic, setNIC] = useState("");
-  const [nicError, setNICError] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [address, setAddress] = useState("");
-  const [addressError, setAddressError] = useState(false);
-  const [contactNo, setContactNo] = useState("");
-  const [contactNoError, setContactNoError] = useState(false);
-
-  const { id } = useParams();
+function AddDoctor() {
+    const [doctorID, setDoctorID] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastName, setLastName] = useState("");
+    const [lastNameError, setLastNameError] = useState(false);
+    const [nic, setNIC] = useState("");
+    const [nicError, setNICError] = useState(false);
+    const [email, setEmail] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [address, setAddress] = useState("");
+    const [addressError, setAddressError] = useState(false);
+    const [contactNo, setContactNo] = useState("");
+    const [contactNoError, setContactNoError] = useState(false);
 
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
@@ -91,7 +88,7 @@ function UpdateDoctor() {
     } else {
       setEmailError("");
     }
-  };
+  };  
 
   const handleAddressChange = (event) => {
     const value = event.target.value;
@@ -125,79 +122,52 @@ function UpdateDoctor() {
     }
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
-      d_id: doctorID,
-      first_name: firstName,
-      last_name: lastName,
-      nic: nic,
-      email: email,
-      address: address,
-      contact_no: contactNo,
-    };
+        d_id: doctorID,
+        first_name: firstName,
+        last_name: lastName,
+        nic: nic,
+        email: email,
+        address: address,
+        contact_no: contactNo,
+      };
 
     if(!firstNameError && !lastNameError && !nicError && !addressError && doctorID && firstName && lastName && nic && address && email){
-    try{
-      const response = await fetch(`https://mcms_api.mtron.me/update_doctor/${data.d_id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      
-      if(response.ok){
-        toast.success("Doctor updated successfully", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        handleReset();
-      }else{
-        toast.error("Failed to update doctor", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-    }catch(error){
-      console.error(error);
-      toast.error("An error occured while updating doctor", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  } else {
-    toast.error("Please fill all the fields", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  }
-  };
-
-  useEffect(() => {
-    async function getDoctor() {
       try {
-        const response = await fetch(`https://mcms_api.mtron.me/get_doctors/${id}`);
-        const data = await response.json();
-
-        if (data.length > 0) {
-          const doctor = data[0];
-          setDoctorID(doctor.d_id);
-          setFirstName(doctor.first_name);
-          setLastName(doctor.last_name);
-          setNIC(doctor.nic);
-          setEmail(doctor.email);
-          setAddress(doctor.address);
-          setContactNo(doctor.contact_no);
+        const response = await fetch("https://mcms_api.mtron.me/set_doctor", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (response.ok) {
+          toast.success("Doctor data saved successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          handleReset();
         } else {
-          toast.error("Doctor not found", { position: toast.POSITION.TOP_RIGHT });
+          toast.error("Failed to save doctor data", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
         }
       } catch (error) {
         console.error(error);
-        toast.error("Failed to fetch doctor details", { position: toast.POSITION.TOP_RIGHT });
+        toast.error("An error occurred while saving the doctor data", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
+    } else {
+      toast.error("Please fill all the fields", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
+  };
 
-    getDoctor();
-  }, [id]);
 
   const handleReset = () => {
     setDoctorID("");
@@ -208,22 +178,15 @@ function UpdateDoctor() {
     setAddress("");
     setContactNo("");
   };
+  
 
   return (
-    <Paper
-      sx={{
-        width: "50%",
-        overflow: "hidden",
-        padding: "10px",
-        margin: "5% auto",
-        backgroundColor: '#f5f5f5'
-      }}
-    >
+      <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto auto', backgroundColor: '#f5f5f5' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom sx={{ margin:'10px 0px 15px' }} >
-            Update Doctor
+            Add Doctor
           </Typography>
             <hr style={{ margin: '10px 0' }} />
           </Grid>
@@ -235,7 +198,6 @@ function UpdateDoctor() {
               onChange={(event) => {setDoctorID(event.target.value);}}
               label="Doctor ID"
               required
-              disabled
             />
           </Grid>
           <Grid item xs={6}>
@@ -335,4 +297,4 @@ function UpdateDoctor() {
   );
 }
 
-export default UpdateDoctor;
+export default AddDoctor;
