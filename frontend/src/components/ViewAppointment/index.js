@@ -155,7 +155,7 @@ function ViewAppointment() {
 
   const handleConfirmAppointment = (item) => {
 
-    console.log("hello  ")
+    console.log()
 
     const {age, app_id, app_date, app_num, cd_id, mobile, nic, gender, patient_name} = item;
 
@@ -163,7 +163,7 @@ function ViewAppointment() {
     const appointmentNumber = app_num;
     const patientName = patient_name;
 
-    console.log("hello  2")
+    console.log()
 
      const { doctorName, doctorType } = getDoctorInfo(cd_id);
     navigate(`/confirm_appointment/${app_id}`, {
@@ -180,7 +180,7 @@ function ViewAppointment() {
       },
     });
 
-    console.log("hello  3")
+    console.log()
   };
 
   const handleInputChange = (event) => {
