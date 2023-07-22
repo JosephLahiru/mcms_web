@@ -37,6 +37,7 @@ import PrivateRoute from './scripts/privateRoute';
 import LoginRoute from './scripts/loginRoute';
 import GenerateBillNew from './components/GenerateBillNew';
 import ViewStockForBill from './components/ViewStockForBill';
+import AppointmentCounter from './components/AppointmentCounter';
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/login'];
 
@@ -208,6 +209,10 @@ function App() {
 
         <Route path="/add_doctor" element={<PrivateRoute/>}>
           <Route index element={<AddDoctor />}/>
+        </Route>
+
+        <Route path="/app_counter" element={<PrivateRoute/>}>
+          <Route index element={<AppointmentCounter />}/>
         </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
