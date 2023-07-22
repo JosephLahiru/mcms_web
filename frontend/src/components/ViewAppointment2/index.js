@@ -334,6 +334,7 @@ useEffect(() => {
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey",fontSize: '17px' } }}>
                   <TableCell>Appointment Id</TableCell>
                   <TableCell>Appointment Number</TableCell>
+                  <TableCell>Patient Title</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Mobile</TableCell>
