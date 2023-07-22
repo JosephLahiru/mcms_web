@@ -35,9 +35,7 @@ function AddAppointment2() {
   const location = useLocation();
   const navigate = useNavigate();
   const [appointmentId, setAppointmentID] = useState("");
-  const [titleTypes, setTitleTypes] = useState([]);
-  const [selectedTitleType,setselectedTitleType]= useState("");
-  
+ 
   
   useEffect(() => {
     async function fetchAppointmentID() {
@@ -236,20 +234,6 @@ function AddAppointment2() {
     }
   };
 
-  useEffect(() => {
-    async function getTitleTypes() {
-      try {
-        const response = await fetch('https://mcms_api.mtron.me/get_personal_titles');
-        const data = await response.json();
-        setTitleTypes(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getTitleTypes();
-  }, []);
-
-
 
   return (
     <Grid container spacing={2}>
@@ -305,30 +289,22 @@ function AddAppointment2() {
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: "1200px", height: 470, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Grid container spacing={1}>
-          <Grid item xs={12} sm={12} container spacing={10}> 
-          <Grid item xs={4} sx={{ display: "flex", justifyContent: "right" }}>
-          <FormControl fullWidth>
-                  <InputLabel id="select-doctor" color="secondary">
-                    SELECT A Title
+          <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
+              <FormControl fullWidth>
+                  <InputLabel id="select-doctor" color="secondary"  sx={{ marginLeft: '60px' }}>
+                    Select a Title
                   </InputLabel>
                   <Select
                     labelId="select-title"
                     id="select-title"
                     color="secondary"
-                    value={patientTitles}
-                    onChange={handleOptionChange}
-                    sx={{ width: '500px' }}
-                    label="SELECT A TITLE"
-                  >
-                    {patientTitles.map((title) => (
-                      <MenuItem key={title} value={title}>
-                        {title}
-                      </MenuItem>
-                    ))}
+                    sx={{ width: '200px',marginLeft: '60px' }}
+                    label="SELECT A TITLE">
                   </Select>
                 </FormControl>
-          </Grid>
-          <Grid item xs={8} sx={{ display: "flex", justifyContent: "left",margingRight: "10px" }}>
+              </Grid>
+              <Grid item xs={9.5} sx={{ display: "flex", justifyContent: "left"  }}>
               <TextField
                 id="patient-name"
                 label="Patient Name"
@@ -338,9 +314,9 @@ function AddAppointment2() {
                 color="secondary"
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
-                sx={{ width: "90%", marginBottom: "20px"}}
+                sx={{ width: "90%", marginBottom: "20px",marginLeft: "40px"}}
               />
-            </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={12} container spacing={8}>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
