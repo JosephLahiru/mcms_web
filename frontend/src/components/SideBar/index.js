@@ -171,7 +171,7 @@ export default function Sidebar() {
                       backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
                     }}
                   >
-                    <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
                 {/* Add more components for the "Appointments" category */}
