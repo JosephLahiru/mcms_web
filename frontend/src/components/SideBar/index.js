@@ -174,19 +174,6 @@ export default function Sidebar() {
                     <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
-                {/* Add more components for the "Appointments" category */}
-                <ListItem disablePadding onClick={() => (navigate("/appointments_history"))}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                      backgroundColor: location.pathname === '/appointments_history' ? '#e1f5fe' : 'transparent', // Highlight the active component
-                    }}
-                  >
-                    <ListItemText primary="Appointments History" sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
               </List>
             </AccordionDetails>
           </Accordion>
