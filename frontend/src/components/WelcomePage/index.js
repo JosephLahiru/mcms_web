@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ProfitData from "../DashboardSections/ProfitData";
 import AppWidgetSummary from "../DashboardSections/AppWidgetSummary";
 
@@ -46,19 +50,19 @@ function WelcomePage() {
     <PageContainer maxWidth="lg" style={{ marginBottom: '10px' }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Weekly Sales" total={250} icon={'ant-design:android-filled'} />
+          <AppWidgetSummary title="Weekly Sales" total={250} icon={ShoppingCartIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Weekly Appoinments" total={100} color="info" icon={'ant-design:apple-filled'} />
+          <AppWidgetSummary title="Weekly Appoinments" total={100} color="info" icon={EventNoteIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Total Medicine Sold" total={1200} color="warning" icon={'ant-design:windows-filled'} />
+          <AppWidgetSummary title="Total Medicine Sold" total={1200} color="warning" icon={HealthAndSafetyIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Profit of the Month" total={10000} color="error" icon={'ant-design:bug-filled'} />
+          <AppWidgetSummary title="Profit of the Month" total={10000} color="error" icon={AttachMoneyIcon} />
         </Grid>
         <Grid item xs={12} md={12} lg={12}> 
           <ProfitData
