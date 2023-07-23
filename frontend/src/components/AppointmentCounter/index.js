@@ -8,7 +8,7 @@ const AppointmentCounter = () => {
   const [appointmentNumber, setAppointmentNumber] = useState(1);
 
   const updateAppointmentNumberOnServer = (newAppointmentNumber) => {
-    fetch(`https://mcms_api.me/set_app_no/${newAppointmentNumber}`, {
+    fetch(`https://mcms_api.mtron.me/set_app_no/${newAppointmentNumber}`, {
       method: 'POST', // Or 'PUT' depending on your API
       headers: {
         'Content-Type': 'application/json',
