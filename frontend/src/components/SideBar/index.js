@@ -177,7 +177,7 @@ export default function Sidebar() {
               </List>
             </AccordionDetails>
           </Accordion>
-          <ListItem disablePadding onClick={() => (navigate("/generate_bill"))}>
+          <ListItem disablePadding onClick={() => (navigate("/generate_bill_new"))}>
             <ListItemButton
               sx={{
                 minHeight: 48,
