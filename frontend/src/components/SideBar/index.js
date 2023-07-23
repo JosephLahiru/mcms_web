@@ -183,7 +183,7 @@ export default function Sidebar() {
                 minHeight: 48,
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
-                backgroundColor: location.pathname === '/generate_bill' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent', // Highlight the active component
               }}
             >
               <ListItemIcon>
