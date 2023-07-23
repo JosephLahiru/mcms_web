@@ -171,20 +171,7 @@ export default function Sidebar() {
                       backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
                     }}
                   >
-                    <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
-                {/* Add more components for the "Appointments" category */}
-                <ListItem disablePadding onClick={() => (navigate("/appointments_history"))}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                      backgroundColor: location.pathname === '/appointments_history' ? '#e1f5fe' : 'transparent', // Highlight the active component
-                    }}
-                  >
-                    <ListItemText primary="Appointments History" sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -196,7 +183,7 @@ export default function Sidebar() {
                 minHeight: 48,
                 justifyContent: open ? 'initial' : 'center',
                 px: 2.5,
-                backgroundColor: location.pathname === '/generate_bill' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent', // Highlight the active component
               }}
             >
               <ListItemIcon>
