@@ -1,5 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal,} from "@mui/material";
+import { Grid, 
+  Box, 
+  Typography, 
+  TextField, 
+  RadioGroup, 
+  FormControlLabel, 
+  Radio, 
+  Button, 
+  Modal,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +31,7 @@ function UpdateAppointment() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [patientTitle, setPatientTitle] = useState('');
 
   const { id } = useParams();
 
@@ -176,6 +190,16 @@ function UpdateAppointment() {
     }
   };
 
+  const handleOptionChange = (event) => {
+    // const selectedDoctor = event.target.value;
+    // const [doctorName, doctorID] = selectedDoctor.split(',');
+    // setAppointmentDoctor(doctorName);
+
+    // if (selectedDoctor) {
+    //   navigate('/add_appointment1', { state: { selectedDoctor: doctorName, selectedDoctorID: doctorID } });
+    // }
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -220,7 +244,22 @@ function UpdateAppointment() {
           <Typography component="div" sx={{ color: "purple", fontWeight: "bold", paddingTop: "5px", paddingBottom: "5px", textAlign: "center", fontSize: "30px" }}>
             Patient Information
           </Typography>
-            <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
+              <FormControl fullWidth>
+                  <InputLabel id="select-doctor" color="secondary"  sx={{ marginLeft: '57px' }}>
+                    Select a Title
+                  </InputLabel>
+                  <Select
+                    labelId="select-title"
+                    id="select-title"
+                    color="secondary"
+                    sx={{ width: '200px',marginLeft: '57px' }}
+                    label="SELECT A TITLE">
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={9.5} sx={{ display: "flex", justifyContent: "left"  }}>
               <TextField
                 id="patient-name"
                 label="Patient Name"
@@ -230,8 +269,9 @@ function UpdateAppointment() {
                 color="secondary"
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
-                sx={{ width: "90%", marginBottom: "20px"}}
+                sx={{ width: "90%", marginBottom: "20px",marginLeft: "35px"}}
               />
+              </Grid>
             </Grid>
           <Grid item xs={12} sm={12} container spacing={8}>
             <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
