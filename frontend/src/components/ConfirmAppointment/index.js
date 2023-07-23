@@ -203,7 +203,7 @@ function ConfirmAppointment() {
           <Box sx={{ width: "600px", height: 80, backgroundColor: '#FFFFFF',marginLeft: "550px",borderRadius: "10px",}}>
             <Alert severity="info" sx={{alignItems: 'center'}}>
                     <AlertTitle >Info</AlertTitle>
-                      his appointment is not paid yet — <strong> Now you can pay it!</strong>
+                      This appointment is not paid yet — <strong> Now you can pay it!</strong>
             </Alert> 
           </Box>  
         </Grid>
@@ -246,7 +246,7 @@ function ConfirmAppointment() {
           <span style={{ fontWeight: 'bold', color: '#616161' ,fontSize: '18px'}}>Appointment Date: </span>{appointmentDate.slice(0, 15)}
           </Typography>
           <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px' }}>
-            Appointment Information
+            Patient Information
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }} >
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Name: </span>{patientName}

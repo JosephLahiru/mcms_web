@@ -38,7 +38,7 @@ function ViewAppointment1() {
   const [appointment, setAppointment] = useState([]);
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("");
+  const [filterOption, setFilterOption] = useState("Appointment Name");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
@@ -126,28 +126,29 @@ const handleModalClose = () => {
   useEffect(() => {
     let results;
     switch (filterOption) {
+      case "Appointment Name":
+        if (searchTerm.length >= 1) {
+          results = appointment.filter((item) => String(item.patient_name).includes(searchTerm));
+        } else {
+          results = appointment;
+        }
+        break;
       case "Appointment Number":
         if (searchTerm.length >= 1) {
-          results = appointment.filter((item) => 
-            String(item.app_num).includes(searchTerm)
-          );
+          results = appointment.filter((item) => String(item.app_num).includes(searchTerm));
         } else {
           results = appointment;
         }
         break;
       case "Appointment Date":
         if (searchTerm.length >= 3) {
-          results = appointment.filter((item) =>
-            item.app_date.includes(searchTerm) 
-          );
+          results = appointment.filter((item) => item.app_date.includes(searchTerm));
         } else {
           results = appointment;
         }
         break;
-      case "Mobile":
-        results = appointment.filter((item) =>
-          String(item.mobile).includes(searchTerm)
-        );
+      case "Appointment Id":
+        results = appointment.filter((item) => String(item.app_id).includes(searchTerm));
         break;
       default:
         results = appointment;
@@ -306,18 +307,20 @@ const handleModalClose = () => {
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
           <FormControl sx={{ m: 2, minWidth: 120 }}>
-            <InputLabel id="filterSelectLabel">Filter by</InputLabel>
+            <InputLabel id="filterSelectLabel" color="secondary">Filter by</InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
               size="small"
+              color="secondary"
               value={filterOption}
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="Appointment Number">Appointment Number</MenuItem>
-              <MenuItem value="Appointment Date">Appointment Date</MenuItem>
-              <MenuItem value="Mobile">Mobile</MenuItem>
+                <MenuItem value="Appointment Name" >Appointment Name</MenuItem>
+                <MenuItem value="Appointment Number">Appointment Number</MenuItem>
+                <MenuItem value="Appointment Date">Appointment Date</MenuItem>
+                <MenuItem value="Appointment Id">Appointment Id</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -325,6 +328,7 @@ const handleModalClose = () => {
           <TextField
             id="outlined-size-small"
             size="small"
+            color="secondary"
             value={searchTerm}
             onChange={handleInputChange}
             label={`Search by ${filterOption}...`}
@@ -339,6 +343,7 @@ const handleModalClose = () => {
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" ,fontSize: '17px'} }}>
                   <TableCell>Appointment Id</TableCell>
                   <TableCell>Appointment Number</TableCell>
+                  <TableCell>Patient Title</TableCell>
                   <TableCell>Patient Name</TableCell>
                   <TableCell>Age</TableCell>
                   <TableCell>Mobile</TableCell>
@@ -360,6 +365,7 @@ const handleModalClose = () => {
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num.toString().padStart(2, "0")}</TableCell>
+                        <TableCell>{item.title_id}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.mobile}</TableCell>

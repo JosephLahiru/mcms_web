@@ -11,7 +11,9 @@ import {
   TableRow,
   TableCell,
   Button,
+  IconButton,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppstore } from './../../appStore';
 
 
@@ -26,6 +28,9 @@ function GenerateBillNew() {
   const [selectedExpiry, setSelectedExpiry] = useState("");
   const [quantity, setQuantity] = useState("");
   const [addedDrugs, setAddedDrugs] = useState([]);
+  const [doctorCharges, setDoctorCharges] = useState("");
+  const [otherCharges, setOtherCharges] = useState("");
+  const [cashAmount, setCashAmount] = useState("");
 
 
 
@@ -118,26 +123,107 @@ const handleAmountCalculation = () => {
     // Reset the quantity and selectedDrugName states for the next entry
     setQuantity("");
     setSelectedDrugName("");
+    setSelectedUnitPrice("");
   }
 };
+
+const handleDeleteRow = (index) => {
+  // Create a copy of the addedDrugs array
+  const updatedAddedDrugs = [...addedDrugs];
+
+  // Remove the drug at the specified index from the array
+  updatedAddedDrugs.splice(index, 1);
+
+  // Update the addedDrugs state with the updated array
+  setAddedDrugs(updatedAddedDrugs);
+};
+
+const handleClearButton = () => {
+  // Reset all relevant states to their initial values
+  setAddedDrugs([]);
+  setQuantity("");
+  setSelectedDrugName("");
+  setSelectedUnitPrice("");
+  setSelectedExpiry("");
+  setDoctorCharges("");
+  setOtherCharges("");
+};
+
+
+const calculateTotalAmount = () => {
+  if (addedDrugs.length > 0) {
+    // Use the reduce function to calculate the total amount
+    const totalAmount = addedDrugs.reduce(
+      (accumulator, currentDrug) => accumulator + currentDrug.amount,
+      0
+    );
+
+    // Add the doctor charges and other charges to the total amount if they are valid numbers
+    const parsedDoctorCharges = parseFloat(doctorCharges);
+    const parsedOtherCharges = parseFloat(otherCharges);
+
+    let total = totalAmount;
+
+    if (!isNaN(parsedDoctorCharges)) {
+      total += parsedDoctorCharges;
+    }
+
+    if (!isNaN(parsedOtherCharges)) {
+      total += parsedOtherCharges;
+    }
+
+    return total.toFixed(2);
+  }
+
+  // Include the doctor charges and other charges in the total amount if they are valid numbers
+  const parsedDoctorCharges = parseFloat(doctorCharges);
+  const parsedOtherCharges = parseFloat(otherCharges);
+
+  let total = 0;
+
+  if (!isNaN(parsedDoctorCharges)) {
+    total += parsedDoctorCharges;
+  }
+
+  if (!isNaN(parsedOtherCharges)) {
+    total += parsedOtherCharges;
+  }
+
+  return total.toFixed(2);
+};
+
+const calculateBalance = () => {
+  const totalAmount = parseFloat(calculateTotalAmount());
+  const parsedCashAmount = parseFloat(cashAmount);
+
+  if (!isNaN(parsedCashAmount)) {
+    const balance = (parsedCashAmount - totalAmount).toFixed(2);
+    return balance >= 0 ? balance : "0.00"; // Ensure the balance is not negative
+  }
+
+  return "0.00"; // Return 0.00 if the cash amount is not a valid number
+};
+
 
 
     return (
         <Grid container spacing={1} sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '30px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
             <Grid item xs={9}>
                 <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Paper style={{ padding: "10px" }}>
+                    <Grid container spacing={1}>
                     <Grid item xs={6}>
-                        <Paper style={{ padding: "10px" }}>
                             <TextField size="small" label="Date" variant="standard" style={{ marginBottom: "5px" }}/>
                             <TextField size="small" label="Invoice no" variant="standard" />
-                        </Paper>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper style={{ padding: "10px" }}>
                             <TextField size="small" label="Patient's Name" variant="standard" style={{ marginBottom: "5px" }}/>
                             <TextField size="small" label="Doctor's Name" variant="standard"/>
-                        </Paper>
                     </Grid>
+                    </Grid>
+                    </Paper>
+                  </Grid>
                     <Grid item xs={12}>
                     <Paper style={{ padding: "10px" }}>
                         <Grid container spacing={1}>     
@@ -187,8 +273,10 @@ const handleAmountCalculation = () => {
                                 />
                             </Grid>
                             <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
-                                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }} onClick={handleAddButton}>Add</Button>
-                                    <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }}>Clear</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px" }}>Print</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px",marginLeft: "10px" }}>Save</Button>
+                                    <Button variant="contained" color="primary" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={handleAddButton}>Add</Button>
+                                    <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={handleClearButton} >Clear</Button>
                             </Grid>
                             <Grid item xs={12}>
                             <TableContainer sx={{ maxHeight: 200, minHeight: 200 }} md={{ minWidth: 650 }} sm={{ minWidth: 650 }}>
@@ -201,20 +289,30 @@ const handleAmountCalculation = () => {
                                         <TableCell>U/P</TableCell>
                                         <TableCell>Discount</TableCell>
                                         <TableCell>Amount</TableCell>
-                                                {/* Add more TableCell components for additional columns */}
+                                        <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                 {addedDrugs.length > 0 ? (
                                 addedDrugs.map((drug, index) => (
                                   <TableRow key={index}>
-                                    <TableCell>{drug.product}</TableCell>
-                                    <TableCell>{drug.expiry.slice(0, 10)}</TableCell>
-                                    <TableCell>{drug.quantity}</TableCell>
-                                    <TableCell>{drug.unitPrice}</TableCell>
-                                    <TableCell>{drug.discount}</TableCell>
-                                    <TableCell>{drug.amount.toFixed(2)}</TableCell>
-                                    {/* Add more TableCell components for additional columns */}
+                                    <TableCell style={{ padding: "5px" }}>{drug.product}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.expiry.slice(0, 10)}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.quantity}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.unitPrice}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.discount}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>{drug.amount.toFixed(2)}</TableCell>
+                                    <TableCell style={{ padding: "5px" }}>
+                                      <IconButton
+                                        aria-label="delete"
+                                        variant="outlined"
+                                        size="small"
+                                        onClick={() => handleDeleteRow(index)}
+                                      >
+                                      <DeleteIcon />
+                                      </IconButton>
+
+                                    </TableCell>
                                   </TableRow>
                                 ))
                               ) : (
@@ -233,14 +331,35 @@ const handleAmountCalculation = () => {
                         <Paper style={{ padding: "10px" }}>
                             <Grid container spacing={1}>
                                 <Grid item xs={6}>
+                                <TextField
+                                  size="small"
+                                  label="Dr/charges"
+                                  style={{ marginBottom: "10px" }}
+                                  value={doctorCharges}
+                                  onChange={(e) => setDoctorCharges(e.target.value)}
+                                />
+                                  <TextField
+                                    size="small"
+                                    label="Other Charges"
+                                    style={{ marginBottom: "10px" }}
+                                    value={otherCharges}
+                                    onChange={(e) => setOtherCharges(e.target.value)}
+                                  />
                                 </Grid>
                                 <Grid item xs={3}>
                                     <TextField size="small" label="Discount" style={{ marginBottom: "10px" }} />
-                                    <TextField size="small" label="$Total" />
+                                    <TextField
+                                      size="small"
+                                      label="$Total"
+                                      value={calculateTotalAmount()}
+                                      InputProps={{
+                                      readOnly: true,
+                                    }}
+                                    />
                                 </Grid>
                                 <Grid item xs={3}>
-                                    <TextField size="small" label="$Cash" style={{ marginBottom: "10px" }}/>
-                                    <TextField size="small" label="BAL" />
+                                    <TextField size="small" label="$Cash" value={cashAmount} onChange={(e) => setCashAmount(e.target.value)} style={{ marginBottom: "10px" }}/>
+                                    <TextField size="small" label="BAL" value={calculateBalance()}  InputProps={{ readOnly: true, }}/>
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -267,13 +386,13 @@ const handleAmountCalculation = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={{ maxHeight: 500 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
                   <TableCell style={{ padding: "4px" }}>P/ID</TableCell>
                   <TableCell
-                    style={{ padding: "4px", cursor: "pointer" }}
+                    style={{ padding: "5px", cursor: "pointer" }}
                     onClick={handleSort}
                   >
                     Product Name
@@ -284,10 +403,10 @@ const handleAmountCalculation = () => {
                 {rows.length > 0 ? (
                   rows.map((item) => (
                     <TableRow hover role="checkbox" key={item.prdct_id} onClick={() => handleRowClick(item)}>  
-                      <TableCell style={{ padding: "4px" }}>
+                      <TableCell style={{ padding: "5px" }}>
                         {item.prdct_id}
                       </TableCell>
-                      <TableCell style={{ padding: "4px" }}>
+                      <TableCell style={{ padding: "5px" }}>
                         {item.prdct_name}
                       </TableCell>
                     </TableRow>

@@ -10,6 +10,10 @@ import {
   FormControlLabel,
   RadioGroup,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 
 } from "@mui/material";
 import { toast } from "react-toastify";
@@ -31,6 +35,11 @@ function AddAppointment2() {
   const location = useLocation();
   const navigate = useNavigate();
   const [appointmentId, setAppointmentID] = useState("");
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedTitleId, setSelectedTitleId] = useState("");
+  const [titles, setTitles] = useState([]);
+
+ 
   
   useEffect(() => {
     async function fetchAppointmentID() {
@@ -138,6 +147,11 @@ function AddAppointment2() {
       }
     }
     
+    if (!selectedTitle) {
+      errors.selectedTitle = "Please select a title";
+      formIsValid = false;
+    }
+
 
     setValidationErrors(errors);
     return formIsValid;
@@ -164,7 +178,8 @@ function AddAppointment2() {
       !nic ||
       !appointmentNumber ||
       !appointmentDoctorID ||
-      !appointmentDate
+      !appointmentDate ||
+      !selectedTitleId
     ) {
       toast.error("Please fill all the fields...", {
         position: toast.POSITION.TOP_RIGHT,
@@ -190,6 +205,7 @@ function AddAppointment2() {
       app_num: appointmentNumber,
       cd_id: appointmentDoctorID,
       app_date: convertedDate,
+      title_id: selectedTitleId,
     };
 
     console.log(requestBody);
@@ -220,6 +236,7 @@ function AddAppointment2() {
           mobile,
           gender,
           nic,
+          selectedTitle,
         },
       });
       
@@ -228,6 +245,28 @@ function AddAppointment2() {
       alert("Failed to send appointment details");
     }
   };
+
+  useEffect(() => {
+    async function fetchTitles() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_personal_titles");
+        if (!response.ok) {
+          throw new Error("Failed to fetch titles from the API");
+        }
+        const data = await response.json();
+        setTitles(data); 
+
+        const selectedTitleObject = data.find((title) => title.title_type === selectedTitle);
+        if (selectedTitleObject) {
+          setSelectedTitleId(selectedTitleObject.title_id);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchTitles();
+  }, [selectedTitle]);
 
   return (
     <Grid container spacing={2}>
@@ -283,7 +322,35 @@ function AddAppointment2() {
       <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: "1200px", height: 470, backgroundColor: "#f5f5f5", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Grid container spacing={1}>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid item xs={12} sm={12} container spacing={8}>
+              <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
+              <FormControl fullWidth error={!!validationErrors.selectedTitle}>
+                  <InputLabel id="select-title" color="secondary"  sx={{ marginLeft: '60px' }}>
+                    Select a Title
+                  </InputLabel>
+                  <Select
+                    labelId="select-title"
+                    id="select-title"
+                    color="secondary"
+                    value={selectedTitle}
+                    onChange={(event) => setSelectedTitle(event.target.value)}
+                    sx={{ width: '200px',marginLeft: '60px' }}
+                    label="SELECT A TITLE">
+                    <MenuItem value="">Select a Title</MenuItem>
+                        {titles.map((title) => (
+                          <MenuItem key={title.id} value={title.title_type}>
+                            {title.title_type}
+                          </MenuItem>
+                        ))}   
+                      </Select>
+                      {validationErrors.selectedTitle && (
+                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px" }}>
+                        {validationErrors.selectedTitle}
+                      </Typography>
+                    )}  
+                </FormControl>
+              </Grid>
+              <Grid item xs={9.5} sx={{ display: "flex", justifyContent: "left"  }}>
               <TextField
                 id="patient-name"
                 label="Patient Name"
@@ -293,8 +360,9 @@ function AddAppointment2() {
                 color="secondary"
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
-                sx={{ width: "90%", marginBottom: "20px"}}
+                sx={{ width: "90%", marginBottom: "20px",marginLeft: "40px"}}
               />
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={12} container spacing={8}>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" }}>
@@ -365,12 +433,12 @@ function AddAppointment2() {
             </Grid>
             <Grid container spacing={11}>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "right" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
+              <Button variant="contained" size="medium" color="secondary" sx={{ width: "495px", height: "50px", fontSize: "24px" }} onClick={handleBOOKNOW}>
                 Book Now
               </Button>
               </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" ,marginTop: "10px"}}>
-              <Button variant="contained" size="medium" color="secondary" sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
+              <Button variant="contained" size="medium" color="secondary"  sx={{ width: "500px", height: "50px", fontSize: "24px" }} onClick={handlecancel}>
                 Cancel
               </Button>
               </Grid>
