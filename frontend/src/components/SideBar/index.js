@@ -225,6 +225,21 @@ export default function Sidebar() {
               </List>
             </AccordionDetails>
           </Accordion>
+          <ListItem disablePadding onClick={() => (navigate("/generate_bill_new"))}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent', // Highlight the active component
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+              <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
 
           {/* ... Add more categories and components here ... */}
 

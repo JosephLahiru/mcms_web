@@ -36,9 +36,9 @@ function AddAppointment2() {
   const navigate = useNavigate();
   const [appointmentId, setAppointmentID] = useState("");
   const [selectedTitle, setSelectedTitle] = useState("");
+  const [selectedTitleId, setSelectedTitleId] = useState("");
   const [titles, setTitles] = useState([]);
 
- 
  
   
   useEffect(() => {
@@ -178,7 +178,8 @@ function AddAppointment2() {
       !nic ||
       !appointmentNumber ||
       !appointmentDoctorID ||
-      !appointmentDate
+      !appointmentDate ||
+      !selectedTitleId
     ) {
       toast.error("Please fill all the fields...", {
         position: toast.POSITION.TOP_RIGHT,
@@ -204,6 +205,7 @@ function AddAppointment2() {
       app_num: appointmentNumber,
       cd_id: appointmentDoctorID,
       app_date: convertedDate,
+      title_id: selectedTitleId,
     };
 
     console.log(requestBody);
@@ -234,6 +236,7 @@ function AddAppointment2() {
           mobile,
           gender,
           nic,
+          selectedTitle,
         },
       });
       
@@ -251,15 +254,19 @@ function AddAppointment2() {
           throw new Error("Failed to fetch titles from the API");
         }
         const data = await response.json();
-        setTitles(data); // Assuming the API response is an array of title objects
+        setTitles(data); 
+
+        const selectedTitleObject = data.find((title) => title.title_type === selectedTitle);
+        if (selectedTitleObject) {
+          setSelectedTitleId(selectedTitleObject.title_id);
+        }
       } catch (error) {
         console.error(error);
-        // Handle any errors that occur during fetching
       }
     }
 
     fetchTitles();
-  }, []);
+  }, [selectedTitle]);
 
   return (
     <Grid container spacing={2}>
@@ -337,7 +344,7 @@ function AddAppointment2() {
                         ))}   
                       </Select>
                       {validationErrors.selectedTitle && (
-                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px" }}>
+                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px" }}>
                         {validationErrors.selectedTitle}
                       </Typography>
                     )}  
