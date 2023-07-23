@@ -1,87 +1,63 @@
-import React from "react";
-import { Typography, Container, Grid, Paper, Avatar } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import devteam from "./../../images/dev-team.jpg";
-import { ProfitData } from '../DashboardSections';
+import ProfitData from "../DashboardSections/ProfitData";
+import { AppWidgetSummary } from "../DashboardSections";
 
-const PageContainer = styled(Container)(({ theme }) => ({
-  paddingTop: theme.spacing(4),
-}));
-
-const ContentContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(3),
-  marginTop: theme.spacing(4),
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-}));
-
-const AvatarImage = styled(Avatar)(({ theme }) => ({
-  width: theme.spacing(10),
-  height: theme.spacing(10),
-  marginBottom: theme.spacing(2),
-}));
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 const today = new Date();
-const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-console.log(date);
+const date = formatDate(today);
+
+const PageContainer = styled(Container)(({ theme }) => ({
+  paddingTop: theme.spacing(10),
+}));
 
 function WelcomePage() {
-  return (
-    <PageContainer maxWidth="md">
-      <ContentContainer>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Welcome to the Medical Center Management System
-        </Typography>
-        <Typography variant="body1" paragraph>
-          The Medical Center Management System is a web-based application that
-          helps medical centers streamline their operations and manage various
-          aspects of their day-to-day tasks efficiently.
-        </Typography>
-        <Typography variant="body1" paragraph>
-          With this system, medical centers can manage patient records,
-          appointments, inventory, billing, and more. It provides a user-friendly
-          interface and powerful features to enhance the overall management and
-          organization of the medical center.
-        </Typography>
-        <Typography variant="h6" gutterBottom>
-          Developer's Message
-        </Typography>
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid item>
-            <AvatarImage
-              alt="Developer Team"
-              src={devteam}
-            />
-          </Grid>
-          <Grid item>
-            <Typography variant="body1" paragraph>
-              We, the developer team of the Medical Center Management System,
-              are dedicated to providing a comprehensive and efficient solution
-              to medical centers. Our goal is to simplify the management
-              processes and improve the overall experience for both medical
-              staff and patients. We hope this system will streamline your
-              operations and contribute to better patient care.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              Thank you for choosing the Medical Center Management System. If
-              you have any questions or need assistance, please feel free to
-              reach out to our support team.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              Best regards,
-              <br />
-              Developer Team
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid>
-            <ProfitData title="Daily Profit" apiUrl={`https://mcms_api.mtron.me/delete_appointment/${date}`} />
-        </Grid>
-      </ContentContainer>
+  const [state, setState] = useState({
+    data: null,
+    isLoading: true,
+  });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(
+        `https://mcms_api.mtron.me/get_profit/${date}`,
+      );
+      const data = await result.json();
+      setState({
+        data,
+        isLoading: false,
+      });
+    };
+    fetchData();
+  }, []);
+
+  if (state.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <PageContainer maxWidth="lg" style={{ marginBottom: '10px' }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={12} lg={12}> 
+          <ProfitData
+            title="Financial Revenue Data"
+            subheader={date}
+            data={state.data}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <AppWidgetSummary title="Selling Cost Free Med" total={state.data[0].selling_cost_free_med} icon="ic:baseline-monetization-on" />
+        </Grid>
+      </Grid>
     </PageContainer>
   );
 }
 
-export default WelcomePage;
+export default React.memo(WelcomePage);
