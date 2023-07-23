@@ -9,7 +9,7 @@ const AppointmentCounter = () => {
 
   const updateAppointmentNumberOnServer = (newAppointmentNumber) => {
     fetch(`https://mcms_api.mtron.me/set_app_no/${newAppointmentNumber}`, {
-      method: 'POST', // Or 'PUT' depending on your API
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -24,11 +24,9 @@ const AppointmentCounter = () => {
   };
 
   const fetchAppointmentNumberFromServer = () => {
-    // Replace 'mcms_api.me/get_app_no' with your actual API endpoint for fetching the appointment number
     fetch('https://mcms_api.mtron.me/get_app_no')
       .then(response => response.json())
       .then(data => {
-        // Update the appointment number in the component's state
         setAppointmentNumber(data[0].val);
       })
       .catch(error => {
@@ -37,13 +35,10 @@ const AppointmentCounter = () => {
   };
 
   useEffect(() => {
-    // Fetch the initial appointment number from the server when the component mounts
     fetchAppointmentNumberFromServer();
 
-    // Set up polling to check for updates every 5 seconds (adjust the interval as needed)
     const interval = setInterval(fetchAppointmentNumberFromServer, 5000);
 
-    // Clean up the interval when the component unmounts
     return () => clearInterval(interval);
   }, []);
 
