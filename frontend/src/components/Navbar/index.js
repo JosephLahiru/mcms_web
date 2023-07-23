@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,18 +14,26 @@ import { useAppstore } from './../../appStore';
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useUser } from './../../scripts/userContext';
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
+
 const AppBar = styled(MuiAppBar, {})(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
 }));
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const updateOpen = useAppstore((state) => state.updateOpen);
   const dopen = useAppstore((state) => state.dopen);
   const user = useUser().user;
   const reset = useUser().resetUser;
-
   const navigate = useNavigate();
+  const [isLogoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -37,13 +45,19 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  const handleLogoutConfirmation = () => {
+    setLogoutConfirmationOpen(true);
+    handleMenuClose();
+  };
+
   const handleLogout = () => {
-    const shouldLogout = window.confirm("Are you sure you want to log out?");
-  
-    if (shouldLogout) {
-      reset();
-      navigate('/');
-    }
+    setLogoutConfirmationOpen(false);
+    reset();
+    navigate('/');
+  };
+
+  const handleCancelLogout = () => {
+    setLogoutConfirmationOpen(false);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -63,7 +77,7 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <MenuItem onClick={handleLogoutConfirmation}>Logout</MenuItem>
     </Menu>
   );
 
@@ -143,6 +157,26 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
       {renderMenu}
+      <Dialog
+        open={isLogoutConfirmationOpen}
+        onClose={handleCancelLogout}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Confirm Logout"}</DialogTitle>
+        <DialogContent>
+          <div id="alert-dialog-description">
+            Are you sure you want to log out?
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelLogout}>Cancel</Button>
+          <Button onClick={handleLogout} autoFocus>
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
+
