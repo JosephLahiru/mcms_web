@@ -8,9 +8,12 @@ import {
   InputLabel,
   TextField,
   Select,
+  Typography,
   MenuItem,
   FormControl,
+  Button,
 } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -39,6 +42,13 @@ function AddStock() {
   const [ManufacturedDate, setManufacturedDate] = useState(null);
   const [ExpireDate, setExpireDate] = useState(null);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#A15B9E", // Replace with your desired color
+      },
+    },
+  });
 
   const handleDrugNameChange = (event) => {
     const value = event.target.value;
@@ -268,13 +278,20 @@ function AddStock() {
   
 
   return (
-    <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
+      <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto auto', backgroundColor: '#f5f5f5' }}>
       <FormControl onSubmit={handleSubmit}>
         <Grid container spacing={2}>
+          <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom sx={{ margin:'10px 0px 15px' }} >
+            Add Stock
+          </Typography>
+            <hr style={{ margin: '10px 0' }} />
+          </Grid>
           <Grid item xs={6}>
           <TextField
             size="small"
             sx={{ width: "100%" }}
+            color="secondary"
             value={drugname}
             error={drugnameError}
             helperText={drugnameError}
@@ -287,16 +304,18 @@ function AddStock() {
               type="number"
               size="small"
               sx={{ width: "100%" }} 
+              color="secondary"
               value={unitprice} 
               error={unitpriceError} 
-              helperText={unitpriceError ? 'Please enter a valid unit price' : ''} 
+              helperText={unitpriceError ? 'Please enter a valid purchased price' : ''} 
               onChange={handleUnitPriceChange} 
-              label="Unit Price" />
+              label="Purchased Price" />
           </Grid>
           <Grid item xs={6}>
             <TextField 
               size="small" 
               sx={{ width: "100%" }} 
+              color="secondary"
               value={brandname}
               error={brandnameError}
               helperText={brandnameError}
@@ -307,7 +326,8 @@ function AddStock() {
             <TextField 
               type="number" 
               size="small" 
-              sx={{ width: "100%" }} 
+              sx={{ width: "100%" }}
+              color="secondary"
               value={sellingprice} 
               error={sellingpriceError} 
               helperText={sellingpriceError ? 'Please enter a valid selling price' : ''} 
@@ -316,11 +336,12 @@ function AddStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Drug Type</InputLabel>
+              <InputLabel id="demo-simple-select-label" color="secondary">Drug Type</InputLabel>
               <Select 
                 labelId="demo-simple-select-label" 
                 id="demo-simple-select" 
                 sx={{ width: "100%" }} 
+                color="secondary"
                 size="small" 
                 value={selectedDrugType} 
                 onChange={(event) => setSelectedDrugType(event.target.value)} 
@@ -333,6 +354,7 @@ function AddStock() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 sx={{ width: "100%" }}
@@ -342,33 +364,37 @@ function AddStock() {
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
+          </ThemeProvider>
           </Grid>
           <Grid item xs={6}>
             <TextField 
               type="number" 
               size="small" 
               sx={{ width: "100%" }} 
+              color="secondary"
               value={quantity} error={quantityError} 
               helperText={quantityError ? 'Please enter a valid quantity' : ''} 
               onChange={handleQuantityChange} 
               label="Quantity" />
           </Grid>
           <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 size="small"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%"}}
                 value={ExpireDate}
                 onChange={(date) => setExpireDate(date)}
-                label="Expire Date"
+                label="Expiry Date"
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
+          </ThemeProvider>
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Stock Type</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
+              <InputLabel id="demo-simple-select-label" color="secondary">Stock Type</InputLabel>
+              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
                 {stockTypes.map((type) => (
                 <MenuItem key={type.stock_type} value={type.stock_type}>{type.stock_type}</MenuItem>
               ))}
@@ -377,8 +403,8 @@ function AddStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label">Expire Type</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
+              <InputLabel id="demo-simple-select-label" color="secondary">Expiry Type</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
                 {expireTypes.map((type) => (
                 <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
               ))}
@@ -389,6 +415,7 @@ function AddStock() {
             <TextField 
               id="outlined-multiline-static" 
               sx={{ width: "100%" }} 
+              color="secondary"
               multiline 
               value={description}
               error={descriptionError}
@@ -396,11 +423,17 @@ function AddStock() {
               onChange={handleDescriptionChange}
               label="Description"/>
           </Grid>
-          <Grid item xs={6}>
-            <button class="btn btn-primary btn-sm" onClick={handleReset}>Reset</button>
+        </Grid>
+        <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
+          <Grid item xs={2}>
+            <Button variant="outlined" color="secondary" size="small" onClick={handleReset} sx={{ width: '100%' }}>
+              Reset
+            </Button>
           </Grid>
-          <Grid item xs={6}>
-            <button class="btn btn-primary btn-sm" onClick={handleSubmit}>Submit</button>
+          <Grid item xs={2}>
+            <Button variant="contained" color="secondary" size="small" onClick={handleSubmit} sx={{ width: '100%' }}>
+              Submit
+            </Button>
           </Grid>
         </Grid>
       </FormControl>

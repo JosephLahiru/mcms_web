@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { 
   Grid, 
   Box,
@@ -23,39 +22,34 @@ function AddAppointment() {
     fetchDoctorNames();
   }, []);
 
-const fetchDoctorNames = async () => {
-  try {
-    const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
-    const data = await response.json();
-    const formattedDoctorNames = data.map((doctor) => {
-      const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
-      const fullDoctorName = doctor.doctor_name.toUpperCase();
-      const doctorID = doctor.cd_id;
-      return `${fullDoctorType} - ${fullDoctorName},${doctorID}`;
-    });
-    setDoctorNames(formattedDoctorNames);
-  } catch (error) {
-    console.error('Error fetching doctor names:', error);
-  }
-};
-
-  const handleClose = () => {
-    navigate(-1);
+  const fetchDoctorNames = async () => {
+    try {
+      const response = await fetch('https://mcms_api.mtron.me/get_doctor_names');
+      const data = await response.json();
+      const formattedDoctorNames = data.map((doctor) => {
+        const fullDoctorType = doctor.d_type.replace('_', ' ').toUpperCase();
+        const fullDoctorName = doctor.doctor_name.toUpperCase();
+        const doctorID = doctor.cd_id;
+        return `${fullDoctorType} - ${fullDoctorName},${doctorID}`;
+      });
+      setDoctorNames(formattedDoctorNames);
+    } catch (error) {
+      console.error('Error fetching doctor names:', error);
+    }
   };
 
   const handleOptionChange = (event) => {
     const selectedDoctor = event.target.value;
     const [doctorName, doctorID] = selectedDoctor.split(',');
     setAppointmentDoctor(doctorName);
-  
+
     if (selectedDoctor) {
       navigate('/add_appointment1', { state: { selectedDoctor: doctorName, selectedDoctorID: doctorID } });
     }
   };
-  
 
   return (
-    <Grid container spacing={0}>
+    <Grid container spacing={0} sx={{ minHeight: '100vh', flexDirection: 'column' }}>
       <Grid item xs={12}>
         <Box sx={{ width: '100%', height: 250, backgroundColor: '#ce93d8' }}>
           <Typography
@@ -71,16 +65,12 @@ const fetchDoctorNames = async () => {
           >
             ADD APPOINTMENT
           </Typography>
-          <CloseOutlinedIcon
-            sx={{ position: 'absolute', top: '80px', right: '20px', color: 'white' }}
-            onClick={handleClose}
-          />
           <Grid item xs={12} sx={{ paddingTop: '80px', paddingBottom: '50px' }}>
             <Grid container spacing={0} alignItems="center" justifyContent="center">
               <Grid item sx={{ backgroundColor: 'white' }}>
                 <FormControl fullWidth>
                   <InputLabel id="select-doctor" color="secondary">
-                    SELECT A SPECIALITY
+                    SELECT A SPECIALITY DOCTOR
                   </InputLabel>
                   <Select
                     labelId="select-doctor"
@@ -103,8 +93,8 @@ const fetchDoctorNames = async () => {
           </Grid>
         </Box>
       </Grid>
-      <Grid item xs={12}>
-        <Stack sx={{ width: '100%', paddingTop: '70px' }} spacing={0} alignItems="center" justifyContent="center">
+      <Grid item xs={12} sx={{ flex: 1 }}>
+        <Stack sx={{ width: '100%', paddingTop: '70px', flex: 1 }} spacing={0} alignItems="center" justifyContent="center">
           <Alert severity="info">
             <AlertTitle>Info</AlertTitle>
             Please Select Doctor — <strong>CHECK IT OUT!!</strong>

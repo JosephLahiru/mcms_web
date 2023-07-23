@@ -26,64 +26,64 @@ import {
   FormControl,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppstore } from './../../appStore';
+import { useAppstore } from './../../../appStore';
 
-function ViewStock() {
+function ViewDoctors() {
   const { dopen } = useAppstore();
   const Navigate = useNavigate();
-  const [stock, setStock] = useState([]);
-  const [filteredStock, setFilteredStock] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("Drug Name");
+  const [filterOption, setFilterOption] = useState("First Name");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    async function fetchStock() {
-      const response = await fetch("https://mcms_api.mtron.me/get_stock");
+    async function fetchDoctors() {
+      const response = await fetch("https://mcms_api.mtron.me/get_doctors");
       const data = await response.json();
-      setStock(data);
-      setFilteredStock(data);
+      setDoctors(data);
+      setFilteredDoctors(data);
     }
-    fetchStock();
+    fetchDoctors();
   }, []);
 
   useEffect(() => {
     let results;
     switch (filterOption) {
-      case "Drug Name":
+      case "First Name":
         if (searchTerm.length >= 3) {
-          results = stock.filter((item) =>
-            item.prdct_name.toLowerCase().includes(searchTerm.toLowerCase())
+          results = doctors.filter((item) =>
+            item.first_name.toLowerCase().includes(searchTerm.toLowerCase())
           );
         } else {
-          results = stock;
+          results = doctors;
         }
         break;
-      case "Drug Type":
+      case "Email":
         if (searchTerm.length >= 3) {
-          results = stock.filter((item) =>
-            item.med_type.toLowerCase().includes(searchTerm.toLowerCase())
+          results = doctors.filter((item) =>
+            item.email.toLowerCase().includes(searchTerm.toLowerCase())
           );
         } else {
-          results = stock;
+          results = doctors;
         }
         break;
-      case "Quantity":
-        results = stock.filter((item) =>
-          item.total_quantity.toString().includes(searchTerm)
+      case "NIC":
+        results = doctors.filter((item) =>
+          item.nic.toString().includes(searchTerm)
         );
         break;
       default:
-        results = stock;
+        results = doctors;
     }
-    setFilteredStock(results);
-  }, [searchTerm, stock, filterOption]);
+    setFilteredDoctors(results);
+  }, [searchTerm, doctors, filterOption]);
 
   useEffect(() => {
-    setSearchTerm(""); // Empty the search term when the filter option changes
+    setSearchTerm("");
   }, [filterOption]);
 
   const handleInputChange = (event) => {
@@ -103,7 +103,7 @@ function ViewStock() {
     setPage(0);
   };
 
-  const rows = filteredStock || [];
+  const rows = filteredDoctors || [];
 
   const handleDelete = (id) => {
     setItemToDelete(id);
@@ -112,18 +112,18 @@ function ViewStock() {
 
   const handleConfirmDelete = async () => {
     try{
-      await fetch(`https://mcms_api.mtron.me/delete_stock/${itemToDelete}`, {
+      await fetch(`https://mcms_api.mtron.me/delete_doctors/${itemToDelete}`, {
         method: "GET",
       });
-      setStock(stock.filter((item) => item.prdct_id !== itemToDelete));
-      setFilteredStock(
-        filteredStock.filter((item) => item.prdct_id !== itemToDelete)
+      setDoctors(doctors.filter((item) => item.d_id !== itemToDelete));
+      setFilteredDoctors(
+        filteredDoctors.filter((item) => item.d_id !== itemToDelete)
       );
     setItemToDelete(null);
     setConfirmDialogOpen(false);
-    toast.success('Drug deleted successfully');
+    toast.success('Doctor deleted successfully');
     } catch (error) {
-      toast.error('Failed to delete drug');
+      toast.error('Failed to delete doctor');
     }
   };
 
@@ -133,8 +133,8 @@ function ViewStock() {
   };
 
   const handleUpdate = (item) => {
-    console.log(item.prdct_id);
-    Navigate(`/update_stock/${item.prdct_id}`);
+    console.log(item.d_id);
+    Navigate(`/update_doctors/${item.d_id}`);
   };
 
   return (
@@ -151,7 +151,7 @@ function ViewStock() {
       <Grid container alignItems='center' spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom >
-            View Stock
+            View Doctors
           </Typography>
             <hr style={{ margin: '10px 0' }} />
         </Grid>
@@ -167,9 +167,9 @@ function ViewStock() {
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="Drug Name">Drug Name</MenuItem>
-              <MenuItem value="Drug Type">Drug Type</MenuItem>
-              <MenuItem value="Quantity">Quantity</MenuItem>
+              <MenuItem value="First Name">First Name</MenuItem>
+              <MenuItem value="Email">Email</MenuItem>
+              <MenuItem value="NIC">NIC</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -189,18 +189,13 @@ function ViewStock() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
-                  <TableCell>Drug ID</TableCell>
-                  <TableCell>Drug Name</TableCell>
-                  <TableCell>Brand Name</TableCell>
-                  <TableCell>Drug Type</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Unit Price(Rs)</TableCell>
-                  <TableCell>Selling Price(Rs)</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Stock Type</TableCell>
-                  <TableCell>Expiry Type</TableCell>
-                  <TableCell>Manufacture Date</TableCell>
-                  <TableCell>Expiry Date</TableCell>
+                  <TableCell>Doctor ID</TableCell>
+                  <TableCell>First Name</TableCell>
+                  <TableCell>Last Name</TableCell>
+                  <TableCell>NIC</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Address</TableCell>
+                  <TableCell>Contact Number</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
                 </TableRow>
@@ -210,19 +205,14 @@ function ViewStock() {
                   rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
-                      <TableRow hover role="checkbox" key={item.prdct_id}>
-                        <TableCell>{item.prdct_id}</TableCell>
-                        <TableCell>{item.prdct_name}</TableCell>
-                        <TableCell>{item.brand_name}</TableCell>
-                        <TableCell>{item.med_type}</TableCell>
-                        <TableCell>{item.description}</TableCell>
-                        <TableCell>{item.ac_price}</TableCell>
-                        <TableCell>{item.sell_price}</TableCell>
-                        <TableCell>{item.total_quantity}</TableCell>
-                        <TableCell>{item.stock_type}</TableCell>
-                        <TableCell>{item.expire_type}</TableCell>
-                        <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
-                        <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
+                      <TableRow hover role="checkbox" key={item.d_id}>
+                        <TableCell>{item.d_id}</TableCell>
+                        <TableCell>{item.first_name}</TableCell>
+                        <TableCell>{item.last_name}</TableCell>
+                        <TableCell>{item.nic}</TableCell>
+                        <TableCell>{item.email}</TableCell>
+                        <TableCell>{item.address}</TableCell>
+                        <TableCell>{item.contact_no}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
                         </TableCell>
@@ -231,7 +221,7 @@ function ViewStock() {
                           aria-label="delete"
                           variant="outlined"
                           size="small"
-                          onClick={() => handleDelete(item.prdct_id)}
+                          onClick={() => handleDelete(item.d_id)}
                         >
                         <DeleteIcon />
                         </IconButton>
@@ -259,7 +249,7 @@ function ViewStock() {
               </DialogTitle>
               <DialogContent>
                 <div id="alert-dialog-description">
-                  Are you sure you want to delete this item?
+                  Are you sure you want to remove this doctor?
                 </div>
               </DialogContent>
               <DialogActions>
@@ -284,4 +274,4 @@ function ViewStock() {
   );
 }
 
-export default ViewStock;
+export default ViewDoctors;
