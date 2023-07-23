@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Container, Grid, Paper, Avatar } from "@mui/material";
 import { styled } from "@mui/system";
 import devteam from "./../../images/dev-team.jpg";
+import { ProfitData } from '../DashboardSections';
 
 const PageContainer = styled(Container)(({ theme }) => ({
   paddingTop: theme.spacing(4),
@@ -20,6 +21,10 @@ const AvatarImage = styled(Avatar)(({ theme }) => ({
   height: theme.spacing(10),
   marginBottom: theme.spacing(2),
 }));
+
+const today = new Date();
+const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+console.log(date);
 
 function WelcomePage() {
   return (
@@ -70,7 +75,11 @@ function WelcomePage() {
             </Typography>
           </Grid>
         </Grid>
+        <Grid>
+            <ProfitData title="Daily Profit" apiUrl={`https://mcms_api.mtron.me/delete_appointment/${date}`} />
+        </Grid>
       </ContentContainer>
+
     </PageContainer>
   );
 }
