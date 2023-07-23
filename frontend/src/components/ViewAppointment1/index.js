@@ -365,6 +365,7 @@ const handleModalClose = () => {
                       <TableRow hover role="checkbox" key={item.app_id}>
                         <TableCell>{item.app_id}</TableCell>
                         <TableCell>{item.app_num.toString().padStart(2, "0")}</TableCell>
+                        <TableCell>{item.title_id}</TableCell>
                         <TableCell>{item.patient_name}</TableCell>
                         <TableCell>{item.age.toString().padStart(2, "0")}</TableCell>
                         <TableCell>{item.mobile}</TableCell>
