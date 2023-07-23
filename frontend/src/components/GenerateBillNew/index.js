@@ -30,6 +30,7 @@ function GenerateBillNew() {
   const [addedDrugs, setAddedDrugs] = useState([]);
   const [doctorCharges, setDoctorCharges] = useState("");
   const [otherCharges, setOtherCharges] = useState("");
+  const [cashAmount, setCashAmount] = useState("");
 
 
 
@@ -137,6 +138,17 @@ const handleDeleteRow = (index) => {
   setAddedDrugs(updatedAddedDrugs);
 };
 
+const handleClearButton = () => {
+  // Reset all relevant states to their initial values
+  setAddedDrugs([]);
+  setQuantity("");
+  setSelectedDrugName("");
+  setSelectedUnitPrice("");
+  setSelectedExpiry("");
+  setDoctorCharges("");
+  setOtherCharges("");
+};
+
 
 const calculateTotalAmount = () => {
   if (addedDrugs.length > 0) {
@@ -178,6 +190,18 @@ const calculateTotalAmount = () => {
   }
 
   return total.toFixed(2);
+};
+
+const calculateBalance = () => {
+  const totalAmount = parseFloat(calculateTotalAmount());
+  const parsedCashAmount = parseFloat(cashAmount);
+
+  if (!isNaN(parsedCashAmount)) {
+    const balance = (parsedCashAmount - totalAmount).toFixed(2);
+    return balance >= 0 ? balance : "0.00"; // Ensure the balance is not negative
+  }
+
+  return "0.00"; // Return 0.00 if the cash amount is not a valid number
 };
 
 
@@ -252,7 +276,7 @@ const calculateTotalAmount = () => {
                                     <Button variant="contained" color="primary" style={{ marginTop: "10px" }}>Print</Button>
                                     <Button variant="contained" color="primary" style={{ marginTop: "10px",marginLeft: "10px" }}>Save</Button>
                                     <Button variant="contained" color="primary" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={handleAddButton}>Add</Button>
-                                    <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }}>Clear</Button>
+                                    <Button variant="contained" color="secondary" style={{ marginTop: "10px", marginLeft: "10px" }} onClick={handleClearButton} >Clear</Button>
                             </Grid>
                             <Grid item xs={12}>
                             <TableContainer sx={{ maxHeight: 200, minHeight: 200 }} md={{ minWidth: 650 }} sm={{ minWidth: 650 }}>
@@ -334,8 +358,8 @@ const calculateTotalAmount = () => {
                                     />
                                 </Grid>
                                 <Grid item xs={3}>
-                                    <TextField size="small" label="$Cash" style={{ marginBottom: "10px" }}/>
-                                    <TextField size="small" label="BAL" />
+                                    <TextField size="small" label="$Cash" value={cashAmount} onChange={(e) => setCashAmount(e.target.value)} style={{ marginBottom: "10px" }}/>
+                                    <TextField size="small" label="BAL" value={calculateBalance()}  InputProps={{ readOnly: true, }}/>
                                 </Grid>
                             </Grid>
                         </Paper>
