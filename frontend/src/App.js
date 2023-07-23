@@ -28,10 +28,16 @@ import ReturnPatientsReport from './components/ReturnPatientsReport';
 import DoctorCharges from './components/DoctorCharges';
 import BillingHistory from './components/BillingHistory';
 import BillingItems from './components/BillingItems';
+import ViewDoctors from './components/DoctorManagement/ViewDoctors';
+import UpdateDoctor from './components/DoctorManagement/UpdateDoctors';
+import AddDoctor from './components/DoctorManagement/AddDoctor';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
 import LoginRoute from './scripts/loginRoute';
+import GenerateBillNew from './components/GenerateBillNew';
+import ViewStockForBill from './components/ViewStockForBill';
+import AppointmentCounter from './components/AppointmentCounter';
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/login'];
 
@@ -183,6 +189,30 @@ function App() {
 
         <Route path="/billing_items" element={<PrivateRoute/>}>
           <Route index element={<BillingItems />}/>
+        </Route>
+
+        <Route path="/generate_bill_new" element={<PrivateRoute/>}>
+          <Route index element={<GenerateBillNew />}/>
+        </Route>
+
+        <Route path="/view_stock_for_bill" element={<PrivateRoute/>}>
+          <Route index element={<ViewStockForBill />}/>
+        </Route>
+
+        <Route path="/view_doctors" element={<PrivateRoute/>}>
+          <Route index element={<ViewDoctors />}/>
+        </Route>
+
+        <Route path="/update_doctors/:id" element={<PrivateRoute/>}>
+          <Route index element={<UpdateDoctor />}/>
+        </Route>
+
+        <Route path="/add_doctor" element={<PrivateRoute/>}>
+          <Route index element={<AddDoctor />}/>
+        </Route>
+
+        <Route path="/app_counter" element={<PrivateRoute/>}>
+          <Route index element={<AppointmentCounter />}/>
         </Route>
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />

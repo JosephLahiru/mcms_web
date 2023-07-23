@@ -17,6 +17,7 @@ import { useAppstore } from './../../appStore';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import Person4Icon from '@mui/icons-material/Person4';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -170,20 +171,7 @@ export default function Sidebar() {
                       backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
                     }}
                   >
-                    <ListItemText primary="Confirm Appointment" sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
-                {/* Add more components for the "Appointments" category */}
-                <ListItem disablePadding onClick={() => (navigate("/appointments_history"))}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                      backgroundColor: location.pathname === '/appointments_history' ? '#e1f5fe' : 'transparent', // Highlight the active component
-                    }}
-                  >
-                    <ListItemText primary="Appointments History" sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -204,6 +192,44 @@ export default function Sidebar() {
               <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+
+          {/* Doctor Management */}
+          <Accordion sx={{ margin: '0', borderRadius: '0' }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <ListItemIcon>
+                <Person4Icon />
+              </ListItemIcon>
+              <ListItemText primary="Doctor Management" />
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: '0' }}>
+              <List sx={{ paddingTop: 0 }}>
+                <ListItem disablePadding onClick={() => (navigate("/add_doctor"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/add_doctor' ? '#e1f5fe' : 'transparent',
+                    }}
+                  >
+                    <ListItemText primary="Add Doctor" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => (navigate("/view_doctors"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/view_doctors' ? '#e1f5fe' : 'transparent',
+                    }}
+                  >
+                    <ListItemText primary="View Doctor" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
         </List>
         <List>
         </List>
