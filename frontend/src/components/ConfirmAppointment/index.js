@@ -246,7 +246,7 @@ function ConfirmAppointment() {
           <span style={{ fontWeight: 'bold', color: '#616161' ,fontSize: '18px'}}>Appointment Date: </span>{appointmentDate.slice(0, 15)}
           </Typography>
           <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px' }}>
-            Appointment Information
+            Patient Information
           </Typography>
           <Typography id="patient details" sx={{ mt: 2 }} >
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Name: </span>{patientName}

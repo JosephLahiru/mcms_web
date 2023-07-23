@@ -31,7 +31,8 @@ function UpdateAppointment() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const [patientTitle, setPatientTitle] = useState('');
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [titles, setTitles] = useState([]);
 
   const { id } = useParams();
 
@@ -142,6 +143,10 @@ function UpdateAppointment() {
           }
         }
       }
+
+      if (!selectedTitle) {
+        errors.selectedTitle = "Please select a title";
+      }
   
       if (Object.keys(errors).length > 0) {
         setValidationErrors(errors);
@@ -162,6 +167,7 @@ function UpdateAppointment() {
       gender: gender,
       nic:nic,
       area: address,
+      title_id: titles,
     };
 
     try {
@@ -190,15 +196,23 @@ function UpdateAppointment() {
     }
   };
 
-  const handleOptionChange = (event) => {
-    // const selectedDoctor = event.target.value;
-    // const [doctorName, doctorID] = selectedDoctor.split(',');
-    // setAppointmentDoctor(doctorName);
+  useEffect(() => {
+    async function fetchTitles() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_personal_titles");
+        if (!response.ok) {
+          throw new Error("Failed to fetch titles from the API");
+        }
+        const data = await response.json();
+        setTitles(data); // Assuming the API response is an array of title objects
+      } catch (error) {
+        console.error(error);
+        // Handle any errors that occur during fetching
+      }
+    }
 
-    // if (selectedDoctor) {
-    //   navigate('/add_appointment1', { state: { selectedDoctor: doctorName, selectedDoctorID: doctorID } });
-    // }
-  };
+    fetchTitles();
+  }, []);
 
   return (
     <Grid container spacing={3}>
@@ -246,17 +260,30 @@ function UpdateAppointment() {
           </Typography>
           <Grid item xs={12} sm={12} container spacing={8}>
               <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
-              <FormControl fullWidth>
-                  <InputLabel id="select-doctor" color="secondary"  sx={{ marginLeft: '57px' }}>
+              <FormControl fullWidth error={!!validationErrors.selectedTitle}>
+                  <InputLabel id="select-title" color="secondary"  sx={{ marginLeft: '60px' }}>
                     Select a Title
                   </InputLabel>
                   <Select
                     labelId="select-title"
                     id="select-title"
                     color="secondary"
-                    sx={{ width: '200px',marginLeft: '57px' }}
+                    value={selectedTitle}
+                    onChange={(event) => setSelectedTitle(event.target.value)}
+                    sx={{ width: '200px',marginLeft: '60px' }}
                     label="SELECT A TITLE">
-                  </Select>
+                    <MenuItem value="">Select a Title</MenuItem>
+                        {titles.map((title) => (
+                          <MenuItem key={title.id} value={title.title_type}>
+                            {title.title_type}
+                          </MenuItem>
+                        ))}   
+                      </Select>
+                      {validationErrors.selectedTitle && (
+                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px",marginBottom: "20px"}}>
+                        {validationErrors.selectedTitle}
+                      </Typography>
+                    )}  
                 </FormControl>
               </Grid>
               <Grid item xs={9.5} sx={{ display: "flex", justifyContent: "left"  }}>
