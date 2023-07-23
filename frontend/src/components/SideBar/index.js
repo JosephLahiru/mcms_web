@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppstore } from './../../appStore';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import Person4Icon from '@mui/icons-material/Person4';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -24,9 +23,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from 'react-router-dom';
 
-
 const drawerWidth = 240;
 
+// Mixin styles for the open and closed states of the drawer
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -73,12 +72,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const FlexContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export default function Sidebar() {
   const theme = useTheme();
   const navigate = useNavigate();
   const open = useAppstore((state) => state.dopen);
   const location = useLocation();
-
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -94,45 +97,51 @@ export default function Sidebar() {
         <List sx={{ paddingTop: 0 }}>
           <Accordion sx={{ margin: '0', borderRadius: '0' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <ListItemIcon>
-                <InventoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Stock" />
+              <FlexContainer>
+                <ListItemIcon>
+                  <InventoryIcon /> {/* The InventoryIcon for the "Stock" category */}
+                </ListItemIcon>
+                <ListItemText primary="Stock" />
+              </FlexContainer>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0' }}>
+              {/* Nested List for the components under "Stock" */}
               <List sx={{ paddingTop: 0 }}>
+                {/* Add Stock component */}
                 <ListItem disablePadding onClick={() => (navigate("/add_stock"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/add_stock' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                      backgroundColor: location.pathname === '/add_stock' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="Add Stock" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
+                {/* View Stock component */}
                 <ListItem disablePadding onClick={() => (navigate("/view_stock"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/view_stock' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                      backgroundColor: location.pathname === '/view_stock' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="View Stock" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
-                {/* Add more components for the "Stock" category */}
+                {/* Add more components for the "Stock" category here */}
+                {/* For example, "Stock Report" component */}
                 <ListItem disablePadding onClick={() => (navigate("/stock_report"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/stock_report' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                      backgroundColor: location.pathname === '/stock_report' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="Stock Report" sx={{ opacity: open ? 1 : 0 }} />
@@ -141,34 +150,59 @@ export default function Sidebar() {
               </List>
             </AccordionDetails>
           </Accordion>
+
+          {/* View Low Stock component */}
+          <ListItem disablePadding onClick={() => (navigate("/view_lowstock"))}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+                backgroundColor: location.pathname === '/view_lowstock' ? '#e1f5fe' : 'transparent',
+              }}
+            >
+              <ListItemIcon>
+                <InventoryIcon /> {/* Use the InventoryIcon for "View Low Stock" */}
+              </ListItemIcon>
+              <ListItemText primary="View Low Stock" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          {/* Accordion for the "Appointments" category */}
           <Accordion sx={{ margin: '0', borderRadius: '0' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <ListItemIcon>
-                <BookOnlineIcon />
-              </ListItemIcon>
-              <ListItemText primary="Appointments" />
+              {/* FlexContainer with the icon and label */}
+              <FlexContainer>
+                <ListItemIcon>
+                  <BookOnlineIcon /> {/* The BookOnlineIcon for the "Appointments" category */}
+                </ListItemIcon>
+                <ListItemText primary="Appointments" />
+              </FlexContainer>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0' }}>
+              {/* Nested List for the components under "Appointments" */}
               <List sx={{ paddingTop: 0 }}>
+                {/* Add Appointment component */}
                 <ListItem disablePadding onClick={() => (navigate("/add_appointment"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/add_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                      backgroundColor: location.pathname === '/add_appointment' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="Add Appointment" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
+                {/* View Appointment component */}
                 <ListItem disablePadding onClick={() => (navigate("/view_appointment"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent', // Highlight the active component
+                      backgroundColor: location.pathname === '/view_appointment' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="View Appointment" sx={{ opacity: open ? 1 : 0 }} />
@@ -177,32 +211,24 @@ export default function Sidebar() {
               </List>
             </AccordionDetails>
           </Accordion>
-          <ListItem disablePadding onClick={() => (navigate("/generate_bill_new"))}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-                backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent', // Highlight the active component
-              }}
-            >
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
 
-          {/* Doctor Management */}
+          {/* ... Add more categories and components here ... */}
+
+          {/* Doctor Management category */}
           <Accordion sx={{ margin: '0', borderRadius: '0' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <ListItemIcon>
-                <Person4Icon />
-              </ListItemIcon>
-              <ListItemText primary="Doctor Management" />
+              {/* FlexContainer with the icon and label */}
+              <FlexContainer>
+                <ListItemIcon>
+                  <Person4Icon /> {/* The Person4Icon for "Doctor Management" category */}
+                </ListItemIcon>
+                <ListItemText primary="Doctor Management" />
+              </FlexContainer>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0' }}>
+              {/* Nested List for the components under "Doctor Management" */}
               <List sx={{ paddingTop: 0 }}>
+                {/* Add Doctor component */}
                 <ListItem disablePadding onClick={() => (navigate("/add_doctor"))}>
                   <ListItemButton
                     sx={{
@@ -215,6 +241,7 @@ export default function Sidebar() {
                     <ListItemText primary="Add Doctor" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
+                {/* View Doctor component */}
                 <ListItem disablePadding onClick={() => (navigate("/view_doctors"))}>
                   <ListItemButton
                     sx={{
@@ -231,6 +258,7 @@ export default function Sidebar() {
             </AccordionDetails>
           </Accordion>
         </List>
+        {/* Additional items after the categories */}
         <List>
         </List>
       </Drawer>
