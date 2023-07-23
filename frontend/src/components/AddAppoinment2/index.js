@@ -340,7 +340,7 @@ function AddAppointment2() {
                         ))}   
                       </Select>
                       {validationErrors.selectedTitle && (
-                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px" }}>
+                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px" }}>
                         {validationErrors.selectedTitle}
                       </Typography>
                     )}  
