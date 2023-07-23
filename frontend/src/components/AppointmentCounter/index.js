@@ -8,13 +8,11 @@ const AppointmentCounter = () => {
   const [appointmentNumber, setAppointmentNumber] = useState(1);
 
   const updateAppointmentNumberOnServer = (newAppointmentNumber) => {
-    // Replace 'mcms_api.me/set_app_no' with your actual API endpoint for updating the appointment number
     fetch(`https://mcms_api.me/set_app_no/${newAppointmentNumber}`, {
       method: 'POST', // Or 'PUT' depending on your API
       headers: {
         'Content-Type': 'application/json',
       },
-      // You can add any additional data required by your API here
       body: JSON.stringify({ appointmentNumber: newAppointmentNumber }),
     })
     .then(response => {
