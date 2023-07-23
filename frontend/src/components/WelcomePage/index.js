@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import ProfitData from "../DashboardSections/ProfitData";
-import { AppWidgetSummary } from "../DashboardSections";
+import AppWidgetSummary from "../DashboardSections/AppWidgetSummary";
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -45,15 +45,27 @@ function WelcomePage() {
   return (
     <PageContainer maxWidth="lg" style={{ marginBottom: '10px' }}>
       <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={3}>
+          <AppWidgetSummary title="Weekly Sales" total={250} icon={'ant-design:android-filled'} />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <AppWidgetSummary title="Weekly Appoinments" total={100} color="info" icon={'ant-design:apple-filled'} />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <AppWidgetSummary title="Total Medicine Sold" total={1200} color="warning" icon={'ant-design:windows-filled'} />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <AppWidgetSummary title="Profit of the Month" total={10000} color="error" icon={'ant-design:bug-filled'} />
+        </Grid>
         <Grid item xs={12} md={12} lg={12}> 
           <ProfitData
             title="Financial Revenue Data"
             subheader={date}
             data={state.data}
           />
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <AppWidgetSummary title="Selling Cost Free Med" total={state.data[0].selling_cost_free_med} icon="ic:baseline-monetization-on" />
         </Grid>
       </Grid>
     </PageContainer>
