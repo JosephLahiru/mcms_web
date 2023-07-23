@@ -22,7 +22,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from 'react-router-dom';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const drawerWidth = 240;
 
@@ -79,7 +78,6 @@ const FlexContainer = styled('div')({
 });
 
 export default function Sidebar() {
-
   const theme = useTheme();
   const navigate = useNavigate();
   const open = useAppstore((state) => state.dopen);
@@ -90,7 +88,6 @@ export default function Sidebar() {
       <CssBaseline />
       <Box height={30} />
       <Drawer variant="permanent" open={open}>
-      
         <DrawerHeader>
           <IconButton>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -102,12 +99,13 @@ export default function Sidebar() {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <FlexContainer>
                 <ListItemIcon>
-                  <InventoryIcon />
+                  <InventoryIcon /> {/* The InventoryIcon for the "Stock" category */}
                 </ListItemIcon>
                 <ListItemText primary="Stock" />
               </FlexContainer>
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0' }}>
+              {/* Nested List for the components under "Stock" */}
               <List sx={{ paddingTop: 0 }}>
                 {/* Add Stock component */}
                 <ListItem disablePadding onClick={() => (navigate("/add_stock"))}>
@@ -136,6 +134,7 @@ export default function Sidebar() {
                   </ListItemButton>
                 </ListItem>
                 {/* Add more components for the "Stock" category here */}
+                {/* For example, "Stock Report" component */}
                 <ListItem disablePadding onClick={() => (navigate("/stock_report"))}>
                   <ListItemButton
                     sx={{
@@ -169,24 +168,10 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem disablePadding onClick={() => (navigate("/view_shortexpiry"))}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-                backgroundColor: location.pathname === '/view_shortexpiry' ? '#e1f5fe' : 'transparent',
-              }}
-            >
-              <ListItemIcon>
-                <InventoryIcon /> {/* Use the InventoryIcon for "View Low Stock" */}
-              </ListItemIcon>
-              <ListItemText primary="View Short Expiry" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-
+          {/* Accordion for the "Appointments" category */}
           <Accordion sx={{ margin: '0', borderRadius: '0' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              {/* FlexContainer with the icon and label */}
               <FlexContainer>
                 <ListItemIcon>
                   <BookOnlineIcon /> {/* The BookOnlineIcon for the "Appointments" category */}
@@ -226,21 +211,6 @@ export default function Sidebar() {
               </List>
             </AccordionDetails>
           </Accordion>
-          <ListItem disablePadding onClick={() => (navigate("/generate_bill_new"))}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-                backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent', // Highlight the active component
-              }}
-            >
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
 
           {/* ... Add more categories and components here ... */}
 
@@ -288,6 +258,7 @@ export default function Sidebar() {
             </AccordionDetails>
           </Accordion>
         </List>
+        {/* Additional items after the categories */}
         <List>
         </List>
       </Drawer>
