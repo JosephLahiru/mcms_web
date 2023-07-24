@@ -175,12 +175,18 @@ useEffect(() => {
     console.log("hello  2")
 
      const { doctorName, doctorType } = getDoctorInfo(cd_id);
+     const doctorFullName = `${doctorType} - ${doctorName}`;
+     const formattedAppointmentDate = new Date(appointmentDate);
+     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+     const formattedDate = `${days[formattedAppointmentDate.getDay()]} ${months[formattedAppointmentDate.getMonth()]} ${formattedAppointmentDate.getDate()} ${formattedAppointmentDate.getFullYear()}`;
+
     navigate(`/confirm_appointment/${app_id}`, {
       state: {
-        appointmentDoctor: doctorName, 
+        appointmentDoctor: doctorFullName, 
         appointmentType: doctorType, 
         appointmentNumber,
-        appointmentDate,
+        appointmentDate: formattedDate,
         patientName,
         age,
         mobile,
@@ -297,7 +303,7 @@ useEffect(() => {
           }}
         >
         <Typography  component="div" sx={{ color: 'purple', fontWeight: 'bold', paddingTop: '10px',paddingBottom: '20px', textAlign: 'left',fontSize: '25px' }}>
-            RADIOLOGIST - PRESANTHA BANDARA
+        RADIOLOGIST - PRESANTHA BANDARA
         </Typography>
       <Grid container alignItems='center'>
         <Grid item xs={1.5} marginRight={6}>
