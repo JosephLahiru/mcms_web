@@ -100,7 +100,7 @@ function ConfirmAppointment() {
          <Grid item xs={12}>
             <Box sx={{ width: '100%', height: 100, backgroundColor: '#ce93d8' }}>
                 <Typography variant="h4" component="div" sx={{ color: 'white', fontWeight: 'bold', paddingTop: '40px', textAlign: 'left', paddingLeft: '90px' }}>
-                    CONFIRM APPOINTMENT
+                    PAY APPOINTMENT
                 </Typography>
                 <CloseOutlinedIcon sx={{ position: "absolute", top: "80px", right: "20px", color: "white" }} onClick={handleCancel} />
             </Box>
@@ -264,7 +264,7 @@ function ConfirmAppointment() {
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Gender:</span>{gender}
           </Typography>
           <Typography id="patient information" variant="h5" component="h2" sx={{ fontWeight: 'bold',paddingTop: '20px',color: 'purple' ,textAlign: 'center'}}>
-             SUCCESSFULLY!!!
+             Payment is successful!
           </Typography>
         </Box>
       </Modal>

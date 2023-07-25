@@ -118,7 +118,7 @@ export default function Navbar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             {user && (
               <Typography variant="body1" sx={{ marginRight: 1 }}>
-                {user.user_name}
+                {user.user_name} {user.user_type === "admin" && '(Admin)'}
               </Typography>
             )}
             <IconButton
