@@ -209,7 +209,7 @@ function AddDoctor() {
               error={firstNameError} 
               helperText={firstNameError}
               onChange={handleFirstNameChange}
-              label="First Name"
+              label="Doctor Name"
             />
           </Grid>
 
@@ -222,7 +222,7 @@ function AddDoctor() {
               error={lastNameError}
               helperText={lastNameError}
               onChange={handleLastNameChange}
-              label="Last Name"
+              label="Doctor Type"
             />
           </Grid>
 
