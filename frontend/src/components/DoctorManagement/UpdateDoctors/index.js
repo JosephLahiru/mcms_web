@@ -186,7 +186,7 @@ function UpdateDoctor() {
           setNIC(doctor.nic);
           setEmail(doctor.email);
           setAddress(doctor.address);
-          setContactNo(doctor.contact_no);
+          setContactNo(doctor.contct_no);
         } else {
           toast.error("Doctor not found", { position: toast.POSITION.TOP_RIGHT });
         }
@@ -247,7 +247,7 @@ function UpdateDoctor() {
               error={doctorNameError} 
               helperText={doctorNameError}
               onChange={handleDoctorNameChange}
-              label="First Name"
+              label="Doctor Name"
             />
           </Grid>
 
@@ -260,7 +260,7 @@ function UpdateDoctor() {
               error={doctorTypeError}
               helperText={doctorTypeError}
               onChange={handleDoctorTypeChange}
-              label="Last Name"
+              label="Doctor Type"
             />
           </Grid>
 
