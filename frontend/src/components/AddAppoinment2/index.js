@@ -236,7 +236,6 @@ function AddAppointment2() {
           mobile,
           gender,
           nic,
-          selectedTitle,
         },
       });
       
