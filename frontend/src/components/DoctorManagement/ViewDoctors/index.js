@@ -222,7 +222,7 @@ function ViewDoctors() {
                         <TableCell>{item.nic}</TableCell>
                         <TableCell>{item.email}</TableCell>
                         <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.contact_no}</TableCell>
+                        <TableCell>{item.contct_no}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
                         </TableCell>
