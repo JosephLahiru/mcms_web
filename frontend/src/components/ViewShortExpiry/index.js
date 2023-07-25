@@ -27,7 +27,7 @@ function ViewShortExpiry() {
 
   useEffect(() => {
     async function fetchShortExpiry() {
-      const response = await fetch("https://mcms_api.mtron.me/get_expire");
+      const response = await fetch("https://mcms_api.mtron.me/get_expire_soon");
       const data = await response.json();
       setShortExpiry(data);
       setFilteredShortExpiry(data);
@@ -91,7 +91,7 @@ function ViewShortExpiry() {
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
-                  <TableCell>Manufacture Date</TableCell>
+                  <TableCell>Manufactured Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
                   <TableCell>Quantity</TableCell>
                 </TableRow>
