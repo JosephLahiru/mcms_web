@@ -19,7 +19,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function GetAttendance() {
-  const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-14'));
+  const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-10'));
   const [assistants, setAssistants] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
   const [currentDate, setCurrentDate] = useState(dayjs());
