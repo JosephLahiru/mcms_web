@@ -121,7 +121,7 @@ function ViewDoctors() {
 
   const handleConfirmDelete = async () => {
     try{
-      await fetch(`https://mcms_api.mtron.me/delete_channelling_doctors/${itemToDelete}`, {
+      await fetch(`https://mcms_api.mtron.me/delete_channelling_doctor/${itemToDelete}`, {
         method: "GET",
       });
       setDoctors(doctors.filter((item) => item.cd_id !== itemToDelete));
