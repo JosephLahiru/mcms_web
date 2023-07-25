@@ -27,6 +27,7 @@ function AddAppointment1() {
   const navigate = useNavigate();
   const location = useLocation();
   const [doctorNames, setDoctorNames] = useState([]);
+ 
   
   const months = [
     'January',
@@ -125,7 +126,8 @@ const fetchDoctorNames = async () => {
 
   const handleChange = async (event, newappointmentDate) => {
     setAppointmentDate(newappointmentDate);
-    setSelectedButtonIndex(newappointmentDate !== null ? event.currentTarget.value : null);
+    setSelectedButtonIndex(newappointmentDate !== null ? dates.findIndex(date => date.toString() === newappointmentDate) : null);
+
 
     const inputDate = new Date(newappointmentDate);
 
@@ -185,6 +187,7 @@ const fetchDoctorNames = async () => {
               <ToggleButton
                 key={index}
                 value={appointmentDate.toString()}
+                selected={index === selectedButtonIndex}
                 sx={{
                   color: theme.palette.secondary.dark,
                   width: '100px',
