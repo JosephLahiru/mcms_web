@@ -132,7 +132,7 @@ function AddDoctor() {
         nic: nic,
         email: email,
         address: address,
-        contact_no: contactNo,
+        contct_no: contactNo,
       };
 
     if(!firstNameError && !lastNameError && !nicError && !addressError && doctorID && firstName && lastName && nic && address && email){
