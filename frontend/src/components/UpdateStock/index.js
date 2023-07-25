@@ -304,11 +304,11 @@ function UpdateStock() {
   function getExpireType(selectedExpireTypeId){
     switch (selectedExpireTypeId) {
       case 1:
-        return 'short';
+        return 'short lifespan';
       case 2:
-        return 'medium';
+        return 'medium lifespan';
       case 3:
-        return 'long';
+        return 'long lifespan';
       default:
         return '';
     }
