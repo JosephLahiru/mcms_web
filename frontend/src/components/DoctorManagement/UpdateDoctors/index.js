@@ -33,7 +33,7 @@ function UpdateDoctor() {
     const value = event.target.value;
     const isValid = /^[A-Za-z0-9\s]*$/.test(value);
     const isWithinLengthLimit = value.length <= 50;
-    
+
     setDoctorName(value);
     
     if (!isValid) {
