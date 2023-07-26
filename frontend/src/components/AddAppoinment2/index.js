@@ -162,7 +162,7 @@ function AddAppointment2() {
   };
  
   const handlecancel = () => {
-    navigate('/add_appointment');
+    navigate(-1);
   };
 
   const handleBOOKNOW = async (event) => {
