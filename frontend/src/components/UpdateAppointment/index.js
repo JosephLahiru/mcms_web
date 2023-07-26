@@ -93,6 +93,9 @@ function UpdateAppointment() {
       } else if (isNaN(age) || parseInt(age) < 1 || parseInt(age) < 0) {
         errors.age = "Please enter a valid age";
       }
+      else if (age.length > 3) {
+        errors.age = "Age should be limited to three digits";
+      }
   
     if (!mobile) {
       errors.mobile = "Please enter the mobile number";
@@ -262,7 +265,7 @@ function UpdateAppointment() {
               <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
               <FormControl fullWidth error={!!validationErrors.selectedTitle}>
                   <InputLabel id="select-title" color="secondary"  sx={{ marginLeft: '60px' }}>
-                    Select a Title
+                    Select a Title*
                   </InputLabel>
                   <Select
                     labelId="select-title"
@@ -297,6 +300,7 @@ function UpdateAppointment() {
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
                 sx={{ width: "90%", marginBottom: "20px",marginLeft: "35px"}}
+                required
               />
               </Grid>
             </Grid>
@@ -312,6 +316,7 @@ function UpdateAppointment() {
                 error={!!validationErrors.age}
                 helperText={validationErrors.age}
                 sx={{ width: "90%", marginBottom: "10px" }}
+                required
               />
             </Grid>
             <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
@@ -325,6 +330,7 @@ function UpdateAppointment() {
                 error={!!validationErrors.mobile}
                 helperText={validationErrors.mobile}
                 sx={{ width: "90%", marginBottom: "10px" }}
+                required
               />
             </Grid>
           </Grid>
@@ -338,9 +344,10 @@ function UpdateAppointment() {
                 setGender(event.target.value);
               }}
               sx={{ width: "90%", marginBottom: "5px" }}
+              required
             >
-              <FormControlLabel value="female" control={<Radio />} label="Female" checked={gender === "female"} sx={{ marginRight: "100px" }} />
-              <FormControlLabel value="male" control={<Radio />} label="Male" checked={gender === "male"} />
+              <FormControlLabel value="female" control={<Radio />} label="Female*" checked={gender === "female"} sx={{ marginRight: "100px" }} />
+              <FormControlLabel value="male" control={<Radio />} label="Male*" checked={gender === "male"} />
               {validationErrors.gender && <Typography variant="body2" color="error" sx={{ marginLeft: "100px", marginTop: "5px" }}>{validationErrors.gender}</Typography>}
             </RadioGroup>
           </Grid>
@@ -356,6 +363,7 @@ function UpdateAppointment() {
                   error={!!validationErrors.nic}
                   helperText={validationErrors.nic}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
@@ -369,6 +377,7 @@ function UpdateAppointment() {
                   error={!!validationErrors.address}
                   helperText={validationErrors.address}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
             </Grid>
