@@ -245,6 +245,7 @@ function UpdateAppointment() {
                 disabled
                 error={!!validationErrors.appointmentId}
                 helperText={validationErrors.appointmentId}
+                required
               />
               {validationErrors.appointmentId && (
                 <Typography variant="body2" color="error" sx={{ marginLeft: "220px", width: "100%", textAlign: "center" }}>
