@@ -14,10 +14,10 @@ import {
 
 function UpdateDoctor() {
   const [doctorID, setDoctorID] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [firstNameError, setFirstNameError] = useState(false);
-  const [lastName, setLastName] = useState("");
-  const [lastNameError, setLastNameError] = useState(false);
+  const [doctorName, setDoctorName] = useState("");
+  const [doctorNameError, setDoctorNameError] = useState(false);
+  const [doctorType, setDoctorType] = useState("");
+  const [doctorTypeError, setDoctorTypeError] = useState(false);
   const [nic, setNIC] = useState("");
   const [nicError, setNICError] = useState(false);
   const [email, setEmail] = useState("");
@@ -29,35 +29,35 @@ function UpdateDoctor() {
 
   const { id } = useParams();
 
-  const handleFirstNameChange = (event) => {
+  const handleDoctorNameChange = (event) => {
     const value = event.target.value;
     const isValid = /^[A-Za-z0-9\s]*$/.test(value);
     const isWithinLengthLimit = value.length <= 50;
-    
-    setFirstName(value);
+
+    setDoctorName(value);
     
     if (!isValid) {
-      setFirstNameError("Please enter a valid last name");
+      setDoctorNameError("Please enter a valid doctor name");
     } else if (!isWithinLengthLimit) {
-      setFirstNameError("Last name should not exceed 50 characters");
+      setDoctorNameError("Doctor name should not exceed 50 characters");
     } else {
-      setFirstNameError("");
+      setDoctorNameError("");
     }
   };
 
-  const handleLastNameChange = (event) => {
+  const handleDoctorTypeChange = (event) => {
     const value = event.target.value;
     const isValid = /^[A-Za-z0-9\s&-]*$/.test(value);
     const isWithinLengthLimit = value.length <= 50;
 
-    setLastName(value);
+    setDoctorType(value);
 
     if (!isValid) {
-      setLastNameError("Please enter a valid last name");
+      setDoctorTypeError("Please enter a valid doctor type");
     } else if (!isWithinLengthLimit) {
-      setLastNameError("Last name should not exceed 50 characters");
+      setDoctorTypeError("Doctor type should not exceed 50 characters");
     } else {
-      setLastNameError("");
+      setDoctorTypeError("");
     }
   };
 
@@ -130,18 +130,18 @@ function UpdateDoctor() {
     event.preventDefault();
 
     const data = {
-      d_id: doctorID,
-      first_name: firstName,
-      last_name: lastName,
+      cd_id: doctorID,
+      doctor_name: doctorName,
+      d_type: doctorType,
       nic: nic,
       email: email,
       address: address,
       contact_no: contactNo,
     };
 
-    if(!firstNameError && !lastNameError && !nicError && !addressError && doctorID && firstName && lastName && nic && address && email){
+    if(!doctorNameError && !doctorTypeError && !nicError && !addressError && doctorID && doctorName && doctorType && nic && address && email){
     try{
-      const response = await fetch(`https://mcms_api.mtron.me/update_doctor/${data.d_id}`, {
+      const response = await fetch(`https://mcms_api.mtron.me/update_channelling_doctor/${data.cd_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -175,18 +175,18 @@ function UpdateDoctor() {
   useEffect(() => {
     async function getDoctor() {
       try {
-        const response = await fetch(`https://mcms_api.mtron.me/get_doctors/${id}`);
+        const response = await fetch(`https://mcms_api.mtron.me/get_channelling_doctor/${id}`);
         const data = await response.json();
 
         if (data.length > 0) {
           const doctor = data[0];
-          setDoctorID(doctor.d_id);
-          setFirstName(doctor.first_name);
-          setLastName(doctor.last_name);
+          setDoctorID(doctor.cd_id);
+          setDoctorName(doctor.doctor_name);
+          setDoctorType(doctor.d_type);
           setNIC(doctor.nic);
           setEmail(doctor.email);
           setAddress(doctor.address);
-          setContactNo(doctor.contact_no);
+          setContactNo(doctor.contct_no);
         } else {
           toast.error("Doctor not found", { position: toast.POSITION.TOP_RIGHT });
         }
@@ -201,8 +201,8 @@ function UpdateDoctor() {
 
   const handleReset = () => {
     setDoctorID("");
-    setFirstName("");
-    setLastName("");
+    setDoctorName("");
+    setDoctorType("");
     setNIC("");
     setEmail("");
     setAddress("");
@@ -243,11 +243,11 @@ function UpdateDoctor() {
               size="small"
               sx={{ width: "100%" }}
               color="secondary"
-              value={firstName}
-              error={firstNameError} 
-              helperText={firstNameError}
-              onChange={handleFirstNameChange}
-              label="First Name"
+              value={doctorName}
+              error={doctorNameError} 
+              helperText={doctorNameError}
+              onChange={handleDoctorNameChange}
+              label="Doctor Name"
             />
           </Grid>
 
@@ -256,11 +256,11 @@ function UpdateDoctor() {
               size="small"
               sx={{ width: "100%" }}
               color="secondary"
-              value={lastName}
-              error={lastNameError}
-              helperText={lastNameError}
-              onChange={handleLastNameChange}
-              label="Last Name"
+              value={doctorType}
+              error={doctorTypeError}
+              helperText={doctorTypeError}
+              onChange={handleDoctorTypeChange}
+              label="Doctor Type"
             />
           </Grid>
 
