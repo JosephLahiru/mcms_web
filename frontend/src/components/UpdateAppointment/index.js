@@ -1,18 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, 
-  Box, 
-  Typography, 
-  TextField, 
-  RadioGroup, 
-  FormControlLabel, 
-  Radio, 
-  Button, 
-  Modal,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Grid, Box, Typography, TextField, RadioGroup, FormControlLabel, Radio, Button, Modal, FormControl, InputLabel, Select, MenuItem, DialogActions, DialogTitle, Dialog, DialogContent } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -33,18 +20,57 @@ function UpdateAppointment() {
   const navigate = useNavigate();
   const [selectedTitle, setSelectedTitle] = useState("");
   const [titles, setTitles] = useState([]);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+
+  const handleOpenConfirmDialog = () => {
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmUpdate = async () => {
+    setConfirmDialogOpen(false);
+
+    const requestBody = {
+      app_id: appointmentId,
+      patient_name: patientName,
+      age: age,
+      mobile: mobile,
+      gender: gender,
+      nic: nic,
+      area: address,
+      title_id: selectedTitle,
+    };
+
+    try {
+      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${requestBody.app_id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setOpen(true);
+        return;
+      }
+
+      const responseData = await response.json();
+      const errorMessage = responseData.message || "Failed to send appointment details!!!";
+      setErrorMessage(errorMessage);
+      setOpen(true);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to send appointment details!!!");
+      setOpen(true);
+    }
+  };
+
+  const handleCancelUpdate = () => {
+    setConfirmDialogOpen(false);
+  };
 
   const { id } = useParams();
-
-  const handleClose = () => {
-    setOpen(false);
-    navigate(-1);
-
-  };
-
-  const handlecancel = () => {
-    navigate('/dashboard');
-  };
 
   useEffect(() => {
     async function getAppointment() {
@@ -57,7 +83,7 @@ function UpdateAppointment() {
           setAppointmentId(appointment.app_id);
           setPatientName(appointment.patient_name);
           setAge(appointment.age);
-          setNIC(appointment.nic)
+          setNIC(appointment.nic);
           setMobile(appointment.mobile);
           setGender(appointment.gender);
           setAddress(appointment.area);
@@ -73,11 +99,28 @@ function UpdateAppointment() {
     getAppointment();
   }, [id]);
 
+  useEffect(() => {
+    async function fetchTitles() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_personal_titles");
+        if (!response.ok) {
+          throw new Error("Failed to fetch titles from the API");
+        }
+        const data = await response.json();
+        setTitles(data); // Assuming the API response is an array of title objects
+      } catch (error) {
+        console.error(error);
+        // Handle any errors that occur during fetching
+      }
+    }
+    fetchTitles();
+  }, []);
+
     const handleUpdateNow = async (event) => {
       event.preventDefault();
   
       const errors = {};
-  
+    
       if (!appointmentId) {
         errors.appointmentId = "Please enter the appointment id";
       }
@@ -156,66 +199,22 @@ function UpdateAppointment() {
         return;
       }
   
-
-    if (Object.keys(errors).length > 0) {
-      setValidationErrors(errors);
-      return;
-    }
-
-    const requestBody = {
-      app_id: appointmentId,
-      patient_name: patientName,
-      age: age,
-      mobile: mobile,
-      gender: gender,
-      nic:nic,
-      area: address,
-      title_id: titles,
+      handleOpenConfirmDialog();
     };
 
-    try {
-      const response = await fetch(`https://mcms_api.mtron.me/update_appointment/${requestBody.app_id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+    const handleClose = () => {
+      setOpen(false);
+      navigate(-1);
+    };
+  
+    const handlecancel = () => {
+      navigate(-1);
+    };
+  
+    const handleCloseModal = () => {
+      setOpen(false);
 
-      if (response.ok) {
-        setSuccess(true);
-        setOpen(true);
-        return;
-      }
-
-      const responseData = await response.json();
-      const errorMessage = responseData.message || "Failed to send appointment details!!!";
-      setErrorMessage(errorMessage);
-      setOpen(true);
-    } catch (error) {
-      console.error(error);
-      setErrorMessage("Failed to send appointment details!!!");
-      setOpen(true);
-    }
-  };
-
-  useEffect(() => {
-    async function fetchTitles() {
-      try {
-        const response = await fetch("https://mcms_api.mtron.me/get_personal_titles");
-        if (!response.ok) {
-          throw new Error("Failed to fetch titles from the API");
-        }
-        const data = await response.json();
-        setTitles(data); // Assuming the API response is an array of title objects
-      } catch (error) {
-        console.error(error);
-        // Handle any errors that occur during fetching
-      }
-    }
-
-    fetchTitles();
-  }, []);
+    };
 
   return (
     <Grid container spacing={3}>
@@ -284,7 +283,7 @@ function UpdateAppointment() {
                         ))}   
                       </Select>
                       {validationErrors.selectedTitle && (
-                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px" }}>
+                      <Typography variant="body2" color="error" sx={{ marginLeft: "75px", marginTop: "2px",fontSize: "12px",marginBottom : "20px" }}>
                         {validationErrors.selectedTitle}
                       </Typography>
                     )}  
@@ -396,7 +395,7 @@ function UpdateAppointment() {
           </Grid>
         </Box>
       </Grid>
-      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+      <Modal open={open} onClose={handleCloseModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: 400, bgcolor: "background.paper", boxShadow: 24, p: 4 }}>
           <Typography id="modal-modal-title" variant="h5" component="h2" color="purple" sx={{fontWeight: 'bold', textAlign: 'center'}}>
             {success ? "Successful" : "Not Successful"}
@@ -405,12 +404,33 @@ function UpdateAppointment() {
             {success ? "Appointment details updated successfully!!!" : errorMessage}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Button onClick={handlecancel}>
-            Cancel
+          <Button onClick={handleCloseModal}>
+            Close
           </Button>
           </Box>
         </Box> 
       </Modal>
+      <Dialog
+        open={confirmDialogOpen}
+        onClose={handleCancelUpdate}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>
+          {"Confirm Update"}
+        </DialogTitle>
+        <DialogContent>
+          <div id="alert-dialog-description">Are you sure you want to update this appointment?</div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelUpdate} sx={{ color: 'purple' }}>
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmUpdate} sx={{ color: 'purple' }}>
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }
