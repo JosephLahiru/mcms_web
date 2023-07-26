@@ -32,6 +32,7 @@ function GenerateBillNew() {
   const [cashAmount, setCashAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountPercentage, setDiscountPercentage] = useState("");
+  const [discountValue, setDiscountValue] = useState(0);
 
   useEffect(() => {
     async function fetchStock() {
@@ -90,42 +91,43 @@ function GenerateBillNew() {
     const unitPriceValue = parseFloat(selectedUnitPrice);
     const discountValue = parseFloat(discount); // Parse the discount value
     const discountPercentageValue = parseFloat(discountPercentage); // Parse the discount percentage value
-  
+
     if (!isNaN(quantityValue) && !isNaN(unitPriceValue)) {
       // Calculate the amount before applying the discount
       const amountBeforeDiscount = quantityValue * unitPriceValue;
-  
+
       // Calculate the discount amount based on the discount percentage
       const discountAmount = isNaN(discountPercentageValue)
         ? isNaN(discountValue)
           ? 0
           : discountValue
         : (amountBeforeDiscount * (discountPercentageValue / 100)).toFixed(2);
-  
+
       // Calculate the amount after applying the discount
       const amountAfterDiscount = amountBeforeDiscount - discountAmount;
-  
+
       return amountAfterDiscount.toFixed(2);
     }
-  
+
     return "0.00"; // Return 0.00 if the quantity or unit price is not a valid number
   };
-  
 
   const handleAddButton = () => {
     // Check if both selectedDrugName and quantity are valid
     if (selectedDrugName && !isNaN(quantity)) {
       // Calculate the amount based on the quantity and unit price
       const calculatedAmount = handleAmountCalculation();
-  
+
       // Determine whether to use discount or discountPercentage based on their availability
       const calculatedDiscount =
-        !isNaN(parseFloat(discountPercentage)) && discountPercentage >= 0 && discountPercentage <= 100
+        !isNaN(parseFloat(discountPercentage)) &&
+        discountPercentage >= 0 &&
+        discountPercentage <= 100
           ? (selectedUnitPrice * quantity * discountPercentage) / 100
           : !isNaN(parseFloat(discount))
           ? parseFloat(discount)
           : 0;
-  
+
       // Create a new drug object with the details
       const newDrug = {
         product: selectedDrugName,
@@ -135,7 +137,7 @@ function GenerateBillNew() {
         discount: calculatedDiscount,
         amount: parseFloat(calculatedAmount),
       };
-  
+
       // Add the new drug to the list of added drugs
       setAddedDrugs([...addedDrugs, newDrug]);
       setQuantity("");
@@ -144,8 +146,7 @@ function GenerateBillNew() {
       setDiscount("");
       setDiscountPercentage("");
     }
-  };  
-  
+  };
 
   const handleDeleteRow = (index) => {
     // Create a copy of the addedDrugs array
@@ -212,7 +213,7 @@ function GenerateBillNew() {
   };
 
   const calculateBalance = () => {
-    const totalAmount = parseFloat(calculateTotalAmount());
+    const totalAmount = parseFloat(calculateNetTotalAmount());
     const parsedCashAmount = parseFloat(cashAmount);
 
     if (!isNaN(parsedCashAmount)) {
@@ -222,7 +223,17 @@ function GenerateBillNew() {
 
     return "0.00"; // Return 0.00 if the cash amount is not a valid number
   };
-  
+
+  const handleDiscountChange = (event) => {
+    const discountValue = parseFloat(event.target.value);
+    setDiscountValue(isNaN(discountValue) ? 0 : discountValue);
+  };
+
+  const calculateNetTotalAmount = () => {
+    const totalAmount = calculateTotalAmount(); // Assuming you already have the calculateTotalAmount function
+
+    return (totalAmount - discountValue).toFixed(2);
+  };
 
   return (
     <Grid
@@ -463,15 +474,22 @@ function GenerateBillNew() {
                     InputProps={{
                       readOnly: true,
                     }}
+                    style={{ marginBottom: "10px" }}
                   />
                   <TextField
                     size="small"
                     label="Discount"
+                    value={discountValue}
+                    onChange={handleDiscountChange}
                     style={{ marginBottom: "10px" }}
                   />
                   <TextField
                     size="small"
                     label="$Net Total"
+                    value={calculateNetTotalAmount()}
+                    InputProps={{
+                      readOnly: true,
+                    }}
                     style={{ marginBottom: "10px" }}
                   />
                 </Grid>
