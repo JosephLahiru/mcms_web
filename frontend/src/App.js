@@ -20,6 +20,7 @@ import AddAppointment1 from './components/AddAppoinment1';
 import AddAppointment2 from './components/AddAppoinment2';
 import ViewLowStock from './components/ViewLowStock';
 import ViewShortExpiry from './components/ViewShortExpiry';
+import ViewExpiredStock from './components/ViewExpiredStock';
 import Navbar from './components/Navbar';
 import ViewEndpoints from './components/ViewEndpoints';
 import ViewGeneratingBill from './components/ViewGeneratingBill';
@@ -36,7 +37,6 @@ import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
 import LoginRoute from './scripts/loginRoute';
 import GenerateBillNew from './components/GenerateBillNew';
-import ViewStockForBill from './components/ViewStockForBill';
 import AppointmentCounter from './components/AppointmentCounter';
 
 const hideDashboardComponentRoutes = ['/', '/view_endpoints', '/dashboard', '/login'];
@@ -163,6 +163,10 @@ function App() {
           <Route index element={<ViewStock />} />
         </Route>
 
+        <Route path="/view_expired" element={<PrivateRoute />}>
+          <Route index element={<ViewExpiredStock />} />
+        </Route>
+
         <Route path="/generate_bill" element={<PrivateRoute />}>
           <Route index element={<GenerateBill />} />
         </Route>
@@ -193,10 +197,6 @@ function App() {
 
         <Route path="/generate_bill_new" element={<PrivateRoute/>}>
           <Route index element={<GenerateBillNew />}/>
-        </Route>
-
-        <Route path="/view_stock_for_bill" element={<PrivateRoute/>}>
-          <Route index element={<ViewStockForBill />}/>
         </Route>
 
         <Route path="/view_doctors" element={<PrivateRoute/>}>

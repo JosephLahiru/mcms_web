@@ -198,8 +198,7 @@ function ViewStock() {
                   <TableCell>Selling Price(Rs)</TableCell>
                   <TableCell>Quantity</TableCell>
                   <TableCell>Stock Type</TableCell>
-                  <TableCell>Expiry Type</TableCell>
-                  <TableCell>Manufacture Date</TableCell>
+                  <TableCell>Manufactured Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
@@ -220,7 +219,6 @@ function ViewStock() {
                         <TableCell>{item.sell_price}</TableCell>
                         <TableCell>{item.total_quantity}</TableCell>
                         <TableCell>{item.stock_type}</TableCell>
-                        <TableCell>{item.expire_type}</TableCell>
                         <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
                         <TableCell>

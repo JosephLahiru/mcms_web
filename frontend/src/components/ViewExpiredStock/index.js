@@ -3,47 +3,37 @@ import {
   Paper,
   Grid,
   Typography,
-  InputLabel,
-  Select,
-  MenuItem,
   TableContainer,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
-  FormControl
+  TablePagination
 } from "@mui/material";
-import { useAppstore } from './../../appStore';
+import { useAppstore } from '../../appStore';
 
-function ViewShortExpiry() {
+function ViewExpiredStock() {
   const { dopen } = useAppstore();
-  const [shortexpiry, setShortExpiry] = useState([]);
-  const [filteredShortExpiry, setFilteredShortExpiry] = useState([]);
-  const [filterOption, setFilterOption] = useState("");
+  const [expiredStock, setExpiredStock] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    async function fetchShortExpiry() {
-      const response = await fetch("https://mcms_api.mtron.me/get_expire_soon");
-      const data = await response.json();
-      setShortExpiry(data);
-      setFilteredShortExpiry(data);
+    async function fetchExpiredStock() {
+      try {
+        const response = await fetch("https://mcms_api.mtron.me/get_expired");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data.");
+        }
+        const data = await response.json();
+        setExpiredStock(data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
     }
-    fetchShortExpiry();
+    fetchExpiredStock();
   }, []);
-
-  const handleFilterChange = (event) => {
-    setFilterOption(event.target.value);
-    if (event.target.value === "") {
-      setFilteredShortExpiry(shortexpiry);
-    } else {
-      const filteredData = shortexpiry.filter((item) => item.expire_type === Number(event.target.value));
-      setFilteredShortExpiry(filteredData);
-    }
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,46 +44,28 @@ function ViewShortExpiry() {
     setPage(0);
   };
 
-  const rows = filteredShortExpiry || [];
+  const rows = expiredStock || [];
 
   return (
     <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container alignItems='center' spacing={2}>
-      <Grid item xs={12}>
-        <Typography variant="h5" gutterBottom >
-            View Short Expiry
+        <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom>
+            View Expired Stock
           </Typography>
-            <hr style={{ margin: '10px 0' }} />
-        </Grid>
-        <Grid item xs={2}>
-          <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-            <InputLabel id="demo-select-small-label" color="secondary">Filter option</InputLabel>
-            <Select
-              labelId="demo-select-small-label"
-              id="demo-select-small"
-              color="secondary"
-              value={filterOption}
-              label="Filter option"
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="">All</MenuItem>
-              <MenuItem value={1}>small Stock</MenuItem>
-              <MenuItem value={2}>Medium Stock</MenuItem>
-              <MenuItem value={3}>Big Stock</MenuItem>
-            </Select>
-          </FormControl>
+          <hr style={{ margin: '10px 0' }} />
         </Grid>
         <Grid item xs={12}>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
+                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
-                  <TableCell>Manufactured Date</TableCell>
-                  <TableCell>Expiry Date</TableCell>
                   <TableCell>Quantity</TableCell>
+                  <TableCell>Manufactured Date</TableCell>
+                  <TableCell>Expired Date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,14 +77,14 @@ function ViewShortExpiry() {
                         <TableCell>{item.prdct_id}</TableCell>
                         <TableCell>{item.prdct_name}</TableCell>
                         <TableCell>{item.brand_name}</TableCell>
+                        <TableCell>{item.total_quantity}</TableCell>
                         <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                        <TableCell>{item.total_quantity}</TableCell>
                       </TableRow>
                     ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={11}>No data available</TableCell>
+                    <TableCell colSpan={5}>No data available</TableCell>
                   </TableRow>
                 )}
               </TableBody>
@@ -121,7 +93,7 @@ function ViewShortExpiry() {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={filteredShortExpiry.length}
+            count={rows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -133,4 +105,4 @@ function ViewShortExpiry() {
   );
 }
 
-export default ViewShortExpiry;
+export default ViewExpiredStock;

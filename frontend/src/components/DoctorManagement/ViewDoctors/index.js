@@ -34,7 +34,7 @@ function ViewDoctors() {
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("First Name");
+  const [filterOption, setFilterOption] = useState("Doctor Name");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
@@ -42,7 +42,7 @@ function ViewDoctors() {
 
   useEffect(() => {
     async function fetchDoctors() {
-      const response = await fetch("https://mcms_api.mtron.me/get_doctors");
+      const response = await fetch("https://mcms_api.mtron.me/get_channelling_doctors");
       const data = await response.json();
       setDoctors(data);
       setFilteredDoctors(data);
@@ -53,10 +53,19 @@ function ViewDoctors() {
   useEffect(() => {
     let results;
     switch (filterOption) {
-      case "First Name":
+      case "Doctor Name":
         if (searchTerm.length >= 3) {
           results = doctors.filter((item) =>
             item.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          results = doctors;
+        }
+        break;
+      case "Doctor Type":
+        if (searchTerm.length >= 3) {
+          results = doctors.filter((item) =>
+            item.d_type.toLowerCase().includes(searchTerm.toLowerCase())
           );
         } else {
           results = doctors;
@@ -112,18 +121,18 @@ function ViewDoctors() {
 
   const handleConfirmDelete = async () => {
     try{
-      await fetch(`https://mcms_api.mtron.me/delete_doctors/${itemToDelete}`, {
+      await fetch(`https://mcms_api.mtron.me/delete_channelling_doctor/${itemToDelete}`, {
         method: "GET",
       });
-      setDoctors(doctors.filter((item) => item.d_id !== itemToDelete));
+      setDoctors(doctors.filter((item) => item.cd_id !== itemToDelete));
       setFilteredDoctors(
-        filteredDoctors.filter((item) => item.d_id !== itemToDelete)
+        filteredDoctors.filter((item) => item.cd_id !== itemToDelete)
       );
     setItemToDelete(null);
     setConfirmDialogOpen(false);
-    toast.success('Doctor deleted successfully');
+    toast.success('Channelling doctor deleted successfully');
     } catch (error) {
-      toast.error('Failed to delete doctor');
+      toast.error('Failed to channelling delete doctor');
     }
   };
 
@@ -133,8 +142,8 @@ function ViewDoctors() {
   };
 
   const handleUpdate = (item) => {
-    console.log(item.d_id);
-    Navigate(`/update_doctors/${item.d_id}`);
+    console.log(item.cd_id);
+    Navigate(`/update_doctors/${item.cd_id}`);
   };
 
   return (
@@ -167,7 +176,8 @@ function ViewDoctors() {
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="First Name">First Name</MenuItem>
+              <MenuItem value="Doctor Name">Doctor Name</MenuItem>
+              <MenuItem value="Doctor Type">Doctor Type</MenuItem>
               <MenuItem value="Email">Email</MenuItem>
               <MenuItem value="NIC">NIC</MenuItem>
             </Select>
@@ -190,8 +200,8 @@ function ViewDoctors() {
               <TableHead>
                 <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
                   <TableCell>Doctor ID</TableCell>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
+                  <TableCell>Doctor Name</TableCell>
+                  <TableCell>Doctor Type</TableCell>
                   <TableCell>NIC</TableCell>
                   <TableCell>Email</TableCell>
                   <TableCell>Address</TableCell>
@@ -205,14 +215,14 @@ function ViewDoctors() {
                   rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((item) => (
-                      <TableRow hover role="checkbox" key={item.d_id}>
-                        <TableCell>{item.d_id}</TableCell>
-                        <TableCell>{item.first_name}</TableCell>
-                        <TableCell>{item.last_name}</TableCell>
+                      <TableRow hover role="checkbox" key={item.cd_id}>
+                        <TableCell>{item.cd_id}</TableCell>
+                        <TableCell>{item.doctor_name}</TableCell>
+                        <TableCell>{item.d_type}</TableCell>
                         <TableCell>{item.nic}</TableCell>
                         <TableCell>{item.email}</TableCell>
                         <TableCell>{item.address}</TableCell>
-                        <TableCell>{item.contact_no}</TableCell>
+                        <TableCell>{item.contct_no}</TableCell>
                         <TableCell>
                           <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
                         </TableCell>
@@ -221,7 +231,7 @@ function ViewDoctors() {
                           aria-label="delete"
                           variant="outlined"
                           size="small"
-                          onClick={() => handleDelete(item.d_id)}
+                          onClick={() => handleDelete(item.cd_id)}
                         >
                         <DeleteIcon />
                         </IconButton>
