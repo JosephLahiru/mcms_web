@@ -90,6 +90,10 @@ function AddAppointment2() {
       errors.age = "Please enter a valid age";
       formIsValid = false;
     }
+    else if (age.length > 3) {
+    errors.age = "Age should be limited to three digits";
+    formIsValid = false;
+  }
     
 
     if (mobile.trim() === "") {
@@ -325,7 +329,7 @@ function AddAppointment2() {
               <Grid item xs={2.5} sx={{ display: "flex", justifyContent: "right" }}>
               <FormControl fullWidth error={!!validationErrors.selectedTitle}>
                   <InputLabel id="select-title" color="secondary"  sx={{ marginLeft: '60px' }}>
-                    Select a Title
+                    Select a Title*
                   </InputLabel>
                   <Select
                     labelId="select-title"
@@ -360,6 +364,7 @@ function AddAppointment2() {
                 error={!!validationErrors.patientName}
                 helperText={validationErrors.patientName}
                 sx={{ width: "90%", marginBottom: "20px",marginLeft: "40px"}}
+                required
               />
               </Grid>
             </Grid>
@@ -375,6 +380,7 @@ function AddAppointment2() {
                   error={!!validationErrors.age}
                   helperText={validationErrors.age}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
@@ -388,13 +394,14 @@ function AddAppointment2() {
                   error={!!validationErrors.mobile}
                   helperText={validationErrors.mobile}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
             </Grid>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}>
-              <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" value={gender} onChange={(event) => setGender(event.target.value)} sx={{ width: "90%", marginBottom: "10px" }}>
-                <FormControlLabel value="female" control={<Radio />} label="Female" sx={{ marginRight: "80px" }} />
-                <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" value={gender} onChange={(event) => setGender(event.target.value)} sx={{ width: "90%", marginBottom: "10px" }} >
+                <FormControlLabel value="female" control={<Radio />} label="Female*" sx={{ marginRight: "80px" }} />
+                <FormControlLabel value="male" control={<Radio />} label="Male*" />
                 {validationErrors.gender && (
                   <Typography variant="body2" color="error" sx={{ marginLeft: "100px", marginTop: "10px" }}>
                     {validationErrors.gender}
@@ -414,6 +421,7 @@ function AddAppointment2() {
                   error={!!validationErrors.nic}
                   helperText={validationErrors.nic}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
               <Grid item xs={6} sx={{ display: "flex", justifyContent: "left" }}>
@@ -427,6 +435,7 @@ function AddAppointment2() {
                   error={!!validationErrors.address}
                   helperText={validationErrors.address}
                   sx={{ width: "90%", marginBottom: "10px" }}
+                  required
                 />
               </Grid>
             </Grid>
