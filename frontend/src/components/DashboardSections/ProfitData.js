@@ -22,7 +22,7 @@ export default function ProfitData({ title, subheader, data, ...other }) {
   const actual_cost_free_med = firstItem.actual_cost_free_med || "0";
   const selling_cost_issued_med = firstItem.selling_cost_issued_med || "0";
   const actual_cost_issued_med = firstItem.actual_cost_issued_med || "0";
-  const daily_profit = firstItem.daily_profit || "0";
+  const profit = firstItem.daily_profit || firstItem.total_profit || "0";
 
   const chartData = [
     {
@@ -32,14 +32,14 @@ export default function ProfitData({ title, subheader, data, ...other }) {
         parseFloat(actual_cost_free_med),
         parseFloat(selling_cost_issued_med),
         parseFloat(actual_cost_issued_med),
-        parseFloat(daily_profit)
+        parseFloat(profit)
       ]
     }
   ];
 
   const chartOptions = useChart({
   plotOptions: { bar: { columnWidth: '16%' } },
-  xaxis: { categories: ['Selling Cost Free Med', 'Actual Cost Free Med', 'Selling Cost Issued Med', 'Actual Cost Issued Med', 'Daily Profit'] },
+  xaxis: { categories: ['Selling Cost Free Med', 'Actual Cost Free Med', 'Selling Cost Issued Med', 'Actual Cost Issued Med', 'Profit'] },
   tooltip: {
     shared: true,
     intersect: false,

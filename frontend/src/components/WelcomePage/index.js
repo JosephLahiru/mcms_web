@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EventNoteIcon from '@mui/icons-material/EventNote';
@@ -23,37 +23,36 @@ const PageContainer = styled(Container)(({ theme }) => ({
 }));
 
 function WelcomePage() {
-  const [state, setState] = useState({
-    data: null,
-    isLoading: true,
-  });
-
-  const [totalProfit, setTotalProfit] = useState(0);
+  const [dailyProfit, setDailyProfit] = useState(null);
+  const [weeklyProfit, setWeeklyProfit] = useState(null);
+  const [monthlyProfit, setMonthlyProfit] = useState(null);
+  const [profitType, setProfitType] = useState('daily');
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(
-        `https://mcms_api.mtron.me/get_profit/${date}`,
-      );
+    const fetchDailyProfit = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_profit/${date}`);
       const data = await result.json();
-      setState({
-        data,
-        isLoading: false,
-      });
+      setDailyProfit(data);
     };
-    const fetchProfit = async () => {
-      const result = await fetch(
-        `https://mcms_api.mtron.me/get_monthly_profit/${date}`,
-      );
-      const pofitData = await result.json();
-      const totalProfit = pofitData[0].total_profit;
-      setTotalProfit(totalProfit);
+
+    const fetchWeeklyProfit = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_weekly_profit/${date}`);
+      const data = await result.json();
+      setWeeklyProfit(data);
     };
-    fetchProfit();
-    fetchData();
+
+    const fetchMonthlyProfit = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_monthly_profit/${date}`);
+      const data = await result.json();
+      setMonthlyProfit(data);
+    };
+
+    fetchDailyProfit();
+    fetchWeeklyProfit();
+    fetchMonthlyProfit();
   }, []);
 
-  if (state.isLoading) {
+  if (!dailyProfit || !weeklyProfit || !monthlyProfit) {
     return <div>Loading...</div>;
   }
 
@@ -65,7 +64,7 @@ function WelcomePage() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Weekly Appoinments" total={100} color="info" icon={EventNoteIcon} />
+          <AppWidgetSummary title="Weekly Appointments" total={100} color="secondary" icon={EventNoteIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
@@ -73,14 +72,36 @@ function WelcomePage() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Profit of the Month (Rs.)" total={totalProfit} color="error" icon={AttachMoneyIcon} />
+          <AppWidgetSummary title="Total Profit" total={monthlyProfit[0].total_profit} color="success" icon={AttachMoneyIcon} />
         </Grid>
+
         <Grid item xs={12} md={12} lg={12}> 
-          <ProfitData
-            title="Financial Revenue Data"
-            subheader={date}
-            data={state.data}
-          />
+          {profitType === 'daily' && 
+            <ProfitData
+              title="Daily Profit Data"
+              subheader={date}
+              data={dailyProfit}
+            />
+          }
+          {profitType === 'weekly' && 
+            <ProfitData
+              title="Weekly Profit Data"
+              subheader={date}
+              data={weeklyProfit}
+            />
+          }
+          {profitType === 'monthly' && 
+            <ProfitData
+              title="Monthly Profit Data"
+              subheader={date}
+              data={monthlyProfit}
+            />
+          }
+        </Grid>
+        <Grid item xs={12} md={12} lg={12} sx={{ textAlign: "center" }}> 
+          <Button variant="outlined" sx={{ mr: 1 }} onClick={() => setProfitType('daily')}>Daily Profit</Button>
+          <Button variant="outlined" sx={{ mr: 1 }} onClick={() => setProfitType('weekly')}>Weekly Profit</Button>
+          <Button variant="outlined" onClick={() => setProfitType('monthly')}>Monthly Profit</Button>
         </Grid>
       </Grid>
     </PageContainer>
