@@ -28,6 +28,8 @@ function WelcomePage() {
     isLoading: true,
   });
 
+  const [totalProfit, setTotalProfit] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetch(
@@ -39,6 +41,15 @@ function WelcomePage() {
         isLoading: false,
       });
     };
+    const fetchProfit = async () => {
+      const result = await fetch(
+        `https://mcms_api.mtron.me/get_monthly_profit/${date}`,
+      );
+      const pofitData = await result.json();
+      const totalProfit = pofitData[0].total_profit;
+      setTotalProfit(totalProfit);
+    };
+    fetchProfit();
     fetchData();
   }, []);
 
@@ -62,7 +73,7 @@ function WelcomePage() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Profit of the Month" total={10000} color="error" icon={AttachMoneyIcon} />
+          <AppWidgetSummary title="Profit of the Month (Rs.)" total={totalProfit} color="error" icon={AttachMoneyIcon} />
         </Grid>
         <Grid item xs={12} md={12} lg={12}> 
           <ProfitData

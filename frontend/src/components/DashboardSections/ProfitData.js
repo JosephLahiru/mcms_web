@@ -38,21 +38,22 @@ export default function ProfitData({ title, subheader, data, ...other }) {
   ];
 
   const chartOptions = useChart({
-    plotOptions: { bar: { columnWidth: '16%' } },
-    xaxis: { categories: ['Selling Cost Free Med', 'Actual Cost Free Med', 'Selling Cost Issued Med', 'Actual Cost Issued Med', 'Daily Profit'] },
-    tooltip: {
-      shared: true,
-      intersect: false,
-      y: {
-        formatter: (y) => {
-          if (typeof y !== 'undefined') {
-            return `Rs. ${y.toFixed(0)}`;
-          }
-          return y;
-        },
+  plotOptions: { bar: { columnWidth: '16%' } },
+  xaxis: { categories: ['Selling Cost Free Med', 'Actual Cost Free Med', 'Selling Cost Issued Med', 'Actual Cost Issued Med', 'Daily Profit'] },
+  tooltip: {
+    shared: true,
+    intersect: false,
+    y: {
+      formatter: (y, { series, seriesIndex, dataPointIndex, w }) => {
+        if (typeof y !== 'undefined') {
+          const category = w.globals.labels[dataPointIndex];
+          return `${category}: Rs. ${y.toFixed(0)}`;
+        }
+        return y;
       },
     },
-  });
+  },
+});
 
   return (
     <Card {...other}>
