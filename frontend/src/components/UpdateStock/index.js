@@ -38,8 +38,9 @@ function UpdateStock() {
   const [selectedStockType, setSelectedStockType] = useState("");
   const [expireTypes, setExpireTypes] = useState([]);
   const [selectedExpireType, setSelectedExpireType] = useState("");
-  const [ManufacturedDate, setManufactureDate] = useState("");
-  const [ExpiryDate, setExpiryDate] = useState("");
+  const [PurchasedDate, setPurchasedDate] = useState(null);
+  const [ManufacturedDate, setManufactureDate] = useState(null);
+  const [ExpiryDate, setExpiryDate] = useState(null);
 
   const theme = createTheme({
     palette: {
@@ -194,6 +195,7 @@ function UpdateStock() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const formattedPurchasedDate = PurchasedDate ? dayjs(PurchasedDate).format('YYYY-MM-DD') : null;
     const formattedManufacturedDate = ManufacturedDate ? dayjs(ManufacturedDate).format('YYYY-MM-DD') : null;
     const formattedExpireDate = ExpiryDate ? dayjs(ExpiryDate).format('YYYY-MM-DD') : null;
 
@@ -205,13 +207,35 @@ function UpdateStock() {
       brand_name: brandname,
       med_type: selectedType,
       total_quantity: quantity,
+      purchased_date: formattedPurchasedDate,
       mfd_date: formattedManufacturedDate,
       exp_date: formattedExpireDate,
       stock_type: await getStockTypeId(selectedStockType),
       expire_type: await getExpireTypeId(selectedExpireType),
     };
 
-    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugId && drugname && unitprice && sellingprice && quantity && brandname && selectedType && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+    if (formattedPurchasedDate && formattedManufacturedDate && formattedExpireDate) {
+      const purchasedDate = dayjs(formattedPurchasedDate);
+      const manufacturedDate = dayjs(formattedManufacturedDate);
+      const expireDate = dayjs(formattedExpireDate);
+  
+      if (manufacturedDate.isAfter(expireDate)) {
+        toast.error("Manufactured date should be before the expiry date", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+  
+      if (purchasedDate.isBefore(manufacturedDate) || purchasedDate.isAfter(expireDate)) {
+        toast.error("Purchased date should be between manufactured date and expiry date", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+    }
+
+
+    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugId && drugname && unitprice && sellingprice && quantity && brandname && selectedType && selectedStockType && selectedExpireType && formattedPurchasedDate && formattedManufacturedDate && formattedExpireDate){
     try{
       const response = await fetch(`https://mcms_api.mtron.me/update_stock/${data.prdct_id}`, {
         method: "POST",
@@ -268,10 +292,12 @@ function UpdateStock() {
           const selectedExpireTypeId = stock.expire_type;
           setSelectedExpireType(getExpireType(selectedExpireTypeId));
 
-         //const manufactureDateFormatted = dayjs(stock.mfd_date).format('YYYY-MM-DD');
+         //const DateFormatted = dayjs(stock.mfd_date).format('YYYY-MM-DD');
+         const purchasedDateFormatted = formatDate(stock.purchased_date);
          const manufactureDateFormatted = formatDate(stock.mfd_date);
          const expiryDateFormatted = formatDate(stock.exp_date);
 
+         setPurchasedDate(purchasedDateFormatted);
          setManufactureDate(manufactureDateFormatted);
          setExpiryDate(expiryDateFormatted);
 
@@ -291,11 +317,11 @@ function UpdateStock() {
   function getDrugType(selectedStockTypeId) {
     switch (selectedStockTypeId) {
       case 1:
-        return 'essential meds';
+        return 'between 1 - 20';
       case 2:
-        return 'standard inventory';
+        return 'between 21 - 80';
       case 3:
-        return 'bulk supplies';
+        return 'more than 80';
       default:
         return '';
     }
@@ -329,8 +355,9 @@ function UpdateStock() {
     setSelectedStockType("");
     setSelectedExpireType("");
     setQuantity("");
-    setManufactureDate("");
-    setExpiryDate("");
+    setPurchasedDate(null);
+    setManufactureDate(null);
+    setExpiryDate(null);
   };
 
   return (
@@ -447,6 +474,20 @@ function UpdateStock() {
               <DatePicker
                 size="small"
                 sx={{ width: "100%" }}
+                value={PurchasedDate}
+                onChange={(date) => setPurchasedDate(date)}
+                label="Purchased Date"
+                slotProps={{ textField: { size: 'small' } }}
+              />
+            </LocalizationProvider>
+            </ThemeProvider>
+          </Grid>
+          <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                size="small"
+                sx={{ width: "100%" }}
                 value={ExpiryDate}
                 onChange={(date) => setExpiryDate(date)}
                 label="Expiry Date"
@@ -465,7 +506,7 @@ function UpdateStock() {
               error={unitpriceError}
               helperText={unitpriceError ? 'Please enter a valid Purchased price' : ''}
               onChange={handleUnitPriceChange}
-              label="Purchased Price"
+              label="Purchased Price (Rs)"
             />
           </Grid>
           <Grid item xs={4}>
@@ -478,7 +519,7 @@ function UpdateStock() {
               error={sellingpriceError}
               helperText={sellingpriceError ? 'Please enter a valid selling price' : ''}
               onChange={handleSellingPriceChange}
-              label="Selling Price"
+              label="Selling Price (Rs)"
             />
           </Grid>
           <Grid item xs={4}>
