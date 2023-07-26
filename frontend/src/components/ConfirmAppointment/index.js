@@ -10,6 +10,10 @@ import {
   Button,
   Modal,
   TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 
 } from '@mui/material';
 import { useParams } from "react-router-dom";
@@ -29,8 +33,16 @@ function ConfirmAppointment() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(false);
  
+  const handleOpenConfirmDialog = () => {
+    setShowConfirmDialog(true);
+  };
 
+  const handleCloseConfirmDialog = () => {
+    setShowConfirmDialog(false);
+  };
 
   const { appointmentId } = useParams();
 
@@ -62,13 +74,16 @@ function ConfirmAppointment() {
 
 
   const handleConfirmPayment = async () => {
-    if (!professionalFee || !medicalCenterPayment) {
+    if (professionalFee.trim() === "" || medicalCenterPayment.trim() === "") {
       // Show an error message when the fields are empty
-      setOpen(true);
-      return;
+      setOpen(false);
+    } else {
+      // Both fields have values, so show the confirmation dialog
+      handleOpenConfirmDialog();
     }
-    console.log()
+  };
 
+    const handlePaymentConfirmation = async () => {
     try {
       const query = `https://mcms_api.mtron.me/confirm_app_payment/${appointmentId}`
       console.log(query)
@@ -76,12 +91,17 @@ function ConfirmAppointment() {
         method: "GET",
       });
       console.log("Done")
+
+      setPaymentStatus(true);
+      handleCloseConfirmDialog();
+
       setOpen(true);
     } catch (error) {
       console.log(error)
     }
   };
 
+  
   const handlepayLater = () => {
     // Check the appointmentDoctor value and navigate accordingly
     if (appointmentDoctor === "NEURO SURGEON - NISHANTHA GUNASEKARA") {
@@ -192,8 +212,6 @@ function ConfirmAppointment() {
                 <Typography variant="h6" component="div" sx={{  paddingTop: '10px', textAlign: 'left', paddingLeft: '50px' }}>
                   <span style={{ fontWeight: 'bold', color: '#616161' }}>Gender: </span>{gender}
                 </Typography>
-
-
             </Box>
           </Grid>
           <Grid item xs={6}>
@@ -244,6 +262,37 @@ function ConfirmAppointment() {
               </Button>
               </Grid>
             </Grid>
+            {showConfirmDialog && (
+        <Dialog
+          open={showConfirmDialog}
+          onClose={handleCloseConfirmDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>
+            {"Confirm Payment"}
+          </DialogTitle>
+          <DialogContent>
+            <div id="alert-dialog-description"> 
+            Do you want to pay now?
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleCloseConfirmDialog}
+              sx={{ color: "purple" }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handlePaymentConfirmation}
+              sx={{ color: "purple" }}
+            >
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
               <Modal
                   open={open}
                   onClose={handleClose}
@@ -256,7 +305,7 @@ function ConfirmAppointment() {
           </Typography>
           <Typography id="appointment information" variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
             Appointment Information
-          </Typography>
+          </Typography>          
           <Typography id="appointment details" sx={{ mt: 2 }}>
           <span style={{ fontWeight: 'bold', color: '#616161',fontSize: '18px' }}>Appointment Number: </span>{appointmentNumber.toString().padStart(2, "0")}
           </Typography>
@@ -293,4 +342,5 @@ function ConfirmAppointment() {
     </Grid>
   );
 }
+
 export default ConfirmAppointment;

@@ -420,7 +420,7 @@ function UpdateAppointment() {
           {"Confirm Update"}
         </DialogTitle>
         <DialogContent>
-          <div id="alert-dialog-description">Are you sure you want to update this appointment?</div>
+          <div id="alert-dialog-description">Do  you want to update this appointment?</div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelUpdate} sx={{ color: 'purple' }}>
