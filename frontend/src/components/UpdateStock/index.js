@@ -474,7 +474,9 @@ function UpdateStock() {
               required
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
+          <Grid container alignItems="center" justifyContent="center">
+            <Grid item xs={6}>
             <TextField
               type="number"
               size="small"
@@ -487,7 +489,10 @@ function UpdateStock() {
               label="Quantity"
               required
             />
+            </Grid>
           </Grid>
+          </Grid>
+          
         </Grid>
         <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
           <Grid item xs={2}>
