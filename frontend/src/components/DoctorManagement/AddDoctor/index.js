@@ -12,49 +12,49 @@ import {
 } from "@mui/material";
 
 function AddDoctor() {
-    const [doctorID, setDoctorID] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [firstNameError, setFirstNameError] = useState(false);
-    const [lastName, setLastName] = useState("");
-    const [lastNameError, setLastNameError] = useState(false);
-    const [nic, setNIC] = useState("");
-    const [nicError, setNICError] = useState(false);
-    const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState(false);
-    const [address, setAddress] = useState("");
-    const [addressError, setAddressError] = useState(false);
-    const [contactNo, setContactNo] = useState("");
-    const [contactNoError, setContactNoError] = useState(false);
+  const [doctorID, setDoctorID] = useState("");
+  const [doctorName, setDoctorName] = useState("");
+  const [doctorNameError, setDoctorNameError] = useState(false);
+  const [doctorType, setDoctorType] = useState("");
+  const [doctorTypeError, setDoctorTypeError] = useState(false);
+  const [nic, setNIC] = useState("");
+  const [nicError, setNICError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [address, setAddress] = useState("");
+  const [addressError, setAddressError] = useState(false);
+  const [contactNo, setContactNo] = useState("");
+  const [contactNoError, setContactNoError] = useState(false);
 
-  const handleFirstNameChange = (event) => {
+  const handleDoctorNameChange = (event) => {
     const value = event.target.value;
     const isValid = /^[A-Za-z0-9\s]*$/.test(value);
     const isWithinLengthLimit = value.length <= 50;
     
-    setFirstName(value);
+    setDoctorName(value);
     
     if (!isValid) {
-      setFirstNameError("Please enter a valid last name");
+      setDoctorNameError("Please enter a valid doctor name");
     } else if (!isWithinLengthLimit) {
-      setFirstNameError("Last name should not exceed 50 characters");
+      setDoctorNameError("Doctor name should not exceed 50 characters");
     } else {
-      setFirstNameError("");
+      setDoctorNameError("");
     }
   };
 
-  const handleLastNameChange = (event) => {
+  const handleDoctorTypeChange = (event) => {
     const value = event.target.value;
-    const isValid = /^[A-Za-z0-9\s&-]*$/.test(value);
+    const isValid = /^[A-Za-z0-9\s]*$/.test(value);;
     const isWithinLengthLimit = value.length <= 50;
 
-    setLastName(value);
+    setDoctorType(value);
 
     if (!isValid) {
-      setLastNameError("Please enter a valid last name");
+      setDoctorTypeError("Please enter a valid doctor type");
     } else if (!isWithinLengthLimit) {
-      setLastNameError("Last name should not exceed 50 characters");
+      setDoctorTypeError("Doctor type should not exceed 50 characters");
     } else {
-      setLastNameError("");
+      setDoctorTypeError("");
     }
   };
 
@@ -126,18 +126,18 @@ function AddDoctor() {
     event.preventDefault();
 
     const data = {
-        d_id: doctorID,
-        first_name: firstName,
-        last_name: lastName,
-        nic: nic,
-        email: email,
-        address: address,
-        contact_no: contactNo,
-      };
+      cd_id: doctorID,
+      doctor_name: doctorName.toLowerCase().replace(/ /g, '_'),
+      d_type: doctorType.toLowerCase().replace(/ /g, '_'),
+      nic: nic,
+      email: email,
+      address: address,
+      contct_no: contactNo,
+    };
 
-    if(!firstNameError && !lastNameError && !nicError && !addressError && doctorID && firstName && lastName && nic && address && email){
+    if(!doctorNameError && !doctorTypeError && !nicError && !addressError && doctorID && doctorName && doctorType && nic && address && email){
       try {
-        const response = await fetch("https://mcms_api.mtron.me/set_doctor", {
+        const response = await fetch("https://mcms_api.mtron.me/set_channelling_doctor", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -168,18 +168,16 @@ function AddDoctor() {
     }
   };
 
-
   const handleReset = () => {
     setDoctorID("");
-    setFirstName("");
-    setLastName("");
+    setDoctorName("");
+    setDoctorType("");
     setNIC("");
     setEmail("");
     setAddress("");
     setContactNo("");
   };
   
-
   return (
       <Paper sx={{ width: '50%', overflow: 'hidden', padding: '10px', margin: '5% auto auto', backgroundColor: '#f5f5f5' }}>
       <FormControl onSubmit={handleSubmit}>
@@ -205,11 +203,11 @@ function AddDoctor() {
               size="small"
               sx={{ width: "100%" }}
               color="secondary"
-              value={firstName}
-              error={firstNameError} 
-              helperText={firstNameError}
-              onChange={handleFirstNameChange}
-              label="First Name"
+              value={doctorName}
+              error={doctorNameError} 
+              helperText={doctorNameError}
+              onChange={handleDoctorNameChange}
+              label="Doctor Name"
             />
           </Grid>
 
@@ -218,11 +216,11 @@ function AddDoctor() {
               size="small"
               sx={{ width: "100%" }}
               color="secondary"
-              value={lastName}
-              error={lastNameError}
-              helperText={lastNameError}
-              onChange={handleLastNameChange}
-              label="Last Name"
+              value={doctorType}
+              error={doctorTypeError}
+              helperText={doctorTypeError}
+              onChange={handleDoctorTypeChange}
+              label="Doctor Type"
             />
           </Grid>
 

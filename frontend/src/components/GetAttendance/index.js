@@ -10,16 +10,20 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Radio,
-  RadioGroup,
+  Checkbox,
   FormControlLabel,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { useAppstore } from './../../appStore';
 
 function GetAttendance() {
-  const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-14'));
+  const { dopen } = useAppstore();
+  const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-10'));
   const [assistants, setAssistants] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -59,15 +63,14 @@ function GetAttendance() {
     setSelectedWeekStart(selectedWeekStart.add(7, 'day'));
   };
 
-  const handleSetAttendance = (assistantId, date, status) => {
-    const formattedDate = date.format('YYYY-MM-DD');
+  const handleSetAttendance = (assistantId, date, updatedAttendance) => {
     const newAttendanceData = attendanceData.map((data) => {
       if (data.assistantId === assistantId) {
         return {
           ...data,
           attendance: {
             ...data.attendance,
-            [formattedDate]: status,
+            [date]: updatedAttendance,
           },
         };
       }
@@ -75,6 +78,7 @@ function GetAttendance() {
     });
     setAttendanceData(newAttendanceData);
   };
+  
 
   const handleAttendanceSubmit = async (date) => {
     const formattedDate = dayjs(date).format('YYYY-MM-DD');
@@ -169,30 +173,52 @@ function GetAttendance() {
 
   const renderAttendanceCells = (assistant) => {
     const attendanceCells = [];
-
+  
     for (let i = 0; i < 7; i++) {
       const currentDate = selectedWeekStart.clone().add(i, 'day');
       const formattedDate = currentDate.format('YYYY-MM-DD');
-
+  
+      const attendanceDataForDay = attendanceData.find((data) => data.assistantId === assistant.assit_id)?.attendance[formattedDate] || {};
+  
+      const isDisabled = !!attendanceDataForDay.check_in && !!attendanceDataForDay.check_out;
+  
       attendanceCells.push(
         <TableCell key={formattedDate} align="center">
-          <RadioGroup
-            aria-label={`attendance-${assistant.assit_id}-${formattedDate}`}
-            name={`attendance-${assistant.assit_id}-${formattedDate}`}
-            value={attendanceData.find((data) => data.assistantId === assistant.assit_id)?.attendance[formattedDate] || ''}
-            onChange={(e) =>
-              handleSetAttendance(assistant.assit_id, currentDate, e.target.value)
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker
+            label="Check In"
+            value={attendanceDataForDay.check_in || null}
+            onChange={(time) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, check_in: time })}
+            disabled={attendanceDataForDay.leave === 1}
+            slotProps={{ textField: { size: 'small' } }}
+          />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker
+            label="Check Out"
+            value={attendanceDataForDay.check_out || null}
+            onChange={(time) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, check_out: time })}
+            disabled={attendanceDataForDay.leave === 1}
+            slotProps={{ textField: { size: 'small' } }}
+          />
+          </LocalizationProvider>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={attendanceDataForDay.leave === 1}
+                onChange={(e) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, leave: e.target.checked ? 1 : 0 })}
+                disabled={isDisabled}
+              />
             }
-          >
-            <FormControlLabel value="Present" control={<Radio />} label="Present" />
-            <FormControlLabel value="Absent" control={<Radio />} label="Absent" />
-          </RadioGroup>
+            label="Leave"
+          />
         </TableCell>
       );
     }
-
+  
     return attendanceCells;
-  };
+  };  
+  
 
   const isAttendanceFilled = (date) => {
     return attendanceData.every((data) => data.attendance[date] !== undefined);
@@ -202,7 +228,7 @@ function GetAttendance() {
   const endOfWeek = selectedWeekStart.clone().add(6, 'day').format('D MMMM YYYY');
 
   return (
-    <Paper sx={{ width: '80%', overflow: 'hidden', padding: '10px', margin: '5% auto' }}>
+    <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <Typography variant="h4" marginTop={1} >
