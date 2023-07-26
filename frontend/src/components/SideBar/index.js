@@ -182,16 +182,16 @@ export default function Sidebar() {
                 </ListItem>
                 {/* Add more components for the "Stock" category here */}
                 {/* For example, "Stock Report" component */}
-                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/stock_report"))}>
+                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/sales_report"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/stock_report' ? '#e1f5fe' : 'transparent',
+                      backgroundColor: location.pathname === '/sales_report' ? '#e1f5fe' : 'transparent',
                     }}
                   >
-                    <ListItemText primary="Stock Report" sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary="Stock Sales Report" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
               </List>
