@@ -22,7 +22,7 @@ function ViewExpiredStock() {
   useEffect(() => {
     async function fetchExpiredStock() {
       try {
-        const response = await fetch("https://mcms_api.mtron.me/get_expire");
+        const response = await fetch("https://mcms_api.mtron.me/get_expired");
         if (!response.ok) {
           throw new Error("Failed to fetch data.");
         }
@@ -64,6 +64,7 @@ function ViewExpiredStock() {
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
                   <TableCell>Quantity</TableCell>
+                  <TableCell>Manufactured Date</TableCell>
                   <TableCell>Expired Date</TableCell>
                 </TableRow>
               </TableHead>
@@ -77,6 +78,7 @@ function ViewExpiredStock() {
                         <TableCell>{item.prdct_name}</TableCell>
                         <TableCell>{item.brand_name}</TableCell>
                         <TableCell>{item.total_quantity}</TableCell>
+                        <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
                       </TableRow>
                     ))

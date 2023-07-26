@@ -91,7 +91,7 @@ function ViewLowStock() {
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
-                  <TableCell>Manufacture Date</TableCell>
+                  <TableCell>Manufactured Date</TableCell>
                   <TableCell>Expiry Date</TableCell>
                   <TableCell>Quantity</TableCell>
                 </TableRow>
