@@ -24,6 +24,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from 'react-router-dom';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 const drawerWidth = 240;
 
@@ -420,7 +421,7 @@ export default function Sidebar() {
             <AccordionSummary expandIcon={open ? <ExpandMoreIcon /> : null} disabled={!open}>
               <FlexContainer>
                 <CategoryIcon sx={{ color: '#800080' }}>
-                  <PointOfSaleIcon/> 
+                  <PersonAddAltIcon/> 
                 </CategoryIcon>
                 {open && <ListItemText primary="General" />}
               </FlexContainer>
