@@ -1,34 +1,56 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 function ProfitReport() {
-  const dummyData = [
-    { month: 'Jan', profit: 2000 },
-    { month: 'Feb', profit: 2500 },
-    { month: 'Mar', profit: 1500 },
-    { month: 'Apr', profit: 3000 },
-    { month: 'May', profit: 2500 },
-    { month: 'Jun', profit: 3500 },
-    { month: 'Jul', profit: 3250 },
-    { month: 'Aug', profit: 4000 },
-    { month: 'Sep', profit: 3500 },
-    { month: 'Oct', profit: 3750 },
-    { month: 'Nov', profit: 3250 },
-    { month: 'Dec', profit: 4250 },
-  ];
+  const [monthlyProfitData, setMonthlyProfitData] = useState([]);
 
-  const [data/*, setData*/] = useState(dummyData);
+  useEffect(() => {
+    // Fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://mcms_api.mtron.me/get_profit');
+        const data = await response.json();
+
+        // Calculate total profit for each month
+        const monthlyTotalProfit = {};
+        data.forEach((item) => {
+          const month = item.date.split('-')[1]; // Extract month from date
+          const dailyProfit = parseFloat(item.daily_profit); // Parse daily_profit as a number
+          if (monthlyTotalProfit[month]) {
+            monthlyTotalProfit[month] += dailyProfit;
+          } else {
+            monthlyTotalProfit[month] = dailyProfit;
+          }
+        });
+
+        // Create monthly data array
+        const monthlyData = Object.entries(monthlyTotalProfit).map(([month, totalProfit]) => ({
+          month,
+          total_profit: totalProfit,
+        }));
+
+        setMonthlyProfitData(monthlyData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <BarChart width={800} height={500} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="profit" fill="#8884d8" />
-      </BarChart>
+    <div style={{ paddingTop: '64px', paddingLeft: '240px' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '0' }}>Profit Report</h1>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '-60px' }}>
+        <BarChart width={800} height={500} data={monthlyProfitData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="total_profit" fill="#8884d8" />
+        </BarChart>
+      </div>
     </div>
   );
 }
