@@ -38,7 +38,7 @@ function ViewAppointment() {
   const [appointment, setAppointment] = useState([]);
   const [filteredAppointment, setFilteredAppointment] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterOption, setFilterOption] = useState("Appointment Name");
+  const [filterOption, setFilterOption] = useState("Patient Name");
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
@@ -125,7 +125,7 @@ function ViewAppointment() {
   useEffect(() => {
     let results;
     switch (filterOption) {
-      case "Appointment Name":
+      case "Patient Name":
         if (searchTerm.length >= 1) {
           results = appointment.filter((item) => String(item.patient_name).includes(searchTerm));
         } else {
@@ -333,7 +333,7 @@ function ViewAppointment() {
                 label="Filter option"
                 onChange={handleFilterChange}
               >
-                <MenuItem value="Appointment Name" >Appointment Name</MenuItem>
+                <MenuItem value="Patient Name" >Patient Name</MenuItem>
                 <MenuItem value="Appointment Number">Appointment Number</MenuItem>
                 <MenuItem value="Appointment Date">Appointment Date</MenuItem>
                 <MenuItem value="Appointment Id">Appointment Id</MenuItem>
