@@ -192,18 +192,6 @@ export default function Sidebar() {
                     <ListItemText primary="View Expired Stock" sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/sales_report"))}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                      backgroundColor: location.pathname === '/sales_report' ? '#e1f5fe' : 'transparent',
-                    }}
-                  >
-                    <ListItemText primary="Stock Sales Report" sx={{ opacity: open ? 1 : 0 }} />
-                  </ListItemButton>
-                </ListItem>
               </List>
             </AccordionDetails>
           </Accordion>
