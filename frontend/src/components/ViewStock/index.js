@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   TableContainer,
   Table,
@@ -26,7 +26,7 @@ import {
   FormControl,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppstore } from './../../appStore';
+import { useAppstore } from "./../../appStore";
 
 function ViewStock() {
   const { dopen } = useAppstore();
@@ -39,6 +39,9 @@ function ViewStock() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [reason1Checked, setReason1Checked] = useState(false);
+  const [reason2Checked, setReason2Checked] = useState(false);
+
 
   useEffect(() => {
     async function fetchStock() {
@@ -111,7 +114,8 @@ function ViewStock() {
   };
 
   const handleConfirmDelete = async () => {
-    try{
+    if (reason1Checked || reason2Checked) {
+    try {
       await fetch(`https://mcms_api.mtron.me/delete_stock/${itemToDelete}`, {
         method: "GET",
       });
@@ -119,11 +123,16 @@ function ViewStock() {
       setFilteredStock(
         filteredStock.filter((item) => item.prdct_id !== itemToDelete)
       );
-    setItemToDelete(null);
-    setConfirmDialogOpen(false);
-    toast.success('Drug deleted successfully');
+      setReason1Checked(false);
+      setReason2Checked(false);
+      setItemToDelete(null);
+      setConfirmDialogOpen(false);
+      toast.success("Drug deleted successfully");
     } catch (error) {
-      toast.error('Failed to delete drug');
+      toast.error("Failed to delete drug");
+    }
+  } else {
+    toast.error("Please select a reason");
     }
   };
 
@@ -142,22 +151,24 @@ function ViewStock() {
       sx={{
         width: dopen ? "calc(100% - 260px)" : "94%",
         marginLeft: dopen ? "250px" : "80px",
-        marginTop: '50px',
+        marginTop: "50px",
         overflow: "hidden",
         padding: "10px",
         transition: "width 0.7s ease",
       }}
     >
-      <Grid container alignItems='center' spacing={2}>
+      <Grid container alignItems="center" spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom >
+          <Typography variant="h5" gutterBottom>
             View Stock
           </Typography>
-            <hr style={{ margin: '10px 0' }} />
+          <hr style={{ margin: "10px 0" }} />
         </Grid>
         <Grid item xs={12} sm={6} md={2}>
           <FormControl sx={{ minWidth: "120px", width: "100%" }}>
-            <InputLabel id="filterSelectLabel" color="secondary">Filter by</InputLabel>
+            <InputLabel id="filterSelectLabel" color="secondary">
+              Filter by
+            </InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
@@ -188,7 +199,9 @@ function ViewStock() {
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
-                <TableRow sx={{ "& th": { color: "White", backgroundColor: "grey" } }}>
+                <TableRow
+                  sx={{ "& th": { color: "White", backgroundColor: "grey" } }}
+                >
                   <TableCell>Drug ID</TableCell>
                   <TableCell>Drug Name</TableCell>
                   <TableCell>Brand Name</TableCell>
@@ -222,18 +235,23 @@ function ViewStock() {
                         <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
                         <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
                         <TableCell>
-                          <Button variant="outlined" size="small" onClick={() => handleUpdate(item)}>Update</Button>
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={() => handleUpdate(item)}
+                          >
+                            Update
+                          </Button>
                         </TableCell>
                         <TableCell>
-                        <IconButton
-                          aria-label="delete"
-                          variant="outlined"
-                          size="small"
-                          onClick={() => handleDelete(item.prdct_id)}
-                        >
-                        <DeleteIcon />
-                        </IconButton>
-
+                          <IconButton
+                            aria-label="delete"
+                            variant="outlined"
+                            size="small"
+                            onClick={() => handleDelete(item.prdct_id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
                         </TableCell>
                       </TableRow>
                     ))
@@ -257,12 +275,34 @@ function ViewStock() {
               </DialogTitle>
               <DialogContent>
                 <div id="alert-dialog-description">
-                  Are you sure you want to delete this item?
+                  Are you sure you want to delete this stock ?
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={reason1Checked}
+                      onChange={() => setReason1Checked(!reason1Checked)}
+                    />
+                    &nbsp;Damaged packaging
+                  </label>
+                </div>
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={reason2Checked}
+                      onChange={() => setReason2Checked(!reason2Checked)}
+                    />
+                    &nbsp;Other reason
+                  </label>
                 </div>
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleCancelDelete}>Cancel</Button>
-                <Button onClick={handleConfirmDelete} autoFocus>Delete</Button>
+                <Button onClick={handleConfirmDelete} autoFocus disabled={!reason1Checked && !reason2Checked}>
+                  Delete
+                </Button>
               </DialogActions>
             </Dialog>
           )}
