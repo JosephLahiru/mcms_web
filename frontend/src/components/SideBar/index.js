@@ -416,6 +416,32 @@ export default function Sidebar() {
             </AccordionDetails>
           </Accordion>
 
+          <Accordion>
+            <AccordionSummary expandIcon={open ? <ExpandMoreIcon /> : null} disabled={!open}>
+              <FlexContainer>
+                <CategoryIcon sx={{ color: '#800080' }}>
+                  <PointOfSaleIcon/> 
+                </CategoryIcon>
+                {open && <ListItemText primary="General" />}
+              </FlexContainer>
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: '0' }}>
+              <List sx={{ paddingTop: 0 }}>
+                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/app_counter"))}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                      backgroundColor: location.pathname === '/app_counter' ? '#e1f5fe' : 'transparent',
+                    }}
+                  >
+                    <ListItemText primary="Appointment Counter" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </AccordionDetails>
+          </Accordion>
         </List>
         </SidebarContent>
         <List>
