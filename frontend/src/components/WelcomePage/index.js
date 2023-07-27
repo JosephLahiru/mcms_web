@@ -26,6 +26,9 @@ function WelcomePage() {
   const [dailyProfit, setDailyProfit] = useState(null);
   const [weeklyProfit, setWeeklyProfit] = useState(null);
   const [monthlyProfit, setMonthlyProfit] = useState(null);
+  const [weeklySales, setWeeklySales] = useState(null);
+  const [weeklyAppointments, setWeeklyAppointments] = useState(null);
+  const [totalMedicineSold, setTotalMedicineSold] = useState(null);
   const [profitType, setProfitType] = useState('daily');
 
   useEffect(() => {
@@ -47,6 +50,30 @@ function WelcomePage() {
       setMonthlyProfit(data);
     };
 
+    const fetchWeeklySales = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_total_sales_last_week`);
+      const data = await result.json();
+      const sales = data[0].previous_week_bill_count;
+      setWeeklySales(sales);
+    };
+
+    const fetchWeeklyAppointments = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_lastweek_app`);
+      const data = await result.json();
+      const appointments = data[0].appointment_count;
+      setWeeklyAppointments(appointments);
+    };
+
+    const fetchTotalMedicineSold = async () => {
+      const result = await fetch(`https://mcms_api.mtron.me/get_total_sold_drug_quantity`);
+      const data = await result.json();
+      const total = data[0].total_drug_quantity;
+      setTotalMedicineSold(total);
+    };
+
+    fetchWeeklySales();
+    fetchWeeklyAppointments();
+    fetchTotalMedicineSold();
     fetchDailyProfit();
     fetchWeeklyProfit();
     fetchMonthlyProfit();
@@ -60,15 +87,15 @@ function WelcomePage() {
     <PageContainer maxWidth="lg" style={{ marginBottom: '10px' }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Weekly Sales" total={250} icon={ShoppingCartIcon} />
+          <AppWidgetSummary title="Weekly Sales" total={weeklySales} icon={ShoppingCartIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Weekly Appointments" total={100} color="secondary" icon={EventNoteIcon} />
+          <AppWidgetSummary title="Weekly Appointments" total={weeklyAppointments} color="secondary" icon={EventNoteIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Total Medicine Sold" total={1200} color="warning" icon={HealthAndSafetyIcon} />
+          <AppWidgetSummary title="Total Medicine Sold" total={totalMedicineSold} color="warning" icon={HealthAndSafetyIcon} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
