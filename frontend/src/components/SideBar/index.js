@@ -400,13 +400,13 @@ export default function Sidebar() {
             </AccordionSummary>
             <AccordionDetails sx={{ padding: '0' }}>
               <List sx={{ paddingTop: 0 }}>
-                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/generate_bill"))}>
+                <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }} disablePadding onClick={() => (navigate("/generate_bill_new"))}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
-                      backgroundColor: location.pathname === '/generate_bill' ? '#e1f5fe' : 'transparent',
+                      backgroundColor: location.pathname === '/generate_bill_new' ? '#e1f5fe' : 'transparent',
                     }}
                   >
                     <ListItemText primary="Generate Bill" sx={{ opacity: open ? 1 : 0 }} />
