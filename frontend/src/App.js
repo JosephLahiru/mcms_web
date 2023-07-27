@@ -183,10 +183,6 @@ function App() {
           <Route index element={<ViewGeneratingBill />} />
         </Route>
 
-        <Route path="/return_patients_report" element={<PrivateRoute />}>
-          <Route index element={<ReturnPatientsReport />} />
-        </Route>
-
         <Route path="/doctor_charges" element={<PrivateRoute/>}>
           <Route index element={<DoctorCharges />}/>
         </Route>
