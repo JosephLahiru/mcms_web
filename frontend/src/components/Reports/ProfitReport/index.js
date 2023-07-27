@@ -3,6 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 
 function ProfitReport() {
   const [monthlyProfitData, setMonthlyProfitData] = useState([]);
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; // Month names array
 
   useEffect(() => {
     // Fetch data from the API
@@ -44,9 +45,9 @@ function ProfitReport() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '-60px' }}>
         <BarChart width={800} height={500} data={monthlyProfitData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
+          <XAxis dataKey="month" tickFormatter={(month) => monthNames[month - 1]} /> {/* Add tickFormatter here */}
           <YAxis />
-          <Tooltip />
+          <Tooltip formatter={(value) => `Rs. ${value}`} />
           <Legend />
           <Bar dataKey="total_profit" fill="#8884d8" />
         </BarChart>
@@ -56,3 +57,4 @@ function ProfitReport() {
 }
 
 export default ProfitReport;
+
