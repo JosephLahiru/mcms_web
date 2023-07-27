@@ -32,6 +32,10 @@ import BillingItems from './components/BillingItems';
 import ViewDoctors from './components/DoctorManagement/ViewDoctors';
 import UpdateDoctor from './components/DoctorManagement/UpdateDoctors';
 import AddDoctor from './components/DoctorManagement/AddDoctor';
+import AttendanceReport from './components/Reports/AttendenceReport';
+import ExpiredMedicineReport from './components/Reports/ExpiredMedicineReport';
+import SalesReport from './components/Reports/SalesReport';
+import ProfitReport from './components/Reports/ProfitReport';
 
 import UserContext from './scripts/userContext';
 import PrivateRoute from './scripts/privateRoute';
@@ -179,10 +183,6 @@ function App() {
           <Route index element={<ViewGeneratingBill />} />
         </Route>
 
-        <Route path="/return_patients_report" element={<PrivateRoute />}>
-          <Route index element={<ReturnPatientsReport />} />
-        </Route>
-
         <Route path="/doctor_charges" element={<PrivateRoute/>}>
           <Route index element={<DoctorCharges />}/>
         </Route>
@@ -214,6 +214,23 @@ function App() {
         <Route path="/app_counter" element={<PrivateRoute/>}>
           <Route index element={<AppointmentCounter />}/>
         </Route>
+
+        <Route path="/sales_report" element={<PrivateRoute/>}>
+          <Route index element={<SalesReport/>}/>
+        </Route>
+
+        <Route path="/attendence_report" element={<PrivateRoute/>}>
+          <Route index element={<AttendanceReport/>}/>
+        </Route>
+
+        <Route path="/expiredMed_report" element={<PrivateRoute/>}>
+          <Route index element={<ExpiredMedicineReport/>}/>
+        </Route>
+
+        <Route path="/profit_report" element={<PrivateRoute/>}>
+          <Route index element={<ProfitReport/>}/>
+        </Route>
+
 
         <Route path="*?" element={<Navigate to="/dashboard" />} />
       </Routes>

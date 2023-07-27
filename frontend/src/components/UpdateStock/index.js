@@ -36,10 +36,9 @@ function UpdateStock() {
   const [quantityError, setQuantityError] = useState(false);
   const [stockTypes, setStockTypes] = useState([]);
   const [selectedStockType, setSelectedStockType] = useState("");
-  const [expireTypes, setExpireTypes] = useState([]);
-  const [selectedExpireType, setSelectedExpireType] = useState("");
-  const [ManufacturedDate, setManufactureDate] = useState("");
-  const [ExpiryDate, setExpiryDate] = useState("");
+  const [PurchasedDate, setPurchasedDate] = useState(null);
+  const [ManufacturedDate, setManufactureDate] = useState(null);
+  const [ExpiryDate, setExpiryDate] = useState(null);
 
   const theme = createTheme({
     palette: {
@@ -130,19 +129,6 @@ function UpdateStock() {
     getStockTypes();
   }, []);
 
-  useEffect(() => {
-    async function getExpireTypes() {
-      try {
-        const response = await fetch('https://mcms_api.mtron.me/get_expire_types');
-        const data = await response.json();
-        setExpireTypes(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getExpireTypes();
-  }, []);
-
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
 
@@ -173,27 +159,11 @@ function UpdateStock() {
       });
   }  
 
-  function getExpireTypeId(expireType) {
-    return fetch('https://mcms_api.mtron.me/get_expire_type_id/' + expireType)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch Expire Type Id');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const expireTypeValue = data.length > 0 ? data[0].expire_type_id : '';
-        return expireTypeValue;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        return '';
-      });
-  }  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const formattedPurchasedDate = PurchasedDate ? dayjs(PurchasedDate).format('YYYY-MM-DD') : null;
     const formattedManufacturedDate = ManufacturedDate ? dayjs(ManufacturedDate).format('YYYY-MM-DD') : null;
     const formattedExpireDate = ExpiryDate ? dayjs(ExpiryDate).format('YYYY-MM-DD') : null;
 
@@ -205,13 +175,34 @@ function UpdateStock() {
       brand_name: brandname,
       med_type: selectedType,
       total_quantity: quantity,
+      purchased_date: formattedPurchasedDate,
       mfd_date: formattedManufacturedDate,
       exp_date: formattedExpireDate,
       stock_type: await getStockTypeId(selectedStockType),
-      expire_type: await getExpireTypeId(selectedExpireType),
     };
 
-    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugId && drugname && unitprice && sellingprice && quantity && brandname && selectedType && selectedStockType && selectedExpireType && formattedManufacturedDate && formattedExpireDate){
+    if (formattedPurchasedDate && formattedManufacturedDate && formattedExpireDate) {
+      const purchasedDate = dayjs(formattedPurchasedDate);
+      const manufacturedDate = dayjs(formattedManufacturedDate);
+      const expireDate = dayjs(formattedExpireDate);
+  
+      if (manufacturedDate.isAfter(expireDate)) {
+        toast.error("Manufactured date should be before the expiry date", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+  
+      if (purchasedDate.isBefore(manufacturedDate) || purchasedDate.isAfter(expireDate)) {
+        toast.error("Purchased date should be between manufactured date and expiry date", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
+    }
+
+
+    if(!drugnameError && !unitpriceError && !sellingpriceError && !quantityError && drugId && drugname && unitprice && sellingprice && quantity && brandname && selectedType && selectedStockType && formattedPurchasedDate && formattedManufacturedDate && formattedExpireDate){
     try{
       const response = await fetch(`https://mcms_api.mtron.me/update_stock/${data.prdct_id}`, {
         method: "POST",
@@ -264,14 +255,12 @@ function UpdateStock() {
           const selectedStockTypeId = stock.stock_type;
           setSelectedStockType(getDrugType(selectedStockTypeId));
 
-          // Find the expire type based on id and set selectedExpireType
-          const selectedExpireTypeId = stock.expire_type;
-          setSelectedExpireType(getExpireType(selectedExpireTypeId));
-
-         //const manufactureDateFormatted = dayjs(stock.mfd_date).format('YYYY-MM-DD');
+         //const DateFormatted = dayjs(stock.mfd_date).format('YYYY-MM-DD');
+         const purchasedDateFormatted = formatDate(stock.purchased_date);
          const manufactureDateFormatted = formatDate(stock.mfd_date);
          const expiryDateFormatted = formatDate(stock.exp_date);
 
+         setPurchasedDate(purchasedDateFormatted);
          setManufactureDate(manufactureDateFormatted);
          setExpiryDate(expiryDateFormatted);
 
@@ -291,24 +280,11 @@ function UpdateStock() {
   function getDrugType(selectedStockTypeId) {
     switch (selectedStockTypeId) {
       case 1:
-        return 'essential meds';
+        return 'between 1 - 20';
       case 2:
-        return 'standard inventory';
+        return 'between 21 - 80';
       case 3:
-        return 'bulk supplies';
-      default:
-        return '';
-    }
-  }
-
-  function getExpireType(selectedExpireTypeId){
-    switch (selectedExpireTypeId) {
-      case 1:
-        return 'short lifespan';
-      case 2:
-        return 'medium lifespan';
-      case 3:
-        return 'long lifespan';
+        return 'more than 80';
       default:
         return '';
     }
@@ -327,10 +303,10 @@ function UpdateStock() {
     setBrandName("");
     setSelectedType("");
     setSelectedStockType("");
-    setSelectedExpireType("");
     setQuantity("");
-    setManufactureDate("");
-    setExpiryDate("");
+    setPurchasedDate(null);
+    setManufactureDate(null);
+    setExpiryDate(null);
   };
 
   return (
@@ -372,6 +348,7 @@ function UpdateStock() {
               helperText={drugnameError}
               onChange={handleDrugNameChange}
               label="Drug Name"
+              required
             />
           </Grid>
           <Grid item xs={6}>
@@ -384,11 +361,12 @@ function UpdateStock() {
               helperText={brandnameError}
               onChange={handleBrandNameChange}
               label="Brand Name"
+              required
             />
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label" color="secondary">Drug Type</InputLabel>
+              <InputLabel id="demo-simple-select-label" color="secondary">Drug Type *</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -410,23 +388,22 @@ function UpdateStock() {
           </Grid>
           <Grid item xs={6}>
             <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label" color="secondary">Stock Type</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedStockType} onChange={(event) => setSelectedStockType(event.target.value)} label="Stock Type" MenuProps={MenuProps}>
+              <InputLabel id="demo-simple-select-label" color="secondary">Stock Type *</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                sx={{ width: "100%" }}
+                color="secondary"
+                size="small"
+                value={selectedStockType}
+                onChange={(event) => setSelectedStockType(event.target.value)}
+                label="Stock Type"
+                MenuProps={MenuProps}>
                 {stockTypes.map((type) => (
                 <MenuItem key={type.stock_type} value={type.stock_type}>{type.stock_type}</MenuItem>
               ))}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl sx={{ width: "100%" }} size="small">
-              <InputLabel id="demo-simple-select-label" color="secondary">Expiry Type</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" sx={{ width: "100%" }} color="secondary" size="small" value={selectedExpireType} onChange={(event) => setSelectedExpireType(event.target.value)} label="Expire Type" MenuProps={MenuProps}>
-                {expireTypes.map((type) => (
-                <MenuItem key={type.expire_type} value={type.expire_type}>{type.expire_type}</MenuItem>
-              ))}
-              </Select>
-          </FormControl>
           </Grid>
           <Grid item xs={6}>
           <ThemeProvider theme={theme}>
@@ -435,7 +412,21 @@ function UpdateStock() {
                 sx={{ width: "100%" }}
                 value={ManufacturedDate}
                 onChange={(date) => setManufactureDate(date)}
-                label="Manufactured Date"
+                label="Manufactured Date *"
+                slotProps={{ textField: { size: 'small' } }}
+              />
+            </LocalizationProvider>
+            </ThemeProvider>
+          </Grid>
+          <Grid item xs={6}>
+          <ThemeProvider theme={theme}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                size="small"
+                sx={{ width: "100%" }}
+                value={PurchasedDate}
+                onChange={(date) => setPurchasedDate(date)}
+                label="Purchased Date *"
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
@@ -449,13 +440,13 @@ function UpdateStock() {
                 sx={{ width: "100%" }}
                 value={ExpiryDate}
                 onChange={(date) => setExpiryDate(date)}
-                label="Expiry Date"
+                label="Expiry Date *"
                 slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
             </ThemeProvider>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <TextField
               type="number"
               size="small"
@@ -465,10 +456,11 @@ function UpdateStock() {
               error={unitpriceError}
               helperText={unitpriceError ? 'Please enter a valid Purchased price' : ''}
               onChange={handleUnitPriceChange}
-              label="Purchased Price"
+              label="Purchased Price (Rs)"
+              required
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <TextField
               type="number"
               size="small"
@@ -478,10 +470,13 @@ function UpdateStock() {
               error={sellingpriceError}
               helperText={sellingpriceError ? 'Please enter a valid selling price' : ''}
               onChange={handleSellingPriceChange}
-              label="Selling Price"
+              label="Selling Price (Rs)"
+              required
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
+          <Grid container alignItems="center" justifyContent="center">
+            <Grid item xs={6}>
             <TextField
               type="number"
               size="small"
@@ -492,8 +487,12 @@ function UpdateStock() {
               helperText={quantityError ? 'Please enter a valid quantity' : ''}
               onChange={handleQuantityChange}
               label="Quantity"
+              required
             />
+            </Grid>
           </Grid>
+          </Grid>
+          
         </Grid>
         <Grid container justifyContent="flex-end" spacing={2} marginTop={1}>
           <Grid item xs={2}>
