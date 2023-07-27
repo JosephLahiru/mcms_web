@@ -49,7 +49,7 @@ export default function SignInSide() {
     const enteredPassword = data.get('password');
 
   try{
-      const response = await fetch('https://mcms_api.mtron.me/user_authenticate ', {
+      const response = await fetch('https://mcms_api.mtron.me/user_authenticate', {
         method: 'POST',
         body: JSON. stringify({email: enteredEmail, password: enteredPassword}),
         headers: {
