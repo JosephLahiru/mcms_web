@@ -6,24 +6,25 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  TablePagination,
   FormControl
 } from "@mui/material";
 import { useAppstore } from './../../appStore';
+import { DataGrid } from "@mui/x-data-grid";
+
+const colomns = [
+  { field: 'prdct_id', headerName: 'Drug ID', flex: 1 },
+  { field: 'prdct_name', headerName: 'Drug Name', flex: 1 },
+  { field: 'brand_name', headerName: 'Brand Name', flex: 1 },
+  { field: 'mfd_date', headerName: 'Manufactured Date', flex: 1, valueGetter: (params) => params.row.mfd_date.slice(0, 10), },
+  { field: 'exp_date', headerName: 'Expiry Date', flex: 1, valueGetter: (params) => params.row.exp_date.slice(0, 10), },
+  { field: 'total_quantity', headerName: 'Quantity', flex: 1 },
+];
 
 function ViewShortExpiry() {
   const { dopen } = useAppstore();
   const [shortexpiry, setShortExpiry] = useState([]);
   const [filteredShortExpiry, setFilteredShortExpiry] = useState([]);
   const [filterOption, setFilterOption] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchShortExpiry() {
@@ -45,16 +46,6 @@ function ViewShortExpiry() {
     }
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const rows = filteredShortExpiry || [];
 
   return (
     <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
@@ -76,57 +67,26 @@ function ViewShortExpiry() {
               label="Filter option"
               onChange={handleFilterChange}
             >
-              <MenuItem value="">All</MenuItem>
-              <MenuItem value={1}>small Stock</MenuItem>
-              <MenuItem value={2}>Medium Stock</MenuItem>
-              <MenuItem value={3}>Big Stock</MenuItem>
+              <MenuItem value="">All short expiry</MenuItem>
+              <MenuItem value={1}>short lifespan</MenuItem>
+              <MenuItem value={2}>medium lifespan</MenuItem>
+              <MenuItem value={3}>long lifespan</MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow sx={{ "& th": { color:"White", backgroundColor: "grey" }}}>
-                  <TableCell>Drug ID</TableCell>
-                  <TableCell>Drug Name</TableCell>
-                  <TableCell>Brand Name</TableCell>
-                  <TableCell>Manufactured Date</TableCell>
-                  <TableCell>Expiry Date</TableCell>
-                  <TableCell>Quantity</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.length > 0 ? (
-                  rows
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item) => (
-                      <TableRow hover role="checkbox" key={item.prdct_id}>
-                        <TableCell>{item.prdct_id}</TableCell>
-                        <TableCell>{item.prdct_name}</TableCell>
-                        <TableCell>{item.brand_name}</TableCell>
-                        <TableCell>{item.mfd_date.slice(0, 10)}</TableCell>
-                        <TableCell>{item.exp_date.slice(0, 10)}</TableCell>
-                        <TableCell>{item.total_quantity}</TableCell>
-                      </TableRow>
-                    ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={11}>No data available</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
+          <div style={{ height: 440 }}>
+            <DataGrid
+            rows={filteredShortExpiry.map((item) => ({
+              ...item,
+              id: item.prdct_id,
+            }))}
+            columns={colomns}
+            pageSize={10}
             rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={filteredShortExpiry.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+            pagination
+            />
+              </div>
         </Grid>
       </Grid>
     </Paper>
