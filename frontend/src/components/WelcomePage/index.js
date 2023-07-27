@@ -99,7 +99,7 @@ function WelcomePage() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <AppWidgetSummary title="Total Profit" total={monthlyProfit[0].total_profit} color="success" icon={AttachMoneyIcon} />
+          <AppWidgetSummary title="Total Profit (Rs.)" total={monthlyProfit[0].total_profit} color="success" icon={AttachMoneyIcon} />
         </Grid>
 
         <Grid item xs={12} md={12} lg={12}> 
