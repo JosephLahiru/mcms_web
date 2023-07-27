@@ -8,14 +8,7 @@ import {
   Paper,
   Typography,
   Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   TextField,
-  TablePagination,
   IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -26,6 +19,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useAppstore } from "./../../appStore";
+import { DataGrid } from "@mui/x-data-grid";
+
+const colomns = [
+  { field: 'assit_id', headerName: 'Assistant ID', flex: 1 },
+  { field: 'date', headerName: 'Date', flex: 1 },
+  { field: 'check_in', headerName: 'Check In', flex: 1 },
+  { field: 'check_out', headerName: 'Check Out', flex: 1 },
+  { field: 'leave', headerName: 'leave', flex: 1 },
+];
 
 dayjs.extend(localizedFormat);
 
@@ -35,10 +37,7 @@ function ViewAttendance() {
   const [filteredAttendance, setFilteredAttendance] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterOption, setFilterOption] = useState("Assistant ID");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [assistantNames, setAssistantNames] = useState({});
 
   const theme = createTheme({
     palette: {
@@ -71,15 +70,9 @@ function ViewAttendance() {
           dayjs(att.date).format("YYYY-MM-DD").toLowerCase().includes(searchTerm)
         );
         break;
-      case "Status":
-        results = attendance.filter((att) =>
-          att.status.toString().includes(searchTerm)
-        );
-        break;
       default:
         results = attendance;
     }
-
     if (filterOption === "Date" && selectedDate) {
       results = results.filter((att) =>
         dayjs(att.date).isSame(selectedDate, "day")
@@ -102,39 +95,11 @@ function ViewAttendance() {
     setFilterOption(event.target.value);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setSearchTerm(dayjs(date).format("YYYY-MM-DD"));
   };
 
-  const rows = filteredAttendance || [];
-
-
-  useEffect(() => {
-    async function fetchAssistantNames() {
-      try {
-        const response = await fetch("https://mcms_api.mtron.me/get_assistants");
-        const data = await response.json();
-        const names = {};
-        data.forEach((assistant) => {
-          names[assistant.assit_id] = `${assistant.first_name} ${assistant.last_name}`;
-        });
-        setAssistantNames(names);
-      } catch (error) {
-        console.error("Error fetching assistant names:", error);
-      }
-    }
-    fetchAssistantNames();
-  }, []);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -151,7 +116,7 @@ function ViewAttendance() {
         <Grid container alignItems="center" spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h5" gutterBottom>
-              Attendance
+              View Attendance
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
@@ -168,7 +133,6 @@ function ViewAttendance() {
               >
                 <MenuItem value="Assistant ID">Assistant ID</MenuItem>
                 <MenuItem value="Date">Date</MenuItem>
-                <MenuItem value="Status">Status</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -208,56 +172,18 @@ function ViewAttendance() {
             )}
           </Grid>
           <Grid item xs={12}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow
-                    sx={{ "& th": { color: "White", backgroundColor: "grey" } }}
-                  >
-                    <TableCell>Attendance ID</TableCell>
-                    <TableCell>Assistant ID</TableCell>
-                    <TableCell>Assistant Name</TableCell>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.length > 0 ? (
-                    rows
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((att) => (
-                        <TableRow hover key={att.att_id}>
-                          <TableCell>{att.att_id}</TableCell>
-                          <TableCell>{att.assit_id}</TableCell>
-                          <TableCell>{assistantNames[att.assit_id]}</TableCell>
-                          <TableCell>
-                            {dayjs(att.date).format("YYYY-MM-DD")}
-                          </TableCell>
-                          <TableCell>{att.status}</TableCell>
-                        </TableRow>
-                      )) 
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={10}>No data available</TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid item xs={12}>
-            <TablePagination
+          <div style={{ height: 440 }}>
+            <DataGrid
+              rows={filteredAttendance.map((item) => ({
+                ...item,
+                id: item.att_id,
+              }))}
+              columns={colomns}
+              pageSize={10}
               rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+              pagination
             />
+          </div>
           </Grid>
         </Grid>
       </Paper>

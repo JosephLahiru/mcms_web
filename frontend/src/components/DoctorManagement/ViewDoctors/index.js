@@ -31,6 +31,7 @@ import { useAppstore } from './../../../appStore';
 function ViewDoctors() {
   const { dopen } = useAppstore();
   const Navigate = useNavigate();
+  const [channelling_doctor, setChannelingDoctor] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,7 +45,7 @@ function ViewDoctors() {
     async function fetchDoctors() {
       const response = await fetch("https://mcms_api.mtron.me/get_channelling_doctors");
       const data = await response.json();
-      setDoctors(data);
+      setChannelingDoctor(data);
       setFilteredDoctors(data);
     }
     fetchDoctors();
@@ -54,42 +55,36 @@ function ViewDoctors() {
     let results;
     switch (filterOption) {
       case "Doctor Name":
-        if (searchTerm.length >= 3) {
-          results = doctors.filter((item) =>
-            item.first_name.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+        if (searchTerm.length >= 1) {
+          results = channelling_doctor.filter((item) => String(item.doctor_name).includes(searchTerm));
         } else {
-          results = doctors;
+          results = channelling_doctor;
         }
         break;
       case "Doctor Type":
-        if (searchTerm.length >= 3) {
-          results = doctors.filter((item) =>
-            item.d_type.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+        if (searchTerm.length >= 1) {
+          results = channelling_doctor.filter((item) => String(item.d_type).includes(searchTerm));
         } else {
-          results = doctors;
+          results = channelling_doctor;
         }
         break;
       case "Email":
-        if (searchTerm.length >= 3) {
-          results = doctors.filter((item) =>
-            item.email.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+        if (searchTerm.length >= 1) {
+          results = channelling_doctor.filter((item) => String(item.email).includes(searchTerm));
         } else {
-          results = doctors;
+          results = channelling_doctor;
         }
         break;
       case "NIC":
-        results = doctors.filter((item) =>
-          item.nic.toString().includes(searchTerm)
-        );
+        if (searchTerm.length >= 1) {
+          results = channelling_doctor.filter((item) => String(item.nic).includes(searchTerm));
+        } else {
+          results = channelling_doctor;
+        }
         break;
-      default:
-        results = doctors;
     }
     setFilteredDoctors(results);
-  }, [searchTerm, doctors, filterOption]);
+  }, [searchTerm,channelling_doctor , filterOption]);
 
   useEffect(() => {
     setSearchTerm("");

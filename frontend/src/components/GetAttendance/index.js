@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Paper,
@@ -12,18 +12,20 @@ import {
   TableBody,
   Checkbox,
   FormControlLabel,
-} from '@mui/material';
-import dayjs from 'dayjs';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { useAppstore } from './../../appStore';
+} from "@mui/material";
+import dayjs from "dayjs";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { useAppstore } from "./../../appStore";
 
 function GetAttendance() {
   const { dopen } = useAppstore();
-  const [selectedWeekStart, setSelectedWeekStart] = useState(dayjs('2023-07-10'));
+  const [selectedWeekStart, setSelectedWeekStart] = useState(
+    dayjs("2023-07-10")
+  );
   const [assistants, setAssistants] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -39,7 +41,7 @@ function GetAttendance() {
 
   const fetchAssistants = async () => {
     try {
-      const response = await fetch('https://mcms_api.mtron.me/get_assistants');
+      const response = await fetch("https://mcms_api.mtron.me/get_assistants");
       const data = await response.json();
       setAssistants(data);
     } catch (error) {
@@ -56,11 +58,11 @@ function GetAttendance() {
   };
 
   const handlePreviousWeek = () => {
-    setSelectedWeekStart(selectedWeekStart.subtract(7, 'day'));
+    setSelectedWeekStart(selectedWeekStart.subtract(7, "day"));
   };
 
   const handleNextWeek = () => {
-    setSelectedWeekStart(selectedWeekStart.add(7, 'day'));
+    setSelectedWeekStart(selectedWeekStart.add(7, "day"));
   };
 
   const handleSetAttendance = (assistantId, date, updatedAttendance) => {
@@ -76,76 +78,121 @@ function GetAttendance() {
       }
       return data;
     });
+    console.log(newAttendanceData);
     setAttendanceData(newAttendanceData);
   };
-  
 
   const handleAttendanceSubmit = async (date) => {
-    const formattedDate = dayjs(date).format('YYYY-MM-DD');
-    const currentDate = dayjs().format('YYYY-MM-DD');
-    
+    const formattedDate = dayjs(date).format("YYYY-MM-DD");
+    const currentDate = dayjs().format("YYYY-MM-DD");
+
     if (formattedDate > currentDate) {
       toast.error("Cannot submit attendance for future dates.", {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
       });
-      console.log('Cannot submit attendance for future dates.');
+      console.log("Cannot submit attendance for future dates.");
       return;
     }
-  
+
     for (const data of attendanceData) {
       const attendanceStatus = data.attendance[formattedDate];
       if (attendanceStatus === undefined) {
-        console.log(`Attendance not filled for Assistant ID ${data.assistantId} on ${formattedDate}.`);
+        console.log(
+          `Attendance not filled for Assistant ID ${data.assistantId} on ${formattedDate}.`
+        );
         continue;
       }
-  
-      const status = attendanceStatus === 'Present' ? 1 : 0;
+
+      console.log(data.attendance[formattedDate].leave);
+      console.log(data.attendance[formattedDate].check_in);
+      console.log(data.attendance[formattedDate].check_out);
+
+      console.log(
+        dayjs(data.attendance[formattedDate].check_out).format("HH:mm:ss")
+      );
+      console.log(
+        dayjs(data.attendance[formattedDate].check_in).format("HH:mm:ss")
+      );
+
       const attendancePayload = {
         assit_id: data.assistantId,
         date: formattedDate,
-        status: status,
+        check_in: data.attendance[formattedDate].check_in
+          ? dayjs(data.attendance[formattedDate].check_in).format("HH:mm:ss")
+          : null,
+        check_out: data.attendance[formattedDate].check_out
+          ? dayjs(data.attendance[formattedDate].check_out).format("HH:mm:ss")
+          : null,
+        leave: data.attendance[formattedDate].leave === 1 ? 1 : 0,
       };
-  
+
       try {
-        const response = await fetch('http://158.101.10.103/set_attendance', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(attendancePayload),
-        });
-  
+        const response = await fetch(
+          "https://mcms_api.mtron.me/set_attendance",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(attendancePayload),
+          }
+        );
+
         if (response.ok) {
-          toast.success("Attendance set successfully for Assistant ID " + data.assistantId, {
-            position: toast.POSITION.TOP_RIGHT
-          });
-          console.log('Attendance set successfully:', attendancePayload);
+          toast.success(
+            "Attendance set successfully for Assistant ID " + data.assistantId,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          console.log("Attendance set successfully:", attendancePayload);
         } else {
-          toast.error("Failed to set attendance for Assistant ID " + data.assistantId, {
-            position: toast.POSITION.TOP_RIGHT
-          });
-          console.error('Failed to set attendance:', attendancePayload);
+          toast.error(
+            "Failed to set attendance for Assistant ID " + data.assistantId,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          console.error("Failed to set attendance:", attendancePayload);
         }
       } catch (error) {
-        toast.error("An error occurred while setting attendance for Assistant ID " + data.assistantId, {
-          position: toast.POSITION.TOP_RIGHT
-        });
-        console.error('An error occurred while setting attendance:', error);
+        toast.error(
+          "An error occurred while setting attendance for Assistant ID " +
+            data.assistantId,
+          {
+            position: toast.POSITION.TOP_RIGHT,
+          }
+        );
+        console.error("An error occurred while setting attendance:", error);
       }
     }
   };
-  
-  
+
+  const resetFields = (assistantId, date) => {
+    const newAttendanceData = attendanceData.map((data) => {
+      if (data.assistantId === assistantId) {
+        return {
+          ...data,
+          attendance: {
+            ...data.attendance,
+            [date]: {}, // Clear the attendance data for the selected date
+          },
+        };
+      }
+      return data;
+    });
+    setAttendanceData(newAttendanceData);
+  };
 
   const renderTableHeader = () => {
     const headerCells = [];
 
     for (let i = 0; i < 7; i++) {
-      const currentDate = selectedWeekStart.clone().add(i, 'day');
-      const formattedDate = currentDate.format('YYYY-MM-DD');
+      const currentDate = selectedWeekStart.clone().add(i, "day");
+      const formattedDate = currentDate.format("YYYY-MM-DD");
       headerCells.push(
         <TableCell key={formattedDate} align="center">
-          {currentDate.format('MMM DD')}
+          {currentDate.format("MMM DD")}
           <br />
           <Button
             variant="contained"
@@ -173,40 +220,60 @@ function GetAttendance() {
 
   const renderAttendanceCells = (assistant) => {
     const attendanceCells = [];
-  
+
     for (let i = 0; i < 7; i++) {
-      const currentDate = selectedWeekStart.clone().add(i, 'day');
-      const formattedDate = currentDate.format('YYYY-MM-DD');
-  
-      const attendanceDataForDay = attendanceData.find((data) => data.assistantId === assistant.assit_id)?.attendance[formattedDate] || {};
-  
-      const isDisabled = !!attendanceDataForDay.check_in && !!attendanceDataForDay.check_out;
-  
+      const currentDate = selectedWeekStart.clone().add(i, "day");
+      const formattedDate = currentDate.format("YYYY-MM-DD");
+
+      // console.log(currentDate);
+
+      const attendanceDataForDay =
+        attendanceData.find((data) => data.assistantId === assistant.assit_id)
+          ?.attendance[formattedDate] || {};
+
+      const isDisabled =
+        !!attendanceDataForDay.check_in && !!attendanceDataForDay.check_out;
+
       attendanceCells.push(
         <TableCell key={formattedDate} align="center">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            label="Check In"
-            value={attendanceDataForDay.check_in || null}
-            onChange={(time) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, check_in: time })}
-            disabled={attendanceDataForDay.leave === 1}
-            slotProps={{ textField: { size: 'small' } }}
-          />
+            <TimePicker
+              label="Check In"
+              value={attendanceDataForDay.check_in || null}
+              onChange={(time) =>
+                handleSetAttendance(assistant.assit_id, formattedDate, {
+                  ...attendanceDataForDay,
+                  check_in: time,
+                })
+              }
+              disabled={attendanceDataForDay.leave === 1}
+              slotProps={{ textField: { size: "small" } }}
+            />
           </LocalizationProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <TimePicker
-            label="Check Out"
-            value={attendanceDataForDay.check_out || null}
-            onChange={(time) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, check_out: time })}
-            disabled={attendanceDataForDay.leave === 1}
-            slotProps={{ textField: { size: 'small' } }}
-          />
+            <TimePicker
+              label="Check Out"
+              value={attendanceDataForDay.check_out || null}
+              onChange={(time) =>
+                handleSetAttendance(assistant.assit_id, formattedDate, {
+                  ...attendanceDataForDay,
+                  check_out: time,
+                })
+              }
+              disabled={attendanceDataForDay.leave === 1}
+              slotProps={{ textField: { size: "small" } }}
+            />
           </LocalizationProvider>
           <FormControlLabel
             control={
               <Checkbox
                 checked={attendanceDataForDay.leave === 1}
-                onChange={(e) => handleSetAttendance(assistant.assit_id, formattedDate, { ...attendanceDataForDay, leave: e.target.checked ? 1 : 0 })}
+                onChange={(e) =>
+                  handleSetAttendance(assistant.assit_id, formattedDate, {
+                    ...attendanceDataForDay,
+                    leave: e.target.checked ? 1 : 0,
+                  })
+                }
                 disabled={isDisabled}
               />
             }
@@ -215,33 +282,44 @@ function GetAttendance() {
         </TableCell>
       );
     }
-  
+
     return attendanceCells;
-  };  
-  
+  };
 
   const isAttendanceFilled = (date) => {
     return attendanceData.every((data) => data.attendance[date] !== undefined);
   };
 
-  const startOfWeek = selectedWeekStart.format('D MMMM YYYY');
-  const endOfWeek = selectedWeekStart.clone().add(6, 'day').format('D MMMM YYYY');
+  const startOfWeek = selectedWeekStart.format("D MMMM YYYY");
+  const endOfWeek = selectedWeekStart
+    .clone()
+    .add(6, "day")
+    .format("D MMMM YYYY");
 
   return (
-    <Paper sx={{ width: dopen ? "calc(100% - 260px)" : "94%", marginLeft: dopen ? "250px" : "80px", marginTop: '50px', overflow: 'hidden', padding: '10px', transition: "width 0.7s ease" }}>
+    <Paper
+      sx={{
+        width: dopen ? "calc(100% - 260px)" : "94%",
+        marginLeft: dopen ? "250px" : "80px",
+        marginTop: "50px",
+        overflow: "hidden",
+        padding: "10px",
+        transition: "width 0.0s ease",
+      }}
+    >
       <Grid container spacing={2}>
         <Grid item xs={5}>
-          <Typography variant="h4" marginTop={1} >
-            Today, {currentDate.format('D MMMM YYYY')}
+          <Typography variant="h4" marginTop={1}>
+            Today, {currentDate.format("D MMMM YYYY")}
           </Typography>
         </Grid>
-        <Grid item xs={6} marginTop={1} >
+        <Grid item xs={6} marginTop={1}>
           <Typography variant="h4" align="right">
             {startOfWeek} - {endOfWeek}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <hr style={{ margin: '10px 0' }} />
+          <hr style={{ margin: "10px 0" }} />
         </Grid>
         <Grid item xs={12}>
           <TableContainer>
@@ -259,18 +337,18 @@ function GetAttendance() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item xs={12} container justifyContent="flex-end" spacing={1} >
-  <Grid item>
-    <Button variant="contained" onClick={handlePreviousWeek}>
-      Previous Week
-    </Button>
-  </Grid>
-  <Grid item>
-    <Button variant="contained" onClick={handleNextWeek}>
-      Next Week
-    </Button>
-  </Grid>
-</Grid>         
+        <Grid item xs={12} container justifyContent="flex-end" spacing={1}>
+          <Grid item>
+            <Button variant="contained" onClick={handlePreviousWeek}>
+              Previous Week
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" onClick={handleNextWeek}>
+              Next Week
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
       <ToastContainer />
     </Paper>
