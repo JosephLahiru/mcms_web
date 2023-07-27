@@ -104,12 +104,15 @@ function AttendanceReport() {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={600}>
-      <PieChart>
-        <Pie dataKey="value" nameKey="name" data={data} cx="50%" cy="50%" outerRadius={200} fill="#8884d8" label={renderCustomizedLabel} labelLine={false} />
-        <Tooltip content={<CustomTooltip />} />
-      </PieChart>
-    </ResponsiveContainer>
+    <div style={{ paddingTop: '64px', paddingLeft: '240px' }}>
+      <h1 style={{ textAlign: 'center' }}>Attendance Report</h1>
+      <ResponsiveContainer width="100%" height={500}>
+        <PieChart>
+          <Pie dataKey="value" nameKey="name" data={data} cx="50%" cy="50%" outerRadius={200} fill="#8884d8" label={renderCustomizedLabel} labelLine={false} />
+          <Tooltip content={<CustomTooltip />} />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
