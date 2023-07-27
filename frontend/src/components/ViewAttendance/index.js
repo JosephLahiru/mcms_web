@@ -23,7 +23,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 const colomns = [
   { field: 'assit_id', headerName: 'Assistant ID', flex: 1 },
-  { field: 'date', headerName: 'Date', flex: 1 },
+  { field: 'date', headerName: 'Date', flex: 1, valueGetter: (params) => params.row.date.slice(0, 10), },
   { field: 'check_in', headerName: 'Check In', flex: 1 },
   { field: 'check_out', headerName: 'Check Out', flex: 1 },
   { field: 'leave', headerName: 'leave', flex: 1 },
